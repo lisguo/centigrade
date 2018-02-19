@@ -1,0 +1,11 @@
+# IntelliJ
+.idea/
+
+# Gradle
+.gradle/
+
+# Build and Library Files
+build/
+lib/
+out/
+CentiGrade.iml
