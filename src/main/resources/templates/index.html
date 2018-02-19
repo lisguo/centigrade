@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${appName}" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1 th:text="'Welcome to ' + ${appName}" />
+
+<h2>Movies</h2>
+<ul>
+    <li><a href="/movie">Wall-E</a></li>
+</ul>
+</body>
+</html>
