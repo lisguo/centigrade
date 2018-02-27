@@ -1,25 +1,32 @@
 package centigrade.movies;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class MovieController {
 
-    @RequestMapping("/movie")
-    public String movie(Model model) {
-        // Adding dummy movie info
-        String title = "Wall-E";
-        String summary = "After hundreds of lonely years of doing what he was " +
-                "built for, WALL-E (short for Waste Allocation Load Lifter Earth-Class) discovers a new purpose in life " +
-                "(besides collecting knick-knacks) when he meets a sleek search robot named EVE.";
+    @Autowired
+    private MovieRepository movieRepository;
 
-        // Create movie with info and add to model
-        Movie movie = new Movie(title, summary);
-        model.addAttribute("movie", movie);
+    @RequestMapping("/addMovie")
+    public @ResponseBody String addNewMovie (@RequestParam String title, @RequestParam String summary) {
 
-        return "movie";
+        Movie m = new Movie();
+        m.setTitle(title);
+        m.setSummary(summary);
+        movieRepository.save(m);
+        return "Saved";
+    }
+
+    @RequestMapping("/movies")
+    public String getAllMovies(Model model) {
+        model.addAttribute("movies", movieRepository.findAll()); // Get all movies in database
+        return "movies"; // Show movie.html in templates
     }
 
 }

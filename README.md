@@ -44,3 +44,11 @@ Go to https://gradle.org/install/ and follow the steps for your machine.
 7. On the top right corner of IntelliJ, you will see your run configuration toolbar. Make sure the drop down menu is on your newly created run configuration and click the green play icon to run the project.
 
 8. Go to http://localhost:8080/
+
+## Created With
+
+- Spring
+
+- Gradle
+
+- MySQL
