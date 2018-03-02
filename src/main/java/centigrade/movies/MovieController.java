@@ -15,7 +15,6 @@ public class MovieController {
 
     @RequestMapping("/addMovie")
     public @ResponseBody String addNewMovie (@RequestParam String title, @RequestParam String summary) {
-
         Movie m = new Movie();
         m.setTitle(title);
         m.setSummary(summary);
