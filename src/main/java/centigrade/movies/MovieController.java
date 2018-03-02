@@ -29,4 +29,10 @@ public class MovieController {
         return "movies"; // Show movie.html in templates
     }
 
+    @RequestMapping("/movie")
+    public String displayMovie (@RequestParam long id, Model model) {
+        model.addAttribute("movie", movieRepository.findOne(id));
+        return "movie";
+    }
+
 }

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title th:text="${movie.title}">Movie Title</title>
+</head>
+<body>
+<table>
+    <tr>
+        <td th:text="${movie.title}" />
+    </tr>
+    <tr>
+        <td>
+            <img th:src="@{'/images/movieposters/' + ${movie.title} + '.jpg'}"/>
+        </td>
+    </tr>
+    <tr>
+        <td th:text="${movie.summary}" />
+    </tr>
+</table>
+
+</body>
+</html>
