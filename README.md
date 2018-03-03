@@ -47,8 +47,20 @@ Go to https://gradle.org/install/ and follow the steps for your machine.
 
 ## Created With
 
-- Spring
+- Spring Boot
+    - An easy to use Java web framework that automates a lot of the underlying web logic (ex. DispatcherServlet, Component scanning)
 
 - Gradle
+    - For fast build times, and nice looking build scripts.
 
 - MySQL
+    - For the database.
+
+- JPA
+    - For the persistance layer. Used for Entity management via Repositories (a container of EntityManager).
+    
+- Thymeleaf
+    - For client-side template rendering.
+    
+- Bootstrap
+    - To make web pages look a little bit nicer.

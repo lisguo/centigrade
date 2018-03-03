@@ -1,16 +1,17 @@
 package centigrade.movies;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "Movie")
 public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private long id;
+    @Column(name = "title")
     private String title;
+    @Column(name = "summary")
     private String summary;
 
     public Movie(){}
