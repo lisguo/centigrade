@@ -1,8 +1,11 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title th:text="${appName}" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+
+    <title th:text="${appName}" />
 </head>
 <body>
 <h1 th:text="'Welcome to ' + ${appName}" />
@@ -10,4 +13,6 @@
 <a href="/movies">All Movies</a>
 <a href="/add_movie">Add a movie</a>
 </body>
+
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
 </html>

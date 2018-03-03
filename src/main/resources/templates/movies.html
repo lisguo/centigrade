@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>"${movie.title}"</title>
+    <title>All movies</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
     <body>
@@ -11,7 +11,7 @@
                 <td>Summary</td>
             </tr>
             <tr th:each="movie : ${movies}">
-                <td><a th:href="@{'/movie?id=' + ${movie.id}}" th:text="${movie.title}">test</a></td>
+                <td><a th:href="@{'/movie?id=' + ${movie.id}}" th:text="${movie.title}" /></td>
                 <td th:text="${movie.summary}" />
             </tr>
         </table>

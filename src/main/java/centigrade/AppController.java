@@ -16,9 +16,4 @@ public class AppController {
         model.addAttribute("appName", this.appName);
         return "index";
     }
-
-    @RequestMapping("/add_movie")
-    public String addMovie(){
-        return "add_movie";
-    }
 }

@@ -3,34 +3,36 @@ package centigrade.movies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class MovieController {
 
     @Autowired
-    private MovieRepository movieRepository;
+    private MovieService movieService;
 
-    @RequestMapping("/addMovie")
-    public @ResponseBody String addNewMovie (@RequestParam String title, @RequestParam String summary) {
-        Movie m = new Movie();
-        m.setTitle(title);
-        m.setSummary(summary);
-        movieRepository.save(m);
+    @GetMapping("/add_movie")
+    public String addMovieForm(){
+        return "add_movie";
+    }
+
+    @PostMapping("/add_movie")
+    public @ResponseBody String addMovieSubmit (@RequestParam String title, @RequestParam String summary) {
+        movieService.addMovie(title, summary);
         return "Saved";
     }
 
-    @RequestMapping("/movies")
-    public String getAllMovies(Model model) {
-        model.addAttribute("movies", movieRepository.findAll()); // Get all movies in database
+    @GetMapping("/movies")
+    public String displayAllMovies(Model model) {
+        model.addAttribute("movies", movieService.getAllMovies());
         return "movies"; // Show movie.html in templates
     }
 
-    @RequestMapping("/movie")
+    @GetMapping("/movie")
     public String displayMovie (@RequestParam long id, Model model) {
-        model.addAttribute("movie", movieRepository.findOne(id));
+        Movie movie = movieService.getMovieById(id);
+        model.addAttribute("movie", movie);
+        model.addAttribute("posterURL", movieService.getMoviePosterURL(movie));
         return "movie";
     }
 
