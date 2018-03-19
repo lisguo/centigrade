@@ -7,12 +7,12 @@
     <body>
         <table>
             <tr>
-                <td>Title</td>
-                <td>Summary</td>
+                <td><b>Title</b></td>
+                <td><b>Plot</b></td>
             </tr>
             <tr th:each="movie : ${movies}">
                 <td><a th:href="@{'/movie?id=' + ${movie.id}}" th:text="${movie.title}" /></td>
-                <td th:text="${movie.summary}" />
+                <td th:text="${movie.plot}" />
             </tr>
         </table>
     </body>

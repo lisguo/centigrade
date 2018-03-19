@@ -14,10 +14,10 @@ public class MovieService {
     @Autowired
     private Environment env;
 
-    public void addMovie(String title, String summary){
+    public void addMovie(String title, String plot){
         Movie m = new Movie();
         m.setTitle(title);
-        m.setSummary(summary);
+        m.setPlot(plot);
         movieRepository.save(m);
     }
 

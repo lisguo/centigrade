@@ -3,7 +3,7 @@ package centigrade.movies;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Movie")
+@Table(name = "movie")
 public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -11,15 +11,15 @@ public class Movie {
     private long id;
     @Column(name = "title")
     private String title;
-    @Column(name = "summary")
-    private String summary;
+    @Column(name = "plot")
+    private String plot;
 
     public Movie(){}
 
-    public Movie(long id, String title, String summary) {
+    public Movie(long id, String title, String plot) {
         this.id = id;
         this.title = title;
-        this.summary = summary;
+        this.plot = plot;
     }
 
     public long getId() { return id; }
@@ -34,16 +34,16 @@ public class Movie {
         this.title = title;
     }
 
-    public String getSummary() {
-        return summary;
+    public String getPlot() {
+        return plot;
     }
 
-    public void setSummary(String summary) {
-        this.summary = summary;
+    public void setPlot(String plot) {
+        this.plot = plot;
     }
 
     @Override
     public String toString() {
-        return String.format("Movie[id=%d, title='%s', summary='%s']", id, title, summary);
+        return String.format("Movie[id=%d, title='%s', plot='%s']", id, title, plot);
     }
 }

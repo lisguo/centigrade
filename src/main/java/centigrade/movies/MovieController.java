@@ -17,8 +17,8 @@ public class MovieController {
     }
 
     @PostMapping("/add_movie")
-    public @ResponseBody String addMovieSubmit (@RequestParam String title, @RequestParam String summary) {
-        movieService.addMovie(title, summary);
+    public @ResponseBody String addMovieSubmit (@RequestParam String title, @RequestParam String plot) {
+        movieService.addMovie(title, plot);
         return "Saved";
     }
 
