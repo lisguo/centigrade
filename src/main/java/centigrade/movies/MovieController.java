@@ -1,5 +1,7 @@
 package centigrade.movies;
 
+import centigrade.people.PersonService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +12,8 @@ public class MovieController {
 
     @Autowired
     private MovieService movieService;
+    @Autowired
+    private PersonService personService;
 
     @GetMapping("/add_movie")
     public String addMovieForm(){
@@ -33,6 +37,7 @@ public class MovieController {
         Movie movie = movieService.getMovieById(id);
         model.addAttribute("movie", movie);
         model.addAttribute("posterURL", movieService.getMoviePosterURL(movie));
+
         return "movie";
     }
 

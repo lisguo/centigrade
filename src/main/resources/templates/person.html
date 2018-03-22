@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title th:text="${person.name}">Person Name</title>
+</head>
+<body>
+<table>
+    <tr>
+        <td>
+            <img th:src="${photoURL}" width="200" height="200"/>
+        </td>
+
+        <td>
+            <table>
+                <tr>
+                    <td>
+                        <b th:text="${person.name}" />
+                    </td>
+                </tr>
+                <tr>
+                    <td th:text="${person.bio}" />
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>
