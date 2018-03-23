@@ -26,5 +26,24 @@
     </tr>
 </table>
 
+<table>
+    <tr>
+    <tr>
+        <td>
+            <b>FILMOGRAPHY</b>
+        </td>
+    </tr>
+    <td th:each="film : ${films}">
+        <table>
+            <tr>
+                <td><img th:src="@{'http://130.245.171.50/posters/' + ${film.title} + '.jpg'}" width="200" height="200"/></td>
+            </tr>
+            <tr>
+                <td><a th:href="@{'/movie?id=' + ${film.id}}" th:text="${film.title}" /></td>
+            </tr>
+        </table>
+    </td>
+    </tr>
+</table>
 </body>
 </html>

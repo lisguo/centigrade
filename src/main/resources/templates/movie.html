@@ -7,15 +7,42 @@
 <body>
 <table>
     <tr>
-        <td th:text="${movie.title}" />
-    </tr>
-    <tr>
         <td>
             <img th:src="${posterURL}"/>
         </td>
+
+        <td>
+            <table>
+                <tr>
+                    <td>
+                        <b th:text="${movie.title}" />
+                    </td>
+                </tr>
+                <tr>
+                    <td th:text="${movie.plot}" />
+                </tr>
+            </table>
+        </td>
     </tr>
+</table>
+
+<table>
     <tr>
-        <td th:text="${movie.plot}" />
+    <tr>
+        <td>
+            <b>CAST</b>
+        </td>
+    </tr>
+        <td th:each="person : ${cast}">
+            <table>
+                <tr>
+                    <td><img th:src="@{'/pics/' + ${person.name} + '.jpg'}" width="200" height="200"/></td>
+                </tr>
+                <tr>
+                    <td><a th:href="@{'/person?id=' + ${person.id}}" th:text="${person.name}" /></td>
+                </tr>
+            </table>
+        </td>
     </tr>
 </table>
 

@@ -1,6 +1,9 @@
 package centigrade.movies;
 
 import centigrade.people.PersonService;
+import centigrade.people.Person;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,6 +40,9 @@ public class MovieController {
         Movie movie = movieService.getMovieById(id);
         model.addAttribute("movie", movie);
         model.addAttribute("posterURL", movieService.getMoviePosterURL(movie));
+
+        List<Person> cast = personService.getCastByMovie(movie);
+        model.addAttribute("cast", cast);
 
         return "movie";
     }
