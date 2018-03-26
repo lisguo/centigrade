@@ -44,6 +44,8 @@ public class MovieController {
 
         List<Person> cast = personService.getCastByMovie(movie);
         model.addAttribute("cast", cast);
+        List<Person> directors = personService.getDirectorsByMovie(movie);
+        model.addAttribute("directors", directors);
 
         return "movie";
     }

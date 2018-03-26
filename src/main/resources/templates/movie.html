@@ -27,6 +27,16 @@
                 <table>
                     <tr>
                         <td>
+                            <b>Directed By: </b>
+                        </td>
+                    </tr>
+                    <tr th:each="director : ${directors}">
+                        <td >
+                            <a th:href="@{'/person?id=' + ${director.id}}" th:text="${director.toString()}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
                             <b>Rated: </b>
                         </td>
                         <td th:text="${movie.rated}" />

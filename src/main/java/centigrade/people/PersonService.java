@@ -63,6 +63,23 @@ public class PersonService {
         });
     }
 
+    public List<Person> getDirectorsByMovie(Movie m){
+        return template.query("SELECT * FROM casttocontent WHERE contentId='" + m.getId() +"'AND Role='Director'", new ResultSetExtractor<List<Person>>() {
+            @Override
+            public List<Person> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                List<Person> directors = new ArrayList<Person>();
+
+                while(rs.next())
+                {
+                    Person p = personRepository.findPersonById(rs.getInt(2));
+                    directors.add(p);
+                }
+
+                return directors;
+            }
+        });
+    }
+
 
 
 }
