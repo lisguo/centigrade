@@ -39,22 +39,20 @@ public class MovieService {
         return movieRepository.findMovieById(id);
     }
 
-    public String getMoviePosterURL(Movie m){
-        String title =  m.getTitle();
-        title = title.replace(":", "_");
-        String path = env.getProperty("movie_poster_dir") + title + ".jpg";
+    public String getMoviePosterURL(){
+        String path = env.getProperty("movie_poster_dir");
         return path;
     }
 
     public List<Movie> getFilmography(Person p){
-        return template.query("SELECT * FROM actor_in_movie WHERE actor_id='" + p.getId() +"'", new ResultSetExtractor<List<Movie>>() {
+        return template.query("SELECT * FROM casttocontent WHERE castId='" + p.getId() +"'", new ResultSetExtractor<List<Movie>>() {
             @Override
             public List<Movie> extractData(ResultSet rs) throws SQLException, DataAccessException {
                 List<Movie> films = new ArrayList<Movie>();
 
                 while(rs.next())
                 {
-                    Movie m = movieRepository.findMovieById(rs.getInt(2));
+                    Movie m = movieRepository.findMovieById(rs.getInt(1));
                     films.add(m);
                 }
 

@@ -30,10 +30,8 @@ public class PersonService {
         return personRepository.findPersonById(id);
     }
 
-    public String getPersonPhotoURL(Person p){
-        String name =  p.getName();
-        name = name.replace(":", "_");
-        String path = env.getProperty("person_photo_dir") + name + ".jpg";
+    public String getPersonPhotoURL(){
+        String path = env.getProperty("person_photo_dir");
         return path;
     }
 
@@ -49,14 +47,14 @@ public class PersonService {
     }
 
     public List<Person> getCastByMovie(Movie m){
-        return template.query("SELECT * FROM actor_in_movie WHERE movie_id='" + m.getId() +"'", new ResultSetExtractor<List<Person>>() {
+        return template.query("SELECT * FROM casttocontent WHERE contentId='" + m.getId() +"'AND Role='Actor'", new ResultSetExtractor<List<Person>>() {
             @Override
             public List<Person> extractData(ResultSet rs) throws SQLException, DataAccessException {
                 List<Person> cast = new ArrayList<Person>();
 
                 while(rs.next())
                 {
-                    Person p = personRepository.findPersonById(rs.getInt(1));
+                    Person p = personRepository.findPersonById(rs.getInt(2));
                     cast.add(p);
                 }
 

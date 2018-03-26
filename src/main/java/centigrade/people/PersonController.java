@@ -22,7 +22,8 @@ public class PersonController {
     public String displayPerson (@RequestParam long id, Model model) {
         Person person = personService.getPersonById(id);
         model.addAttribute("person", person);
-        model.addAttribute("photoURL", personService.getPersonPhotoURL(person));
+        model.addAttribute("photoURL", personService.getPersonPhotoURL());
+        model.addAttribute("posterURL", movieService.getMoviePosterURL());
 
         List<Movie> films =  movieService.getFilmography(person);
         model.addAttribute("films", films);

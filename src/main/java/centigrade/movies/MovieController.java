@@ -39,7 +39,8 @@ public class MovieController {
     public String displayMovie (@RequestParam long id, Model model) {
         Movie movie = movieService.getMovieById(id);
         model.addAttribute("movie", movie);
-        model.addAttribute("posterURL", movieService.getMoviePosterURL(movie));
+        model.addAttribute("posterURL", movieService.getMoviePosterURL());
+        model.addAttribute("photoURL", personService.getPersonPhotoURL());
 
         List<Person> cast = personService.getCastByMovie(movie);
         model.addAttribute("cast", cast);

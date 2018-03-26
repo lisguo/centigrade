@@ -11,13 +11,11 @@ import java.util.List;
 public interface PersonRepository extends CrudRepository<Person, Long>{
     List<Person> findAll();
     Person findPersonById(long id);
-    Person findPersonByName(String name);
 
     Person save(Person p);
 
     void delete(Person p);
     void deletePersonById(long id);
-    void deletePersonByName(String name);
 }
 
 

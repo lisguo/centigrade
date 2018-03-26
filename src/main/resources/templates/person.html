@@ -2,20 +2,20 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title th:text="${person.name}">Person Name</title>
+    <title th:text="${person.toString()}">Person Name</title>
 </head>
 <body>
 <table>
     <tr>
         <td>
-            <img th:src="${photoURL}" width="200" height="200"/>
+            <img th:src="@{${photoURL} + 'pic' + ${person.id} + '.jpg'}" width="200" height="200"/>
         </td>
 
         <td>
             <table>
                 <tr>
                     <td>
-                        <b th:text="${person.name}" />
+                        <b th:text="${person.toString()}" />
                     </td>
                 </tr>
                 <tr>
@@ -36,7 +36,7 @@
     <td th:each="film : ${films}">
         <table>
             <tr>
-                <td><img th:src="@{'http://130.245.171.50/posters/' + ${film.title} + '.jpg'}" width="200" height="200"/></td>
+                <td><img th:src="@{${posterURL} + 'poster' + ${film.id} + '.jpg'}" width="200" height="200"/></td>
             </tr>
             <tr>
                 <td><a th:href="@{'/movie?id=' + ${film.id}}" th:text="${film.title}" /></td>
