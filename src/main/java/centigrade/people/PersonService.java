@@ -1,6 +1,7 @@
 package centigrade.people;
 
 import centigrade.movies.Movie;
+import centigrade.TVShows.TVShow;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -62,6 +63,24 @@ public class PersonService {
             }
         });
     }
+
+    public List<Person> getCastByTVShow(TVShow t){
+        return template.query("SELECT * FROM casttocontent WHERE contentId='" + t.getId() +"'AND Role='Actor'", new ResultSetExtractor<List<Person>>() {
+            @Override
+            public List<Person> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                List<Person> cast = new ArrayList<Person>();
+
+                while(rs.next())
+                {
+                    Person p = personRepository.findPersonById(rs.getInt(2));
+                    cast.add(p);
+                }
+
+                return cast;
+            }
+        });
+    }
+
 
     public List<Person> getDirectorsByMovie(Movie m){
         return template.query("SELECT * FROM casttocontent WHERE contentId='" + m.getId() +"'AND Role='Director'", new ResultSetExtractor<List<Person>>() {
