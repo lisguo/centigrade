@@ -44,6 +44,26 @@
         </table>
     </td>
     </tr>
+
+    <table>
+        <tr>
+        <tr>
+            <td>
+                <b>TV</b>
+            </td>
+        </tr>
+        <td th:each="show : ${shows}">
+            <table>
+                <tr>
+                    <td><img th:src="@{${tvPosterURL} + 'tvposter' + ${show.id} + '.jpg'}" width="200" height="200"/></td>
+                </tr>
+                <tr>
+                    <td><a th:href="@{'/show?id=' + ${show.id}}" th:text="${show.seriesName}" /></td>
+                </tr>
+            </table>
+        </td>
+        </tr>
+    </table>
 </table>
 </body>
 </html>

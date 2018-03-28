@@ -8,7 +8,7 @@
 <table>
     <tr>
         <td>
-            <img th:src="@{${posterURL} + 'tvposter' + ${show.id} + '.jpg'}" width="300" height="441"/>
+            <img th:src="@{${posterURL} + 'tvposter' + ${show.id} + '.jpg'}" width="225" height="330"/>
         </td>
 
         <td>
@@ -77,11 +77,11 @@
 
 <table>
     <tr>
-    <tr>
         <td>
             <b>CAST</b>
         </td>
     </tr>
+    <tr>
     <td th:each="person : ${cast}">
         <table>
             <tr>
@@ -97,11 +97,20 @@
 
 <table>
     <tr>
-        <option th:each="i : ${#numbers.sequence(1, show.numSeasons)}">
-            <td>
-                <a th:href="@{'/show?id=' + ${show.id} + '&amp;season=' + ${i}}" th:text="@{'Season ' + ${i}}" />
-            </td>
-        </option>
+        <td>
+            <b>SEASONS</b>
+        </td>
+    </tr>
+    <tr>
+        <table>
+            <tr>
+                <option th:each="i : ${#numbers.sequence(1, show.numSeasons)}">
+                    <td>
+                        <a th:href="@{'/show?id=' + ${show.id} + '&amp;season=' + ${i}}" th:text="@{'Season ' + ${i}}" />
+                    </td>
+                </option>
+            </tr>
+        </table>
     </tr>
 </table>
 <ol>

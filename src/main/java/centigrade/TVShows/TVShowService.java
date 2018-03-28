@@ -43,7 +43,7 @@ public class TVShowService {
     }
 
     public List<TVShow> getTVography(Person p){
-        return template.query("SELECT * FROM casttocontent WHERE castId='" + p.getId() +"'", new ResultSetExtractor<List<TVShow>>() {
+        return template.query("SELECT contentId, castId FROM casttocontent t1 INNER JOIN tvshows t2 ON t1.contentId = t2.id WHERE castId='" + p.getId() +"'", new ResultSetExtractor<List<TVShow>>() {
             @Override
             public List<TVShow> extractData(ResultSet rs) throws SQLException, DataAccessException {
                 List<TVShow> shows = new ArrayList<TVShow>();
