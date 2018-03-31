@@ -1,62 +1,62 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title th:text="${episode.episodeName}">Episode Title</title>
-</head>
+<head th:replace="fragments :: head(${episode.episodeName})"></head>
 <body>
-<table>
-    <tr>
-        <td>
-            <img th:src="@{${posterURL} + 'tvposter' + ${show.id} + '.jpg'}" width="225" height="330"/>
-        </td>
+<div class="container container-fluid">
+    <div class="content-row-block">
+        <div th:replace="fragments :: navbar"></div>
+        <table>
+            <tr>
+                 <td>
+                    <img th:src="@{${posterURL} + 'tvposter' + ${show.id} + '.jpg'}" width="225" height="330"/>
+                 </td>
 
-        <td>
-            <table>
-                <tr>
-                    <td>
-                        <b th:text="${episode.episodeName}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td th:text="${episode.overview}" />
-                </tr>
+                <td>
+                    <table>
+                        <tr>
+                            <td>
+                                <b th:text="${episode.episodeName}" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td th:text="${episode.overview}" />
+                        </tr>
 
-                <table>
-                    <tr>
-                        <td>
-                            <b>Series: </b>
-                        </td>
-                        <td>
-                            <a th:href="@{'/show?id=' + ${show.id}}" th:text="${show.seriesName}" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <b>Season Number: </b>
-                        </td>
-                        <td th:text="${episode.seasonNumber}" />
-                    </tr>
-                    <tr>
-                        <td>
-                            <b>Episode Number: </b>
-                        </td>
-                        <td th:text="${episode.episodeNumber}" />
-                    </tr>
-                    <tr>
-                        <td>
-                            <b>First Aired: </b>
-                        </td>
-                        <td th:text="${episode.firstAired}" />
-                    </tr>
-                </table>
+                        <table>
+                            <tr>
+                                <td>
+                                    <b>Series: </b>
+                                </td>
+                                <td>
+                                    <a th:href="@{'/show?id=' + ${show.id}}" th:text="${show.seriesName}" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>Season Number: </b>
+                                </td>
+                                 <td th:text="${episode.seasonNumber}" />
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>Episode Number: </b>
+                                </td>
+                                <td th:text="${episode.episodeNumber}" />
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>First Aired: </b>
+                                </td>
+                                <td th:text="${episode.firstAired}" />
+                            </tr>
+                        </table>
 
-            </table>
-        </td>
-    </tr>
-</table>
-
-
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
 
 </body>
 </html>

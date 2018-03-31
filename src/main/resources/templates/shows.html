@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head(AllShows)"></head>
+
+<body>
+<div class="container container-fluid">
+    <div class="content-row-block">
+        <div th:replace="fragments :: navbar"></div>
+        <table>
+            <tr>
+                <td><b>Title</b></td>
+                <td><b>Plot</b></td>
+            </tr>
+            <tr th:each="show : ${shows}">
+                <td><a th:href="@{'/show?id=' + ${show.id}}" th:text="${show.seriesName}" /></td>
+                <td th:text="${show.overview}" />
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

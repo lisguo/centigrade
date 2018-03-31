@@ -1,123 +1,124 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title th:text="${show.seriesName}">Show Title</title>
-</head>
+<head th:replace="fragments :: head(${show.seriesName})"></head>
 <body>
-<table>
-    <tr>
-        <td>
-            <img th:src="@{${posterURL} + 'tvposter' + ${show.id} + '.jpg'}" width="225" height="330"/>
-        </td>
+<div class="container container-fluid">
+    <div class="content-row-block">
+        <div th:replace="fragments :: navbar"></div>
+        <table>
+            <tr>
+                <td>
+                    <img th:src="@{${posterURL} + 'tvposter' + ${show.id} + '.jpg'}" width="225" height="330"/>
+                </td>
 
-        <td>
-            <table>
-                <tr>
-                    <td>
-                        <b th:text="${show.seriesName}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td th:text="${show.overview}" />
-                </tr>
+                <td>
+                    <table>
+                        <tr>
+                            <td>
+                                <b th:text="${show.seriesName}" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td th:text="${show.overview}" />
+                        </tr>
 
 
 
+                        <table>
+                            <tr>
+                                <td>
+                                    <b>Rated: </b>
+                                </td>
+                                <td th:text="${show.contentRating}" />
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>Genre: </b>
+                                </td>
+                                <td th:text="${show.genres}" />
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>First Aired: </b>
+                                </td>
+                                <td th:text="${show.firstAired}" />
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>Language: </b>
+                                </td>
+                                <td th:text="${show.language}" />
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>Runtime: </b>
+                                </td>
+                                <td th:text="${show.runtime}" />
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>Network: </b>
+                                </td>
+                                <td th:text="${show.network}" />
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>Status: </b>
+                                </td>
+                                <td th:text="${show.status}" />
+                            </tr>
+                        </table>
+
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+
+        <table>
+            <tr>
+                <td>
+                    <b>CAST</b>
+                </td>
+            </tr>
+            <tr>
+            <td th:each="person : ${cast}">
                 <table>
                     <tr>
-                        <td>
-                            <b>Rated: </b>
-                        </td>
-                        <td th:text="${show.contentRating}" />
+                        <td><img th:src="@{${photoURL} + 'pic' + ${person.id} + '.jpg'}" width="200" height="200"/></td>
                     </tr>
                     <tr>
-                        <td>
-                            <b>Genre: </b>
-                        </td>
-                        <td th:text="${show.genres}" />
-                    </tr>
-                    <tr>
-                        <td>
-                            <b>First Aired: </b>
-                        </td>
-                        <td th:text="${show.firstAired}" />
-                    </tr>
-                    <tr>
-                        <td>
-                            <b>Language: </b>
-                        </td>
-                        <td th:text="${show.language}" />
-                    </tr>
-                    <tr>
-                        <td>
-                            <b>Runtime: </b>
-                        </td>
-                        <td th:text="${show.runtime}" />
-                    </tr>
-                    <tr>
-                        <td>
-                            <b>Network: </b>
-                        </td>
-                        <td th:text="${show.network}" />
-                    </tr>
-                    <tr>
-                        <td>
-                            <b>Status: </b>
-                        </td>
-                        <td th:text="${show.status}" />
+                        <td><a th:href="@{'/person?id=' + ${person.id}}" th:text="${person.toString()}" /></td>
                     </tr>
                 </table>
-
-            </table>
-        </td>
-    </tr>
-</table>
-
-
-<table>
-    <tr>
-        <td>
-            <b>CAST</b>
-        </td>
-    </tr>
-    <tr>
-    <td th:each="person : ${cast}">
-        <table>
-            <tr>
-                <td><img th:src="@{${photoURL} + 'pic' + ${person.id} + '.jpg'}" width="200" height="200"/></td>
-            </tr>
-            <tr>
-                <td><a th:href="@{'/person?id=' + ${person.id}}" th:text="${person.toString()}" /></td>
+            </td>
             </tr>
         </table>
-    </td>
-    </tr>
-</table>
 
-<table>
-    <tr>
-        <td>
-            <b>SEASONS</b>
-        </td>
-    </tr>
-    <tr>
         <table>
             <tr>
-                <option th:each="i : ${#numbers.sequence(1, show.numSeasons)}">
-                    <td>
-                        <a th:href="@{'/show?id=' + ${show.id} + '&amp;season=' + ${i}}" th:text="@{'Season ' + ${i}}" />
-                    </td>
-                </option>
+                <td>
+                    <b>SEASONS</b>
+                </td>
+            </tr>
+            <tr>
+                <table>
+                    <tr>
+                        <option th:each="i : ${#numbers.sequence(1, show.numSeasons)}">
+                            <td>
+                                <a th:href="@{'/show?id=' + ${show.id} + '&amp;season=' + ${i}}" th:text="@{'Season ' + ${i}}" />
+                            </td>
+                        </option>
+                    </tr>
+                </table>
             </tr>
         </table>
-    </tr>
-</table>
-<ol>
-    <li th:each="episode : ${season}">
-        <a th:href="@{'/episode?id=' + ${episode.id}}" th:text="${episode.episodeName}"/>
-    </li>
-</ol>
-
+        <ol>
+            <li th:each="episode : ${season}">
+                <a th:href="@{'/episode?id=' + ${episode.id}}" th:text="${episode.episodeName}"/>
+            </li>
+        </ol>
+    </div>
+</div>
 </body>
 </html>

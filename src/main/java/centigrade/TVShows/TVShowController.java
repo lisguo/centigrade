@@ -18,6 +18,12 @@ public class TVShowController {
     @Autowired
     private PersonService personService;
 
+    @GetMapping("/shows")
+    public String displayAllTVShows(Model model) {
+        model.addAttribute("shows", tvShowService.getAllTVShows());
+        return "shows";
+    }
+
     @GetMapping("/show")
     public String displayTVShow (@RequestParam long id, @RequestParam(defaultValue = "1") int season, Model model) {
         TVShow show = tvShowService.getTVShowById(id);
