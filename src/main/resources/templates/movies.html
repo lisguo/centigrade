@@ -1,19 +1,22 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>All movies</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
-    <body>
-        <table>
-            <tr>
-                <td><b>Title</b></td>
-                <td><b>Plot</b></td>
-            </tr>
-            <tr th:each="movie : ${movies}">
-                <td><a th:href="@{'/movie?id=' + ${movie.id}}" th:text="${movie.title}" /></td>
-                <td th:text="${movie.plot}" />
-            </tr>
-        </table>
-    </body>
+<head th:replace="fragments :: head(AllMovies)"></head>
+
+<body>
+    <div class="container container-fluid">
+        <div class="content-row-block">
+        <div th:replace="fragments :: navbar"></div>
+            <table>
+                <tr>
+                    <td><b>Title</b></td>
+                    <td><b>Plot</b></td>
+                </tr>
+                <tr th:each="movie : ${movies}">
+                    <td><a th:href="@{'/movie?id=' + ${movie.id}}" th:text="${movie.title}" /></td>
+                    <td th:text="${movie.plot}" />
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
 </html>

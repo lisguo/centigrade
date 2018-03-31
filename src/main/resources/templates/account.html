@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head"></head>
+
+<body>
+<div th:replace="fragments :: navbar"></div>
+<!-- Page content -->
+<div class="container container-fluid">
+    <div class="content-row-block">
+        <h1 th:text="${account.lastName}" />
+        <h1 th:text="${account.firstName}" />
+        <p th:text="${account.email}" />
+        <p th:text="${account.accountType}" />
+        <p th:text="${account.password}" />
+    </div>
+</div>
+</body>
+</html>
