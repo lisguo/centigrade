@@ -141,7 +141,7 @@ nav .functions a {
 }
 
 nav .functions a:hover {
-    color: red;
+    opacity: 0.5;
     text-shadow: 0 0 2px maroon;
 }
 
@@ -212,13 +212,16 @@ footer #footerlogo {
 }
 
 footer div ul {
-    height: 50%;
+    height: 40%;
     list-style: none;
     display: flex;
     position: relative;
     top: 25%;
-    vertical-align: center;
     flex-direction: column;
+}
+
+footer div:nth-of-type(2) ul {
+    height: 30%;
 }
 
 footer div ul li {
@@ -228,6 +231,30 @@ footer div ul li {
     -ms-flex: 1;
     -o-flex: 1;
     flex: 1;
+}
+
+footer div ul li a {
+    color: white;
+    text-decoration: none;
+    -webkit-transition: all 0.25s ease-in-out;
+    -o-transition: all 0.25s ease-in-out;
+    transition: all 0.25s ease-in-out;
+}
+
+footer div ul li a i {
+    line-height: 100%;
+    vertical-align: middle;
+}
+
+footer div ul li a:hover {
+    color: red;
+    text-decoration: none;
+    text-shadow: 0 0 2px maroon;
+}
+
+footer #followus a:hover {
+    opacity: 0.5;
+    color: white;
 }
 
 #search-input{
