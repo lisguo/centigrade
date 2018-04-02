@@ -40,6 +40,7 @@ public class MovieController {
         Movie movie = movieService.getMovieById(id);
         model.addAttribute("movie", movie);
         model.addAttribute("posterURL", movieService.getMoviePosterURL());
+        model.addAttribute("trailerURL", movieService.getMovieTrailerURL());
         model.addAttribute("photoURL", personService.getPersonPhotoURL());
 
         List<Person> cast = personService.getCastByMovie(movie);

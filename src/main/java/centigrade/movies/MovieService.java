@@ -43,6 +43,10 @@ public class MovieService {
         String path = env.getProperty("movie_poster_dir");
         return path;
     }
+    public String getMovieTrailerURL(){
+        String path = env.getProperty("movie_trailer_dir");
+        return path;
+    }
 
     public List<Movie> getFilmography(Person p){
         return template.query("SELECT contentId, castId FROM casttocontent t1 INNER JOIN movies t2 ON t1.contentId = t2.id WHERE castId='" + p.getId() +"'", new ResultSetExtractor<List<Movie>>() {

@@ -86,7 +86,16 @@
                     </td>
                 </tr>
             </table>
-
+            <table>
+                <tr>
+                    <td>
+                        <b>Trailer</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td><video th:src="@{${trailerURL} + 'trailer' + ${movie.id} + '.mp4'}" type="video/mp4" width="400" controls="controls"/></td>
+                </tr>
+            </table>
             <table>
                 <tr>
                 <tr>
@@ -103,10 +112,13 @@
                                 <td><a th:href="@{'/person?id=' + ${person.id}}" th:text="${person.toString()}" /></td>
                             </tr>
                         </table>
+
                     </td>
                 </tr>
             </table>
+
         </div>
+
     </div>
 </body>
 </html>
