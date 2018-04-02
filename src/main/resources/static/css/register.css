@@ -1,0 +1,273 @@
+*, body {
+    margin: 0 auto;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    font-family: 'Lato', sans-serif, monospace;
+    font-size: 16px;
+    font-weight: 100;
+    box-sizing: border-box;
+}
+
+i {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+nav {
+    position: relative;
+    z-index: 99999;
+    display: block;
+    height: 13vh;
+    width: 100%;
+    background: black;
+    box-shadow: 0px 1px 5px 5px rgba(255, 0, 0, 0.1);
+    -webkit-box-shadow: 0px 1px 5px 5px rgba(255, 0, 0, 0.1);
+    -moz-box-shadow: 0px 1px 5px 5px rgba(255, 0, 0, 0.1);
+    -ms-box-shadow: 0px 1px 5px 5px rgba(255, 0, 0, 0.1);
+    -o-box-shadow: 0px 1px 5px 5px rgba(255, 0, 0, 0.1);
+    -webkit-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+nav #logo-container {
+    height: 100%;
+    vertical-align: middle;
+    width: 13%;
+    left: 0;
+    overflow: hidden;
+    position: relative;
+    display: inline-block;
+    margin: 0;
+}
+
+#logo-container img {
+    height: 60%;
+    position: absolute;
+    top: 20%;
+    padding: 0.625em;
+}
+
+#signup {
+    position: relative;
+    display: block;
+    width: 100%;
+    background: #F2F2F2;
+}
+
+#signup #intro {
+    position: relative;
+    text-align: center;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    color: firebrick;
+    padding-top: 2em;
+    padding-bottom: 2em;
+}
+
+#intro img {
+    height: 8vh;
+    width: auto;
+}
+
+#intro span {
+    color: firebrick;
+}
+
+#form {
+    width: 100%;
+    position: relative;
+    background: pink;
+}
+
+#form #house {
+    height: 150px;
+    text-align: center;
+}
+
+#house h2 {
+    background-color: rgba(20, 30, 48, 0.3);
+    background-image: linear-gradient(to bottom, rgba(20, 30, 48, 0.1), rgba(36, 59, 85, .2));
+    background: linear-gradient(to bottom, rgba(20, 30, 48, 0.1), rgba(36, 59, 85, .2)), url('../img/layout/fire2.jpg') scroll;
+    color: white;
+    width: 60%;
+    height: 150px;
+    border-top-left-radius: 3em;
+    border-top-right-radius: 3em;
+    line-height: 150px;
+}
+
+#signupform {
+    position: relative;
+    width: 60%;
+    background: skyblue;
+}
+
+#signupform label, #signupform input[type=checkbox] {
+    display: block;
+    letter-spacing: 4px;
+    padding-top: 1.5em;
+    text-align: center;
+}
+
+#signupform .label-text {
+    cursor: text;
+    font-size: 1em;
+    line-height: 1em;
+    color: slategray;
+    text-transform: uppercase;
+    -webkit-transform: translateY(-34px);
+    -ms-transform: translateY(-34px);
+    -o-transform: translateY(-34px);
+    transform: translateY(-34px);
+    -webkit-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+#signupform label input {
+    background-color: transparent;
+    border: 0;
+    border-bottom: 2px solid firebrick;
+    color: white;
+    font-size: 2.25em;
+    outline: 0;
+    padding: 5px 20px;
+    text-align: center;
+    -webkit-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    width: 50%;
+}
+
+#signupform label input:focus {
+    max-width: 70%;
+    width: 70%;
+}
+
+#signupform label input:focus > #signupform .label-text {
+    color: white;
+    font-size: 0.75em;
+    -webkit-transform: translateY(-75px);
+    -ms-transform: translateY(-75px);
+    -o-transform: translateY(-75px);
+    transform: translateY(-75px);
+}
+
+footer {
+    height: 50vh;
+    width: 100%;
+    background: black;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    overflow: hidden;
+    text-align: center;
+}
+
+footer div {
+    position: relative;
+    height: 100%;
+    -webkit-flex: 1 1 auto;
+    -moz-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    -o-flex: 1 1 auto;
+    flex: 1 1 auto;
+}
+
+footer #footerlogo {
+    position: relative;
+    height: 100%;
+    width: 20%;
+    text-align: center;
+}
+
+#footerlogo img {
+    height: 50%;
+    width: auto;
+    position: relative;
+    top: 25%;
+}
+
+footer div ul {
+    height: 50%;
+    list-style: none;
+    display: flex;
+    position: relative;
+    top: 25%;
+    flex-direction: column;
+}
+
+footer div:nth-of-type(2) ul {
+    height: 30%;
+}
+
+footer div ul li {
+    color: white;
+    -webkit-flex: 1;
+    -moz-flex: 1;
+    -ms-flex: 1;
+    -o-flex: 1;
+    flex: 1;
+}
+
+footer div ul li a {
+    color: white;
+    text-decoration: none;
+    -webkit-transition: all 0.25s ease-in-out;
+    -o-transition: all 0.25s ease-in-out;
+    transition: all 0.25s ease-in-out;
+}
+
+footer div ul li a i {
+    line-height: 100%;
+    vertical-align: middle;
+}
+
+footer div ul li a:hover {
+    color: red;
+    text-decoration: none;
+    text-shadow: 0 0 2px maroon;
+}
+
+footer #followus a:hover {
+    opacity: 0.5;
+    color: white;
+}
+
+#subscribe {
+    border: 1px solid white;
+    padding: 10px;
+    padding-right: 20px;
+    padding-left: 20px;
+    border-radius: 10px;
+}
+
+#subscribe:hover {
+    color: black;
+    background: white;
+    text-shadow: none;
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (max-width : 1200px) {
+
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (max-width : 992px) {
+
+}
+
+/* Small Devices, Tablets */
+@media only screen and (max-width : 768px) {
+    
+}
+
+/* Extra Small Devices, Phones */ 
+@media only screen and (max-width : 500px) {
+    
+}

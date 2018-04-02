@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
         <link rel="stylesheet" href="../css/bootstrap.min.css">
-                <link rel="stylesheet" href="../css/centigrade.css">
+        <link rel="stylesheet" href="../css/register.css">
         <meta name="description" content="CentiGrade is a web application for reviewing movies and tv shows.">
         <meta name="title" content="CentiGrade: Movies | Tv Shows | Reviews">
         <meta name="author" content="CentiGrade">
@@ -15,42 +15,42 @@
         <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
     </head>
     <body>
-        <nav>
-            <div id="logo-container">
+       <nav>
+           <div id="logo-container">
                 <a href="index.html"><img src="../img/logos/logo.png" alt="CentiGrade"></a>
             </div>
-            <div id="navigation">
-                <div id="navs">
-                    <div id="nav1">
-                        <form action="/" method="get">
-                            <input type="text" name="search" placeholder="Search">
-                            <button type="submit" value="submit"><i class="fas fa-search"></i></button>
-                        </form>
-                        <div id="following" class="functions">
-                            <a href="follow.html"><i class="far fa-smile"></i>Following</a>
-                        </div>
-                        <div id="login" class="functions">
-                            <a href="login.html"><i class="fas fa-sign-in-alt"></i>Login</a>
-                        </div>
-                        <div id="register" class="functions">
-                            <a href="register.html"><i class="fas fa-user-plus"></i>Register</a>
-                        </div>
-                    </div>
-                    <div id="nav2">
-                        <h2><a href="">MOVIES</a></h2>
-                        <h2><a href="">TV SHOWS</a></h2>
-                        <h2><a href="">TICKETS AND SHOWTIMES</a></h2>
-                    </div>
-                </div>
-            </div>
-        </nav>
-        <div id="header">
-            header here
-        </div>
-        <div id="fillin">
-            fillin
-        </div>
-        <footer>
+       </nav>
+       <div id="signup">
+           <div id="intro">
+               <img src="../img/layout/flame-lg.png" alt="">
+               <span>Join millions of reviewers in the hottest reviewing site!</span>
+           </div>
+           <div id="form">
+               <div id="house"><h2>SIGN UP</h2></div>
+               <form action="/" method="post" id="signupform">
+               <label for="emailaddress">
+                   <input type="text" required />
+                   <div class="label-text">Email address</div>
+               </label>
+               <label for="displayname">
+                   <input type="text" required />
+                   <div class="label-text"></div>
+               </label>
+               <label for="password">
+                   <input type="text" required />
+                   <div class="label-text"></div>
+               </label>
+               <label for="password2">
+                   <input type="text" required />
+                   <div class="label-text"></div>
+               </label>
+               <span><input type="checkbox" name="" value="">I agree with the <a href="#">terms and conditions</a>.</br></span>
+               <span><input type="checkbox" name="" value=""> I agree with the <a href="#">privacy policy</a>.</br></span>
+               <button type="submit" value="submit">Register</button>
+           </form>
+           </div>
+       </div>
+       <footer>
             <div id="footerlogo">
                 <img src="../img/logos/footerlogo.png" alt="">
             </div>
@@ -82,6 +82,5 @@
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="../js/bootstrap.min.js"></script>
-        <script src="../js/centigrade.js"></script>
     </body>
 </html>

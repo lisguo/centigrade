@@ -19,7 +19,6 @@ nav {
     display: block;
     height: 75px;
     width: 100%;
-    background: rgba(0,0,0,0.75);
     box-shadow: 0px 1px 5px 5px rgba(255, 255, 255, 0.1);
     -webkit-box-shadow: 0px 1px 5px 5px rgba(255, 255, 255, 0.1);
     -moz-box-shadow: 0px 1px 5px 5px rgba(255, 255, 255, 0.1);
@@ -42,19 +41,19 @@ nav #logo-container {
 }
 
 #logo-container img {
-    width: 100%;
-    height: 75%;
+    height: 60%;
+    width: auto;
     position: absolute;
-    top: 12.5%;
-    padding: 10px;
+    top: 20%;
+    padding: 0.625em;
 }
 
 nav #navigation {
     position: inherit;
     display: inline-block;
     height: 75px;
-    width: 60%;
-    margin-left: 25%;
+    width: 70%;
+    margin-left: 15%;
 }
 
 #navigation #navs {
@@ -76,29 +75,36 @@ nav #navigation {
     flex: 1 1 auto;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     width: 100%;
     height: 50%;
-    margin: 10px;
+    margin: 0.625em;
 }
 
 #nav1 form {
-    width: 50%;
+    width: 60%;
     height: 100%;
     position: relative;
+    justify-content: flex-end;
     display: flex;
 }
 
 nav #nav1 form input[type=text] {
-    width: 100%;
+    width: 50%;
     height: 30px;
+    justify-content: flex-end;
     box-sizing: border-box;
     border: 1px solid rgba(255, 255, 255, 0.75);
-    padding: 5px;
-    border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
+    padding-left: 0.625em;
+    border-top-left-radius: 1.25em;
+    border-bottom-left-radius: 1.25em;
     background-color: white;
-    color: white;
+    -webkit-transition: all 0.6s ease-in-out;
+    -o-transition: all 0.6s ease-in-out;
+    transition: all 0.6s ease-in-out;
+}
+
+nav #nav1 form input[type=text]:focus {
+    width: 70%;
 }
 
 #nav1 form button {
@@ -109,10 +115,10 @@ nav #nav1 form input[type=text] {
     background-color: white;
     border: none;
     border-left: 1px solid rgba(0,0,0,0.2);
-    padding-right: 10px;
-    padding-left: 10px;
-    border-top-right-radius: 4px;
-    border-bottom-right-radius: 4px;
+    padding-right: 0.625em;
+    padding-left: 0.625em;
+    border-top-right-radius: 1.25em;
+    border-bottom-right-radius: 1.25em;
     -webkit-transition: all 0.2s ease-in-out;
     -o-transition: all 0.2s ease-in-out;
     transition: all 0.2s ease-in-out;
@@ -212,7 +218,7 @@ footer #footerlogo {
 }
 
 footer div ul {
-    height: 40%;
+    height: 50%;
     list-style: none;
     display: flex;
     position: relative;
@@ -255,6 +261,20 @@ footer div ul li a:hover {
 footer #followus a:hover {
     opacity: 0.5;
     color: white;
+}
+
+#subscribe {
+    border: 1px solid white;
+    padding: 0.625em;
+    padding-right: 1.25em;
+    padding-left: 1.25em;
+    border-radius: 0.625em;
+}
+
+#subscribe:hover {
+    color: black;
+    background: white;
+    text-shadow: none;
 }
 
 #search-input{
