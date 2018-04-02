@@ -40,6 +40,13 @@ nav #logo-container {
     margin: 0;
 }
 
+nav #logo-container:hover {
+    animation: bounce 0.75s ease-in-out;
+    -o-animation: bounce 0.75s ease-in-out;
+    -moz-animation: bounce 0.75s ease-in-out;
+    -webkit-animation: bounce 0.75s ease-in-out;
+}
+
 #logo-container img {
     height: 60%;
     width: auto;
@@ -105,6 +112,7 @@ nav #nav1 form input[type=text] {
 
 nav #nav1 form input[type=text]:focus {
     width: 70%;
+    outline: none;
 }
 
 #nav1 form button {
@@ -303,4 +311,27 @@ footer #followus a:hover {
 /* Extra Small Devices, Phones */ 
 @media only screen and (max-width : 500px) {
     
+}
+
+@keyframes bounce {
+    0%, 20%, 60%, 100% {
+        -webkit-transform: translateY(0);
+        -ms-transform: translateY(0);
+        -o-transform: translateY(0);
+        transform: translateY(0);
+    }
+    
+    40% {
+        -webkit-transform: translateY(-10px);
+        -ms-transform: translateY(-10px);
+        -o-transform: translateY(-10px);
+        transform: translateY(-10px);
+    }
+    
+    80% {
+        -webkit-transform: translateY(-5px);
+        -ms-transform: translateY(-5px);
+        -o-transform: translateY(-5px);
+        transform: translateY(-5px);
+    }
 }

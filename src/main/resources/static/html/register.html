@@ -25,29 +25,38 @@
                <img src="../img/layout/flame-lg.png" alt="">
                <span>Join millions of reviewers in the hottest reviewing site!</span>
            </div>
-           <div id="form">
-               <div id="house"><h2>SIGN UP</h2></div>
-               <form action="/" method="post" id="signupform">
-               <label for="emailaddress">
-                   <input type="text" required />
-                   <div class="label-text">Email address</div>
-               </label>
-               <label for="displayname">
-                   <input type="text" required />
-                   <div class="label-text"></div>
-               </label>
-               <label for="password">
-                   <input type="text" required />
-                   <div class="label-text"></div>
-               </label>
-               <label for="password2">
-                   <input type="text" required />
-                   <div class="label-text"></div>
-               </label>
-               <span><input type="checkbox" name="" value="">I agree with the <a href="#">terms and conditions</a>.</br></span>
-               <span><input type="checkbox" name="" value=""> I agree with the <a href="#">privacy policy</a>.</br></span>
-               <button type="submit" value="submit">Register</button>
-           </form>
+           <div id="register-div">
+               <div id="form">
+                   <div id="house"><h2>SIGN UP</h2></div>
+                   <form action="/" method="post" id="signupform">
+                       <label for="emailaddress">
+                          <div class="label-text"><i class="fas fa-envelope fa-lg"></i></div>
+                           <input type="text" placeholder="Email address" required />
+                       </label>
+                       <label for="displayname">
+                          <div class="label-text"><i class="fas fa-user-circle fa-lg"></i></div>
+                           <input type="text" placeholder="Display name" required />
+                       </label>
+                       <label for="password">
+                          <div class="label-text"><i class="fas fa-unlock fa-lg"></i></div>
+                           <input type="text" placeholder="Password" required />
+                       </label>
+                       <label for="password2">
+                          <div class="label-text"><i class="fas fa-redo-alt fa-lg"></i></div>
+                           <input type="text" placeholder="Confirm password" required />
+                       </label>
+                       <span><input type="checkbox" name="terms" value="terms" required />I agree with the <a href="#">terms and conditions</a>.</br></span>
+                       <span><input type="checkbox" name="privacy" value="privacy" required /> I agree with the <a href="#">privacy policy</a>.</br></span>
+                       <button type="submit" value="submit"><i class="fab fa-telegram-plane"></i><span>Register</span></button>
+                   </form>
+               </div>
+               <div id="hasaccount">
+                   <div>
+                       <h3>Already have an account?</h3>
+                       <h6>We are glad to hear that you are already awesome!</h6>
+                       <a href="login.html">Log in</a>
+                   </div>
+               </div>
            </div>
        </div>
        <footer>

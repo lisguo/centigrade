@@ -9,6 +9,9 @@
 }
 
 i {
+    -webkit-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
     margin-left: 5px;
     margin-right: 5px;
 }
@@ -20,11 +23,6 @@ nav {
     height: 13vh;
     width: 100%;
     background: black;
-    box-shadow: 0px 1px 5px 5px rgba(255, 0, 0, 0.1);
-    -webkit-box-shadow: 0px 1px 5px 5px rgba(255, 0, 0, 0.1);
-    -moz-box-shadow: 0px 1px 5px 5px rgba(255, 0, 0, 0.1);
-    -ms-box-shadow: 0px 1px 5px 5px rgba(255, 0, 0, 0.1);
-    -o-box-shadow: 0px 1px 5px 5px rgba(255, 0, 0, 0.1);
     -webkit-transition: all 0.3s ease-in-out;
     -o-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
@@ -41,6 +39,13 @@ nav #logo-container {
     margin: 0;
 }
 
+nav #logo-container:hover {
+    animation: bounce 0.75s ease-in-out;
+    -webkit-animation: bounce 0.75s ease-in-out;
+    -ms-animation: bounce 0.75s ease-in-out;
+    -o-animation: bounce 0.75s ease-in-out;
+}
+
 #logo-container img {
     height: 60%;
     position: absolute;
@@ -53,6 +58,81 @@ nav #logo-container {
     display: block;
     width: 100%;
     background: #F2F2F2;
+}
+
+#register-div {
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+#hasaccount {
+    position: relative;
+    width: 49%;
+    height: 50vh;
+    text-align: center;
+    display: flex;
+    color: firebrick;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#hasaccount:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 10vh;
+    width: 1px;
+    height: 80vh;
+    background-image: repeating-linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.3) 0.5em, transparent 0.5em, transparent 1em);
+}
+
+#hasaccount div {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: 100%;
+    top: 25vh;
+}
+
+#hasaccount h3 {
+    position: relative;
+    height: 20%;
+    line-height: 20%;
+}
+
+#hasaccount div h6 {
+    height: 10%;
+    line-height: 10%;
+}
+
+#hasaccount a {
+    position: relative;
+    padding: 1.25em;
+    width: 50%;
+    text-decoration: none;
+    color: white;
+    border-radius: 1em;
+    background: firebrick;
+    border: 1px solid firebrick;
+    vertical-align: middle;
+    letter-spacing: 2px;
+    -webkit-box-shadow: 0px 3px 1px 2px rgba(11, 60, 93, 0.2);
+    box-shadow: 0px 3px 1px 2px rgba(11, 60, 93, 0.2);
+    -ms-box-shadow: 0px 3px 1px 2px rgba(11, 60, 93, 0.2);
+    -moz-box-shadow: 0px 3px 1px 2px rgba(11, 60, 93, 0.2);
+    -o-box-shadow: 0px 3px 1px 2px rgba(11, 60, 93, 0.2);
+    -webkit-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+#hasaccount a:hover {
+    color: firebrick;
+    border: 1px solid firebrick;
+    background: transparent;
 }
 
 #signup #intro {
@@ -69,6 +149,11 @@ nav #logo-container {
 #intro img {
     height: 8vh;
     width: auto;
+    -webkit-flex: 1;
+    -moz-flex: 1;
+    -ms-flex: 1;
+    -o-flex: 1;
+    flex: 1;
 }
 
 #intro span {
@@ -76,13 +161,13 @@ nav #logo-container {
 }
 
 #form {
-    width: 100%;
+    width: 50%;
     position: relative;
-    background: pink;
+    padding-bottom: 2em;
 }
 
 #form #house {
-    height: 150px;
+    height: 25vh;
     text-align: center;
 }
 
@@ -91,68 +176,147 @@ nav #logo-container {
     background-image: linear-gradient(to bottom, rgba(20, 30, 48, 0.1), rgba(36, 59, 85, .2));
     background: linear-gradient(to bottom, rgba(20, 30, 48, 0.1), rgba(36, 59, 85, .2)), url('../img/layout/fire2.jpg') scroll;
     color: white;
-    width: 60%;
-    height: 150px;
+    width: 80%;
+    height: 25vh;
     border-top-left-radius: 3em;
     border-top-right-radius: 3em;
-    line-height: 150px;
+    line-height: 25vh;
 }
 
 #signupform {
     position: relative;
-    width: 60%;
-    background: skyblue;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    background: white;
 }
 
-#signupform label, #signupform input[type=checkbox] {
-    display: block;
-    letter-spacing: 4px;
-    padding-top: 1.5em;
-    text-align: center;
+#signupform label {
+    -webkit-flex: 1;
+    -moz-flex: 1;
+    -ms-flex: 1;
+    -o-flex: 1;
+    flex: 1;
+    width: 80%;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 1.25em 1.25em 0 1.25em;
 }
 
 #signupform .label-text {
-    cursor: text;
-    font-size: 1em;
-    line-height: 1em;
-    color: slategray;
-    text-transform: uppercase;
-    -webkit-transform: translateY(-34px);
-    -ms-transform: translateY(-34px);
-    -o-transform: translateY(-34px);
-    transform: translateY(-34px);
-    -webkit-transition: all 0.3s ease-in-out;
-    -o-transition: all 0.3s ease-in-out;
-    transition: all 0.3s ease-in-out;
+    text-align: center;
+    -webkit-flex: 1;
+    -moz-flex: 1;
+    -ms-flex: 1;
+    -o-flex: 1;
+    flex: 1;
+    position: relative;
+    color: white;
+    background: black;
+    justify-content: center;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-top-left-radius: 0.5em;
+    border-bottom-left-radius: 0.5em;
+    padding-top: 0.25em;
+    padding-bottom: 0.25em;
 }
 
 #signupform label input {
-    background-color: transparent;
-    border: 0;
-    border-bottom: 2px solid firebrick;
-    color: white;
-    font-size: 2.25em;
-    outline: 0;
-    padding: 5px 20px;
-    text-align: center;
+    width: 80%;
+    padding: 0 0.625em 0 0.625em;
+    border: 1px dashed rgba(0, 0, 0, 0.3);
+    border-left: none;
+    border-top-right-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
     -webkit-transition: all 0.3s ease-in-out;
     -o-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
-    width: 50%;
 }
 
 #signupform label input:focus {
-    max-width: 70%;
-    width: 70%;
+    outline: none;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-left: none;
 }
 
-#signupform label input:focus > #signupform .label-text {
+#signupform span {
+    position: relative;
+    margin-bottom: 1em;
+    font-size: 1em;
+    line-height: 1em;
+    width: 60%;
+    -webkit-flex: 11;
+    -moz-flex: 1;
+    -ms-flex: 1;
+    -o-flex: 1;
+    flex: 1;
+    justify-content: flex-start;
+}
+
+#signupform span:first-of-type {
+    margin-top: 1em;
+}
+
+#signupform span input[type=checkbox] {
+    -webkit-transform: scale(1.25);
+    -ms-transform: scale(1.25);
+    -o-transform: scale(1.25);
+    transform: scale(1.25);
+    margin-right: 0.25em;
+    position: relative;
+}
+
+#signupform button {
+    width: 50%;
+    position: relative;
+    text-align: center;
+    justify-content: center;
+    margin: 0 auto;
+    margin-bottom: 1.5em;
+    border: 1px solid black;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    height: 40px;
+    line-height: 40px;
+    background: none;
+    border-radius: 10px;
+    -webkit-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    -webkit-box-shadow: 0px 3px 1px 2px rgba(11, 60, 93, 0.2);
+    box-shadow: 0px 3px 1px 2px rgba(11, 60, 93, 0.2);
+    -ms-box-shadow: 0px 3px 1px 2px rgba(11, 60, 93, 0.2);
+    -moz-box-shadow: 0px 3px 1px 2px rgba(11, 60, 93, 0.2);
+    -o-box-shadow: 0px 3px 1px 2px rgba(11, 60, 93, 0.2);
+}
+
+#signupform button span {
+    position: relative;
+    height: 100%;
+    line-height: 100%;
+    padding: 0;
+    -webkit-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    -webkit-transform: translateX(-10px);
+    -ms-transform: translateX(-10px);
+    -o-transform: translateX(-10px);
+    transform: translateX(-10px);
+}
+
+#signupform button i {
+    display: none;
+}
+
+#signupform button:hover {
+    cursor: pointer;
     color: white;
-    font-size: 0.75em;
-    -webkit-transform: translateY(-75px);
-    -ms-transform: translateY(-75px);
-    -o-transform: translateY(-75px);
-    transform: translateY(-75px);
+    background: black;
+}
+
+#signupform button:hover i {
+    display: inline-block;
 }
 
 footer {
@@ -270,4 +434,27 @@ footer #followus a:hover {
 /* Extra Small Devices, Phones */ 
 @media only screen and (max-width : 500px) {
     
+}
+
+@keyframes bounce {
+    0%, 20%, 60%, 100% {
+        -webkit-transform: translateY(0);
+        -ms-transform: translateY(0);
+        -o-transform: translateY(0);
+        transform: translateY(0);
+    }
+    
+    40% {
+        -webkit-transform: translateY(-10px);
+        -ms-transform: translateY(-10px);
+        -o-transform: translateY(-10px);
+        transform: translateY(-10px);
+    }
+    
+    80% {
+        -webkit-transform: translateY(-5px);
+        -ms-transform: translateY(-5px);
+        -o-transform: translateY(-5px);
+        transform: translateY(-5px);
+    }
 }
