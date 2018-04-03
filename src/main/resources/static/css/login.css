@@ -53,14 +53,14 @@ nav #logo-container:hover {
     padding: 0.625em;
 }
 
-#signup {
+#signin {
     position: relative;
     display: block;
     width: 100%;
     background: #F2F2F2;
 }
 
-#register-div {
+#signin-div {
     position: relative;
     display: flex;
     justify-content: flex-start;
@@ -68,7 +68,7 @@ nav #logo-container:hover {
     width: 100%;
 }
 
-#register-div .alert {
+#signin-div .alert {
     width: 80%;
     display: none;
     margin-top: 2em;
@@ -83,6 +83,16 @@ nav #logo-container:hover {
     color: firebrick;
     flex-direction: column;
     justify-content: center;
+}
+
+#hasaccount:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 5vh;
+    width: 1px;
+    height: 80vh;
+    background-image: repeating-linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.3) 0.5em, transparent 0.5em, transparent 1em);
 }
 
 #hasaccount div {
@@ -131,7 +141,7 @@ nav #logo-container:hover {
     background: transparent;
 }
 
-#signup #intro {
+#signin #intro {
     position: relative;
     text-align: center;
     width: 100%;
@@ -171,7 +181,7 @@ nav #logo-container:hover {
 #house h2 {
     background-color: rgba(20, 30, 48, 0.7);
     background-image: linear-gradient(to bottom, rgba(20, 30, 48, 0.5), rgba(36, 59, 85, .7));
-    background: linear-gradient(to bottom, rgba(20, 30, 48, 0.5), rgba(36, 59, 85, .7)), url('../img/layout/fire2.jpg') scroll;
+    background: linear-gradient(to bottom, rgba(20, 30, 48, 0.5), rgba(36, 59, 85, .7)), url('../img/layout/fire4.jpg') scroll;
     color: white;
     width: 80%;
     height: 25vh;
@@ -184,11 +194,12 @@ nav #logo-container:hover {
     -o-box-shadow: 0px 5px 15px 2px rgba(11, 60, 93, 0.2);
 }
 
-#signupform {
+#signinform {
     position: relative;
     width: 80%;
     display: flex;
     flex-direction: column;
+    justify-content: flex-end;
     background: white;
     -webkit-box-shadow: 0px 5px 15px 2px rgba(11, 60, 93, 0.2);
     box-shadow: 0px 5px 15px 2px rgba(11, 60, 93, 0.2);
@@ -197,7 +208,7 @@ nav #logo-container:hover {
     -o-box-shadow: 0px 5px 15px 2px rgba(11, 60, 93, 0.2);
 }
 
-#signupform label {
+#signinform label {
     -webkit-flex: 1;
     -moz-flex: 1;
     -ms-flex: 1;
@@ -210,7 +221,7 @@ nav #logo-container:hover {
     padding: 1.25em 1.25em 0 1.25em;
 }
 
-#signupform .label-text {
+#signinform .label-text {
     text-align: center;
     -webkit-flex: 1;
     -moz-flex: 1;
@@ -226,7 +237,7 @@ nav #logo-container:hover {
     padding-bottom: 0.25em;
 }
 
-#signupform label input {
+#signinform label input {
     width: 80%;
     padding: 0 0.625em 0 0.625em;
     border: 1px dashed rgba(0, 0, 0, 0.3);
@@ -238,31 +249,38 @@ nav #logo-container:hover {
     transition: all 0.3s ease-in-out;
 }
 
-#signupform label input:focus {
+#signinform label input:focus {
     outline: none;
     border: 1px solid rgba(0, 0, 0, 0.3);
     border-left: none;
 }
 
-#signupform span {
+#signinform span {
     position: relative;
     margin-bottom: 1em;
     font-size: 1em;
     line-height: 1em;
-    width: 60%;
+    width: 80%;
     -webkit-flex: 11;
     -moz-flex: 1;
     -ms-flex: 1;
     -o-flex: 1;
     flex: 1;
-    justify-content: flex-start;
+    display: flex;
+    margin-right: 0;
 }
 
-#signupform span:first-of-type {
+#signinform span a {
+    -webkit-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+#signinform span:first-of-type {
     margin-top: 1em;
 }
 
-#signupform span input[type=checkbox] {
+#signinform span input[type=checkbox] {
     -webkit-transform: scale(1.25);
     -ms-transform: scale(1.25);
     -o-transform: scale(1.25);
@@ -271,7 +289,7 @@ nav #logo-container:hover {
     position: relative;
 }
 
-#signupform button {
+#signinform button {
     width: 50%;
     position: relative;
     text-align: center;
@@ -295,7 +313,7 @@ nav #logo-container:hover {
     -o-box-shadow: 0px 3px 1px 2px rgba(11, 60, 93, 0.2);
 }
 
-#signupform button span {
+#signinform button span {
     position: relative;
     height: 100%;
     line-height: 100%;
@@ -309,18 +327,10 @@ nav #logo-container:hover {
     transform: translateX(-10px);
 }
 
-#signupform button i {
-    display: none;
-}
-
-#signupform button:hover {
+#signinform button:hover {
     cursor: pointer;
     color: white;
     background: black;
-}
-
-#signupform button:hover i {
-    display: inline-block;
 }
 
 footer {

@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
         <link rel="stylesheet" href="../css/bootstrap.min.css">
-        <link rel="stylesheet" href="../css/register.css">
+        <link rel="stylesheet" href="../css/login.css">
         <meta name="description" content="CentiGrade is a web application for reviewing movies and tv shows.">
         <meta name="title" content="CentiGrade: Movies | Tv Shows | Reviews">
         <meta name="author" content="CentiGrade">
@@ -20,50 +20,35 @@
                 <a href="index.html"><img src="../img/logos/logo.png" alt="CentiGrade"></a>
             </div>
        </nav>
-       <div id="signup">
+       <div id="signin">
            <div id="intro">
-               <img src="../img/layout/flame-lg.png" alt="">
-               <span>Join millions of reviewers in the hottest reviewing site!</span>
+               <span>Which is faster, heat or cold?</span>
+               <span>Heat, because you can catch a cold!</span>
            </div>
-           <div id="register-div">
+           <div id="signin-div">
+              <div id="hasaccount">
+                   <div>
+                       <h3>Don't have an account?</h3>
+                       <h6>Join our fire community and enjoy all of its goodies!</h6>
+                       <a href="register.html">Sign up</a>
+                   </div>
+               </div>
                <div id="form">
-                  <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                      <strong>Thanks for registering!</strong> Check your email and verify your account.
-                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                   <div id="house"><h2>SIGN UP</h2></div>
-                   <form id="signupform" action="javascript:validateForm('signupform');" method="post" name="signupform">
+                   <div id="house"><h2>LOG IN</h2></div>
+                   <form id="signinform" action="javascript:validateLogin();" method="post" name="signinform">
                        <label for="emailaddress">
                           <div class="label-text"><i class="fas fa-envelope fa-lg"></i></div>
                            <input type="text" placeholder="Email address" required name="email" />
-                       </label>
-                       <label for="displayname">
-                          <div class="label-text"><i class="fas fa-user-circle fa-lg"></i></div>
-                           <input type="text" placeholder="Display name" required name="displayname" />
                        </label>
                        <label for="password">
                           <div class="label-text"><i class="fas fa-unlock fa-lg"></i></div>
                            <input type="text" placeholder="Password" required name="password" />
                        </label>
-                       <label for="confirmpassword">
-                          <div class="label-text"><i class="fas fa-redo-alt fa-lg"></i></div>
-                           <input type="text" placeholder="Confirm password" required name="confirmpassword" />
-                       </label>
-                       <span><input type="checkbox" name="terms" value="terms" required />I agree with the <a href="#">terms and conditions</a>.</br></span>
-                       <span><input type="checkbox" name="privacy" value="privacy" required /> I agree with the <a href="#">privacy policy</a>.</br></span>
-                       <button type="submit" value="submit"><i class="fab fa-telegram-plane"></i><span>Register</span></button>
+                       <span><input type="checkbox" name="terms" value="terms" required />Remember me <a href="#">Forgot your password?</a></span>
+                       <button type="submit" value="submit">Sign in</button>
                    </form>
                    
-               </div>
-               <div id="hasaccount">
-                   <div>
-                       <h3>Already have an account?</h3>
-                       <h6>We are glad to hear that you came back to be awesome!</h6>
-                       <a href="login.html">Log in</a>
-                   </div>
-               </div>
+               </div>    
            </div>
        </div>
        <footer>
@@ -98,6 +83,6 @@
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="../js/bootstrap.min.js"></script>
-        <script src="../js/register.js"></script>
+        <script src="../js/login.js"></script>
     </body>
 </html>
