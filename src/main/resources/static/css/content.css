@@ -1,0 +1,27 @@
+*, body {
+    margin: 0 auto;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    font-family: 'Lato', sans-serif, monospace;
+    font-size: 16px;
+    font-weight: 100;
+    box-sizing: border-box;
+}
+
+i {
+    -webkit-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+#movie {
+    position: relative;
+    display: block;
+    width: 100%;
+}
+
+#movie img {
+    width: 100%;
+}
