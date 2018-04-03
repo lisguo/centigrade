@@ -68,9 +68,15 @@ nav #logo-container:hover {
     width: 100%;
 }
 
+#register-div .alert {
+    width: 80%;
+    display: none;
+    margin-top: 2em;
+}
+
 #hasaccount {
     position: relative;
-    width: 49%;
+    width: 39%;
     height: 50vh;
     text-align: center;
     display: flex;
@@ -161,7 +167,7 @@ nav #logo-container:hover {
 }
 
 #form {
-    width: 50%;
+    width: 60%;
     position: relative;
     padding-bottom: 2em;
 }
@@ -172,15 +178,18 @@ nav #logo-container:hover {
 }
 
 #house h2 {
-    background-color: rgba(20, 30, 48, 0.3);
-    background-image: linear-gradient(to bottom, rgba(20, 30, 48, 0.1), rgba(36, 59, 85, .2));
-    background: linear-gradient(to bottom, rgba(20, 30, 48, 0.1), rgba(36, 59, 85, .2)), url('../img/layout/fire2.jpg') scroll;
+    background-color: rgba(20, 30, 48, 0.7);
+    background-image: linear-gradient(to bottom, rgba(20, 30, 48, 0.5), rgba(36, 59, 85, .7));
+    background: linear-gradient(to bottom, rgba(20, 30, 48, 0.5), rgba(36, 59, 85, .7)), url('../img/layout/fire2.jpg') scroll;
     color: white;
     width: 80%;
     height: 25vh;
-    border-top-left-radius: 3em;
-    border-top-right-radius: 3em;
     line-height: 25vh;
+    -webkit-box-shadow: 0px 5px 15px 2px rgba(11, 60, 93, 0.2);
+    box-shadow: 0px 5px 15px 2px rgba(11, 60, 93, 0.2);
+    -ms-box-shadow: 0px 5px 15px 2px rgba(11, 60, 93, 0.2);
+    -moz-box-shadow: 0px 5px 15px 2px rgba(11, 60, 93, 0.2);
+    -o-box-shadow: 0px 5px 15px 2px rgba(11, 60, 93, 0.2);
 }
 
 #signupform {
@@ -189,6 +198,11 @@ nav #logo-container:hover {
     display: flex;
     flex-direction: column;
     background: white;
+    -webkit-box-shadow: 0px 5px 15px 2px rgba(11, 60, 93, 0.2);
+    box-shadow: 0px 5px 15px 2px rgba(11, 60, 93, 0.2);
+    -ms-box-shadow: 0px 5px 15px 2px rgba(11, 60, 93, 0.2);
+    -moz-box-shadow: 0px 5px 15px 2px rgba(11, 60, 93, 0.2);
+    -o-box-shadow: 0px 5px 15px 2px rgba(11, 60, 93, 0.2);
 }
 
 #signupform label {
@@ -212,8 +226,6 @@ nav #logo-container:hover {
     -o-flex: 1;
     flex: 1;
     position: relative;
-    color: white;
-    background: black;
     justify-content: center;
     border: 1px solid rgba(0, 0, 0, 0.3);
     border-top-left-radius: 0.5em;

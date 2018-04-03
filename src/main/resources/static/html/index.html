@@ -23,7 +23,7 @@
                 <div id="navs">
                     <div id="nav1">
                         <form action="/" method="get">
-                            <input type="text" name="search" placeholder="Search">
+                            <input type="text" name="search" placeholder="Search" onfocus="this.value=''">
                             <button type="submit" value="submit"><i class="fas fa-search"></i></button>
                         </form>
                         <div id="following" class="functions">
@@ -37,9 +37,11 @@
                         </div>
                     </div>
                     <div id="nav2">
-                        <h2><a href="">MOVIES</a></h2>
-                        <h2><a href="">TV SHOWS</a></h2>
-                        <h2><a href="">TICKETS AND SHOWTIMES</a></h2>
+                       <div id="container">
+                           <h2><a href="">MOVIES</a></h2>
+                            <h2><a href="">TV SHOWS</a></h2>
+                            <h2><a href="">TICKETS AND SHOWTIMES</a></h2>
+                       </div>
                     </div>
                 </div>
             </div>
@@ -52,7 +54,7 @@
         </div>
         <footer>
             <div id="footerlogo">
-                <img src="../img/logos/footerlogo.png" alt="">
+                <a href="index.html"><img src="../img/logos/footerlogo.png" alt=""></a>
             </div>
             <div>
                 <ul>

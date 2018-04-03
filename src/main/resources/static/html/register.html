@@ -27,28 +27,35 @@
            </div>
            <div id="register-div">
                <div id="form">
+                  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                      <strong>Thanks for registering!</strong> Check your email and verify your account.
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
                    <div id="house"><h2>SIGN UP</h2></div>
-                   <form action="/" method="post" id="signupform">
+                   <form id="signupform" action="javascript:validateForm('signupform');" method="post" name="signupform">
                        <label for="emailaddress">
                           <div class="label-text"><i class="fas fa-envelope fa-lg"></i></div>
-                           <input type="text" placeholder="Email address" required />
+                           <input type="text" placeholder="Email address" required name="email" />
                        </label>
                        <label for="displayname">
                           <div class="label-text"><i class="fas fa-user-circle fa-lg"></i></div>
-                           <input type="text" placeholder="Display name" required />
+                           <input type="text" placeholder="Display name" required name="displayname" />
                        </label>
                        <label for="password">
                           <div class="label-text"><i class="fas fa-unlock fa-lg"></i></div>
-                           <input type="text" placeholder="Password" required />
+                           <input type="text" placeholder="Password" required name="password" />
                        </label>
                        <label for="password2">
                           <div class="label-text"><i class="fas fa-redo-alt fa-lg"></i></div>
-                           <input type="text" placeholder="Confirm password" required />
+                           <input type="text" placeholder="Confirm password" required name="confirmpassword" />
                        </label>
                        <span><input type="checkbox" name="terms" value="terms" required />I agree with the <a href="#">terms and conditions</a>.</br></span>
                        <span><input type="checkbox" name="privacy" value="privacy" required /> I agree with the <a href="#">privacy policy</a>.</br></span>
                        <button type="submit" value="submit"><i class="fab fa-telegram-plane"></i><span>Register</span></button>
                    </form>
+                   
                </div>
                <div id="hasaccount">
                    <div>
@@ -61,7 +68,7 @@
        </div>
        <footer>
             <div id="footerlogo">
-                <img src="../img/logos/footerlogo.png" alt="">
+                <a href="index.html"><img src="../img/logos/footerlogo.png" alt=""></a>
             </div>
             <div>
                 <ul>
@@ -91,5 +98,6 @@
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="../js/bootstrap.min.js"></script>
+        <script src="../js/register.js"></script>
     </body>
 </html>
