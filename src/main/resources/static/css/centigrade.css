@@ -19,6 +19,7 @@ nav {
     display: block;
     height: 75px;
     width: 100%;
+    background: rgba(100, 100, 100, 0.4);
     box-shadow: 0px 1px 5px 5px rgba(255, 255, 255, 0.1);
     -webkit-box-shadow: 0px 1px 5px 5px rgba(255, 255, 255, 0.1);
     -moz-box-shadow: 0px 1px 5px 5px rgba(255, 255, 255, 0.1);
@@ -194,14 +195,31 @@ nav #nav2 h2 {
 }
 
 #nav2 a:hover {
-    background-color: lightgray;
-    color: black;
+    background-color: rgba(255, 255, 255, 1);
+    color: firebrick;
 }
 
 #header {
-    height: 100vh;
+    max-height: 100vh;
     width: 100%;
-    background-color: lightcoral;
+    overflow: hidden;
+}
+
+#header .carousel-item {
+    overflow: hidden;
+    height: 100vh;
+}
+
+#header .carousel-item .carousel-caption {
+    width: 100%;
+    right: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+#header .carousel-item img {
+    min-height: 100vh;
+    width: auto;
 }
 
 #fillin {
