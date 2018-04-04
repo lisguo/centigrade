@@ -41,13 +41,16 @@ public class SearchController {
         model.addAttribute("movies",movies);
         List<TVShow> shows = getSearchTVShows(search);
         model.addAttribute("shows",shows);
+        model.addAttribute("moviePosterURL", movieService.getMoviePosterURL());
+        model.addAttribute("showPosterURL", tvShowService.getTVShowPosterURL());
+
 
         return "searchResults";
     }
     private List<TVShow> getSearchTVShows(String search){
         String[] splited = search.split("\\s+");
         List<TVShow> shows=tvShowService.getLikeShows(splited[0]);
-        
+
         for(int i = 1; i < splited.length;i++){
             List<TVShow> list = tvShowService.getLikeShows(splited[i]);
             shows.addAll(list);

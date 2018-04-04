@@ -8,6 +8,7 @@
         <div th:replace="fragments :: navbar"></div>
             <table>
                 <tr>
+                    <td></td>
                     <td><b>Title</b></td>
                     <td><b>Plot</b></td>
                 </tr>
@@ -15,6 +16,9 @@
                     <td><b>Movies</b></td>
                 </tr>
                 <tr th:each="movie : ${movies}">
+                <td>
+                    <img th:src="@{${moviePosterURL} + 'poster' + ${movie.id} + '.jpg'}" width="45" height="66"/>
+                </td>
                     <td><a th:href="@{'/movie?id=' + ${movie.id}}" th:text="${movie.title}" /></td>
                     <td th:text="${movie.plot}" />
                 </tr>
@@ -22,6 +26,9 @@
                     <td><b>TV Shows</b></td>
                 </tr>
                 <tr th:each="show : ${shows}">
+                    <td>
+                        <img th:src="@{${showPosterURL} + 'tvposter' + ${show.id} + '.jpg'}" width="45" height="66"/>
+                    </td>
                     <td><a th:href="@{'/show?id=' + ${show.id}}" th:text="${show.seriesName}" /></td>
                     <td th:text="${show.overview}" />
                 </tr>
