@@ -200,7 +200,8 @@ public class SearchController {
 
     private boolean isCommonWord(String s){
         String word = s.toLowerCase();
-        String[] commonWords = {"the", "of", "in", "or", "and", "if", "is", "a", ""};
+        String[] commonWords = env.getProperty("common_words").split(",");
+//        String[] commonWords = {"the", "of", "in", "or", "and", "if", "is", "a", ""};
         for(int i=0; i < commonWords.length; i++){
             if(word.equals(commonWords[i])){
                 return true;
