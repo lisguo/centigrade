@@ -6,14 +6,14 @@
     <div class="container container-fluid">
         <div class="content-row-block">
         <div th:replace="fragments :: navbar"></div>
-            <table>
+            <table width="100%" >
                 <tr>
                     <td height="70"></td>
                     <td ></td>
                     <td ></td>
                 </tr>
             </table>
-            <table>
+            <table width="100%" >
                 <tr>
                     <td></td>
                     <td><b>Title</b></td>
@@ -29,6 +29,9 @@
                     <td><a th:href="@{'/movie?id=' + ${movie.id}}" th:text="${movie.title}" /></td>
                     <td th:text="${movie.plot}" />
                 </tr>
+                <tr th:if="${movies == null}">
+                    <td><b>NO RESULTS FOUND</b></td>
+                </tr>
                 <tr>
                     <td><b>TV Shows</b></td>
                 </tr>
@@ -39,6 +42,10 @@
                     <td><a th:href="@{'/show?id=' + ${show.id}}" th:text="${show.seriesName}" /></td>
                     <td th:text="${show.overview}" />
                 </tr>
+                <tr th:if="${shows == null}">
+                    <td><b>NO RESULTS FOUND</b></td>
+                </tr>
+
             </table>
         </div>
     </div>
