@@ -15,7 +15,6 @@
     <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
 </head>
 <body>
-<<<<<<< HEAD
     <nav th:fragment="navbar">
         <div id="logo-container">
             <a href="/"><img src="../img/logos/logo.png" alt="CentiGrade"></a>
@@ -46,7 +45,7 @@
                     <div id="container">
                        <h2><a href="/movies">MOVIES</a></h2>
                         <h2><a href="/shows">TV SHOWS</a></h2>
-                        <h2><a href="">TICKETS AND SHOWTIMES</a></h2>
+                        <h2><a href="/">TICKETS AND SHOWTIMES</a></h2>
                     </div>
                 </div>
             </div>
@@ -55,43 +54,5 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/centigrade.js}"></script>
-=======
-
-<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="/">Centigrade</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <form id="searchform" class="form-inline my-2 my-lg-0" name="searchform" action="/search" method="get">
-                    <input type="text" class="form-control mr-lg-2" name="search" placeholder="Search" onfocus="this.value=''"/>
-                    <button type="submit" class="btn btn-outline-success my-2 my-sm-0" value="submit"><i class="fas fa-search"></i>Search</button>
-                </form>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/movies">Movies</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/shows">TV Shows</a>
-            </li>
-        </ul>
-        <ul th:if="${session.account == null}" class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="/login">Login</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/register">Register</a>
-            </li>
-        </ul>
-
-        <p th:if="${session.account != null}" class="nav-item" id="greeting">
-            <b th:text="${'Hello,' + session.account.firstName}" />
-        </p>
-    </div>
-</nav>
->>>>>>> 705962eb022cde06119f20d0901a4331fff2b870
 </body>
 </html>
