@@ -35,20 +35,37 @@ public class SearchController {
 
     @GetMapping("/search")
     public String displaySearch (@RequestParam String search, Model model) {
+        model.addAttribute("moviePosterURL", movieService.getMoviePosterURL());
+        model.addAttribute("showPosterURL", tvShowService.getTVShowPosterURL());
+        if(search.replaceAll("\\s+","").length()==0){
+            return "searchResults";
+        }
 
 
         List<Movie> movies = getSearchMovies(search);
-        model.addAttribute("movies",movies);
+        if (movies.size()>0) {
+            model.addAttribute("movies", movies);
+        }
         List<TVShow> shows = getSearchTVShows(search);
-        model.addAttribute("shows",shows);
+        if(shows.size()>0) {
+            model.addAttribute("shows", shows);
+        }
+
+
 
         return "searchResults";
     }
+
     private List<TVShow> getSearchTVShows(String search){
         String[] splited = search.split("\\s+");
-        List<TVShow> shows=tvShowService.getLikeShows(splited[0]);
+        List<TVShow> shows= new ArrayList<>();
         
-        for(int i = 1; i < splited.length;i++){
+        for(int i = 0; i < splited.length;i++){
+            if(isCommonWord(splited[i])){
+                continue;
+            }
+
+
             List<TVShow> list = tvShowService.getLikeShows(splited[i]);
             shows.addAll(list);
         }
@@ -117,8 +134,13 @@ public class SearchController {
 
     private List<Movie> getSearchMovies(String search){
         String[] splited = search.split("\\s+");
-        List<Movie> movies=movieService.getLikeMovies(splited[0]);
-        for(int i = 1; i < splited.length;i++){
+        List<Movie> movies = new ArrayList();
+
+        for(int i = 0; i < splited.length;i++){
+            if(isCommonWord(splited[i])){
+                continue;
+            }
+
             List<Movie> list = movieService.getLikeMovies(splited[i]);
             movies.addAll(list);
         }
@@ -183,5 +205,20 @@ public class SearchController {
             }
         }
         return maxMovie;
+    }
+
+    private boolean isCommonWord(String s){
+        String word = s.toLowerCase().replaceAll("\\s+","");
+        if(word.length()==0){
+            return true;
+        }
+        String[] commonWords = env.getProperty("common_words").split(",");
+//        String[] commonWords = {"the", "of", "in", "or", "and", "if", "is", "a", ""};
+        for(int i=0; i < commonWords.length; i++){
+            if(word.equals(commonWords[i])){
+                return true;
+            }
+        }
+        return false;
     }
 }
