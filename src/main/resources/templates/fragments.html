@@ -2,31 +2,31 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="head (title)">
     <title th:text="${title}" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
-    <meta name="description" content="CentiGrade is a web application for reviewing movies and tv shows.">
-    <meta name="title" content="CentiGrade: Movies | Tv Shows | Reviews">
-    <meta name="author" content="CentiGrade">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link href='https://fonts.googleapis.com/css?family=Lato|Clicker+Script' rel='stylesheet' type='text/css'>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css"/>
+    <meta name="description" content="CentiGrade is a web application for reviewing movies and tv shows."/>
+    <meta name="title" content="CentiGrade: Movies | Tv Shows | Reviews"/>
+    <meta name="author" content="CentiGrade"/>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <link href='https://fonts.googleapis.com/css?family=Lato|Clicker+Script' rel='stylesheet' type='text/css'/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/centigrade.css}"/>
-    <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"/>
     <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/centigrade.js}"></script>
 </head>
 <body>
     <nav th:fragment="navbar">
         <div id="logo-container">
-            <a href="/"><img th:src="@{/img/logos/logo.png}" alt="CentiGrade"></a>
+            <a href="/"><img th:src="@{/img/logos/logo.png}" alt="CentiGrade"/></a>
         </div>
         <div id="navigation">
             <div id="navs">
                 <div id="nav1">
-                    <form>
-                        <input type="search" name="search" placeholder="Search movies, tv shows, actors, more..." onfocus="this.value=''" aria-label="Search">
+                    <form action="/search" method="get">
+                        <input type="search" name="search" placeholder="Search movies, tv shows, actors, more..." onfocus="this.value=''" aria-label="Search"/>
                         <button type="submit" value="submit"><i class="fas fa-search"></i></button>
                     </form>
                     <div id="following" class="functions">
@@ -56,7 +56,7 @@
     </nav>
     <footer th:fragment="footer">
         <div id="footerlogo">
-            <a href="/"><img th:src="@{/img/logos/footerLogo.png}" alt=""></a>
+            <a href="/"><img th:src="@{/img/logos/footerLogo.png}" alt=""/></a>
         </div>
         <div>
             <ul>
