@@ -2,47 +2,57 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="head (title)">
     <title th:text="${title}" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+    <meta name="description" content="CentiGrade is a web application for reviewing movies and tv shows.">
+    <meta name="title" content="CentiGrade: Movies | Tv Shows | Reviews">
+    <meta name="author" content="CentiGrade">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://fonts.googleapis.com/css?family=Lato|Clicker+Script' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/centigrade.css}"/>
-    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+    <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
 </head>
 <body>
-
-<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="/">Centigrade</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-lg-2" id="search-input" type="search" placeholder="Search movies, tv shows, actors, more..." aria-label="Search" />
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/movies">Movies</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/shows">TV Shows</a>
-            </li>
-        </ul>
-        <ul th:if="${session.account == null}" class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="/login">Login</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/register">Register</a>
-            </li>
-        </ul>
-
-        <p th:if="${session.account != null}" class="nav-item" id="greeting">
-            <b th:text="${'Hello,' + session.account.firstName}" />
-        </p>
-    </div>
-</nav>
+    <nav th:fragment="navbar">
+        <div id="logo-container">
+            <a href="/"><img src="../img/logos/logo.png" alt="CentiGrade"></a>
+        </div>
+        <div id="navigation">
+            <div id="navs">
+                <div id="nav1">
+                    <form>
+                        <input type="search" name="search" placeholder="Search movies, tv shows, actors, more..." onfocus="this.value=''" aria-label="Search">
+                        <button type="submit" value="submit"><i class="fas fa-search"></i></button>
+                    </form>
+                    <div id="following" class="functions">
+                        <a href="/following"><i class="far fa-smile"></i>Following</a>
+                    </div>
+                    <div th:if="${session.account == null}" class="sessionstuff" >
+                        <div id="login" class="functions">
+                            <a href="/login"><i class="fas fa-sign-in-alt"></i>Login</a>
+                        </div>
+                        <div id="register" class="functions">
+                            <a href="/register"><i class="fas fa-user-plus"></i>Register</a>
+                        </div>
+                    </div>
+                    <div th:if="${session.account != null}" class="sessionstuff" id="greeting">
+                        <b th:text="${'Hello,' + session.account.firstName}" />
+                    </div>
+                </div>
+                <div id="nav2">
+                    <div id="container">
+                       <h2><a href="/movies">MOVIES</a></h2>
+                        <h2><a href="/shows">TV SHOWS</a></h2>
+                        <h2><a href="">TICKETS AND SHOWTIMES</a></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/centigrade.js}"></script>
 </body>
 </html>

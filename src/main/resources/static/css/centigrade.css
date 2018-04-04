@@ -87,6 +87,22 @@ nav #navigation {
     margin: 0.625em;
 }
 
+#nav1 .sessionstuff {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.sessionstuff div {
+    -webkit-flex: 1 1 auto;
+    -moz-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    -o-flex: 1 1 auto;
+    flex: 1 1 auto;
+    margin-right: 1.25em;
+}
+
 #navs #nav2 {
     max-width: 100%;
     display: flex;
@@ -116,7 +132,7 @@ nav #navigation {
     display: flex;
 }
 
-nav #nav1 form input[type=text] {
+nav #nav1 form input[type=search] {
     width: 50%;
     height: 30px;
     justify-content: flex-end;
@@ -131,7 +147,7 @@ nav #nav1 form input[type=text] {
     transition: all 0.6s ease-in-out;
 }
 
-nav #nav1 form input[type=text]:focus {
+nav #nav1 form input[type=search]:focus {
     width: 70%;
     outline: none;
 }

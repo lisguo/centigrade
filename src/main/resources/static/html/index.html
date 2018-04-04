@@ -23,23 +23,26 @@
                 <div id="navs">
                     <div id="nav1">
                         <form action="" method="get">
-                            <input type="text" name="search" placeholder="Search" onfocus="this.value=''">
+                            <input type="search" name="search" placeholder="Search movies, tv shows, actors, more..." onfocus="this.value=''" aria-label="Search">
                             <button type="submit" value="submit"><i class="fas fa-search"></i></button>
                         </form>
                         <div id="following" class="functions">
-                            <a href="follow.html"><i class="far fa-smile"></i>Following</a>
+                            <a href="/following"><i class="far fa-smile"></i>Following</a>
                         </div>
-                        <div id="login" class="functions">
-                            <a href="login.html"><i class="fas fa-sign-in-alt"></i>Login</a>
+                        <div class="sessionstuff">
+                            <div id="login" class="functions">
+                                <a href="/login"><i class="fas fa-sign-in-alt"></i>Login</a>
+                            </div>
+                            <div id="register" class="functions">
+                                <a href="/register"><i class="fas fa-user-plus"></i>Register</a>
+                            </div>
                         </div>
-                        <div id="register" class="functions">
-                            <a href="register.html"><i class="fas fa-user-plus"></i>Register</a>
-                        </div>
+                        
                     </div>
                     <div id="nav2">
                        <div id="container">
-                           <h2><a href="">MOVIES</a></h2>
-                            <h2><a href="">TV SHOWS</a></h2>
+                           <h2><a href="/movies">MOVIES</a></h2>
+                            <h2><a href="/shows">TV SHOWS</a></h2>
                             <h2><a href="">TICKETS AND SHOWTIMES</a></h2>
                        </div>
                     </div>
@@ -101,6 +104,9 @@
         <div id="critic-section">
             <div id="becomeacritic">
                 <p>Movie reviews come from publications or individual critics that have been selected by the centigrade® staff. The criteria for inclusion for both publications and critics are separated across three divisions; print, broadcast, and online, each with its own criteria for rating inclusion.</p>
+                <div id="critic-buttons">
+                    
+                </div>
             </div>
         </div>
         <footer>
