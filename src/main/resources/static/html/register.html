@@ -20,7 +20,7 @@
                 <a href="index.html"><img src="../img/logos/logo.png" alt="CentiGrade"></a>
             </div>
        </nav>
-       <div id="signup">
+       <div class="container container-fluid" id="signup">
            <div id="intro">
                <img src="../img/layout/flame-lg.png" alt="">
                <span>Join millions of reviewers in the hottest reviewing site!</span>
@@ -34,32 +34,31 @@
                         </button>
                     </div>
                    <div id="house"><h2>SIGN UP</h2></div>
-                   <form id="signupform" action="javascript:validateForm('signupform');" method="post" name="signupform">
-                       <label for="emailaddress">
+                   <form id="signupform" action="/register" method="post" name="signupform">
+                       <label for="email">
                           <div class="label-text"><i class="fas fa-envelope fa-lg"></i></div>
-                           <input type="text" placeholder="Email address" required name="email" />
+                           <input type="email" id="email" placeholder="Email address" required name="email" />
                        </label>
-                       <label for="displayname">
+                       <label for="firstName">
                           <div class="label-text"><i class="fas fa-address-book fa-lg"></i></div>
-                           <input type="text" placeholder="First name" required name="displayname" />
+                           <input type="text" id="firstName" placeholder="First name" required name="firstName" />
                        </label>
-                       <label for="lastname">
+                       <label for="lastName">
                           <div class="label-text"><i class="fas fa-address-card fa-lg"></i></div>
-                           <input type="text" placeholder="Last name" required name="lastname" />
+                           <input type="text" id="lastName" placeholder="Last name" required name="lastName" />
                        </label>
                        <label for="password">
                           <div class="label-text"><i class="fas fa-unlock fa-lg"></i></div>
-                           <input type="text" placeholder="Password" required name="password" />
+                           <input type="password" id="password" placeholder="Password" required name="password" />
                        </label>
-                       <label for="confirmpassword">
+                       <label for="passwordverify">
                           <div class="label-text"><i class="fas fa-redo-alt fa-lg"></i></div>
-                           <input type="text" placeholder="Confirm password" required name="confirmpassword" />
+                           <input type="password" id="passwordverify" placeholder="Verify password" required name="passwordVerify" />
                        </label>
                        <span><input type="checkbox" name="terms" value="terms" required />I agree with the <a href="#">terms and conditions</a>.</br></span>
                        <span><input type="checkbox" name="privacy" value="privacy" required /> I agree with the <a href="#">privacy policy</a>.</br></span>
                        <button type="submit" value="submit"><i class="fab fa-telegram-plane"></i><span>Register</span></button>
                    </form>
-                   
                </div>
                <div id="hasaccount">
                    <div>
