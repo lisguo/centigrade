@@ -62,7 +62,7 @@ public class TVShowService {
         if(token.length()<=Integer.parseInt(env.getProperty("small_word_threshold"))){
             token = " "+token+" ";
         }
-        return template.query("select id from tvshows where seriesname like \"%"+token+"%\"", new ResultSetExtractor<List<TVShow>>() {
+        return template.query("select id from tvshows where seriesname like \"%"+token+"%\"or soundex(seriesname) like soundex(\""+token+"\")", new ResultSetExtractor<List<TVShow>>() {
 //      return template.query("SELECT contentId, castId FROM casttocontent t1 INNER JOIN tvshows t2 ON t1.contentId = t2.id WHERE castId='" + p.getId() +"'", new ResultSetExtractor<List<TVShow>>() {
             @Override
             public List<TVShow> extractData(ResultSet rs) throws SQLException, DataAccessException {

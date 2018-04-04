@@ -65,10 +65,10 @@ public class MovieService {
         });
     }
     public List<Movie> getLikeMovies(String token){
-        if(token.length()<=Integer.parseInt(env.getProperty("small_word_threshold"))){
-            token = " "+token+" ";
+        if(token.length()>Integer.parseInt(env.getProperty("small_word_threshold"))){
+            token = ""+token+"";
         }
-        return template.query("select id from movies where title like \"%"+token+"%\"", new ResultSetExtractor<List<Movie>>() {
+        return template.query("select id from movies where title like \"%"+token+"%\"or soundex(title) like soundex(\""+token+"\")", new ResultSetExtractor<List<Movie>>() {
 //        return template.query("SELECT contentId FROM casttocontent t1 INNER JOIN movies t2 ON t1.contentId = t2.id WHERE castId='" + p.getId() +"'", new ResultSetExtractor<List<Movie>>() {
             @Override
             public List<Movie> extractData(ResultSet rs) throws SQLException, DataAccessException {
