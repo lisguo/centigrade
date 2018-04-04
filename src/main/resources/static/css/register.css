@@ -53,14 +53,13 @@ nav #logo-container:hover {
     padding: 0.625em;
 }
 
-#signup {
+#signup, #signin {
     position: relative;
     display: block;
     width: 100%;
-    background: #F2F2F2;
 }
 
-#register-div {
+#register-div, #signin-div {
     position: relative;
     display: flex;
     justify-content: flex-start;
@@ -68,7 +67,7 @@ nav #logo-container:hover {
     width: 100%;
 }
 
-#register-div .alert {
+#register-div .alert #signin-div .alert {
     width: 80%;
     display: none;
     margin-top: 2em;
@@ -131,7 +130,7 @@ nav #logo-container:hover {
     background: transparent;
 }
 
-#signup #intro {
+#signup #intro, #signin #intro {
     position: relative;
     text-align: center;
     width: 100%;
@@ -184,7 +183,7 @@ nav #logo-container:hover {
     -o-box-shadow: 0px 5px 15px 2px rgba(11, 60, 93, 0.2);
 }
 
-#signupform {
+#signupform, #signinform {
     position: relative;
     width: 80%;
     display: flex;
@@ -197,7 +196,7 @@ nav #logo-container:hover {
     -o-box-shadow: 0px 5px 15px 2px rgba(11, 60, 93, 0.2);
 }
 
-#signupform label {
+#signupform label, #signinform label {
     -webkit-flex: 1;
     -moz-flex: 1;
     -ms-flex: 1;
@@ -210,7 +209,7 @@ nav #logo-container:hover {
     padding: 1.25em 1.25em 0 1.25em;
 }
 
-#signupform .label-text {
+#signupform .label-text, #signinform .label-text {
     text-align: center;
     -webkit-flex: 1;
     -moz-flex: 1;
@@ -226,7 +225,7 @@ nav #logo-container:hover {
     padding-bottom: 0.25em;
 }
 
-#signupform label input {
+#signupform label input, #signinform label input {
     width: 80%;
     padding: 0 0.625em 0 0.625em;
     border: 1px dashed rgba(0, 0, 0, 0.3);
@@ -238,13 +237,13 @@ nav #logo-container:hover {
     transition: all 0.3s ease-in-out;
 }
 
-#signupform label input:focus {
+#signupform label input:focus, #signinform label input:focus {
     outline: none;
     border: 1px solid rgba(0, 0, 0, 0.3);
     border-left: none;
 }
 
-#signupform span {
+#signupform span, #signinform span {
     position: relative;
     margin-bottom: 1em;
     font-size: 1em;
@@ -258,11 +257,11 @@ nav #logo-container:hover {
     justify-content: flex-start;
 }
 
-#signupform span:first-of-type {
+#signupform span:first-of-type, #signinform span:first-of-type {
     margin-top: 1em;
 }
 
-#signupform span input[type=checkbox] {
+#signupform span input[type=checkbox], #signinform span input[type=checkbox] {
     -webkit-transform: scale(1.25);
     -ms-transform: scale(1.25);
     -o-transform: scale(1.25);
@@ -271,7 +270,7 @@ nav #logo-container:hover {
     position: relative;
 }
 
-#signupform button {
+#signupform button, #signinform button {
     width: 50%;
     position: relative;
     text-align: center;
@@ -295,7 +294,7 @@ nav #logo-container:hover {
     -o-box-shadow: 0px 3px 1px 2px rgba(11, 60, 93, 0.2);
 }
 
-#signupform button span {
+#signupform button span, #signinform button span {
     position: relative;
     height: 100%;
     line-height: 100%;
@@ -309,17 +308,17 @@ nav #logo-container:hover {
     transform: translateX(-10px);
 }
 
-#signupform button i {
+#signupform button i, #signinform button i {
     display: none;
 }
 
-#signupform button:hover {
+#signupform button:hover, #signinform button:hover {
     cursor: pointer;
     color: white;
     background: black;
 }
 
-#signupform button:hover i {
+#signupform button:hover i, #signinform button:hover i {
     display: inline-block;
 }
 
