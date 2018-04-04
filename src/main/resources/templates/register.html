@@ -3,11 +3,7 @@
 <head th:replace="fragments :: head(Centigrade)"></head>
 
 <body>
-    <nav id="plain-nav">
-       <div id="logo-container">
-            <a href="/"><img src="../img/logos/logo.png" alt="CentiGrade" /></a>
-        </div>
-   </nav>
+    <nav id="plain-nav" th:replace="fragments :: navbar"></nav>
     <div class="container container-fluid" id="signup">
        <div id="intro">
            <img src="../img/layout/flame-lg.png" alt="" />

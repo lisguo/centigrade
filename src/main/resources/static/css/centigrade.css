@@ -219,31 +219,6 @@ nav #nav2 h2 {
     color: black;
 }
 
-#plain-nav #logo-container {
-    height: 100%;
-    vertical-align: middle;
-    width: 13%;
-    left: 0;
-    overflow: hidden;
-    position: relative;
-    display: inline-block;
-    margin: 0;
-}
-
-#plain-nav #logo-container:hover {
-    animation: bounce 0.75s ease-in-out;
-    -webkit-animation: bounce 0.75s ease-in-out;
-    -ms-animation: bounce 0.75s ease-in-out;
-    -o-animation: bounce 0.75s ease-in-out;
-}
-
-#plain-nav #logo-container img {
-    height: 60%;
-    position: absolute;
-    top: 20%;
-    padding: 0.625em;
-}
-
 #header {
     max-height: 100vh;
     width: 100%;
