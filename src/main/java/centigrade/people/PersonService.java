@@ -98,6 +98,22 @@ public class PersonService {
             }
         });
     }
+    public List<Person> getLikePeople(String token){
+        return template.query("select id from castmembers where firstname like \"%"+token+"%\" or lastname like \"%"+token+"%\"", new ResultSetExtractor<List<Person>>() {
+            @Override
+            public List<Person> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                List<Person> cast = new ArrayList<Person>();
+
+                while(rs.next())
+                {
+                    Person p = personRepository.findPersonById(rs.getInt(1));
+                    cast.add(p);
+                }
+
+                return cast;
+            }
+        });
+    }
 
 
 

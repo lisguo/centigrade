@@ -58,6 +58,23 @@ public class TVShowService {
             }
         });
     }
+    public List<TVShow> getLikeShows(String token){
+        return template.query("select id from tvshows where seriesname like \"%"+token+"%\"", new ResultSetExtractor<List<TVShow>>() {
+//      return template.query("SELECT contentId, castId FROM casttocontent t1 INNER JOIN tvshows t2 ON t1.contentId = t2.id WHERE castId='" + p.getId() +"'", new ResultSetExtractor<List<TVShow>>() {
+            @Override
+            public List<TVShow> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                List<TVShow> shows = new ArrayList<TVShow>();
+
+                while(rs.next())
+                {
+                    TVShow t = tvShowRepository.findTVShowById(rs.getInt(1));
+                    shows.add(t);
+                }
+
+                return shows;
+            }
+        });
+    }
 
     public List<Episode> getSeason(TVShow show, int season){
         return episodeRepository.findEpisodesBySeriesIdAndSeasonNumber(show.getId(), season);

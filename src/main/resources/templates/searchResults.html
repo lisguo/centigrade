@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head(AllMovies)"></head>
+
+<body>
+    <div class="container container-fluid">
+        <div class="content-row-block">
+        <div th:replace="fragments :: navbar"></div>
+            <table>
+                <tr>
+                    <td><b>Title</b></td>
+                    <td><b>Plot</b></td>
+                </tr>
+                <tr>
+                    <td><b>Movies</b></td>
+                </tr>
+                <tr th:each="movie : ${movies}">
+                    <td><a th:href="@{'/movie?id=' + ${movie.id}}" th:text="${movie.title}" /></td>
+                    <td th:text="${movie.plot}" />
+                </tr>
+                <tr>
+                    <td><b>TV Shows</b></td>
+                </tr>
+                <tr th:each="show : ${shows}">
+                    <td><a th:href="@{'/show?id=' + ${show.id}}" th:text="${show.seriesName}" /></td>
+                    <td th:text="${show.overview}" />
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
