@@ -15,4 +15,5 @@ public interface MovieRepository extends CrudRepository<Movie, Long>{
 
     void delete(Movie m);
     void deleteMovieById(long id);
+    
 }
