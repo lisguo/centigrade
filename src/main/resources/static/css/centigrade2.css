@@ -332,6 +332,7 @@ nav #nav2 h2 {
 
 #register-div .alert {
     width: 80%;
+    display: none;
     margin-top: 2em;
 }
 

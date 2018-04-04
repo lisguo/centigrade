@@ -5,24 +5,39 @@
     <body>
         <div th:replace="fragments :: navbar"></div>
 
-        <div class="container container-fluid">
-            <div class="content-row-block">
-                <!-- Alert -->
-                <div th:if="${message != null}" th:text="${message}" class="alert alert-warning" role="alert" />
-
-                <h1>Login</h1>
-                <form action="/login" method="post">
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" />
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" />
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
+        <div class="container container-fluid" id="signin">
+           <div id="intro">
+               <span>Which is faster, heat or cold?</span>
+               <span>Heat, because you can catch a cold!</span>
+           </div>
+            <div class="content-row-block" id="signin-div">
+               <div id="hasaccount">
+                   <div>
+                       <h3>Don't have an account?</h3>
+                       <h6>Join our fire community and enjoy all of its goodies!</h6>
+                       <a href="register.html">Sign up</a>
+                   </div>
+               </div>
+               <div id="form">
+                   <!-- Alert -->
+                    <div th:if="${message != null}" th:text="${message}" class="alert alert-warning" role="alert" />
+                    <div id="house"><h2>LOG IN</h2></div>
+                    <form id="signinform" action="/login" method="post" name="signinform">
+                       <label for="email">
+                          <div class="label-text"><i class="fas fa-envelope fa-lg"></i></div>
+                           <input type="email" id="email" placeholder="Email address" required name="email" />
+                       </label>
+                       <label for="password">
+                          <div class="label-text"><i class="fas fa-unlock fa-lg"></i></div>
+                           <input type="password" id="password" placeholder="Password" required name="password" />
+                       </label>
+                       <span><input type="checkbox" name="terms" value="terms" required />Remember me <a href="/">Forgot your password?</a></span>
+                       <button type="submit" value="submit">Sign in</button>
+                   </form>
+               </div>
             </div>
         </div>
+        
+        <div th:replace="fragments :: footer"></div>
     </body>
 </html>
