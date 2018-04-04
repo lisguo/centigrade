@@ -278,6 +278,7 @@ nav #logo-container:hover {
 
 #signinform span:first-of-type {
     margin-top: 1em;
+    line-height: 0.75em;
 }
 
 #signinform span input[type=checkbox] {
@@ -286,6 +287,7 @@ nav #logo-container:hover {
     -o-transform: scale(1.25);
     transform: scale(1.25);
     margin-right: 0.25em;
+    vertical-align: middle;
     position: relative;
 }
 
