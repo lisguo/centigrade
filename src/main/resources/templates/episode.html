@@ -2,9 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments :: head(${episode.episodeName})"></head>
 <body>
+<div th:replace="fragments :: navbar"></div>
 <div class="container container-fluid">
     <div class="content-row-block">
-        <div th:replace="fragments :: navbar"></div>
+        <!--<div th:replace="fragments :: navbar"></div>-->
         <table>
             <tr>
                  <td>
