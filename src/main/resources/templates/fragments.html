@@ -54,6 +54,42 @@
             </div>
         </div>
     </nav>
+    <nav id="plain-nav" th:fragment="navbar-relative">
+        <div id="logo-container">
+            <a href="/"><img th:src="@{/img/logos/logo.png}" alt="CentiGrade"/></a>
+        </div>
+        <div id="navigation">
+            <div id="navs">
+                <div id="nav1">
+                    <form action="/search" method="get">
+                        <input type="search" name="search" placeholder="Search movies, tv shows, actors, more..." onfocus="this.value=''" aria-label="Search"/>
+                        <button type="submit" value="submit"><i class="fas fa-search"></i></button>
+                    </form>
+                    <div id="following" class="functions">
+                        <a href="/following"><i class="far fa-smile"></i>Following</a>
+                    </div>
+                    <div th:if="${session.account == null}" class="sessionstuff" >
+                        <div id="login" class="functions">
+                            <a href="/login"><i class="fas fa-sign-in-alt"></i>Login</a>
+                        </div>
+                        <div id="register" class="functions">
+                            <a href="/register"><i class="fas fa-user-plus"></i>Register</a>
+                        </div>
+                    </div>
+                    <div th:if="${session.account != null}" class="sessionstuff" id="greeting">
+                        <b th:text="${'Hello, ' + session.account.firstName}" />
+                    </div>
+                </div>
+                <div id="nav2">
+                    <div id="container">
+                       <h2><a href="/movies">MOVIES</a></h2>
+                        <h2><a href="/shows">TV SHOWS</a></h2>
+                        <h2><a href="/">TICKETS AND SHOWTIMES</a></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
     <footer th:fragment="footer">
         <div id="footerlogo">
             <a href="/"><img th:src="@{/img/logos/footerLogo.png}" alt=""/></a>
