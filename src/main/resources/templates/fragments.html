@@ -41,7 +41,12 @@
                         </div>
                     </div>
                     <div th:if="${session.account != null}" class="sessionstuff" id="greeting">
-                        <b th:text="${'Hello, ' + session.account.firstName}" />
+                        <div id="greetin" class="functions">
+                            <b th:text="${'Hello, ' + session.account.firstName}" />
+                        </div>
+                        <div id="logout" class="functions">
+                            <a href="\logout">Logout</a>
+                        </div>
                     </div>
                 </div>
                 <div id="nav2">

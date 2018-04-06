@@ -61,7 +61,8 @@ nav #logo-container:hover {
 }
 
 nav #navigation {
-    position: inherit;
+    position: relative;
+    top: -10%;
     display: inline-block;
     height: 75px;
     width: 70%;

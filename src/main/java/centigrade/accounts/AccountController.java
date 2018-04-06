@@ -63,6 +63,20 @@ public class AccountController {
         model.addAttribute("appName", env.getProperty("app_name"));
         return "index";
     }
+    @PostMapping("logout")
+    public String loginSubmit(Model model, HttpSession session){
+
+        session.setAttribute("account", null);
+        model.addAttribute("appName", env.getProperty("app_name"));
+        return "index";
+    }
+    @GetMapping("logout")
+    public String loginSubmit2(Model model, HttpSession session){
+
+        session.setAttribute("account", null);
+        model.addAttribute("appName", env.getProperty("app_name"));
+        return "index";
+    }
 
     private boolean validPassword(byte[] password1, byte[] password2){
         if(password1.length != password2.length){
