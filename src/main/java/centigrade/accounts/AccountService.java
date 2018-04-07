@@ -62,6 +62,24 @@ public class AccountService {
         a.setSalt(salt);
         accountRepository.save(a);
     }
+    public void updateAccount(Account a ,String email, String password, String firstName, String lastName){
+        // Generate a random salt
+//        SecureRandom random = new SecureRandom();
+        byte[] salt = a.getSalt();
+
+        byte[] hashedPassword=null;
+        if(password!=null)hashedPassword= hashPassword(password, salt);
+
+//        Account a = new Account();
+        if(email!=null) a.setEmail(email);
+        if(hashedPassword!=null)a.setPassword(hashedPassword);
+        if(firstName!=null) a.setFirstName(firstName);
+        if(lastName!=null)a.setLastName(lastName);
+//        a.setAccountType(AccountType.USER);
+//        a.setIsActive(0);
+//        a.setSalt(salt);
+        accountRepository.save(a);
+    }
 
     public Account getAccountById(long id){
         return accountRepository.findAccountById(id);

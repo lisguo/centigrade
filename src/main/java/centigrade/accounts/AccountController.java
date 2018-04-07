@@ -37,6 +37,48 @@ public class AccountController {
         model.addAttribute("message", env.getProperty("register_email_success"));
         return "register";
     }
+    @GetMapping("edit_account")
+    public String editAccount(){
+        return "edit_account";
+    }
+    @PostMapping("edit_account")
+    public String editAccount(@RequestParam String email, @RequestParam String oldPassword,@RequestParam String password, @RequestParam String passwordVerify,
+                                 @RequestParam String firstName, @RequestParam String lastName, Model model,HttpSession session){
+        Account a =(Account) session.getAttribute("account");
+        if(email.length()>0&& !a.getEmail().equals(email)){
+            if(!accountService.isValidRegister(email)){
+                model.addAttribute("alert", "invalidEmail");
+                model.addAttribute("message", env.getProperty("register_email_error"));
+                return "edit_account";
+            }
+        }else{
+            email = null;
+        }
+
+        if(password.length()!=0) {
+
+            if (!checkPassword(a,oldPassword)) {
+                model.addAttribute("message", env.getProperty("login_error"));
+                return "edit_account";
+            }else{
+                model.addAttribute("message", env.getProperty("register_email_success"));
+
+            }
+
+        }else{
+            password = null;
+        }
+        if(firstName.length()==0){
+            firstName = null;
+        }
+        if(lastName.length()==0){
+            lastName = null;
+        }
+        accountService.updateAccount(a,email,password,firstName,lastName);
+        model.addAttribute("alert", "success");
+//        model.addAttribute("message", env.getProperty("register_email_success"));
+        return "edit_account";
+    }
 
     @GetMapping("login")
     public String loginForm(){
@@ -63,6 +105,7 @@ public class AccountController {
         model.addAttribute("appName", env.getProperty("app_name"));
         return "index";
     }
+
     @PostMapping("logout")
     public String loginSubmit(Model model, HttpSession session){
 
@@ -77,7 +120,16 @@ public class AccountController {
         model.addAttribute("appName", env.getProperty("app_name"));
         return "index";
     }
+    public boolean checkPassword(Account a,String password){
+        byte[] salt = a.getSalt();
+        byte[] hashedPassword = accountService.hashPassword(password, salt);
 
+        if (validPassword(hashedPassword, a.getPassword())) {
+
+            return true;
+        }
+        return false;
+    }
     private boolean validPassword(byte[] password1, byte[] password2){
         if(password1.length != password2.length){
             return false;
