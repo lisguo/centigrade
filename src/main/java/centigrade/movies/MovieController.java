@@ -82,7 +82,12 @@ public class MovieController {
             }
         }
         rating /= (double)reviewsCounted;
-        model.addAttribute("rating", rating);
+        if(reviewsCounted == 0){
+            model.addAttribute("rating", "Not Yet Rated");
+        }else{
+            model.addAttribute("rating", rating);
+        }
+
         model.addAttribute("reviewsCounted", reviewsCounted);
         model.addAttribute("userReviews", userReviews);
         model.addAttribute("criticReviews", criticReviews);
