@@ -20,7 +20,11 @@ public class AccountController {
     private Environment env;
 
     @GetMapping("register")
-    public String registerForm(){
+    public String registerForm(HttpSession session){
+        Account a = (Account)session.getAttribute("account");
+        if(a != null){
+            return "index";
+        }
         return "register";
     }
 
@@ -38,9 +42,15 @@ public class AccountController {
         return "register";
     }
     @GetMapping("edit_account")
-    public String editAccount(){
+    public String editAccount(HttpSession session){
+        Account a = (Account) session.getAttribute("account");
+        if(a == null){
+            return "login";
+        }
+
         return "edit_account";
     }
+
     @PostMapping("edit_account")
     public String editAccount(@RequestParam String email, @RequestParam String oldPassword,@RequestParam String password, @RequestParam String passwordVerify,
                                  @RequestParam String firstName, @RequestParam String lastName, Model model,HttpSession session){
@@ -81,7 +91,11 @@ public class AccountController {
     }
 
     @GetMapping("login")
-    public String loginForm(){
+    public String loginForm(HttpSession session){
+        Account a = (Account)session.getAttribute("account");
+        if(a != null){
+            return "index";
+        }
         return "login";
     }
 

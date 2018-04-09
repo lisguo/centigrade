@@ -97,4 +97,12 @@ public class Account {
     public void setSalt(byte[] salt) {
         this.salt = salt;
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 }

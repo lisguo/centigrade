@@ -10,6 +10,8 @@
         <span>Join millions of reviewers in the hottest reviewing site!</span>
     </div>
     <div id="account-div">
+        <h3 th:text="@{${session.account.firstName} + ' ' + ${session.account.lastName}}"/>
+        <h3 th:text="@{${session.account.email}}"/>
         <div id="form">
             <!-- Alert -->
             <div th:switch="${alert}">
@@ -48,13 +50,7 @@
                 <button type="submit" value="submit"><i class="fab fa-telegram-plane"></i><span>Save Changes</span></button>
             </form>
         </div>
-        <div id="hasaccount">
-            <div>
-                <h3>Already have an account?</h3>
-                <h6>We are glad to hear that you came back to be awesome!</h6>
-                <a href="/login">Log in</a>
-            </div>
-        </div>
+
     </div>
 </div>
 <div th:replace="fragments :: footer"></div>

@@ -82,7 +82,12 @@
                         </div>
                     </div>
                     <div th:if="${session.account != null}" class="sessionstuff" id="greeting">
-                        <b th:text="${'Hello, ' + session.account.firstName}" />
+                        <div id="greetin" class="functions">
+                            <a href="\edit_account"> <b th:text="${'Hello, ' + session.account.firstName}" /></a>
+                        </div>
+                        <div id="logout" class="functions">
+                            <a href="\logout">Logout</a>
+                        </div>
                     </div>
                 </div>
                 <div id="nav2">
