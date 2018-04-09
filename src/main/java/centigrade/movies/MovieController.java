@@ -85,7 +85,7 @@ public class MovieController {
         if(reviewsCounted == 0){
             model.addAttribute("rating", "Not Yet Rated");
         }else{
-            model.addAttribute("rating", rating);
+            model.addAttribute("rating", "" + rating + "%");
         }
 
         model.addAttribute("reviewsCounted", reviewsCounted);
