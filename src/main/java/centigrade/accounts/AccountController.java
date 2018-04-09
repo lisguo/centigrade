@@ -180,7 +180,7 @@ public class AccountController {
     }
 
     @GetMapping("/profile")
-    public String displayMovie (@RequestParam long id, Model model) {
+    public String displayProfile (@RequestParam long id, Model model) {
         Account a = accountService.getAccountById(id);
         model.addAttribute("user", a);
 
