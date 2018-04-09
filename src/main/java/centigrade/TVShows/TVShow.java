@@ -29,8 +29,16 @@ public class TVShow {
     private String runtime;
     @Column(name = "status")
     private String status;
+    @Column(name = "ratingsum")
+    private double ratingSum;
+    @Column(name = "timesrated")
+    private int timesRated;
 
-    public TVShow(){}
+    @Transient
+    private double overallRating;
+
+    public TVShow(){
+    }
 
     public long getId() {
         return id;
@@ -118,5 +126,34 @@ public class TVShow {
 
     public void setNumSeasons(int numSeasons) {
         this.numSeasons = numSeasons;
+    }
+
+    public double getRatingSum() {
+        return ratingSum;
+    }
+
+    public void setRatingSum(double ratingSum) {
+        this.ratingSum = ratingSum;
+    }
+
+    public int getTimesRated() {
+        return timesRated;
+    }
+
+    public void setTimesRated(int timesRated) {
+        this.timesRated = timesRated;
+    }
+
+    public void calculateOverallRating(){
+        if(timesRated == 0){
+            overallRating = 0;
+        }
+        else {
+            overallRating = ratingSum / (double) timesRated;
+        }
+    }
+
+    public double getOverallRating() {
+        return overallRating;
     }
 }

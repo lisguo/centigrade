@@ -30,8 +30,13 @@ public class Movie implements Comparator<Movie> {
     private String production;
     @Column(name = "website")
     private String website;
-    @Column(name = "trailerurl")
-    private String trailerurl;
+    @Column(name = "ratingsum")
+    private double ratingSum;
+    @Column(name = "timesrated")
+    private int timesRated;
+
+    @Transient
+    private double overallRating;
 
     public Movie() {
     }
@@ -77,14 +82,6 @@ public class Movie implements Comparator<Movie> {
 
     public void setWebsite(String website) {
         this.website = website;
-    }
-
-    public String getTrailerurl() {
-        return trailerurl;
-    }
-
-    public void setTrailerurl(String trailerurl) {
-        this.trailerurl = trailerurl;
     }
 
     public String getProduction() {
@@ -186,5 +183,34 @@ public class Movie implements Comparator<Movie> {
 //            out = false;
 //        }
         return out;
+    }
+
+    public double getRatingSum() {
+        return ratingSum;
+    }
+
+    public void setRatingSum(double ratingSum) {
+        this.ratingSum = ratingSum;
+    }
+
+    public int getTimesRated() {
+        return timesRated;
+    }
+
+    public void setTimesRated(int timesRated) {
+        this.timesRated = timesRated;
+    }
+
+    public void calculateOverallRating(){
+        if(timesRated == 0){
+            overallRating = 0;
+        }
+        else {
+            overallRating = ratingSum / (double) timesRated;
+        }
+    }
+
+    public double getOverallRating() {
+        return overallRating;
     }
 }

@@ -84,4 +84,8 @@ public class MovieService {
             }
         });
     }
+
+    public void saveMovie(Movie m){
+        movieRepository.save(m);
+    }
 }

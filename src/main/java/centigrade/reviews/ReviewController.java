@@ -1,6 +1,10 @@
 package centigrade.reviews;
 
+import centigrade.TVShows.TVShow;
+import centigrade.TVShows.TVShowService;
 import centigrade.accounts.Account;
+import centigrade.movies.Movie;
+import centigrade.movies.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
@@ -19,6 +23,10 @@ public class ReviewController {
 
     @Autowired
     private ReviewService reviewService;
+    @Autowired
+    private MovieService movieService;
+    @Autowired
+    private TVShowService tvShowService;
 
     @PostMapping("add_review")
     public String addReview(@RequestParam String reviewtext, @RequestParam double rating,
@@ -34,6 +42,19 @@ public class ReviewController {
         }
 
         reviewService.addReview(contentID, a.getId(), rating, reviewtext);
+
+        if(contentType.equals("Movie")) {
+            Movie m = movieService.getMovieById(contentID);
+            m.setRatingSum(m.getRatingSum() + rating);
+            m.setTimesRated(m.getTimesRated() + 1);
+            movieService.saveMovie(m);
+        }else{
+            TVShow t = tvShowService.getTVShowById(contentID);
+            t.setRatingSum(t.getRatingSum() + rating);
+            t.setTimesRated(t.getTimesRated() + 1);
+            tvShowService.saveShow(t);
+        }
+
         return "index";
     }
 }

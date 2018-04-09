@@ -62,10 +62,9 @@ public class MovieController {
         ArrayList<Review> userReviews = new ArrayList<>();
         ArrayList<Review> criticReviews = new ArrayList<>();
         Account a;
-        double rating = 0.0;
-        int reviewsCounted = reviews.size();
+
+
         for(Review r : reviews){
-            rating += r.getRating();
             if(r.getReviewText() == null)
             {
                 continue;
@@ -81,14 +80,16 @@ public class MovieController {
                 userReviews.add(r);
             }
         }
-        rating /= (double)reviewsCounted;
-        if(reviewsCounted == 0){
+
+        movie.calculateOverallRating();
+
+        if(movie.getTimesRated() == 0){
             model.addAttribute("rating", "Not Yet Rated");
         }else{
-            model.addAttribute("rating", "" + rating + "%");
+            model.addAttribute("rating", String.format("%.2f", movie.getOverallRating()) + "%");
         }
 
-        model.addAttribute("reviewsCounted", reviewsCounted);
+        model.addAttribute("reviewsCounted", movie.getTimesRated());
         model.addAttribute("userReviews", userReviews);
         model.addAttribute("criticReviews", criticReviews);
 

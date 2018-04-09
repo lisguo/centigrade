@@ -83,4 +83,8 @@ public class TVShowService {
         return episodeRepository.findEpisodesBySeriesIdAndSeasonNumber(show.getId(), season);
     }
 
+    public void saveShow(TVShow t){
+        tvShowRepository.save(t);
+    }
+
 }
