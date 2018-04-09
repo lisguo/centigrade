@@ -21,7 +21,8 @@ public class ReviewController {
     private ReviewService reviewService;
 
     @PostMapping("add_review")
-    public String addReview(@RequestParam String reviewtext, @RequestParam double rating, @RequestParam long movieID, HttpSession session){
+    public String addReview(@RequestParam String reviewtext, @RequestParam double rating,
+                            @RequestParam String contentType, @RequestParam long contentID, HttpSession session){
         Account a = (Account) session.getAttribute("account");
         if(a == null){
             return "login";
@@ -32,7 +33,7 @@ public class ReviewController {
             reviewtext = null;
         }
 
-        reviewService.addReview(movieID, a.getId(), rating, reviewtext);
+        reviewService.addReview(contentID, a.getId(), rating, reviewtext);
         return "index";
     }
 }

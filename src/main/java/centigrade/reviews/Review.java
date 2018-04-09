@@ -22,6 +22,8 @@ public class Review {
 
     @Transient
     private String userName;
+    @Transient
+    private String contentName;
 
     Review(){
     }
@@ -81,5 +83,13 @@ public class Review {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getContentName() {
+        return contentName;
+    }
+
+    public void setContentName(String contentName) {
+        this.contentName = contentName;
     }
 }

@@ -105,4 +105,8 @@ public class Account {
     public void setId(long id) {
         this.id = id;
     }
+
+    public String toString(){
+        return firstName + " " + lastName;
+    }
 }

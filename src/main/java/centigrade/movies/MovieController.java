@@ -72,7 +72,7 @@ public class MovieController {
             }
 
             a = accountService.getAccountById(r.getUserId());
-            r.setUserName(a.getFirstName() + " " + a.getLastName());
+            r.setUserName(a.toString());
 
             if(a.getAccountType() == AccountType.CRITIC){
                 criticReviews.add(r);

@@ -1,5 +1,11 @@
 package centigrade.accounts;
 
+import centigrade.TVShows.TVShow;
+import centigrade.TVShows.TVShowService;
+import centigrade.movies.Movie;
+import centigrade.movies.MovieService;
+import centigrade.reviews.Review;
+import centigrade.reviews.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
@@ -8,6 +14,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -15,6 +24,12 @@ public class AccountController {
 
     @Autowired
     private AccountService accountService;
+    @Autowired
+    private ReviewService reviewService;
+    @Autowired
+    private MovieService movieService;
+    @Autowired
+    private TVShowService tvShowService;
 
     @Autowired
     private Environment env;
@@ -162,6 +177,40 @@ public class AccountController {
         model.addAttribute("account", a);
 
         return "account";
+    }
+
+    @GetMapping("/profile")
+    public String displayMovie (@RequestParam long id, Model model) {
+        Account a = accountService.getAccountById(id);
+        model.addAttribute("user", a);
+
+        List<Review> reviews = reviewService.getReviewsByUser(a.getId());
+        ArrayList<Review> movieReviews = new ArrayList<>();
+        ArrayList<Review> showReviews = new ArrayList<>();
+
+        for(Review r : reviews){
+            if(r.getReviewText() == null)
+            {
+                continue;
+            }
+
+            Movie m = movieService.getMovieById(r.getContentId());
+
+            if(m != null){
+                r.setContentName(m.getTitle());
+                movieReviews.add(r);
+            }
+            else {
+                TVShow t = tvShowService.getTVShowById(r.getContentId());
+                r.setContentName(t.getSeriesName());
+                showReviews.add(r);
+            }
+        }
+
+        model.addAttribute("movieReviews", movieReviews);
+        model.addAttribute("showReviews", showReviews);
+
+        return "profile";
     }
 
 }

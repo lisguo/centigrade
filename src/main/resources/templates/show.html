@@ -30,53 +30,81 @@
                             <td th:text="${show.overview}" />
                         </tr>
 
-
-
-                        <table>
-                            <tr>
-                                <td>
-                                    <b>Rated: </b>
-                                </td>
-                                <td th:text="${show.contentRating}" />
-                            </tr>
-                            <tr>
-                                <td>
-                                    <b>Genre: </b>
-                                </td>
-                                <td th:text="${show.genres}" />
-                            </tr>
-                            <tr>
-                                <td>
-                                    <b>First Aired: </b>
-                                </td>
-                                <td th:text="${show.firstAired}" />
-                            </tr>
-                            <tr>
-                                <td>
-                                    <b>Language: </b>
-                                </td>
-                                <td th:text="${show.language}" />
-                            </tr>
-                            <tr>
-                                <td>
-                                    <b>Runtime: </b>
-                                </td>
-                                <td th:text="${show.runtime}" />
-                            </tr>
-                            <tr>
-                                <td>
-                                    <b>Network: </b>
-                                </td>
-                                <td th:text="${show.network}" />
-                            </tr>
-                            <tr>
-                                <td>
-                                    <b>Status: </b>
-                                </td>
-                                <td th:text="${show.status}" />
-                            </tr>
-                        </table>
-
+                        <tr>
+                            <td>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <b>Rated: </b>
+                                        </td>
+                                        <td th:text="${show.contentRating}" />
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <b>Genre: </b>
+                                        </td>
+                                        <td th:text="${show.genres}" />
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <b>First Aired: </b>
+                                        </td>
+                                        <td th:text="${show.firstAired}" />
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <b>Language: </b>
+                                        </td>
+                                        <td th:text="${show.language}" />
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <b>Runtime: </b>
+                                        </td>
+                                        <td th:text="${show.runtime}" />
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <b>Network: </b>
+                                        </td>
+                                        <td th:text="${show.network}" />
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <b>Status: </b>
+                                        </td>
+                                        <td th:text="${show.status}" />
+                                    </tr>
+                                </table>
+                            </td>
+                            <td>
+                                <form action="/add_review" method="post">
+                                    <table>
+                                        <tr>
+                                            <td th:text="@{'Rating: ' + ${rating} + ' (Reviews Counted: ' + ${reviewsCounted} + ')'}" />
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <b>Add Your Rating</b> <input type="range" min="0" max="100" step="1" name="rating" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <textarea rows="4" cols="50" name="reviewtext" maxlength="520">Add Review (Optional)
+                                                </textarea>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="submit" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <input type="hidden" th:value="${show.id}" name="contentID" />
+                                    <input type="hidden" th:value="Show" name="contentType" />
+                                </form>
+                            </td>
+                        </tr>
                     </table>
                 </td>
             </tr>
@@ -126,6 +154,52 @@
                 <a th:href="@{'/episode?id=' + ${episode.id}}" th:text="${episode.episodeName}"/>
             </li>
         </ol>
+
+        <table>
+            <tr>
+                <td>
+                    <b>CRITIC REVIEWS</b>
+                </td>
+            </tr>
+            <tr th:each="cr : ${criticReviews}">
+                <table frame="box" width="600" rules="rows">
+                    <tr>
+                        <td>
+                            <a th:href="@{'/profile?id=' + ${cr.userId}}" th:text="@{${cr.userName}}"></a>
+
+                        </td>
+                        <td th:text="@{'Rating: ' + ${cr.rating} + '%'}" />
+                    </tr>
+                    <tr>
+                        <td colspan="2" th:text="${cr.reviewText}" />
+                    </tr>
+                </table>
+                <p th:utext="@{'&lt;br&gt;'}"></p>
+            </tr>
+        </table>
+
+        <table>
+            <tr>
+                <td>
+                    <b>USER REVIEWS</b>
+                </td>
+            </tr>
+            <tr th:each="ur : ${userReviews}">
+                <table frame="box" width="600" rules="rows">
+                    <tr>
+                        <td>
+                            <a th:href="@{'/profile?id=' + ${ur.userId}}" th:text="@{${ur.userName}}"></a>
+
+                        </td>
+                        <td th:text="@{'Rating: ' + ${ur.rating} + '%'}" />
+                    </tr>
+                    <tr>
+                        <td colspan="2" th:text="${ur.reviewText}" />
+                    </tr>
+                </table>
+                <p th:utext="@{'&lt;br&gt;'}"></p>
+            </tr>
+        </table>
     </div>
 </div>
 </body>

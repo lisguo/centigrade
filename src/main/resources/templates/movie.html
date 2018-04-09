@@ -114,7 +114,8 @@
                                                 </td>
                                             </tr>
                                         </table>
-                                        <input type="hidden" th:value="${movie.id}" name="movieID" />
+                                        <input type="hidden" th:value="${movie.id}" name="contentID" />
+                                        <input type="hidden" th:value="Movie" name="contentType" />
                                     </form>
                                 </td>
                             </tr>
@@ -163,11 +164,13 @@
                     <table frame="box" width="600" rules="rows">
                         <tr>
                             <td>
-                                <p th:text="@{${cr.userName} + '          Rating: ' + ${cr.rating} + '%' }"></p>
+                                <a th:href="@{'/profile?id=' + ${cr.userId}}" th:text="@{${cr.userName}}"></a>
+
                             </td>
+                            <td th:text="@{'Rating: ' + ${cr.rating} + '%'}" />
                         </tr>
                         <tr>
-                            <td th:text="${cr.reviewText}" />
+                            <td colspan="2" th:text="${cr.reviewText}" />
                         </tr>
                     </table>
                     <p th:utext="@{'&lt;br&gt;'}"></p>
@@ -184,11 +187,13 @@
                     <table frame="box" width="600" rules="rows">
                         <tr>
                             <td>
-                                <p th:text="@{${ur.userName} + '          Rating: ' + ${ur.rating} + '%'}" ></p>
+                                <a th:href="@{'/profile?id=' + ${ur.userId}}" th:text="@{${ur.userName}}"></a>
+
                             </td>
+                            <td th:text="@{'Rating: ' + ${ur.rating} + '%'}" />
                         </tr>
                         <tr>
-                            <td th:text="${ur.reviewText}" />
+                            <td colspan="2" th:text="${ur.reviewText}" />
                         </tr>
                     </table>
                     <p th:utext="@{'&lt;br&gt;'}"></p>

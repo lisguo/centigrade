@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head(${user.toString()})"></head>
+<body>
+<div th:replace="fragments :: navbar"></div>
+<div class="container container-fluid">
+    <div class="content-row-block">
+        <!--<div th:replace="fragments :: navbar"></div>-->
+        <table width="100%" >
+            <tr>
+                <td height="70"></td>
+                <td ></td>
+                <td ></td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td th:text="${user.toString()}" />
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td>
+                    <b>MOVIE REVIEWS</b>
+                </td>
+            </tr>
+            <tr th:each="mr : ${movieReviews}">
+                <table frame="box" width="600" rules="rows">
+                    <tr>
+                        <td>
+                            <a th:href="@{'/movie?id=' + ${mr.contentId}}" th:text="@{${mr.contentName}}"></a>
+                        </td>
+
+                        <td th:text="@{'Rating: ' + ${mr.rating} + '%'}" />
+                    </tr>
+                    <tr>
+                        <td colspan="2" th:text="${mr.reviewText}" />
+                    </tr>
+                </table>
+                <p th:utext="@{'&lt;br&gt;'}"></p>
+            </tr>
+        </table>
+
+        <table>
+            <tr>
+                <td>
+                    <b>TV SHOW REVIEWS</b>
+                </td>
+            </tr>
+            <tr th:each="sr : ${showReviews}">
+                <table frame="box" width="600" rules="rows">
+                    <tr>
+                        <td>
+                            <a th:href="@{'/show?id=' + ${sr.contentId}}" th:text="@{${sr.contentName}}"></a>
+                        </td>
+                        <td th:text="@{'Rating: ' + ${sr.rating} + '%'}" />
+                    </tr>
+                    <tr>
+                        <td colspan="2" th:text="${sr.reviewText}" />
+                    </tr>
+                </table>
+                <p th:utext="@{'&lt;br&gt;'}"></p>
+            </tr>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

@@ -34,4 +34,8 @@ public class ReviewService {
     public List<Review> getReviewsByContent(long contentID){
         return reviewRepository.findReviewsByContentId(contentID);
     }
+
+    public List<Review> getReviewsByUser(long userID){
+        return reviewRepository.findReviewsByUserId(userID);
+    }
 }

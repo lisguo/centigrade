@@ -1,10 +1,16 @@
 package centigrade.TVShows;
 
+import centigrade.accounts.Account;
+import centigrade.accounts.AccountService;
+import centigrade.accounts.AccountType;
 import centigrade.people.PersonService;
 import centigrade.people.Person;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import centigrade.reviews.Review;
+import centigrade.reviews.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +23,10 @@ public class TVShowController {
     private TVShowService tvShowService;
     @Autowired
     private PersonService personService;
+    @Autowired
+    private ReviewService reviewService;
+    @Autowired
+    private AccountService accountService;
 
     @GetMapping("/shows")
     public String displayAllTVShows(Model model) {
@@ -36,6 +46,40 @@ public class TVShowController {
 
         List<Person> cast = personService.getCastByTVShow(show);
         model.addAttribute("cast", cast);
+
+        List<Review> reviews = reviewService.getReviewsByContent(id);
+        ArrayList<Review> userReviews = new ArrayList<>();
+        ArrayList<Review> criticReviews = new ArrayList<>();
+        Account a;
+        double rating = 0.0;
+        int reviewsCounted = reviews.size();
+        for(Review r : reviews){
+            rating += r.getRating();
+            if(r.getReviewText() == null)
+            {
+                continue;
+            }
+
+            a = accountService.getAccountById(r.getUserId());
+            r.setUserName(a.getFirstName() + " " + a.getLastName());
+
+            if(a.getAccountType() == AccountType.CRITIC){
+                criticReviews.add(r);
+            }
+            else{
+                userReviews.add(r);
+            }
+        }
+        rating /= (double)reviewsCounted;
+        if(reviewsCounted == 0){
+            model.addAttribute("rating", "Not Yet Rated");
+        }else{
+            model.addAttribute("rating", "" + rating + "%");
+        }
+
+        model.addAttribute("reviewsCounted", reviewsCounted);
+        model.addAttribute("userReviews", userReviews);
+        model.addAttribute("criticReviews", criticReviews);
 
         return "show";
     }
