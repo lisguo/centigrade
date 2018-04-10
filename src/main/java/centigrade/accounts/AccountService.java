@@ -1,18 +1,27 @@
 package centigrade.accounts;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
+import java.util.UUID;
+
 @Service
 public class AccountService {
     @Autowired
     private AccountRepository accountRepository;
+
+    @Autowired
+    private JavaMailSender mailSender;
 
     // Constants for hashing password
     private static final int ITERATIONS = 5000;
@@ -44,13 +53,14 @@ public class AccountService {
         return null;
     }
 
-    public void addAccount(String email, String password, String firstName, String lastName){
-        // Generate a random salt
+    public Account addAccount(String email, String password, String firstName, String lastName){
+        // Encrypt password
         SecureRandom random = new SecureRandom();
         byte[] salt = new byte[16];
         random.nextBytes(salt);
-
         byte[] hashedPassword = hashPassword(password, salt);
+
+        String nonce = UUID.randomUUID().toString();
 
         Account a = new Account();
         a.setEmail(email);
@@ -60,7 +70,10 @@ public class AccountService {
         a.setAccountType(AccountType.USER);
         a.setIsActive(0);
         a.setSalt(salt);
+        a.setNonce(nonce);
         accountRepository.save(a);
+
+        return a;
     }
     public void updateAccount(Account a ,String email, String password, String firstName, String lastName){
         // Generate a random salt
@@ -79,6 +92,34 @@ public class AccountService {
 //        a.setIsActive(0);
 //        a.setSalt(salt);
         accountRepository.save(a);
+    }
+
+    public void sendVerificationEmail(Account a, String link, String subject){
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        try{
+            helper.setTo(a.getEmail());
+            helper.setSubject(subject);
+            helper.setText(
+                    "Hello " + a.getFirstName() + ", \n\n"
+                    + "Click this link to verify you account: "
+                    + link + a.getNonce()
+            );
+            this.mailSender.send(message);
+        }
+        catch(MessagingException e){
+            e.printStackTrace();
+        }
+    }
+
+    public Account verifyAccount(String nonce){
+        Account a = accountRepository.findAccountByNonce(nonce);
+        if(a != null){
+            a.setIsActive(1);
+            accountRepository.save(a);
+        }
+        return a;
     }
 
     public Account getAccountById(long id){

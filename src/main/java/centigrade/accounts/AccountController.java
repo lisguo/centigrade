@@ -47,11 +47,14 @@ public class AccountController {
     public String registerSubmit(@RequestParam String email, @RequestParam String password, @RequestParam String passwordVerify,
                                  @RequestParam String firstName, @RequestParam String lastName, Model model){
         if(!accountService.isValidRegister(email)){
-            model.addAttribute("alert", "invalidEmail");
+            model.addAttribute("alert", "error");
             model.addAttribute("message", env.getProperty("register_email_error"));
             return "register";
         }
-        accountService.addAccount(email,password,firstName,lastName);
+        Account a = accountService.addAccount(email,password,firstName,lastName);
+        accountService.sendVerificationEmail(a, env.getProperty("verify_email_link"),
+                                                    env.getProperty("verify_email_subject"));
+
         model.addAttribute("alert", "success");
         model.addAttribute("message", env.getProperty("register_email_success"));
         return "register";
@@ -62,7 +65,6 @@ public class AccountController {
         if(a == null){
             return "login";
         }
-
         return "edit_account";
     }
 
@@ -79,15 +81,12 @@ public class AccountController {
         }else{
             email = null;
         }
-
         if(password.length()!=0) {
-
             if (!checkPassword(a,oldPassword)) {
                 model.addAttribute("message", env.getProperty("login_error"));
                 return "edit_account";
             }else{
                 model.addAttribute("message", env.getProperty("register_email_success"));
-
             }
 
         }else{
@@ -136,14 +135,14 @@ public class AccountController {
     }
 
     @PostMapping("logout")
-    public String loginSubmit(Model model, HttpSession session){
+    public String logoutSubmit(Model model, HttpSession session){
 
         session.setAttribute("account", null);
         model.addAttribute("appName", env.getProperty("app_name"));
         return "index";
     }
     @GetMapping("logout")
-    public String loginSubmit2(Model model, HttpSession session){
+    public String logoutSubmit2(Model model, HttpSession session){
 
         session.setAttribute("account", null);
         model.addAttribute("appName", env.getProperty("app_name"));
@@ -154,11 +153,11 @@ public class AccountController {
         byte[] hashedPassword = accountService.hashPassword(password, salt);
 
         if (validPassword(hashedPassword, a.getPassword())) {
-
             return true;
         }
         return false;
     }
+
     private boolean validPassword(byte[] password1, byte[] password2){
         if(password1.length != password2.length){
             return false;
@@ -169,6 +168,21 @@ public class AccountController {
             }
         }
         return true;
+    }
+
+    @GetMapping("verify")
+    public String verifyAccount(@RequestParam String nonce, Model model, HttpSession session){
+        Account a = accountService.verifyAccount(nonce);
+        if(a != null){
+            model.addAttribute("alert", "success");
+            model.addAttribute("message", env.getProperty("verify_success"));
+            session.setAttribute("account", a);
+        }
+        else{
+            model.addAttribute("alert", "error");
+            model.addAttribute("message", env.getProperty("verify_error"));
+        }
+        return "index";
     }
 
     @GetMapping("/account")
