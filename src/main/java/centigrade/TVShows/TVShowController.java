@@ -6,6 +6,7 @@ import centigrade.accounts.AccountType;
 import centigrade.people.PersonService;
 import centigrade.people.Person;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +31,14 @@ public class TVShowController {
 
     @GetMapping("/shows")
     public String displayAllTVShows(Model model) {
-        model.addAttribute("shows", tvShowService.getAllTVShows());
+        List<TVShow> shows = tvShowService.getAllTVShows();
+        for(TVShow t : shows){
+            t.calculateOverallRating();
+        }
+        model.addAttribute("shows", shows);
+        model.addAttribute("posterURL", tvShowService.getTVShowPosterURL());
+        DecimalFormat df = new DecimalFormat("#.##");
+        model.addAttribute("decimalFormat", df);
         return "shows";
     }
 

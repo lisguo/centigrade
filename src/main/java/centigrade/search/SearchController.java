@@ -13,6 +13,7 @@ import centigrade.people.PersonService;
 import centigrade.movies.MovieService;
 
 import javax.validation.constraints.Null;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Comparator;

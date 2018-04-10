@@ -156,4 +156,12 @@ public class TVShow {
     public double getOverallRating() {
         return overallRating;
     }
+
+    public boolean hasBeenRated(){
+        if(timesRated > 0){
+            return true;
+        }
+
+        return false;
+    }
 }

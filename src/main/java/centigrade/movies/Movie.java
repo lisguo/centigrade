@@ -149,39 +149,7 @@ public class Movie implements Comparator<Movie> {
         if(this.id!= m.id){
             out = false;
         }
-//        if(this.title.equals(m.title)){
-//            out = false;
-//        }
-//        if(this.year == (m.year)){
-//            out = false;
-//        }
-//        if(this.rated.equals(m.rated)){
-//            out = false;
-//        }
-//        if(this.released.equals(m.released)){
-//            out = false;
-//        }
-//        if(this.runtime.equals(m.runtime)){
-//            out = false;
-//        }
-//        if(this.genre.equals(m.genre)){
-//            out = false;
-//        }
-//        if(this.plot.equals(m.plot)){
-//            out = false;
-//        }
-//        if(this.boxoffice.equals(m.boxoffice)){
-//            out = false;
-//        }
-//        if(this.production.equals(m.production)){
-//            out = false;
-//        }
-//        if(this.website.equals(m.website)){
-//            out = false;
-//        }
-//        if(this.trailerurl.equals(m.trailerurl)){
-//            out = false;
-//        }
+
         return out;
     }
 
@@ -212,5 +180,13 @@ public class Movie implements Comparator<Movie> {
 
     public double getOverallRating() {
         return overallRating;
+    }
+
+    public boolean hasBeenRated(){
+        if(timesRated > 0){
+            return true;
+        }
+
+        return false;
     }
 }

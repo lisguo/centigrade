@@ -10,8 +10,8 @@
         <span>Join millions of reviewers in the hottest reviewing site!</span>
     </div>
     <div id="account-div">
-        <h3 th:text="@{${session.account.firstName} + ' ' + ${session.account.lastName}}"/>
-        <h3 th:text="@{${session.account.email}}"/>
+        <a th:text="@{${session.account.toString()}}" th:href="@{'/profile?id=' + ${session.account.id}}"></a>
+        <h6 th:text="@{'Email: ' + ${session.account.email}}"/>
         <div id="form">
             <!-- Alert -->
             <div th:switch="${alert}">

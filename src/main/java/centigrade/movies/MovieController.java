@@ -6,6 +6,7 @@ import centigrade.accounts.AccountType;
 import centigrade.people.PersonService;
 import centigrade.people.Person;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +42,14 @@ public class MovieController {
 
     @GetMapping("/movies")
     public String displayAllMovies(Model model) {
-        model.addAttribute("movies", movieService.getAllMovies());
+        List<Movie> movies = movieService.getAllMovies();
+        for(Movie m : movies){
+            m.calculateOverallRating();
+        }
+        model.addAttribute("movies", movies);
+        model.addAttribute("posterURL", movieService.getMoviePosterURL());
+        DecimalFormat df = new DecimalFormat("#.##");
+        model.addAttribute("decimalFormat", df);
         return "movies"; // Show movie.html in templates
     }
 
