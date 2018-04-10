@@ -14,6 +14,42 @@
                     <td ></td>
                 </tr>
             </table>
+            <table>
+                <tr>
+                    <td colspan="3">
+                        <h2>
+                            ALL MOVIES
+                        </h2>
+                    </td>
+                </tr>
+                <tr>
+                    <form action="/movies" method="get">
+                        <div class="form-group row">
+                            <td>
+                                <select class="form-control" name="sortBy">
+                                    <option th:each="crit:${sortCriteria}"
+                                            th:value="${crit}"
+                                            th:text="${crit}"
+                                            th:selected="${crit.toString().equals(sortBy)}"/>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-control" name="sortDirection">
+                                    <option th:each="dir:${sortDirections}"
+                                            th:value="${dir}"
+                                            th:text="${dir}"
+                                            th:selected="${dir.toString().equals(sortDirection)}"/>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="submit" value="Sort"/>
+                            </td>
+                        </div>
+
+                    </form>
+                </tr>
+            </table>
+
             <table frame="above" rules="rows" cellspacing="10">
                 <tr th:each="movie : ${movies}">
                     <div th:if="${movie.hasBeenRated()}">

@@ -7,8 +7,7 @@ import centigrade.people.PersonService;
 import centigrade.people.Person;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import centigrade.reviews.Review;
 import centigrade.reviews.ReviewService;
@@ -16,6 +15,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+enum MovieSortCriteria{
+    YEAR, TITLE, RATING
+}
+
+enum MovieSortDirection{
+    ASCENDING, DESCENDING
+}
 
 @Controller
 public class MovieController {
@@ -41,11 +48,44 @@ public class MovieController {
     }
 
     @GetMapping("/movies")
-    public String displayAllMovies(Model model) {
-        List<Movie> movies = movieService.getAllMovies();
-        for(Movie m : movies){
-            m.calculateOverallRating();
+    public String displayAllMovies(Model model, @RequestParam(defaultValue = "TITLE") String sortBy,
+                                   @RequestParam(defaultValue = "ASCENDING") String sortDirection) {
+        List<Movie> movies;
+
+        if(sortBy.equals("TITLE")){
+            movies = movieService.getAllMoviesSortedByTitle();
+        }else if(sortBy.equals("YEAR")){
+            movies = movieService.getAllMoviesSortedByYear();
+        }else{ //rating
+             movies = movieService.getAllMovies();
+            for(Movie m : movies){
+                m.calculateOverallRating();
+            }
+
+            Collections.sort(movies, new Comparator<Movie>() {
+                @Override
+                public int compare(Movie m1, Movie m2) {
+                    if(m1.getOverallRating() > m2.getOverallRating()){
+                        return 1;
+                    }
+                    else if(m1.getOverallRating() < m2.getOverallRating()){
+                        return -1;
+                    }
+                    else{
+                        return 0;
+                    }
+                }
+            });
         }
+
+        if(sortDirection.equals("DESCENDING")){
+            Collections.reverse(movies);
+        }
+
+        model.addAttribute("sortCriteria", EnumSet.allOf(MovieSortCriteria.class));
+        model.addAttribute("sortDirections", EnumSet.allOf(MovieSortDirection.class));
+        model.addAttribute("sortBy", sortBy);
+        model.addAttribute("sortDirection", sortDirection);
         model.addAttribute("movies", movies);
         model.addAttribute("posterURL", movieService.getMoviePosterURL());
         DecimalFormat df = new DecimalFormat("#.##");
