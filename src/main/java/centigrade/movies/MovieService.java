@@ -35,6 +35,10 @@ public class MovieService {
         return movieRepository.findAll();
     }
 
+    public List<Movie> getAllMoviesSortedByTitle(){return movieRepository.findAllByOrderByTitle();}
+
+    public List<Movie> getAllMoviesSortedByYear(){return movieRepository.findAllByOrderByYear();}
+
     public Movie getMovieById(long id){
         return movieRepository.findMovieById(id);
     }
