@@ -134,20 +134,14 @@ public class AccountController {
         return "index";
     }
 
-    @PostMapping("logout")
-    public String logoutSubmit(Model model, HttpSession session){
-
-        session.setAttribute("account", null);
-        model.addAttribute("appName", env.getProperty("app_name"));
-        return "index";
-    }
     @GetMapping("logout")
-    public String logoutSubmit2(Model model, HttpSession session){
+    public String logout(Model model, HttpSession session){
 
         session.setAttribute("account", null);
         model.addAttribute("appName", env.getProperty("app_name"));
-        return "index";
+        return "redirect:/";
     }
+
     public boolean checkPassword(Account a,String password){
         byte[] salt = a.getSalt();
         byte[] hashedPassword = accountService.hashPassword(password, salt);
