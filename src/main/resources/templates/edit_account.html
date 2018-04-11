@@ -6,7 +6,7 @@
 <nav th:replace="fragments :: navbar-relative"></nav>
 <div class="container container-fluid" id="signup">
     <div id="intro">
-        <img src="../img/layout/flame-lg.png" alt="" />
+        <img src="../img/layout/flame-lg.png" alt=""/>
         <span>Join millions of reviewers in the hottest reviewing site!</span>
     </div>
     <div id="account-div">
@@ -15,39 +15,40 @@
         <div id="form">
             <!-- Alert -->
             <div th:switch="${alert}">
-                <div th:case="invalidEmail" th:text="${message}" class="alert alert-danger" role="alert" />
-                <div th:case="invalidPassword" th:text="${message}" class="alert alert-warning" role="alert" />
-                <div th:case="success" th:text="${message}" class="alert alert-success" role="alert" />
+                <div th:case="invalidEmail" th:text="${message}" class="alert alert-danger" role="alert"/>
+                <div th:case="invalidPassword" th:text="${message}" class="alert alert-warning" role="alert"/>
+                <div th:case="success" th:text="${message}" class="alert alert-success" role="alert"/>
             </div>
             <div id="house"><h2>Account Settings</h2></div>
             <form id="editAccountForm" action="/edit_account" method="post" name="editAccountForm">
                 <label for="email">
                     <div class="label-text"><i class="fas fa-envelope fa-lg"></i></div>
-                    <input type="email" id="email" placeholder="Email address" name="email" />
+                    <input type="email" id="email" placeholder="Email address" name="email"/>
                 </label>
                 <label for="firstName">
                     <div class="label-text"><i class="fas fa-address-book fa-lg"></i></div>
-                    <input type="text" id="firstName" placeholder="First name" name="firstName" />
+                    <input type="text" id="firstName" placeholder="First name" name="firstName"/>
                 </label>
                 <label for="lastName">
                     <div class="label-text"><i class="fas fa-address-card fa-lg"></i></div>
-                    <input type="text" id="lastName" placeholder="Last name" name="lastName" />
+                    <input type="text" id="lastName" placeholder="Last name" name="lastName"/>
                 </label>
                 <label for="oldPassword">
                     <div class="label-text"><i class="fas fa-unlock fa-lg"></i></div>
-                    <input type="password" id="oldPassword" placeholder="Old Password" name="oldPassword" />
+                    <input type="password" id="oldPassword" placeholder="Old Password" name="oldPassword"/>
                 </label>
                 <label for="password">
                     <div class="label-text"><i class="fas fa-unlock fa-lg"></i></div>
-                    <input type="password" id="password" placeholder="Password" name="password" />
+                    <input type="password" id="password" placeholder="Password" name="password"/>
                 </label>
                 <label for="passwordverify">
                     <div class="label-text"><i class="fas fa-redo-alt fa-lg"></i></div>
-                    <input type="password" id="passwordverify" placeholder="Verify password" name="passwordVerify" />
+                    <input type="password" id="passwordverify" placeholder="Verify password" name="passwordVerify"/>
                 </label>
                 <!--<span><input type="checkbox" name="terms" value="terms" />I agree with the <a href="#">terms and conditions</a>.</span>-->
                 <!--<span><input type="checkbox" name="privacy" value="privacy" /> I agree with the <a href="#">privacy policy</a>.</span>-->
-                <button type="submit" value="submit"><i class="fab fa-telegram-plane"></i><span>Save Changes</span></button>
+                <button type="submit" value="submit"><i class="fab fa-telegram-plane"></i><span>Save Changes</span>
+                </button>
             </form>
         </div>
 

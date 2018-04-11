@@ -1,4 +1,5 @@
 package centigrade.reviews;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.dao.DataAccessException;
@@ -22,7 +23,7 @@ public class ReviewService {
     @Autowired
     JdbcTemplate template;
 
-    public void addReview(long contentId, long userId, double rating, String reviewText){
+    public void addReview(long contentId, long userId, double rating, String reviewText) {
         Review r = new Review();
         r.setContentId(contentId);
         r.setRating(rating);
@@ -31,11 +32,11 @@ public class ReviewService {
         reviewRepository.save(r);
     }
 
-    public List<Review> getReviewsByContent(long contentID){
+    public List<Review> getReviewsByContent(long contentID) {
         return reviewRepository.findReviewsByContentId(contentID);
     }
 
-    public List<Review> getReviewsByUser(long userID){
+    public List<Review> getReviewsByUser(long userID) {
         return reviewRepository.findReviewsByUserId(userID);
     }
 }

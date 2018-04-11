@@ -174,7 +174,7 @@ nav #nav1 form input[type=search]:focus {
 }
 
 #nav1 form button:hover {
-    background: rgba(0,0,0,0.25);
+    background: rgba(0, 0, 0, 0.25);
     color: white;
 }
 
@@ -265,7 +265,7 @@ nav #nav2 h2 {
     height: 50vh;
     text-align: center;
     display: block;
-    background: linear-gradient(to top, rgba(0,0,0,0.3), rgba(0,0,0,0.7)), url('../img/layout/featured.svg') bottom no-repeat;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('../img/layout/featured.svg') bottom no-repeat;
     background-size: cover;
     color: white;
     vertical-align: middle;
@@ -317,7 +317,7 @@ nav #nav2 h2 {
     width: 90%;
     position: relative;
     color: white;
-    background: linear-gradient(to top, rgba(0,0,0,0.1), rgba(0,0,0,0.7)), url('../img/layout/critic%20(1).svg') bottom no-repeat;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.7)), url('../img/layout/critic%20(1).svg') bottom no-repeat;
     background-size: cover;
 }
 
@@ -698,32 +698,32 @@ footer #followus a:hover {
     text-shadow: none;
 }
 
-#search-input{
+#search-input {
     width: 500px;
 }
 
-#greeting{
-    color:white;
+#greeting {
+    color: white;
 }
 
 /* Large Devices, Wide Screens */
-@media only screen and (max-width : 1200px) {
+@media only screen and (max-width: 1200px) {
 
 }
 
 /* Medium Devices, Desktops */
-@media only screen and (max-width : 992px) {
+@media only screen and (max-width: 992px) {
 
 }
 
 /* Small Devices, Tablets */
-@media only screen and (max-width : 768px) {
-    
+@media only screen and (max-width: 768px) {
+
 }
 
-/* Extra Small Devices, Phones */ 
-@media only screen and (max-width : 500px) {
-    
+/* Extra Small Devices, Phones */
+@media only screen and (max-width: 500px) {
+
 }
 
 @keyframes bounce {
@@ -733,14 +733,14 @@ footer #followus a:hover {
         -o-transform: translateY(0);
         transform: translateY(0);
     }
-    
+
     40% {
         -webkit-transform: translateY(-10px);
         -ms-transform: translateY(-10px);
         -o-transform: translateY(-10px);
         transform: translateY(-10px);
     }
-    
+
     80% {
         -webkit-transform: translateY(-5px);
         -ms-transform: translateY(-5px);

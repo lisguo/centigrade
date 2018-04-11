@@ -27,17 +27,17 @@ public class AccountService {
     private static final int ITERATIONS = 5000;
     private static final int KEY_LENGTH = 256;
 
-    public boolean isValidRegister(String email){
+    public boolean isValidRegister(String email) {
         Account a = getAccountByEmail(email);
         return a == null;
     }
 
-    public boolean isValidLogin(String email){
+    public boolean isValidLogin(String email) {
         Account a = getAccountByEmail(email);
         return a != null;
     }
 
-    public byte[] hashPassword(String password, byte[] salt){
+    public byte[] hashPassword(String password, byte[] salt) {
         try {
             char[] passwordArr = password.toCharArray();
             PBEKeySpec spec = new PBEKeySpec(passwordArr, salt, ITERATIONS, KEY_LENGTH);
@@ -53,7 +53,7 @@ public class AccountService {
         return null;
     }
 
-    public Account addAccount(String email, String password, String firstName, String lastName){
+    public Account addAccount(String email, String password, String firstName, String lastName) {
         // Encrypt password
         SecureRandom random = new SecureRandom();
         byte[] salt = new byte[16];
@@ -75,58 +75,58 @@ public class AccountService {
 
         return a;
     }
-    public void updateAccount(Account a ,String email, String password, String firstName, String lastName){
+
+    public void updateAccount(Account a, String email, String password, String firstName, String lastName) {
         // Generate a random salt
 //        SecureRandom random = new SecureRandom();
         byte[] salt = a.getSalt();
 
-        byte[] hashedPassword=null;
-        if(password!=null)hashedPassword= hashPassword(password, salt);
+        byte[] hashedPassword = null;
+        if (password != null) hashedPassword = hashPassword(password, salt);
 
 //        Account a = new Account();
-        if(email!=null) a.setEmail(email);
-        if(hashedPassword!=null)a.setPassword(hashedPassword);
-        if(firstName!=null) a.setFirstName(firstName);
-        if(lastName!=null)a.setLastName(lastName);
+        if (email != null) a.setEmail(email);
+        if (hashedPassword != null) a.setPassword(hashedPassword);
+        if (firstName != null) a.setFirstName(firstName);
+        if (lastName != null) a.setLastName(lastName);
 //        a.setAccountType(AccountType.USER);
 //        a.setIsActive(0);
 //        a.setSalt(salt);
         accountRepository.save(a);
     }
 
-    public void sendVerificationEmail(Account a, String link, String subject){
+    public void sendVerificationEmail(Account a, String link, String subject) {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
-        try{
+        try {
             helper.setTo(a.getEmail());
             helper.setSubject(subject);
             helper.setText(
                     "Hello " + a.getFirstName() + ", \n\n"
-                    + "Click this link to verify you account: "
-                    + link + a.getNonce()
+                            + "Click this link to verify you account: "
+                            + link + a.getNonce()
             );
             this.mailSender.send(message);
-        }
-        catch(MessagingException e){
+        } catch (MessagingException e) {
             e.printStackTrace();
         }
     }
 
-    public Account verifyAccount(String nonce){
+    public Account verifyAccount(String nonce) {
         Account a = accountRepository.findAccountByNonce(nonce);
-        if(a != null){
+        if (a != null) {
             a.setIsActive(1);
             accountRepository.save(a);
         }
         return a;
     }
 
-    public Account getAccountById(long id){
+    public Account getAccountById(long id) {
         return accountRepository.findAccountById(id);
     }
 
-    public Account getAccountByEmail(String email){
+    public Account getAccountByEmail(String email) {
         return accountRepository.findAccountByEmail(email);
     }
 }

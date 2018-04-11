@@ -24,8 +24,6 @@ public class Episode {
     @Column(name = "overview")
     private String overview;
 
-    public Episode(){}
-
     public long getId() {
         return id;
     }

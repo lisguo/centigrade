@@ -1,88 +1,92 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>CentiGrade: Movies | Tv Shows | Reviews</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
-        <link rel="stylesheet" href="../css/bootstrap.min.css">
-        <link rel="stylesheet" href="../css/login.css">
-        <meta name="description" content="CentiGrade is a web application for reviewing movies and tv shows.">
-        <meta name="title" content="CentiGrade: Movies | Tv Shows | Reviews">
-        <meta name="author" content="CentiGrade">
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <link href='https://fonts.googleapis.com/css?family=Lato|Clicker+Script' rel='stylesheet' type='text/css'>
-        <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
-    </head>
-    <body>
-       <nav id="plain-nav">
-           <div id="logo-container">
-                <a href="index.html"><img src="../img/logos/logo.png" alt="CentiGrade"></a>
-            </div>
-       </nav>
-       <div id="signin">
-           <div id="intro">
-               <span>Which is faster, heat or cold?</span>
-               <span>Heat, because you can catch a cold!</span>
-           </div>
-           <div id="signin-div">
-              <div id="hasaccount">
-                   <div>
-                       <h3>Don't have an account?</h3>
-                       <h6>Join our fire community and enjoy all of its goodies!</h6>
-                       <a href="register.html">Sign up</a>
-                   </div>
-               </div>
-               <div id="form">
-                   <div id="house"><h2>LOG IN</h2></div>
-                   <form id="signinform" action="javascript:validateLogin();" method="post" name="signinform">
-                       <label for="emailaddress">
-                          <div class="label-text"><i class="fas fa-envelope fa-lg"></i></div>
-                           <input type="text" placeholder="Email address" required name="email" />
-                       </label>
-                       <label for="password">
-                          <div class="label-text"><i class="fas fa-unlock fa-lg"></i></div>
-                           <input type="text" placeholder="Password" required name="password" />
-                       </label>
-                       <span><input type="checkbox" name="terms" value="terms" required />Remember me <a href="#">Forgot your password?</a></span>
-                       <button type="submit" value="submit">Sign in</button>
-                   </form>
-                   
-               </div>    
-           </div>
-       </div>
-       <footer>
-            <div id="footerlogo">
-                <a href="index.html"><img src="../img/logos/footerlogo.png" alt=""></a>
-            </div>
+<head>
+    <title>CentiGrade: Movies | Tv Shows | Reviews</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/login.css">
+    <meta name="description" content="CentiGrade is a web application for reviewing movies and tv shows.">
+    <meta name="title" content="CentiGrade: Movies | Tv Shows | Reviews">
+    <meta name="author" content="CentiGrade">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://fonts.googleapis.com/css?family=Lato|Clicker+Script' rel='stylesheet' type='text/css'>
+    <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
+</head>
+<body>
+<nav id="plain-nav">
+    <div id="logo-container">
+        <a href="index.html"><img src="../img/logos/logo.png" alt="CentiGrade"></a>
+    </div>
+</nav>
+<div id="signin">
+    <div id="intro">
+        <span>Which is faster, heat or cold?</span>
+        <span>Heat, because you can catch a cold!</span>
+    </div>
+    <div id="signin-div">
+        <div id="hasaccount">
             <div>
-                <ul>
-                    <li><a href="">Help</a></li>
-                    <li><a href="">About centigrade</a></li>
-                    <li><a href="">Feedback</a></li>
-                </ul>
+                <h3>Don't have an account?</h3>
+                <h6>Join our fire community and enjoy all of its goodies!</h6>
+                <a href="register.html">Sign up</a>
             </div>
-            <div>
-                <ul>
-                    <li><a href="">Critic Submission</a></li>
-                    <li><a href="">Licensing</a></li>
-                    <li><a href="">Privacy Policy</a></li>
-                    <li><a href="">Terms and Policies</a></li>
-                </ul>
-            </div>
-            <div>
-                <ul>
-                    <li><h4><i class="fas fa-newspaper fa-lg"></i>JOIN THE NEWSLETTER</h4></li>
-                    <li><a href="" id="subscribe">SUBCRIBE</a></li>
-                    <li id="followus"><span>FOLLOW US</span> <a href=""><i class="fab fa-facebook-square fa-2x"></i></a>
-                    <a href=""><i class="fab fa-snapchat-square fa-2x"></i></a>
-                    <a href=""><i class="fab fa-youtube-square fa-2x"></i></a></li>
-                </ul>
-            </div>
-        </footer>
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <script src="../js/bootstrap.min.js"></script>
-        <script src="../js/login.js"></script>
-    </body>
+        </div>
+        <div id="form">
+            <div id="house"><h2>LOG IN</h2></div>
+            <form id="signinform" action="javascript:validateLogin();" method="post" name="signinform">
+                <label for="emailaddress">
+                    <div class="label-text"><i class="fas fa-envelope fa-lg"></i></div>
+                    <input type="text" placeholder="Email address" required name="email"/>
+                </label>
+                <label for="password">
+                    <div class="label-text"><i class="fas fa-unlock fa-lg"></i></div>
+                    <input type="text" placeholder="Password" required name="password"/>
+                </label>
+                <span><input type="checkbox" name="terms" value="terms" required/>Remember me <a href="#">Forgot your password?</a></span>
+                <button type="submit" value="submit">Sign in</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+<footer>
+    <div id="footerlogo">
+        <a href="index.html"><img src="../img/logos/footerlogo.png" alt=""></a>
+    </div>
+    <div>
+        <ul>
+            <li><a href="">Help</a></li>
+            <li><a href="">About centigrade</a></li>
+            <li><a href="">Feedback</a></li>
+        </ul>
+    </div>
+    <div>
+        <ul>
+            <li><a href="">Critic Submission</a></li>
+            <li><a href="">Licensing</a></li>
+            <li><a href="">Privacy Policy</a></li>
+            <li><a href="">Terms and Policies</a></li>
+        </ul>
+    </div>
+    <div>
+        <ul>
+            <li><h4><i class="fas fa-newspaper fa-lg"></i>JOIN THE NEWSLETTER</h4></li>
+            <li><a href="" id="subscribe">SUBCRIBE</a></li>
+            <li id="followus"><span>FOLLOW US</span> <a href=""><i class="fab fa-facebook-square fa-2x"></i></a>
+                <a href=""><i class="fab fa-snapchat-square fa-2x"></i></a>
+                <a href=""><i class="fab fa-youtube-square fa-2x"></i></a></li>
+        </ul>
+    </div>
+</footer>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/login.js"></script>
+</body>
 </html>

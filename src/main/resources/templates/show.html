@@ -6,11 +6,11 @@
 <div class="container container-fluid">
     <div class="content-row-block">
         <!--<div th:replace="fragments :: navbar"></div>-->
-        <table width="100%" >
+        <table width="100%">
             <tr>
                 <td height="70"></td>
-                <td ></td>
-                <td ></td>
+                <td></td>
+                <td></td>
             </tr>
         </table>
         <table>
@@ -23,11 +23,11 @@
                     <table>
                         <tr>
                             <td>
-                                <b th:text="${show.seriesName}" />
+                                <b th:text="${show.seriesName}"/>
                             </td>
                         </tr>
                         <tr>
-                            <td th:text="${show.overview}" />
+                            <td th:text="${show.overview}"/>
                         </tr>
 
                         <tr>
@@ -37,43 +37,43 @@
                                         <td>
                                             <b>Rated: </b>
                                         </td>
-                                        <td th:text="${show.contentRating}" />
+                                        <td th:text="${show.contentRating}"/>
                                     </tr>
                                     <tr>
                                         <td>
                                             <b>Genre: </b>
                                         </td>
-                                        <td th:text="${show.genres}" />
+                                        <td th:text="${show.genres}"/>
                                     </tr>
                                     <tr>
                                         <td>
                                             <b>First Aired: </b>
                                         </td>
-                                        <td th:text="${show.firstAired}" />
+                                        <td th:text="${show.firstAired}"/>
                                     </tr>
                                     <tr>
                                         <td>
                                             <b>Language: </b>
                                         </td>
-                                        <td th:text="${show.language}" />
+                                        <td th:text="${show.language}"/>
                                     </tr>
                                     <tr>
                                         <td>
                                             <b>Runtime: </b>
                                         </td>
-                                        <td th:text="${show.runtime}" />
+                                        <td th:text="${show.runtime}"/>
                                     </tr>
                                     <tr>
                                         <td>
                                             <b>Network: </b>
                                         </td>
-                                        <td th:text="${show.network}" />
+                                        <td th:text="${show.network}"/>
                                     </tr>
                                     <tr>
                                         <td>
                                             <b>Status: </b>
                                         </td>
-                                        <td th:text="${show.status}" />
+                                        <td th:text="${show.status}"/>
                                     </tr>
                                 </table>
                             </td>
@@ -81,11 +81,12 @@
                                 <form action="/add_review" method="post">
                                     <table>
                                         <tr>
-                                            <td th:text="@{'Rating: ' + ${rating} + ' (Reviews Counted: ' + ${reviewsCounted} + ')'}" />
+                                            <td th:text="@{'Rating: ' + ${rating} + ' (Reviews Counted: ' + ${reviewsCounted} + ')'}"/>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <b>Add Your Rating</b> <input type="range" min="0" max="100" step="1" name="rating" />
+                                                <b>Add Your Rating</b> <input type="range" min="0" max="100" step="1"
+                                                                              name="rating"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -96,12 +97,12 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <input type="submit" />
+                                                <input type="submit"/>
                                             </td>
                                         </tr>
                                     </table>
-                                    <input type="hidden" th:value="${show.id}" name="contentID" />
-                                    <input type="hidden" th:value="Show" name="contentType" />
+                                    <input type="hidden" th:value="${show.id}" name="contentID"/>
+                                    <input type="hidden" th:value="Show" name="contentType"/>
                                 </form>
                             </td>
                         </tr>
@@ -118,16 +119,17 @@
                 </td>
             </tr>
             <tr>
-            <td th:each="person : ${cast}">
-                <table>
-                    <tr>
-                        <td><img th:src="@{${photoURL} + 'pic' + ${person.id} + '.jpg'}" width="200" height="200"/></td>
-                    </tr>
-                    <tr>
-                        <td><a th:href="@{'/person?id=' + ${person.id}}" th:text="${person.toString()}" /></td>
-                    </tr>
-                </table>
-            </td>
+                <td th:each="person : ${cast}">
+                    <table>
+                        <tr>
+                            <td><img th:src="@{${photoURL} + 'pic' + ${person.id} + '.jpg'}" width="200" height="200"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><a th:href="@{'/person?id=' + ${person.id}}" th:text="${person.toString()}"/></td>
+                        </tr>
+                    </table>
+                </td>
             </tr>
         </table>
 
@@ -142,7 +144,8 @@
                     <tr>
                         <option th:each="i : ${#numbers.sequence(1, show.numSeasons)}">
                             <td>
-                                <a th:href="@{'/show?id=' + ${show.id} + '&amp;season=' + ${i}}" th:text="@{'Season ' + ${i}}" />
+                                <a th:href="@{'/show?id=' + ${show.id} + '&amp;season=' + ${i}}"
+                                   th:text="@{'Season ' + ${i}}"/>
                             </td>
                         </option>
                     </tr>
@@ -168,10 +171,10 @@
                             <a th:href="@{'/profile?id=' + ${cr.userId}}" th:text="@{${cr.userName}}"></a>
 
                         </td>
-                        <td th:text="@{'Rating: ' + ${cr.rating} + '%'}" />
+                        <td th:text="@{'Rating: ' + ${cr.rating} + '%'}"/>
                     </tr>
                     <tr>
-                        <td colspan="2" th:text="${cr.reviewText}" />
+                        <td colspan="2" th:text="${cr.reviewText}"/>
                     </tr>
                 </table>
                 <p th:utext="@{'&lt;br&gt;'}"></p>
@@ -191,10 +194,10 @@
                             <a th:href="@{'/profile?id=' + ${ur.userId}}" th:text="@{${ur.userName}}"></a>
 
                         </td>
-                        <td th:text="@{'Rating: ' + ${ur.rating} + '%'}" />
+                        <td th:text="@{'Rating: ' + ${ur.rating} + '%'}"/>
                     </tr>
                     <tr>
-                        <td colspan="2" th:text="${ur.reviewText}" />
+                        <td colspan="2" th:text="${ur.reviewText}"/>
                     </tr>
                 </table>
                 <p th:utext="@{'&lt;br&gt;'}"></p>

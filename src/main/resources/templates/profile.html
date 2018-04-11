@@ -6,16 +6,16 @@
 <div class="container container-fluid">
     <div class="content-row-block">
         <!--<div th:replace="fragments :: navbar"></div>-->
-        <table width="100%" >
+        <table width="100%">
             <tr>
                 <td height="70"></td>
-                <td ></td>
-                <td ></td>
+                <td></td>
+                <td></td>
             </tr>
         </table>
         <table>
             <tr>
-                <td th:text="${user.toString()}" />
+                <td th:text="${user.toString()}"/>
             </tr>
         </table>
         <table>
@@ -31,10 +31,10 @@
                             <a th:href="@{'/movie?id=' + ${mr.contentId}}" th:text="@{${mr.contentName}}"></a>
                         </td>
 
-                        <td th:text="@{'Rating: ' + ${mr.rating} + '%'}" />
+                        <td th:text="@{'Rating: ' + ${mr.rating} + '%'}"/>
                     </tr>
                     <tr>
-                        <td colspan="2" th:text="${mr.reviewText}" />
+                        <td colspan="2" th:text="${mr.reviewText}"/>
                     </tr>
                 </table>
                 <p th:utext="@{'&lt;br&gt;'}"></p>
@@ -53,10 +53,10 @@
                         <td>
                             <a th:href="@{'/show?id=' + ${sr.contentId}}" th:text="@{${sr.contentName}}"></a>
                         </td>
-                        <td th:text="@{'Rating: ' + ${sr.rating} + '%'}" />
+                        <td th:text="@{'Rating: ' + ${sr.rating} + '%'}"/>
                     </tr>
                     <tr>
-                        <td colspan="2" th:text="${sr.reviewText}" />
+                        <td colspan="2" th:text="${sr.reviewText}"/>
                     </tr>
                 </table>
                 <p th:utext="@{'&lt;br&gt;'}"></p>

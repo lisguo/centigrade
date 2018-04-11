@@ -12,7 +12,7 @@ public class AppController {
     private String appName;
 
     @RequestMapping("/")
-    public String index(Model model){
+    public String index(Model model) {
         model.addAttribute("appName", this.appName);
         return "index";
     }

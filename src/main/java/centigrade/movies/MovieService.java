@@ -24,42 +24,46 @@ public class MovieService {
     @Autowired
     JdbcTemplate template;
 
-    public void addMovie(String title, String plot){
+    public void addMovie(String title, String plot) {
         Movie m = new Movie();
         m.setTitle(title);
         m.setPlot(plot);
         movieRepository.save(m);
     }
 
-    public List<Movie> getAllMovies(){
+    public List<Movie> getAllMovies() {
         return movieRepository.findAll();
     }
 
-    public List<Movie> getAllMoviesSortedByTitle(){return movieRepository.findAllByOrderByTitle();}
+    public List<Movie> getAllMoviesSortedByTitle() {
+        return movieRepository.findAllByOrderByTitle();
+    }
 
-    public List<Movie> getAllMoviesSortedByYear(){return movieRepository.findAllByOrderByYear();}
+    public List<Movie> getAllMoviesSortedByYear() {
+        return movieRepository.findAllByOrderByYear();
+    }
 
-    public Movie getMovieById(long id){
+    public Movie getMovieById(long id) {
         return movieRepository.findMovieById(id);
     }
 
-    public String getMoviePosterURL(){
+    public String getMoviePosterURL() {
         String path = env.getProperty("movie_poster_dir");
         return path;
     }
-    public String getMovieTrailerURL(){
+
+    public String getMovieTrailerURL() {
         String path = env.getProperty("movie_trailer_dir");
         return path;
     }
 
-    public List<Movie> getFilmography(Person p){
-        return template.query("SELECT contentId, castId FROM casttocontent t1 INNER JOIN movies t2 ON t1.contentId = t2.id WHERE castId='" + p.getId() +"'", new ResultSetExtractor<List<Movie>>() {
+    public List<Movie> getFilmography(Person p) {
+        return template.query("SELECT contentId, castId FROM casttocontent t1 INNER JOIN movies t2 ON t1.contentId = t2.id WHERE castId='" + p.getId() + "'", new ResultSetExtractor<List<Movie>>() {
             @Override
             public List<Movie> extractData(ResultSet rs) throws SQLException, DataAccessException {
                 List<Movie> films = new ArrayList<Movie>();
 
-                while(rs.next())
-                {
+                while (rs.next()) {
                     Movie m = movieRepository.findMovieById(rs.getInt(1));
                     films.add(m);
                 }
@@ -68,18 +72,18 @@ public class MovieService {
             }
         });
     }
-    public List<Movie> getLikeMovies(String token){
-        if(token.length()>Integer.parseInt(env.getProperty("small_word_threshold"))){
-            token = ""+token+"";
+
+    public List<Movie> getLikeMovies(String token) {
+        if (token.length() > Integer.parseInt(env.getProperty("small_word_threshold"))) {
+            token = "" + token + "";
         }
-        return template.query("select id from movies where title like \"%"+token+"%\"or soundex(title) like soundex(\""+token+"\")", new ResultSetExtractor<List<Movie>>() {
-//        return template.query("SELECT contentId FROM casttocontent t1 INNER JOIN movies t2 ON t1.contentId = t2.id WHERE castId='" + p.getId() +"'", new ResultSetExtractor<List<Movie>>() {
+        return template.query("select id from movies where title like \"%" + token + "%\"or soundex(title) like soundex(\"" + token + "\")", new ResultSetExtractor<List<Movie>>() {
+            //        return template.query("SELECT contentId FROM casttocontent t1 INNER JOIN movies t2 ON t1.contentId = t2.id WHERE castId='" + p.getId() +"'", new ResultSetExtractor<List<Movie>>() {
             @Override
             public List<Movie> extractData(ResultSet rs) throws SQLException, DataAccessException {
                 List<Movie> films = new ArrayList<Movie>();
 
-                while(rs.next())
-                {
+                while (rs.next()) {
                     Movie m = movieRepository.findMovieById(rs.getInt(1));
                     films.add(m);
                 }
@@ -89,7 +93,7 @@ public class MovieService {
         });
     }
 
-    public void saveMovie(Movie m){
+    public void saveMovie(Movie m) {
         movieRepository.save(m);
     }
 }

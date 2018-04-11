@@ -16,11 +16,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-enum MovieSortCriteria{
+enum MovieSortCriteria {
     YEAR, TITLE, RATING
 }
 
-enum MovieSortDirection{
+enum MovieSortDirection {
     ASCENDING, DESCENDING
 }
 
@@ -37,12 +37,13 @@ public class MovieController {
     private AccountService accountService;
 
     @GetMapping("/add_movie")
-    public String addMovieForm(){
+    public String addMovieForm() {
         return "add_movie";
     }
 
     @PostMapping("/add_movie")
-    public @ResponseBody String addMovieSubmit (@RequestParam String title, @RequestParam String plot) {
+    public @ResponseBody
+    String addMovieSubmit(@RequestParam String title, @RequestParam String plot) {
         movieService.addMovie(title, plot);
         return "Saved";
     }
@@ -52,33 +53,31 @@ public class MovieController {
                                    @RequestParam(defaultValue = "ASCENDING") String sortDirection) {
         List<Movie> movies;
 
-        if(sortBy.equals("TITLE")){
+        if (sortBy.equals("TITLE")) {
             movies = movieService.getAllMoviesSortedByTitle();
-        }else if(sortBy.equals("YEAR")){
+        } else if (sortBy.equals("YEAR")) {
             movies = movieService.getAllMoviesSortedByYear();
-        }else{ //rating
-             movies = movieService.getAllMovies();
-            for(Movie m : movies){
+        } else { //rating
+            movies = movieService.getAllMovies();
+            for (Movie m : movies) {
                 m.calculateOverallRating();
             }
 
             Collections.sort(movies, new Comparator<Movie>() {
                 @Override
                 public int compare(Movie m1, Movie m2) {
-                    if(m1.getOverallRating() > m2.getOverallRating()){
+                    if (m1.getOverallRating() > m2.getOverallRating()) {
                         return 1;
-                    }
-                    else if(m1.getOverallRating() < m2.getOverallRating()){
+                    } else if (m1.getOverallRating() < m2.getOverallRating()) {
                         return -1;
-                    }
-                    else{
+                    } else {
                         return 0;
                     }
                 }
             });
         }
 
-        if(sortDirection.equals("DESCENDING")){
+        if (sortDirection.equals("DESCENDING")) {
             Collections.reverse(movies);
         }
 
@@ -94,7 +93,7 @@ public class MovieController {
     }
 
     @GetMapping("/movie")
-    public String displayMovie (@RequestParam long id, Model model) {
+    public String displayMovie(@RequestParam long id, Model model) {
         Movie movie = movieService.getMovieById(id);
         model.addAttribute("movie", movie);
         model.addAttribute("posterURL", movieService.getMoviePosterURL());
@@ -112,28 +111,26 @@ public class MovieController {
         Account a;
 
 
-        for(Review r : reviews){
-            if(r.getReviewText() == null)
-            {
+        for (Review r : reviews) {
+            if (r.getReviewText() == null) {
                 continue;
             }
 
             a = accountService.getAccountById(r.getUserId());
             r.setUserName(a.toString());
 
-            if(a.getAccountType() == AccountType.CRITIC){
+            if (a.getAccountType() == AccountType.CRITIC) {
                 criticReviews.add(r);
-            }
-            else{
+            } else {
                 userReviews.add(r);
             }
         }
 
         movie.calculateOverallRating();
 
-        if(movie.getTimesRated() == 0){
+        if (movie.getTimesRated() == 0) {
             model.addAttribute("rating", "Not Yet Rated");
-        }else{
+        } else {
             model.addAttribute("rating", String.format("%.2f", movie.getOverallRating()) + "%");
         }
 

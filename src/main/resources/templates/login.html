@@ -2,42 +2,43 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments :: head(Centigrade)"></head>
 
-    <body>
-        <nav th:replace="fragments :: navbar-relative"></nav>
+<body>
+<nav th:replace="fragments :: navbar-relative"></nav>
 
-        <div class="container container-fluid" id="signin">
-           <div id="intro">
-               <span>Which is faster, heat or cold?</span>
-               <span>Heat, because you can catch a cold!</span>
-           </div>
-            <div id="signin-div">
-               <div id="hasaccount">
-                   <div>
-                       <h3>Don't have an account?</h3>
-                       <h6>Join our fire community and enjoy all of its goodies!</h6>
-                       <a href="/register">Sign up</a>
-                   </div>
-               </div>
-               <div id="form">
-                   <!-- Alert -->
-                    <div th:if="${message != null}" th:text="${message}" class="alert alert-warning" role="alert" />
-                    <div id="house"><h2>LOG IN</h2></div>
-                    <form id="signinform" action="/login" method="post" name="signinform">
-                       <label for="email">
-                          <div class="label-text"><i class="fas fa-envelope fa-lg"></i></div>
-                           <input type="email" id="email" placeholder="Email address" name="email" />
-                       </label>
-                       <label for="password">
-                          <div class="label-text"><i class="fas fa-unlock fa-lg"></i></div>
-                           <input type="password" id="password" placeholder="Password" name="password" />
-                       </label>
-                       <span><input type="checkbox" name="terms" value="terms" />Remember me <a href="/">Forgot your password?</a></span>
-                       <button type="submit" value="submit">Sign in</button>
-                   </form>
-               </div>
+<div class="container container-fluid" id="signin">
+    <div id="intro">
+        <span>Which is faster, heat or cold?</span>
+        <span>Heat, because you can catch a cold!</span>
+    </div>
+    <div id="signin-div">
+        <div id="hasaccount">
+            <div>
+                <h3>Don't have an account?</h3>
+                <h6>Join our fire community and enjoy all of its goodies!</h6>
+                <a href="/register">Sign up</a>
             </div>
         </div>
-        
-        <div th:replace="fragments :: footer"></div>
-    </body>
+        <div id="form">
+            <!-- Alert -->
+            <div th:if="${message != null}" th:text="${message}" class="alert alert-warning" role="alert"/>
+            <div id="house"><h2>LOG IN</h2></div>
+            <form id="signinform" action="/login" method="post" name="signinform">
+                <label for="email">
+                    <div class="label-text"><i class="fas fa-envelope fa-lg"></i></div>
+                    <input type="email" id="email" placeholder="Email address" name="email"/>
+                </label>
+                <label for="password">
+                    <div class="label-text"><i class="fas fa-unlock fa-lg"></i></div>
+                    <input type="password" id="password" placeholder="Password" name="password"/>
+                </label>
+                <span><input type="checkbox" name="terms" value="terms"/>Remember me <a
+                        href="/">Forgot your password?</a></span>
+                <button type="submit" value="submit">Sign in</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments :: footer"></div>
+</body>
 </html>

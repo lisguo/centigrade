@@ -30,25 +30,24 @@ public class ReviewController {
 
     @PostMapping("add_review")
     public String addReview(@RequestParam String reviewtext, @RequestParam double rating,
-                            @RequestParam String contentType, @RequestParam long contentID, HttpSession session){
+                            @RequestParam String contentType, @RequestParam long contentID, HttpSession session) {
         Account a = (Account) session.getAttribute("account");
-        if(a == null){
+        if (a == null) {
             return "login";
         }
 
-        if(reviewtext.trim().equals("Add Review (Optional)"))
-        {
+        if (reviewtext.trim().equals("Add Review (Optional)")) {
             reviewtext = null;
         }
 
         reviewService.addReview(contentID, a.getId(), rating, reviewtext);
 
-        if(contentType.equals("Movie")) {
+        if (contentType.equals("Movie")) {
             Movie m = movieService.getMovieById(contentID);
             m.setRatingSum(m.getRatingSum() + rating);
             m.setTimesRated(m.getTimesRated() + 1);
             movieService.saveMovie(m);
-        }else{
+        } else {
             TVShow t = tvShowService.getTVShowById(contentID);
             t.setRatingSum(t.getRatingSum() + rating);
             t.setTimesRated(t.getTimesRated() + 1);

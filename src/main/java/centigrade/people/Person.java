@@ -14,13 +14,14 @@ public class Person {
     @Column(name = "middlename")
     private String middleName;
     @Column(name = "lastname")
-    private  String lastName;
+    private String lastName;
     @Column(name = "biography")
     private String bio;
     @Column(name = "casttype")
     private String castType;
 
-    public Person(){}
+    public Person() {
+    }
 
     public Person(long id, String firstname, String bio) {
         this.id = id;
@@ -28,9 +29,13 @@ public class Person {
         this.bio = bio;
     }
 
-    public long getId() { return id; }
+    public long getId() {
+        return id;
+    }
 
-    public void setId(long id) { this.id = id; }
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getBio() {
         return bio;
@@ -44,10 +49,10 @@ public class Person {
     public String toString() {
         String fullname = firstName;
 
-        if(middleName != null){
+        if (middleName != null) {
             fullname += " " + middleName;
         }
-        if(lastName != null){
+        if (lastName != null) {
             fullname += " " + lastName;
         }
         return fullname;

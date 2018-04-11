@@ -1,4 +1,5 @@
 console.log("hello");
+
 function validateForm(form) {
     var formName = document.forms[form]["displayname"].value;
     console.log(form);

@@ -144,9 +144,10 @@ public class Movie implements Comparator<Movie> {
     public int compare(Movie a, Movie b) {
         return a.title.compareTo(b.title);
     }
-    public boolean equals(Movie m){
+
+    public boolean equals(Movie m) {
         boolean out = true;
-        if(this.id!= m.id){
+        if (this.id != m.id) {
             out = false;
         }
 
@@ -169,11 +170,10 @@ public class Movie implements Comparator<Movie> {
         this.timesRated = timesRated;
     }
 
-    public void calculateOverallRating(){
-        if(timesRated == 0){
+    public void calculateOverallRating() {
+        if (timesRated == 0) {
             overallRating = 0;
-        }
-        else {
+        } else {
             overallRating = ratingSum / (double) timesRated;
         }
     }
@@ -182,8 +182,8 @@ public class Movie implements Comparator<Movie> {
         return overallRating;
     }
 
-    public boolean hasBeenRated(){
-        if(timesRated > 0){
+    public boolean hasBeenRated() {
+        if (timesRated > 0) {
             return true;
         }
 

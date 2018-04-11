@@ -106,7 +106,7 @@ public class Account {
         this.id = id;
     }
 
-    public String toString(){
+    public String toString() {
         return firstName + " " + lastName;
     }
 }

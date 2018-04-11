@@ -16,11 +16,11 @@
                     <table>
                         <tr>
                             <td>
-                                <b th:text="${person.toString()}" />
+                                <b th:text="${person.toString()}"/>
                             </td>
                         </tr>
                         <tr>
-                            <td th:text="${person.bio}" />
+                            <td th:text="${person.bio}"/>
                         </tr>
                     </table>
                 </td>
@@ -37,10 +37,11 @@
             <td th:each="film : ${films}">
                 <table>
                     <tr>
-                        <td><img th:src="@{${posterURL} + 'poster' + ${film.id} + '.jpg'}" width="200" height="200"/></td>
+                        <td><img th:src="@{${posterURL} + 'poster' + ${film.id} + '.jpg'}" width="200" height="200"/>
+                        </td>
                     </tr>
                     <tr>
-                        <td><a th:href="@{'/movie?id=' + ${film.id}}" th:text="${film.title}" /></td>
+                        <td><a th:href="@{'/movie?id=' + ${film.id}}" th:text="${film.title}"/></td>
                     </tr>
                 </table>
             </td>
@@ -56,10 +57,11 @@
                 <td th:each="show : ${shows}">
                     <table>
                         <tr>
-                            <td><img th:src="@{${tvPosterURL} + 'tvposter' + ${show.id} + '.jpg'}" width="200" height="200"/></td>
+                            <td><img th:src="@{${tvPosterURL} + 'tvposter' + ${show.id} + '.jpg'}" width="200"
+                                     height="200"/></td>
                         </tr>
                         <tr>
-                            <td><a th:href="@{'/show?id=' + ${show.id}}" th:text="${show.seriesName}" /></td>
+                            <td><a th:href="@{'/show?id=' + ${show.id}}" th:text="${show.seriesName}"/></td>
                         </tr>
                     </table>
                 </td>

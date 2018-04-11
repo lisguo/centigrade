@@ -8,14 +8,14 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 @Repository
-public interface PersonRepository extends CrudRepository<Person, Long>{
+public interface PersonRepository extends CrudRepository<Person, Long> {
     List<Person> findAll();
+
     Person findPersonById(long id);
 
     Person save(Person p);
 
     void delete(Person p);
-    void deletePersonById(long id);
 }
 
 

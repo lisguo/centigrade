@@ -32,7 +32,7 @@ public class TVShowController {
     @GetMapping("/shows")
     public String displayAllTVShows(Model model) {
         List<TVShow> shows = tvShowService.getAllTVShows();
-        for(TVShow t : shows){
+        for (TVShow t : shows) {
             t.calculateOverallRating();
         }
         model.addAttribute("shows", shows);
@@ -43,7 +43,7 @@ public class TVShowController {
     }
 
     @GetMapping("/show")
-    public String displayTVShow (@RequestParam long id, @RequestParam(defaultValue = "1") int season, Model model) {
+    public String displayTVShow(@RequestParam long id, @RequestParam(defaultValue = "1") int season, Model model) {
         TVShow show = tvShowService.getTVShowById(id);
         model.addAttribute("show", show);
         model.addAttribute("posterURL", tvShowService.getTVShowPosterURL());
@@ -60,29 +60,27 @@ public class TVShowController {
         ArrayList<Review> criticReviews = new ArrayList<>();
         Account a;
 
-        for(Review r : reviews){
+        for (Review r : reviews) {
 
-            if(r.getReviewText() == null)
-            {
+            if (r.getReviewText() == null) {
                 continue;
             }
 
             a = accountService.getAccountById(r.getUserId());
             r.setUserName(a.getFirstName() + " " + a.getLastName());
 
-            if(a.getAccountType() == AccountType.CRITIC){
+            if (a.getAccountType() == AccountType.CRITIC) {
                 criticReviews.add(r);
-            }
-            else{
+            } else {
                 userReviews.add(r);
             }
         }
 
         show.calculateOverallRating();
 
-        if(show.getTimesRated() == 0){
+        if (show.getTimesRated() == 0) {
             model.addAttribute("rating", "Not Yet Rated");
-        }else{
+        } else {
             model.addAttribute("rating", String.format("%.2f", show.getOverallRating()) + "%");
         }
 
@@ -94,7 +92,7 @@ public class TVShowController {
     }
 
     @GetMapping("/episode")
-    public String displayEpisode (@RequestParam long id, Model model) {
+    public String displayEpisode(@RequestParam long id, Model model) {
         Episode episode = tvShowService.getEpisodeById(id);
         TVShow show = tvShowService.getTVShowById(episode.getSeriesId());
         model.addAttribute("show", show);

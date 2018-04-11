@@ -37,7 +37,7 @@ public class TVShow {
     @Transient
     private double overallRating;
 
-    public TVShow(){
+    public TVShow() {
     }
 
     public long getId() {
@@ -144,11 +144,10 @@ public class TVShow {
         this.timesRated = timesRated;
     }
 
-    public void calculateOverallRating(){
-        if(timesRated == 0){
+    public void calculateOverallRating() {
+        if (timesRated == 0) {
             overallRating = 0;
-        }
-        else {
+        } else {
             overallRating = ratingSum / (double) timesRated;
         }
     }
@@ -157,8 +156,8 @@ public class TVShow {
         return overallRating;
     }
 
-    public boolean hasBeenRated(){
-        if(timesRated > 0){
+    public boolean hasBeenRated() {
+        if (timesRated > 0) {
             return true;
         }
 

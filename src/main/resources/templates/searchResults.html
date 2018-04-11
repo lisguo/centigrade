@@ -7,14 +7,14 @@
 <div class="container container-fluid">
     <div class="content-row-block">
         <!--<div th:replace="fragments :: navbar"></div>-->
-        <table width="100%" >
+        <table width="100%">
             <tr>
                 <td height="70"></td>
-                <td ></td>
-                <td ></td>
+                <td></td>
+                <td></td>
             </tr>
         </table>
-        <table width="100%" >
+        <table width="100%">
             <tr>
                 <td></td>
                 <td><b>Title</b></td>
@@ -27,8 +27,8 @@
                 <td>
                     <img th:src="@{${moviePosterURL} + 'poster' + ${movie.id} + '.jpg'}" width="45" height="66"/>
                 </td>
-                <td><a th:href="@{'/movie?id=' + ${movie.id}}" th:text="${movie.title}" /></td>
-                <td th:text="${movie.plot}" />
+                <td><a th:href="@{'/movie?id=' + ${movie.id}}" th:text="${movie.title}"/></td>
+                <td th:text="${movie.plot}"/>
             </tr>
             <tr th:if="${movies == null}">
                 <td><b>NO RESULTS FOUND</b></td>
@@ -40,8 +40,8 @@
                 <td>
                     <img th:src="@{${showPosterURL} + 'tvposter' + ${show.id} + '.jpg'}" width="45" height="66"/>
                 </td>
-                <td><a th:href="@{'/show?id=' + ${show.id}}" th:text="${show.seriesName}" /></td>
-                <td th:text="${show.overview}" />
+                <td><a th:href="@{'/show?id=' + ${show.id}}" th:text="${show.seriesName}"/></td>
+                <td th:text="${show.overview}"/>
             </tr>
             <tr th:if="${shows == null}">
                 <td><b>NO RESULTS FOUND</b></td>

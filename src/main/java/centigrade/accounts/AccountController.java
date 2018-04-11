@@ -35,9 +35,9 @@ public class AccountController {
     private Environment env;
 
     @GetMapping("register")
-    public String registerForm(HttpSession session){
-        Account a = (Account)session.getAttribute("account");
-        if(a != null){
+    public String registerForm(HttpSession session) {
+        Account a = (Account) session.getAttribute("account");
+        if (a != null) {
             return "index";
         }
         return "register";
@@ -45,77 +45,78 @@ public class AccountController {
 
     @PostMapping("register")
     public String registerSubmit(@RequestParam String email, @RequestParam String password, @RequestParam String passwordVerify,
-                                 @RequestParam String firstName, @RequestParam String lastName, Model model){
-        if(!accountService.isValidRegister(email)){
+                                 @RequestParam String firstName, @RequestParam String lastName, Model model) {
+        if (!accountService.isValidRegister(email)) {
             model.addAttribute("alert", "error");
             model.addAttribute("message", env.getProperty("register_email_error"));
             return "register";
         }
-        Account a = accountService.addAccount(email,password,firstName,lastName);
+        Account a = accountService.addAccount(email, password, firstName, lastName);
         accountService.sendVerificationEmail(a, env.getProperty("verify_email_link"),
-                                                    env.getProperty("verify_email_subject"));
+                env.getProperty("verify_email_subject"));
 
         model.addAttribute("alert", "success");
         model.addAttribute("message", env.getProperty("register_email_success"));
         return "register";
     }
+
     @GetMapping("edit_account")
-    public String editAccount(HttpSession session){
+    public String editAccount(HttpSession session) {
         Account a = (Account) session.getAttribute("account");
-        if(a == null){
+        if (a == null) {
             return "login";
         }
         return "edit_account";
     }
 
     @PostMapping("edit_account")
-    public String editAccount(@RequestParam String email, @RequestParam String oldPassword,@RequestParam String password, @RequestParam String passwordVerify,
-                                 @RequestParam String firstName, @RequestParam String lastName, Model model,HttpSession session){
-        Account a =(Account) session.getAttribute("account");
-        if(email.length()>0&& !a.getEmail().equals(email)){
-            if(!accountService.isValidRegister(email)){
+    public String editAccount(@RequestParam String email, @RequestParam String oldPassword, @RequestParam String password, @RequestParam String passwordVerify,
+                              @RequestParam String firstName, @RequestParam String lastName, Model model, HttpSession session) {
+        Account a = (Account) session.getAttribute("account");
+        if (email.length() > 0 && !a.getEmail().equals(email)) {
+            if (!accountService.isValidRegister(email)) {
                 model.addAttribute("alert", "invalidEmail");
                 model.addAttribute("message", env.getProperty("register_email_error"));
                 return "edit_account";
             }
-        }else{
+        } else {
             email = null;
         }
-        if(password.length()!=0) {
-            if (!checkPassword(a,oldPassword)) {
+        if (password.length() != 0) {
+            if (!checkPassword(a, oldPassword)) {
                 model.addAttribute("message", env.getProperty("login_error"));
                 return "edit_account";
-            }else{
+            } else {
                 model.addAttribute("message", env.getProperty("register_email_success"));
             }
 
-        }else{
+        } else {
             password = null;
         }
-        if(firstName.length()==0){
+        if (firstName.length() == 0) {
             firstName = null;
         }
-        if(lastName.length()==0){
+        if (lastName.length() == 0) {
             lastName = null;
         }
-        accountService.updateAccount(a,email,password,firstName,lastName);
+        accountService.updateAccount(a, email, password, firstName, lastName);
         model.addAttribute("alert", "success");
 //        model.addAttribute("message", env.getProperty("register_email_success"));
         return "edit_account";
     }
 
     @GetMapping("login")
-    public String loginForm(HttpSession session){
-        Account a = (Account)session.getAttribute("account");
-        if(a != null){
+    public String loginForm(HttpSession session) {
+        Account a = (Account) session.getAttribute("account");
+        if (a != null) {
             return "index";
         }
         return "login";
     }
 
     @PostMapping("login")
-    public String loginSubmit(@RequestParam String email, @RequestParam String password, Model model, HttpSession session){
-        if(!accountService.isValidLogin(email)){
+    public String loginSubmit(@RequestParam String email, @RequestParam String password, Model model, HttpSession session) {
+        if (!accountService.isValidLogin(email)) {
             model.addAttribute("message", env.getProperty("login_error"));
             return "login";
         }
@@ -125,7 +126,7 @@ public class AccountController {
         byte[] salt = a.getSalt();
         byte[] hashedPassword = accountService.hashPassword(password, salt);
 
-        if(!validPassword(hashedPassword, a.getPassword())){
+        if (!validPassword(hashedPassword, a.getPassword())) {
             model.addAttribute("message", env.getProperty("login_error"));
             return "login";
         }
@@ -135,14 +136,14 @@ public class AccountController {
     }
 
     @GetMapping("logout")
-    public String logout(Model model, HttpSession session){
+    public String logout(Model model, HttpSession session) {
 
         session.setAttribute("account", null);
         model.addAttribute("appName", env.getProperty("app_name"));
         return "redirect:/";
     }
 
-    public boolean checkPassword(Account a,String password){
+    public boolean checkPassword(Account a, String password) {
         byte[] salt = a.getSalt();
         byte[] hashedPassword = accountService.hashPassword(password, salt);
 
@@ -152,12 +153,12 @@ public class AccountController {
         return false;
     }
 
-    private boolean validPassword(byte[] password1, byte[] password2){
-        if(password1.length != password2.length){
+    private boolean validPassword(byte[] password1, byte[] password2) {
+        if (password1.length != password2.length) {
             return false;
         }
-        for(int i = 0; i < password1.length; i++){
-            if(password1[i] != password2[i]){
+        for (int i = 0; i < password1.length; i++) {
+            if (password1[i] != password2[i]) {
                 return false;
             }
         }
@@ -165,14 +166,13 @@ public class AccountController {
     }
 
     @GetMapping("verify")
-    public String verifyAccount(@RequestParam String nonce, Model model, HttpSession session){
+    public String verifyAccount(@RequestParam String nonce, Model model, HttpSession session) {
         Account a = accountService.verifyAccount(nonce);
-        if(a != null){
+        if (a != null) {
             model.addAttribute("alert", "success");
             model.addAttribute("message", env.getProperty("verify_success"));
             session.setAttribute("account", a);
-        }
-        else{
+        } else {
             model.addAttribute("alert", "error");
             model.addAttribute("message", env.getProperty("verify_error"));
         }
@@ -180,7 +180,7 @@ public class AccountController {
     }
 
     @GetMapping("/account")
-    public String displayAccount (@RequestParam long id, Model model) {
+    public String displayAccount(@RequestParam long id, Model model) {
         Account a = accountService.getAccountById(id);
         model.addAttribute("account", a);
 
@@ -188,7 +188,7 @@ public class AccountController {
     }
 
     @GetMapping("/profile")
-    public String displayProfile (@RequestParam long id, Model model) {
+    public String displayProfile(@RequestParam long id, Model model) {
         Account a = accountService.getAccountById(id);
         model.addAttribute("user", a);
 
@@ -196,19 +196,17 @@ public class AccountController {
         ArrayList<Review> movieReviews = new ArrayList<>();
         ArrayList<Review> showReviews = new ArrayList<>();
 
-        for(Review r : reviews){
-            if(r.getReviewText() == null)
-            {
+        for (Review r : reviews) {
+            if (r.getReviewText() == null) {
                 continue;
             }
 
             Movie m = movieService.getMovieById(r.getContentId());
 
-            if(m != null){
+            if (m != null) {
                 r.setContentName(m.getTitle());
                 movieReviews.add(r);
-            }
-            else {
+            } else {
                 TVShow t = tvShowService.getTVShowById(r.getContentId());
                 r.setContentName(t.getSeriesName());
                 showReviews.add(r);

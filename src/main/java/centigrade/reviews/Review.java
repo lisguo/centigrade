@@ -25,7 +25,7 @@ public class Review {
     @Transient
     private String contentName;
 
-    Review(){
+    Review() {
     }
 
 
