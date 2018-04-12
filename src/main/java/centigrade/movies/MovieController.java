@@ -117,6 +117,11 @@ public class MovieController {
             }
 
             a = accountService.getAccountById(r.getUserId());
+
+            if(a == null) {
+                continue;
+            }
+
             r.setUserName(a.toString());
 
             if (a.getAccountType() == AccountType.CRITIC) {

@@ -67,6 +67,11 @@ public class TVShowController {
             }
 
             a = accountService.getAccountById(r.getUserId());
+
+            if(a == null){
+                continue;
+            }
+
             r.setUserName(a.getFirstName() + " " + a.getLastName());
 
             if (a.getAccountType() == AccountType.CRITIC) {

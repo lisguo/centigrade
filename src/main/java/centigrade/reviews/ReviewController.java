@@ -36,11 +36,9 @@ public class ReviewController {
             return "login";
         }
 
-        if (reviewtext.trim().equals("Add Review (Optional)")) {
-            reviewtext = null;
+        if (!reviewtext.trim().equals("Add Review (Optional)")) {
+            reviewService.addReview(contentID, a.getId(), rating, reviewtext);
         }
-
-        reviewService.addReview(contentID, a.getId(), rating, reviewtext);
 
         if (contentType.equals("Movie")) {
             Movie m = movieService.getMovieById(contentID);

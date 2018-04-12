@@ -32,6 +32,10 @@ public class ReviewService {
         reviewRepository.save(r);
     }
 
+    public void deleteReview(Review r){
+        reviewRepository.delete(r);
+    }
+
     public List<Review> getReviewsByContent(long contentID) {
         return reviewRepository.findReviewsByContentId(contentID);
     }
