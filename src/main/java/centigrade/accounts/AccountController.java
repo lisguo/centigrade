@@ -202,12 +202,12 @@ public class AccountController {
             }
 
             Movie m = movieService.getMovieById(r.getContentId());
+            TVShow t = tvShowService.getTVShowById(r.getContentId());
 
             if (m != null) {
                 r.setContentName(m.getTitle());
                 movieReviews.add(r);
-            } else {
-                TVShow t = tvShowService.getTVShowById(r.getContentId());
+            }else if(t != null){
                 r.setContentName(t.getSeriesName());
                 showReviews.add(r);
             }
