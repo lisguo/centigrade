@@ -16,6 +16,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+
 enum MovieSortCriteria {
     YEAR, TITLE, RATING
 }
@@ -37,13 +39,21 @@ public class MovieController {
     private AccountService accountService;
 
     @GetMapping("/add_movie")
-    public String addMovieForm() {
+    public String addMovieForm(HttpSession session) {
+        Account a = (Account) session.getAttribute("account");
+        if(a == null || a.getAccountType() != AccountType.ADMIN){
+            return "index";
+        }
         return "add_movie";
     }
 
     @PostMapping("/add_movie")
     public @ResponseBody
-    String addMovieSubmit(@RequestParam String title, @RequestParam String plot) {
+    String addMovieSubmit(@RequestParam String title, @RequestParam String plot, HttpSession session) {
+        Account a = (Account) session.getAttribute("account");
+        if(a == null || a.getAccountType() != AccountType.ADMIN){
+            return "index";
+        }
         movieService.addMovie(title, plot);
         return "Saved";
     }

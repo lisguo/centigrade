@@ -215,7 +215,7 @@ public class SearchController {
             return true;
         }
         String[] commonWords = env.getProperty("common_words").split(",");
-//        String[] commonWords = {"the", "of", "in", "or", "and", "if", "is", "a", ""};
+
         for (int i = 0; i < commonWords.length; i++) {
             if (word.equals(commonWords[i])) {
                 return true;

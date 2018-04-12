@@ -101,7 +101,7 @@ public class AccountController {
         }
         accountService.updateAccount(a, email, password, firstName, lastName);
         model.addAttribute("alert", "success");
-//        model.addAttribute("message", env.getProperty("register_email_success"));
+
         return "edit_account";
     }
 

@@ -105,9 +105,6 @@ public class TVShowController {
         model.addAttribute("posterURL", tvShowService.getTVShowPosterURL());
         model.addAttribute("photoURL", personService.getPersonPhotoURL());
 
-        //List<Person> cast = personService.getCastByTVShow(show);
-        //model.addAttribute("cast", cast);
-
         return "episode";
     }
 
