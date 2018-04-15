@@ -12,6 +12,7 @@ import java.util.*;
 import centigrade.reviews.Review;
 import centigrade.reviews.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -38,6 +39,9 @@ public class MovieController {
     @Autowired
     private AccountService accountService;
 
+    @Autowired
+    private Environment env;
+
     @GetMapping("/add_movie")
     public String addMovieForm(HttpSession session) {
         Account a = (Account) session.getAttribute("account");
@@ -59,9 +63,20 @@ public class MovieController {
     }
 
     @GetMapping("/movies")
-    public String displayAllMovies(Model model, @RequestParam(defaultValue = "TITLE") String sortBy,
-                                   @RequestParam(defaultValue = "ASCENDING") String sortDirection) {
+    public String displayAllMoviesWithoutPageNum(Model model, @RequestParam(defaultValue = "TITLE") String sortBy,
+                                              @RequestParam(defaultValue = "ASCENDING") String sortDirection) {
+        return displayAllMovies( model,sortBy,sortDirection,1);
+    }
+    @GetMapping("/movies{pageNum}")
+    public String displayAllMoviesWithPageNum(Model model, @RequestParam(defaultValue = "TITLE") String sortBy,
+                                   @RequestParam(defaultValue = "ASCENDING") String sortDirection,@PathVariable("pageNum") String pageNum) {
+    return displayAllMovies( model,sortBy,sortDirection,Integer.parseInt(pageNum));
+    }
+    public String displayAllMovies(Model model, String sortBy,
+                String sortDirection,int page) {
+
         List<Movie> movies;
+        String endLink ="?sortBy="+sortBy+"&sortDirection="+sortDirection;
 
         if (sortBy.equals("TITLE")) {
             movies = movieService.getAllMoviesSortedByTitle();
@@ -90,12 +105,22 @@ public class MovieController {
         if (sortDirection.equals("DESCENDING")) {
             Collections.reverse(movies);
         }
+        List<Movie> outMovies = new ArrayList<Movie>();
+        int searchAmount =Integer.parseInt(env.getProperty("num_search_results"));
+        int end = page * searchAmount;
+        int start = (page-1)*searchAmount;
+        for(int i =start; i<end && i<movies.size();i++){
+            outMovies.add(movies.get(i));
+        }
 
         model.addAttribute("sortCriteria", EnumSet.allOf(MovieSortCriteria.class));
         model.addAttribute("sortDirections", EnumSet.allOf(MovieSortDirection.class));
         model.addAttribute("sortBy", sortBy);
         model.addAttribute("sortDirection", sortDirection);
-        model.addAttribute("movies", movies);
+        model.addAttribute("movies", outMovies);
+        if(page!=1) model.addAttribute("prev", "/movies"+(page-1)+endLink);
+        if(end+1<movies.size())model.addAttribute("next", "/movies"+(page+1)+endLink);
+
         model.addAttribute("posterURL", movieService.getMoviePosterURL());
         DecimalFormat df = new DecimalFormat("#.##");
         model.addAttribute("decimalFormat", df);
