@@ -47,8 +47,6 @@ public class ReviewController {
 
         if(reviews.size() > 0)
         {
-            model.addAttribute("message", "Already Reviewed");
-
             if(contentType.equals("Movie")) {
                 rv.setUrl("movie?id=" + contentID + "&res=" + ReviewResult.ALREADY_REVIEWED);
             }
