@@ -50,7 +50,8 @@
             </tr>
         </table>
 
-        <table frame="above" rules="rows" cellspacing="10">
+        <table id="search-results" frame="above" rules="rows" cellspacing="10">
+            <!--
             <tr th:each="movie : ${movies}">
                 <div th:if="${movie.hasBeenRated()}">
                     <td th:text="@{${decimalFormat.format(movie.getOverallRating())} + '%'}"/>
@@ -74,8 +75,11 @@
                 <td th:if="${next!=null}"> <a th:href="${next}"> Next</a></td>
                 <td th:if="${next==null}"> Next</td>
             </tr>
+            -->
         </table>
+        <ul class="pagination"></ul>
     </div>
 </div>
+<script type="text/javascript" th:src="@{/js/movies.js}"></script>
 </body>
 </html>

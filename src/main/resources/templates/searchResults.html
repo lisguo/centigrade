@@ -6,15 +6,8 @@
 <div th:replace="fragments :: navbar"></div>
 <div class="container container-fluid">
     <div class="content-row-block">
-        <!--<div th:replace="fragments :: navbar"></div>-->
-        <table width="100%">
-            <tr>
-                <td height="70"></td>
-                <td></td>
-                <td></td>
-            </tr>
-        </table>
-        <table width="100%">
+        <table id="search-results" width="100%">
+            <!--
             <tr>
                 <td></td>
                 <td><b>Title</b></td>
@@ -46,9 +39,14 @@
             <tr th:if="${shows == null}">
                 <td><b>NO RESULTS FOUND</b></td>
             </tr>
-
+            -->
         </table>
+
+        <ul class="pagination">
+        </ul>
+
     </div>
 </div>
+<script type="text/javascript" th:src="@{/js/movies.js}"></script>
 </body>
 </html>

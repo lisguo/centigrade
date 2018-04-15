@@ -16,6 +16,7 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
             integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
             crossorigin="anonymous"></script>
+    <script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/centigrade.js}"></script>
 </head>
@@ -27,9 +28,9 @@
     <div id="navigation">
         <div id="navs">
             <div id="nav1">
-                <form action="/search" method="get">
-                    <input type="search" name="search" placeholder="Search movies, tv shows, actors, more..."
-                           onfocus="this.value=''" aria-label="Search"/>
+                <form action="/search" method="get" id="search-form">
+                    <input id="search-input" type="search" name="search" placeholder="Search movies, tv shows, actors, more..."
+                           onfocus="this.value=''" aria-label="Search" />
                     <button type="submit" value="submit"><i class="fas fa-search"></i></button>
                 </form>
                 <div id="following" class="functions">
@@ -44,7 +45,7 @@
                     </div>
                 </div>
                 <div th:if="${session.account != null}" class="sessionstuff" id="greeting">
-                    <div id="greetin" class="functions">
+                    <div id="greeting" class="functions">
                         <a href="\edit_account"> <b th:text="${'Hello, ' + session.account.firstName}"/></a>
                     </div>
                     <div id="logout" class="functions">
@@ -70,7 +71,7 @@
         <div id="navs">
             <div id="nav1">
                 <form action="/search" method="get">
-                    <input type="search" name="search" placeholder="Search movies, tv shows, actors, more..."
+                    <input id="search-input" type="search" name="search" placeholder="Search movies, tv shows, actors, more..."
                            onfocus="this.value=''" aria-label="Search"/>
                     <button type="submit" value="submit"><i class="fas fa-search"></i></button>
                 </form>

@@ -1,6 +1,5 @@
 var $header = $("#header");
 var $nav = $("nav");
-
 console.log($header.height());
 
 $(window).scroll(function () {

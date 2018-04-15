@@ -137,7 +137,6 @@ public class AccountController {
 
     @GetMapping("logout")
     public String logout(Model model, HttpSession session) {
-
         session.setAttribute("account", null);
         model.addAttribute("appName", env.getProperty("app_name"));
         return "redirect:/";

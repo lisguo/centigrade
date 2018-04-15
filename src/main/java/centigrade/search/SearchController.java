@@ -1,7 +1,10 @@
 package centigrade.search;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -36,23 +39,7 @@ public class SearchController {
 
     @GetMapping("/search")
     public String displaySearch(@RequestParam String search, Model model) {
-        model.addAttribute("moviePosterURL", movieService.getMoviePosterURL());
-        model.addAttribute("showPosterURL", tvShowService.getTVShowPosterURL());
-        if (search.replaceAll("\\s+", "").length() == 0) {
-            return "searchResults";
-        }
-
-
-        List<Movie> movies = getSearchMovies(search);
-        if (movies.size() > 0) {
-            model.addAttribute("movies", movies);
-        }
-        List<TVShow> shows = getSearchTVShows(search);
-        if (shows.size() > 0) {
-            model.addAttribute("shows", shows);
-        }
-
-
+        model.addAttribute("search", search);
         return "searchResults";
     }
 
@@ -154,7 +141,6 @@ public class SearchController {
 
         movies = getTopMatchMovies(movies, 10);
         return movies;
-
     }
 
     private List<Movie> getTopMatchMovies(List<Movie> movies, int n) {

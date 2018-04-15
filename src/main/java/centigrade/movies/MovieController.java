@@ -13,6 +13,7 @@ import centigrade.reviews.Review;
 import centigrade.reviews.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -45,7 +46,7 @@ public class MovieController {
     @GetMapping("/add_movie")
     public String addMovieForm(HttpSession session) {
         Account a = (Account) session.getAttribute("account");
-        if(a == null || a.getAccountType() != AccountType.ADMIN){
+        if (a == null || a.getAccountType() != AccountType.ADMIN) {
             return "index";
         }
         return "add_movie";
@@ -55,7 +56,7 @@ public class MovieController {
     public @ResponseBody
     String addMovieSubmit(@RequestParam String title, @RequestParam String plot, HttpSession session) {
         Account a = (Account) session.getAttribute("account");
-        if(a == null || a.getAccountType() != AccountType.ADMIN){
+        if (a == null || a.getAccountType() != AccountType.ADMIN) {
             return "index";
         }
         movieService.addMovie(title, plot);
@@ -63,20 +64,37 @@ public class MovieController {
     }
 
     @GetMapping("/movies")
-    public String displayAllMoviesWithoutPageNum(Model model, @RequestParam(defaultValue = "TITLE") String sortBy,
-                                              @RequestParam(defaultValue = "ASCENDING") String sortDirection) {
-        return displayAllMovies( model,sortBy,sortDirection,1);
+    public String showMovies(Model model){
+        return "movies";
     }
+
+    //@GetMapping("/movies")
+    public String displayAllMoviesWithoutPageNum(Model model, @RequestParam(defaultValue = "TITLE") String sortBy,
+                                                 @RequestParam(defaultValue = "ASCENDING") String sortDirection) {
+        return displayAllMovies(model, sortBy, sortDirection, 1);
+    }
+
     @GetMapping("/movies{pageNum}")
     public String displayAllMoviesWithPageNum(Model model, @RequestParam(defaultValue = "TITLE") String sortBy,
-                                   @RequestParam(defaultValue = "ASCENDING") String sortDirection,@PathVariable("pageNum") String pageNum) {
-    return displayAllMovies( model,sortBy,sortDirection,Integer.parseInt(pageNum));
+                                              @RequestParam(defaultValue = "ASCENDING") String sortDirection, @PathVariable("pageNum") String pageNum) {
+        return displayAllMovies(model, sortBy, sortDirection, Integer.parseInt(pageNum));
     }
+
+    /**
+     * REST API for obtaining a JSON of all movies
+     * @return
+     */
+    @RequestMapping(value = "/api_movies", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody
+    List<Movie> getAllMovies() {
+        return movieService.getAllMovies();
+    }
+
     public String displayAllMovies(Model model, String sortBy,
-                String sortDirection,int page) {
+                                   String sortDirection, int page) {
 
         List<Movie> movies;
-        String endLink ="?sortBy="+sortBy+"&sortDirection="+sortDirection;
+        String endLink = "?sortBy=" + sortBy + "&sortDirection=" + sortDirection;
 
         if (sortBy.equals("TITLE")) {
             movies = movieService.getAllMoviesSortedByTitle();
@@ -106,10 +124,10 @@ public class MovieController {
             Collections.reverse(movies);
         }
         List<Movie> outMovies = new ArrayList<Movie>();
-        int searchAmount =Integer.parseInt(env.getProperty("num_search_results"));
+        int searchAmount = Integer.parseInt(env.getProperty("num_search_results"));
         int end = page * searchAmount;
-        int start = (page-1)*searchAmount;
-        for(int i =start; i<end && i<movies.size();i++){
+        int start = (page - 1) * searchAmount;
+        for (int i = start; i < end && i < movies.size(); i++) {
             outMovies.add(movies.get(i));
         }
 
@@ -118,8 +136,8 @@ public class MovieController {
         model.addAttribute("sortBy", sortBy);
         model.addAttribute("sortDirection", sortDirection);
         model.addAttribute("movies", outMovies);
-        if(page!=1) model.addAttribute("prev", "/movies"+(page-1)+endLink);
-        if(end+1<movies.size())model.addAttribute("next", "/movies"+(page+1)+endLink);
+        if (page != 1) model.addAttribute("prev", "/movies" + (page - 1) + endLink);
+        if (end + 1 < movies.size()) model.addAttribute("next", "/movies" + (page + 1) + endLink);
 
         model.addAttribute("posterURL", movieService.getMoviePosterURL());
         DecimalFormat df = new DecimalFormat("#.##");
@@ -153,7 +171,7 @@ public class MovieController {
 
             a = accountService.getAccountById(r.getUserId());
 
-            if(a == null) {
+            if (a == null) {
                 continue;
             }
 
