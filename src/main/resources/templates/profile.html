@@ -33,7 +33,7 @@
 
                         <td th:text="@{'Rating: ' + ${mr.rating} + '%'}"/>
                     </tr>
-                    <tr>
+                    <tr th:unless="${mr.reviewText == null}">
                         <td colspan="2" th:text="${mr.reviewText}"/>
                     </tr>
                 </table>
@@ -55,7 +55,7 @@
                         </td>
                         <td th:text="@{'Rating: ' + ${sr.rating} + '%'}"/>
                     </tr>
-                    <tr>
+                    <tr th:unless="${sr.reviewText == null}">
                         <td colspan="2" th:text="${sr.reviewText}"/>
                     </tr>
                 </table>

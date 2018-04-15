@@ -197,10 +197,6 @@ public class AccountController {
         ArrayList<Review> showReviews = new ArrayList<>();
 
         for (Review r : reviews) {
-            if (r.getReviewText() == null) {
-                continue;
-            }
-
             Movie m = movieService.getMovieById(r.getContentId());
             TVShow t = tvShowService.getTVShowById(r.getContentId());
 
