@@ -10,6 +10,7 @@ import java.text.DecimalFormat;
 import java.util.*;
 
 import centigrade.reviews.Review;
+import centigrade.reviews.ReviewResult;
 import centigrade.reviews.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -128,12 +129,20 @@ public class MovieController {
     }
 
     @GetMapping("/movie")
-    public String displayMovie(@RequestParam long id, Model model) {
+    public String displayMovie(@RequestParam long id, @RequestParam(required = false) ReviewResult res, Model model) {
         Movie movie = movieService.getMovieById(id);
         model.addAttribute("movie", movie);
         model.addAttribute("posterURL", movieService.getMoviePosterURL());
         model.addAttribute("trailerURL", movieService.getMovieTrailerURL());
         model.addAttribute("photoURL", personService.getPersonPhotoURL());
+
+        if(res == ReviewResult.SUCCESS) {
+            model.addAttribute("message", env.getProperty("review_success"));
+        }
+        else if(res == ReviewResult.ALREADY_REVIEWED){
+            model.addAttribute("message", env.getProperty("review_already_reviewed"));
+        }
+
 
         List<Person> cast = personService.getCastByMovie(movie);
         model.addAttribute("cast", cast);
@@ -147,10 +156,6 @@ public class MovieController {
 
 
         for (Review r : reviews) {
-            if (r.getReviewText() == null) {
-                continue;
-            }
-
             a = accountService.getAccountById(r.getUserId());
 
             if(a == null) {

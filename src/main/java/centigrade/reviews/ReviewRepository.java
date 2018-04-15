@@ -11,6 +11,8 @@ public interface ReviewRepository extends CrudRepository<Review, Long> {
 
     List<Review> findReviewsByContentId(long contentId);
 
+    List<Review> findReviewsByUserIdAndContentId(long userId, long contentId);
+
     Review save(Review r);
 
     void delete(Review r);

@@ -95,6 +95,9 @@
                             <td>
                                 <form action="/add_review" method="post">
                                     <table>
+                                        <tr th:if="${message != null}">
+                                            <td th:text="@{${message}}" />
+                                        </tr>
                                         <tr>
                                             <td th:text="@{'Rating: ' + ${rating} + ' (Reviews Counted: ' + ${reviewsCounted} + ')'}"/>
                                         </tr>
@@ -174,7 +177,7 @@
                         </td>
                         <td th:text="@{'Rating: ' + ${cr.rating} + '%'}"/>
                     </tr>
-                    <tr>
+                    <tr th:unless="${cr.reviewText == null}">
                         <td colspan="2" th:text="${cr.reviewText}"/>
                     </tr>
                 </table>
@@ -197,7 +200,7 @@
                         </td>
                         <td th:text="@{'Rating: ' + ${ur.rating} + '%'}"/>
                     </tr>
-                    <tr>
+                    <tr th:unless="${ur.reviewText == null}">
                         <td colspan="2" th:text="${ur.reviewText}"/>
                     </tr>
                 </table>

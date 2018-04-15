@@ -11,8 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import centigrade.reviews.Review;
+import centigrade.reviews.ReviewResult;
 import centigrade.reviews.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +31,9 @@ public class TVShowController {
     @Autowired
     private AccountService accountService;
 
+    @Autowired
+    private Environment env;
+
     @GetMapping("/shows")
     public String displayAllTVShows(Model model) {
         List<TVShow> shows = tvShowService.getAllTVShows();
@@ -43,11 +48,19 @@ public class TVShowController {
     }
 
     @GetMapping("/show")
-    public String displayTVShow(@RequestParam long id, @RequestParam(defaultValue = "1") int season, Model model) {
+    public String displayTVShow(@RequestParam long id, @RequestParam(required = false) ReviewResult res,
+                                @RequestParam(defaultValue = "1") int season, Model model) {
         TVShow show = tvShowService.getTVShowById(id);
         model.addAttribute("show", show);
         model.addAttribute("posterURL", tvShowService.getTVShowPosterURL());
         model.addAttribute("photoURL", personService.getPersonPhotoURL());
+
+        if(res == ReviewResult.SUCCESS) {
+            model.addAttribute("message", env.getProperty("review_success"));
+        }
+        else if(res == ReviewResult.ALREADY_REVIEWED){
+            model.addAttribute("message", env.getProperty("review_already_reviewed"));
+        }
 
         List<Episode> selectedSeason = tvShowService.getSeason(show, season);
         model.addAttribute("season", selectedSeason);
@@ -61,11 +74,6 @@ public class TVShowController {
         Account a;
 
         for (Review r : reviews) {
-
-            if (r.getReviewText() == null) {
-                continue;
-            }
-
             a = accountService.getAccountById(r.getUserId());
 
             if(a == null){
