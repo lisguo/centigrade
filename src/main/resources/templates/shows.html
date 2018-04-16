@@ -69,6 +69,13 @@
                 </td>
 
             </tr>
+            <tr>
+                <td th:if="${prev!=null}"> <a th:href="${prev}"> Prev.</a></td>
+                <td th:if="${prev==null}"> Prev.</td>
+                <td>   </td>
+                <td th:if="${next!=null}"> <a th:href="${next}"> Next</a></td>
+                <td th:if="${next==null}"> Next</td>
+            </tr>
         </table>
     </div>
 </div>

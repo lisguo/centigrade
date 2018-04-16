@@ -41,14 +41,26 @@ public class TVShowController {
     @Autowired
     private Environment env;
 
-    @Autowired
-    private Environment env;
 
     @GetMapping("/shows")
+    public String displayAllTVShowsMap(Model model, @RequestParam(defaultValue = "TITLE") String sortBy,
+                                    @RequestParam(defaultValue = "ASCENDING") String sortDirection){
+        return  displayAllTVShows( model, sortBy,sortDirection, 1);
+
+
+    }    @GetMapping("/shows{pageNum}")
+    public String displayAllTVShowsMapWithPage(Model model, @RequestParam(defaultValue = "TITLE") String sortBy,
+                                    @RequestParam(defaultValue = "ASCENDING") String sortDirection,@PathVariable("pageNum") String pageNum){
+        return  displayAllTVShows( model, sortBy,sortDirection, Integer.parseInt(pageNum));
+
+    }
+
     public String displayAllTVShows(Model model, @RequestParam(defaultValue = "TITLE") String sortBy,
-                                    @RequestParam(defaultValue = "ASCENDING") String sortDirection) {
+                                    @RequestParam(defaultValue = "ASCENDING") String sortDirection,int page) {
 
         List<TVShow> shows = tvShowService.getAllTVShows();
+        String endLink ="?sortBy="+sortBy+"&sortDirection="+sortDirection;
+
 
         if (sortBy.equals("TITLE")) {
             shows = tvShowService.getAllTVShowsSortedBySeriesName();
@@ -122,12 +134,21 @@ public class TVShowController {
         if (sortDirection.equals("DESCENDING")) {
             Collections.reverse(shows);
         }
+        List<TVShow> outShows = new ArrayList<TVShow>();
+        int searchAmount =Integer.parseInt(env.getProperty("num_search_results"));
+        int end = page * searchAmount;
+        int start = (page-1)*searchAmount;
+        for(int i =start; i<end && i<shows.size();i++){
+            outShows.add(shows.get(i));
+        }
 
         model.addAttribute("sortCriteria", EnumSet.allOf(TVShowSortCriteria.class));
         model.addAttribute("sortDirections", EnumSet.allOf(TVShowSortDirection.class));
         model.addAttribute("sortBy", sortBy);
         model.addAttribute("sortDirection", sortDirection);
-        model.addAttribute("shows", shows);
+        model.addAttribute("shows", outShows);
+        if(page!=1) model.addAttribute("prev", "/shows"+(page-1)+endLink);
+        if(end+1<shows.size())model.addAttribute("next", "/shows"+(page+1)+endLink);
         model.addAttribute("posterURL", tvShowService.getTVShowPosterURL());
         DecimalFormat df = new DecimalFormat("#.##");
         model.addAttribute("decimalFormat", df);
