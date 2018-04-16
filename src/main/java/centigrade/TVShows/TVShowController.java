@@ -7,8 +7,7 @@ import centigrade.people.PersonService;
 import centigrade.people.Person;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import centigrade.reviews.Review;
 import centigrade.reviews.ReviewResult;
@@ -18,6 +17,14 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+enum TVShowSortCriteria {
+    TITLE, RATING, FIRST_AIRED
+}
+
+enum TVShowSortDirection {
+    ASCENDING, DESCENDING
+}
 
 @Controller
 public class TVShowController {
@@ -35,11 +42,88 @@ public class TVShowController {
     private Environment env;
 
     @GetMapping("/shows")
-    public String displayAllTVShows(Model model) {
+    public String displayAllTVShows(Model model, @RequestParam(defaultValue = "TITLE") String sortBy,
+                                    @RequestParam(defaultValue = "ASCENDING") String sortDirection) {
+
         List<TVShow> shows = tvShowService.getAllTVShows();
+
+        if (sortBy.equals("TITLE")) {
+            shows = tvShowService.getAllTVShowsSortedBySeriesName();
+        } else { //rating or first aired
+            shows = tvShowService.getAllTVShows();
+        }
+
         for (TVShow t : shows) {
             t.calculateOverallRating();
         }
+
+        if(sortBy.equals("RATING")){
+            Collections.sort(shows, new Comparator<TVShow>() {
+                @Override
+                public int compare( TVShow t1, TVShow t2) {
+                    if (t1.getOverallRating() > t2.getOverallRating()) {
+                        return 1;
+                    } else if (t1.getOverallRating() < t2.getOverallRating()) {
+                        return -1;
+                    } else {
+                        return 0;
+                    }
+                }
+            });
+        } else if(sortBy.equals("FIRST_AIRED")){
+            Collections.sort(shows, new Comparator<TVShow>() {
+                @Override
+                public int compare(TVShow t1, TVShow t2) {
+                    if(t1.getFirstAired() == null && t2.getFirstAired() == null){
+                        return 0;
+                    } else if(t1.getFirstAired() == null){
+                        return -1;
+                    } else if(t2.getFirstAired() == null){
+                        return 1;
+                    }
+
+                    String[] t1_split = t1.getFirstAired().split("-");
+                    String[] t2_split = t2.getFirstAired().split("-");
+
+                    int t1_year = Integer.parseInt(t1_split[0]);
+                    int t1_month = Integer.parseInt(t1_split[1]);
+                    int t1_day = Integer.parseInt(t1_split[2]);
+
+                    int t2_year = Integer.parseInt(t2_split[0]);
+                    int t2_month = Integer.parseInt(t2_split[1]);
+                    int t2_day = Integer.parseInt(t2_split[2]);
+
+                    if (t1_year > t2_year) {
+                        return 1;
+                    } else if (t1_year < t2_year) {
+                        return -1;
+                    } else {
+                        if (t1_month > t2_month) {
+                            return 1;
+                        } else if (t1_month < t2_month) {
+                            return -1;
+                        } else {
+                            if (t1_day > t2_day) {
+                                return 1;
+                            } else if (t1_day < t2_day) {
+                                return -1;
+                            } else {
+                                return 0;
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        if (sortDirection.equals("DESCENDING")) {
+            Collections.reverse(shows);
+        }
+
+        model.addAttribute("sortCriteria", EnumSet.allOf(TVShowSortCriteria.class));
+        model.addAttribute("sortDirections", EnumSet.allOf(TVShowSortDirection.class));
+        model.addAttribute("sortBy", sortBy);
+        model.addAttribute("sortDirection", sortDirection);
         model.addAttribute("shows", shows);
         model.addAttribute("posterURL", tvShowService.getTVShowPosterURL());
         DecimalFormat df = new DecimalFormat("#.##");

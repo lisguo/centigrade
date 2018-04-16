@@ -31,6 +31,8 @@ public class TVShowService {
         return tvShowRepository.findAll();
     }
 
+    public List<TVShow> getAllTVShowsSortedBySeriesName(){ return tvShowRepository.findAllByOrderBySeriesName(); }
+
     public TVShow getTVShowById(long id) {
         return tvShowRepository.findTVShowById(id);
     }

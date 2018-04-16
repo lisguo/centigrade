@@ -9,6 +9,8 @@ import java.util.List;
 public interface TVShowRepository extends CrudRepository<TVShow, Long> {
     List<TVShow> findAll();
 
+    List<TVShow> findAllByOrderBySeriesName();
+
     TVShow findTVShowById(long id);
 
     TVShow save(TVShow t);
