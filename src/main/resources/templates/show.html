@@ -175,9 +175,16 @@
 
                         </td>
                         <td th:text="@{'Rating: ' + ${cr.rating} + '%'}"/>
+                        <td th:if="${session.account != null and cr.userId == session.account.id}">
+                            <form action = "delete_review" method="post">
+                                <input type="hidden" th:value="${cr.id}" name="id" />
+                                <input type="submit" value="X" />
+                            </form>
+                        </td>
                     </tr>
                     <tr th:unless="${cr.reviewText == null}">
-                        <td colspan="2" th:text="${cr.reviewText}"/>
+                        <td th:if="${session.account != null and cr.userId == session.account.id}" th:colspan="3" th:text="${cr.reviewText}"/>
+                        <td th:unless="${session.account != null and cr.userId == session.account.id}" th:colspan="2" th:text="${cr.reviewText}"/>
                     </tr>
                 </table>
                 <p th:utext="@{'&lt;br&gt;'}"></p>
@@ -198,9 +205,16 @@
 
                         </td>
                         <td th:text="@{'Rating: ' + ${ur.rating} + '%'}"/>
+                        <td th:if="${session.account != null and ur.userId == session.account.id}">
+                            <form action = "delete_review" method="post">
+                                <input type="hidden" th:value="${ur.id}" name="id" />
+                                <input type="submit" value="X" />
+                            </form>
+                        </td>
                     </tr>
                     <tr th:unless="${ur.reviewText == null}">
-                        <td colspan="2" th:text="${ur.reviewText}"/>
+                        <td th:if="${session.account != null and ur.userId == session.account.id}" th:colspan="3" th:text="${ur.reviewText}"/>
+                        <td th:unless="${session.account != null and ur.userId == session.account.id}" th:colspan="2" th:text="${ur.reviewText}"/>
                     </tr>
                 </table>
                 <p th:utext="@{'&lt;br&gt;'}"></p>

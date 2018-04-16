@@ -55,11 +55,12 @@ public class TVShowController {
         model.addAttribute("posterURL", tvShowService.getTVShowPosterURL());
         model.addAttribute("photoURL", personService.getPersonPhotoURL());
 
-        if(res == ReviewResult.SUCCESS) {
+        if (res == ReviewResult.SUCCESS) {
             model.addAttribute("message", env.getProperty("review_success"));
-        }
-        else if(res == ReviewResult.ALREADY_REVIEWED){
+        } else if (res == ReviewResult.ALREADY_REVIEWED){
             model.addAttribute("message", env.getProperty("review_already_reviewed"));
+        } else if (res == ReviewResult.DELETED){
+            model.addAttribute("message", env.getProperty("review_deleted"));
         }
 
         List<Episode> selectedSeason = tvShowService.getSeason(show, season);

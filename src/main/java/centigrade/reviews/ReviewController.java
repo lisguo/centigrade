@@ -32,8 +32,8 @@ public class ReviewController {
 
     @PostMapping("add_review")
     public RedirectView addReview(@RequestParam String reviewtext, @RequestParam double rating,
-                                  @RequestParam String contentType, @RequestParam long contentID, HttpSession session,
-                                  Model model) {
+                                  @RequestParam String contentType, @RequestParam long contentID,
+                                  HttpSession session) {
 
         RedirectView rv = new RedirectView();
         Account a = (Account) session.getAttribute("account");
@@ -78,6 +78,26 @@ public class ReviewController {
             rv.setUrl("show?id=" + contentID + "&res=" + ReviewResult.SUCCESS);
         }
 
+        return rv;
+    }
+
+    @PostMapping("delete_review")
+    public RedirectView deleteReview(@RequestParam long id, @RequestParam(required = false) String fromProfile) {
+        Review r = reviewService.getReviewById(id);
+        RedirectView rv = new RedirectView();
+
+        Movie m = movieService.getMovieById(r.getContentId());
+        TVShow t = tvShowService.getTVShowById(r.getContentId());
+
+        if(fromProfile != null){
+            rv.setUrl("profile?id=" + r.getUserId());
+        } else if(m != null ){
+            rv.setUrl("movie?id=" + r.getContentId() + "&res=" + ReviewResult.DELETED);
+        } else if(t != null ){
+            rv.setUrl("show?id=" + r.getContentId() + "&res=" + ReviewResult.DELETED);
+        }
+
+        reviewService.deleteReview(r);
         return rv;
     }
 }
