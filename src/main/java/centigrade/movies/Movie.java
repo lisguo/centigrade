@@ -198,13 +198,6 @@ public class Movie implements Comparator<Movie> {
             return;
         }
 
-        if(this.boxoffice.contains(":")){
-            for(int i = 0; i < 100; i++){
-                System.out.println(this.title);
-                System.out.println(this.boxoffice);
-            }
-        }
-
         String temp = this.boxoffice.replace("$", "").replace(",", "");
         this.sortableBoxOffice = Double.parseDouble(temp);
     }
