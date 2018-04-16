@@ -65,7 +65,9 @@ public class MovieService {
 
                 while (rs.next()) {
                     Movie m = movieRepository.findMovieById(rs.getInt(1));
-                    films.add(m);
+                    if(m != null){
+                        films.add(m);
+                    }
                 }
 
                 return films;
@@ -85,7 +87,9 @@ public class MovieService {
 
                 while (rs.next()) {
                     Movie m = movieRepository.findMovieById(rs.getInt(1));
-                    films.add(m);
+                    if(m != null){
+                        films.add(m);
+                    }
                 }
 
                 return films;

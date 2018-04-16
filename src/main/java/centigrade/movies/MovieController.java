@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 
 enum MovieSortCriteria {
-    YEAR, TITLE, RATING
+    YEAR, TITLE, RATING, BOX_OFFICE
 }
 
 enum MovieSortDirection {
@@ -83,18 +83,35 @@ public class MovieController {
             movies = movieService.getAllMoviesSortedByTitle();
         } else if (sortBy.equals("YEAR")) {
             movies = movieService.getAllMoviesSortedByYear();
-        } else { //rating
+        } else { //rating or box office
             movies = movieService.getAllMovies();
-            for (Movie m : movies) {
-                m.calculateOverallRating();
-            }
+        }
 
+        for (Movie m : movies) {
+            m.calculateOverallRating();
+            m.calculateBoxOffice();
+        }
+
+        if(sortBy.equals("RATING")){
             Collections.sort(movies, new Comparator<Movie>() {
                 @Override
                 public int compare(Movie m1, Movie m2) {
                     if (m1.getOverallRating() > m2.getOverallRating()) {
                         return 1;
                     } else if (m1.getOverallRating() < m2.getOverallRating()) {
+                        return -1;
+                    } else {
+                        return 0;
+                    }
+                }
+            });
+        }else if(sortBy.equals("BOX_OFFICE")){
+            Collections.sort(movies, new Comparator<Movie>() {
+                @Override
+                public int compare(Movie m1, Movie m2) {
+                    if (m1.getSortableBoxOffice() > m2.getSortableBoxOffice()) {
+                        return 1;
+                    } else if (m1.getSortableBoxOffice() < m2.getSortableBoxOffice()) {
                         return -1;
                     } else {
                         return 0;
@@ -125,7 +142,7 @@ public class MovieController {
         model.addAttribute("posterURL", movieService.getMoviePosterURL());
         DecimalFormat df = new DecimalFormat("#.##");
         model.addAttribute("decimalFormat", df);
-        return "movies"; // Show movie.html in templates
+        return "movies";
     }
 
     @GetMapping("/movie")

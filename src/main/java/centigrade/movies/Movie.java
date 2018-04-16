@@ -37,6 +37,8 @@ public class Movie implements Comparator<Movie> {
 
     @Transient
     private double overallRating;
+    @Transient
+    private double sortableBoxOffice;
 
     public Movie() {
     }
@@ -188,5 +190,30 @@ public class Movie implements Comparator<Movie> {
         }
 
         return false;
+    }
+
+    public void calculateBoxOffice(){
+        if(this.boxoffice.equals("N/A")){
+            this.sortableBoxOffice = 0;
+            return;
+        }
+
+        if(this.boxoffice.contains(":")){
+            for(int i = 0; i < 100; i++){
+                System.out.println(this.title);
+                System.out.println(this.boxoffice);
+            }
+        }
+
+        String temp = this.boxoffice.replace("$", "").replace(",", "");
+        this.sortableBoxOffice = Double.parseDouble(temp);
+    }
+
+    public double getSortableBoxOffice() {
+        return sortableBoxOffice;
+    }
+
+    public void setSortableBoxOffice(double sortableBoxOffice) {
+        this.sortableBoxOffice = sortableBoxOffice;
     }
 }
