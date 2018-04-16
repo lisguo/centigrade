@@ -64,8 +64,8 @@
                 <td>
                     <a th:href="@{'/movie?id=' + ${movie.id}}" th:text="${movie.title}"/>
                     <p th:text="@{'(' + ${movie.year} + ')'}"></p>
+                    <p th:text="@{'Box Office: ' + ${movie.boxoffice}}"></p>
                 </td>
-
             </tr>
             <tr>
                 <td th:if="${prev!=null}"> <a th:href="${prev}"> Prev.</a></td>

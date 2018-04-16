@@ -31,6 +31,8 @@ public class TVShowService {
         return tvShowRepository.findAll();
     }
 
+    public List<TVShow> getAllTVShowsSortedBySeriesName(){ return tvShowRepository.findAllByOrderBySeriesName(); }
+
     public TVShow getTVShowById(long id) {
         return tvShowRepository.findTVShowById(id);
     }
@@ -52,7 +54,9 @@ public class TVShowService {
 
                 while (rs.next()) {
                     TVShow t = tvShowRepository.findTVShowById(rs.getInt(1));
-                    shows.add(t);
+                    if(t != null){
+                        shows.add(t);
+                    }
                 }
 
                 return shows;
@@ -72,7 +76,9 @@ public class TVShowService {
 
                 while (rs.next()) {
                     TVShow t = tvShowRepository.findTVShowById(rs.getInt(1));
-                    shows.add(t);
+                    if(t != null){
+                        shows.add(t);
+                    }
                 }
 
                 return shows;

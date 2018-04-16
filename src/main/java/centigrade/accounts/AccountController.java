@@ -123,6 +123,7 @@ public class AccountController {
 
         // Check password
         Account a = accountService.getAccountByEmail(email);
+
         byte[] salt = a.getSalt();
         byte[] hashedPassword = accountService.hashPassword(password, salt);
 
@@ -130,6 +131,13 @@ public class AccountController {
             model.addAttribute("message", env.getProperty("login_error"));
             return "login";
         }
+
+        // make sure account is activated
+        if(a.getIsActive() != 1){
+            model.addAttribute("message", env.getProperty("login_unverified"));
+            return "login";
+        }
+
         session.setAttribute("account", a);
         model.addAttribute("appName", env.getProperty("app_name"));
         return "index";
@@ -197,10 +205,6 @@ public class AccountController {
         ArrayList<Review> showReviews = new ArrayList<>();
 
         for (Review r : reviews) {
-            if (r.getReviewText() == null) {
-                continue;
-            }
-
             Movie m = movieService.getMovieById(r.getContentId());
             TVShow t = tvShowService.getTVShowById(r.getContentId());
 

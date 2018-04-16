@@ -10,6 +10,7 @@ import java.text.DecimalFormat;
 import java.util.*;
 
 import centigrade.reviews.Review;
+import centigrade.reviews.ReviewResult;
 import centigrade.reviews.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 
 enum MovieSortCriteria {
-    YEAR, TITLE, RATING
+    YEAR, TITLE, RATING, BOX_OFFICE
 }
 
 enum MovieSortDirection {
@@ -82,18 +83,35 @@ public class MovieController {
             movies = movieService.getAllMoviesSortedByTitle();
         } else if (sortBy.equals("YEAR")) {
             movies = movieService.getAllMoviesSortedByYear();
-        } else { //rating
+        } else { //rating or box office
             movies = movieService.getAllMovies();
-            for (Movie m : movies) {
-                m.calculateOverallRating();
-            }
+        }
 
+        for (Movie m : movies) {
+            m.calculateOverallRating();
+            m.calculateBoxOffice();
+        }
+
+        if(sortBy.equals("RATING")){
             Collections.sort(movies, new Comparator<Movie>() {
                 @Override
                 public int compare(Movie m1, Movie m2) {
                     if (m1.getOverallRating() > m2.getOverallRating()) {
                         return 1;
                     } else if (m1.getOverallRating() < m2.getOverallRating()) {
+                        return -1;
+                    } else {
+                        return 0;
+                    }
+                }
+            });
+        }else if(sortBy.equals("BOX_OFFICE")){
+            Collections.sort(movies, new Comparator<Movie>() {
+                @Override
+                public int compare(Movie m1, Movie m2) {
+                    if (m1.getSortableBoxOffice() > m2.getSortableBoxOffice()) {
+                        return 1;
+                    } else if (m1.getSortableBoxOffice() < m2.getSortableBoxOffice()) {
                         return -1;
                     } else {
                         return 0;
@@ -124,16 +142,24 @@ public class MovieController {
         model.addAttribute("posterURL", movieService.getMoviePosterURL());
         DecimalFormat df = new DecimalFormat("#.##");
         model.addAttribute("decimalFormat", df);
-        return "movies"; // Show movie.html in templates
+        return "movies";
     }
 
     @GetMapping("/movie")
-    public String displayMovie(@RequestParam long id, Model model) {
+    public String displayMovie(@RequestParam long id, @RequestParam(required = false) ReviewResult res, Model model) {
         Movie movie = movieService.getMovieById(id);
         model.addAttribute("movie", movie);
         model.addAttribute("posterURL", movieService.getMoviePosterURL());
         model.addAttribute("trailerURL", movieService.getMovieTrailerURL());
         model.addAttribute("photoURL", personService.getPersonPhotoURL());
+
+        if (res == ReviewResult.SUCCESS) {
+            model.addAttribute("message", env.getProperty("review_success"));
+        } else if (res == ReviewResult.ALREADY_REVIEWED){
+            model.addAttribute("message", env.getProperty("review_already_reviewed"));
+        } else if (res == ReviewResult.DELETED){
+            model.addAttribute("message", env.getProperty("review_deleted"));
+        }
 
         List<Person> cast = personService.getCastByMovie(movie);
         model.addAttribute("cast", cast);
@@ -145,12 +171,7 @@ public class MovieController {
         ArrayList<Review> criticReviews = new ArrayList<>();
         Account a;
 
-
         for (Review r : reviews) {
-            if (r.getReviewText() == null) {
-                continue;
-            }
-
             a = accountService.getAccountById(r.getUserId());
 
             if(a == null) {

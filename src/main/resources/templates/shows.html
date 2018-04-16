@@ -14,6 +14,43 @@
                 <td></td>
             </tr>
         </table>
+
+        <table>
+            <tr>
+                <td colspan="3">
+                    <h2>
+                        ALL SHOWS
+                    </h2>
+                </td>
+            </tr>
+            <tr>
+                <form action="/shows" method="get">
+                    <div class="form-group row">
+                        <td>
+                            <select class="form-control" name="sortBy">
+                                <option th:each="crit:${sortCriteria}"
+                                        th:value="${crit}"
+                                        th:text="${crit}"
+                                        th:selected="${crit.toString().equals(sortBy)}"/>
+                            </select>
+                        </td>
+                        <td>
+                            <select class="form-control" name="sortDirection">
+                                <option th:each="dir:${sortDirections}"
+                                        th:value="${dir}"
+                                        th:text="${dir}"
+                                        th:selected="${dir.toString().equals(sortDirection)}"/>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="submit" value="Sort"/>
+                        </td>
+                    </div>
+
+                </form>
+            </tr>
+        </table>
+
         <table frame="above" rules="rows" cellspacing="10">
             <tr th:each="show : ${shows}">
                 <div th:if="${show.hasBeenRated()}">
@@ -27,7 +64,8 @@
                 </td>
                 <td>
                     <a th:href="@{'/show?id=' + ${show.id}}" th:text="${show.seriesName}"/>
-                    <p th:text="@{'(First Aired: ' + ${show.firstAired} + ')'}"></p>
+                    <p th:if="${show.firstAired != null}" th:text="@{'(First Aired: ' + ${show.firstAired} + ')'}"></p>
+                    <p th:if="${show.firstAired == null}" th:text="@{'(First Aired: N/A)'}"></p>
                 </td>
 
             </tr>

@@ -41,7 +41,9 @@ public class PersonService {
 
         for (Long id : ids) {
             Person p = personRepository.findPersonById(id);
-            people.add(p);
+            if(p != null){
+                people.add(p);
+            }
         }
 
         return people;
@@ -55,7 +57,9 @@ public class PersonService {
 
                 while (rs.next()) {
                     Person p = personRepository.findPersonById(rs.getInt(2));
-                    cast.add(p);
+                    if(p != null){
+                        cast.add(p);
+                    }
                 }
 
                 return cast;
@@ -71,7 +75,9 @@ public class PersonService {
 
                 while (rs.next()) {
                     Person p = personRepository.findPersonById(rs.getInt(2));
-                    cast.add(p);
+                    if(p != null){
+                        cast.add(p);
+                    }
                 }
 
                 return cast;
@@ -88,7 +94,9 @@ public class PersonService {
 
                 while (rs.next()) {
                     Person p = personRepository.findPersonById(rs.getInt(2));
-                    directors.add(p);
+                    if(p != null){
+                        directors.add(p);
+                    }
                 }
 
                 return directors;
@@ -104,7 +112,9 @@ public class PersonService {
 
                 while (rs.next()) {
                     Person p = personRepository.findPersonById(rs.getInt(1));
-                    cast.add(p);
+                    if(p != null){
+                        cast.add(p);
+                    }
                 }
 
                 return cast;

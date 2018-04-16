@@ -7,16 +7,25 @@ import centigrade.people.PersonService;
 import centigrade.people.Person;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import centigrade.reviews.Review;
+import centigrade.reviews.ReviewResult;
 import centigrade.reviews.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.core.env.Environment;
+
+enum TVShowSortCriteria {
+    TITLE, RATING, FIRST_AIRED
+}
+
+enum TVShowSortDirection {
+    ASCENDING, DESCENDING
+}
 
 @Controller
 public class TVShowController {
@@ -32,31 +41,93 @@ public class TVShowController {
     @Autowired
     private Environment env;
 
+    @Autowired
+    private Environment env;
+
     @GetMapping("/shows")
-    public String displayAllTVShowsMapping(Model model) {
-        return displayAllTVShows(model,1);
+    public String displayAllTVShows(Model model, @RequestParam(defaultValue = "TITLE") String sortBy,
+                                    @RequestParam(defaultValue = "ASCENDING") String sortDirection) {
 
-    }
-    @GetMapping("/shows{pageNum}")
-    public String displayAllTVShowsMappingWithPage(Model model, @PathVariable("pageNum") String pageNum) {
-        return displayAllTVShows(model,Integer.parseInt(pageNum));
-
-    }
-    public String displayAllTVShows(Model model,int page) {
         List<TVShow> shows = tvShowService.getAllTVShows();
+
+        if (sortBy.equals("TITLE")) {
+            shows = tvShowService.getAllTVShowsSortedBySeriesName();
+        } else { //rating or first aired
+            shows = tvShowService.getAllTVShows();
+        }
+
         for (TVShow t : shows) {
             t.calculateOverallRating();
         }
-        List<TVShow> showsOut = new ArrayList<TVShow>();
 
-        int searchAmount =Integer.parseInt(env.getProperty("num_search_results"));
-        int end = page * searchAmount;
-        int start = (page-1)*searchAmount;
-        for(int i =start; i<end && i<showsOut.size();i++){
-            showsOut.add(showsOut.get(i));
+        if(sortBy.equals("RATING")){
+            Collections.sort(shows, new Comparator<TVShow>() {
+                @Override
+                public int compare( TVShow t1, TVShow t2) {
+                    if (t1.getOverallRating() > t2.getOverallRating()) {
+                        return 1;
+                    } else if (t1.getOverallRating() < t2.getOverallRating()) {
+                        return -1;
+                    } else {
+                        return 0;
+                    }
+                }
+            });
+        } else if(sortBy.equals("FIRST_AIRED")){
+            Collections.sort(shows, new Comparator<TVShow>() {
+                @Override
+                public int compare(TVShow t1, TVShow t2) {
+                    if(t1.getFirstAired() == null && t2.getFirstAired() == null){
+                        return 0;
+                    } else if(t1.getFirstAired() == null){
+                        return -1;
+                    } else if(t2.getFirstAired() == null){
+                        return 1;
+                    }
+
+                    String[] t1_split = t1.getFirstAired().split("-");
+                    String[] t2_split = t2.getFirstAired().split("-");
+
+                    int t1_year = Integer.parseInt(t1_split[0]);
+                    int t1_month = Integer.parseInt(t1_split[1]);
+                    int t1_day = Integer.parseInt(t1_split[2]);
+
+                    int t2_year = Integer.parseInt(t2_split[0]);
+                    int t2_month = Integer.parseInt(t2_split[1]);
+                    int t2_day = Integer.parseInt(t2_split[2]);
+
+                    if (t1_year > t2_year) {
+                        return 1;
+                    } else if (t1_year < t2_year) {
+                        return -1;
+                    } else {
+                        if (t1_month > t2_month) {
+                            return 1;
+                        } else if (t1_month < t2_month) {
+                            return -1;
+                        } else {
+                            if (t1_day > t2_day) {
+                                return 1;
+                            } else if (t1_day < t2_day) {
+                                return -1;
+                            } else {
+                                return 0;
+                            }
+                        }
+                    }
+                }
+            });
         }
 
-        model.addAttribute("shows", showsOut);
+        if (sortDirection.equals("DESCENDING")) {
+            Collections.reverse(shows);
+        }
+
+        model.addAttribute("sortCriteria", EnumSet.allOf(TVShowSortCriteria.class));
+        model.addAttribute("sortDirections", EnumSet.allOf(TVShowSortDirection.class));
+        model.addAttribute("sortBy", sortBy);
+        model.addAttribute("sortDirection", sortDirection);
+        model.addAttribute("shows", shows);
         model.addAttribute("posterURL", tvShowService.getTVShowPosterURL());
         DecimalFormat df = new DecimalFormat("#.##");
         model.addAttribute("decimalFormat", df);
@@ -65,11 +136,20 @@ public class TVShowController {
 
 
     @GetMapping("/show")
-    public String displayTVShow(@RequestParam long id, @RequestParam(defaultValue = "1") int season, Model model) {
+    public String displayTVShow(@RequestParam long id, @RequestParam(required = false) ReviewResult res,
+                                @RequestParam(defaultValue = "1") int season, Model model) {
         TVShow show = tvShowService.getTVShowById(id);
         model.addAttribute("show", show);
         model.addAttribute("posterURL", tvShowService.getTVShowPosterURL());
         model.addAttribute("photoURL", personService.getPersonPhotoURL());
+
+        if (res == ReviewResult.SUCCESS) {
+            model.addAttribute("message", env.getProperty("review_success"));
+        } else if (res == ReviewResult.ALREADY_REVIEWED){
+            model.addAttribute("message", env.getProperty("review_already_reviewed"));
+        } else if (res == ReviewResult.DELETED){
+            model.addAttribute("message", env.getProperty("review_deleted"));
+        }
 
         List<Episode> selectedSeason = tvShowService.getSeason(show, season);
         model.addAttribute("season", selectedSeason);
@@ -83,11 +163,6 @@ public class TVShowController {
         Account a;
 
         for (Review r : reviews) {
-
-            if (r.getReviewText() == null) {
-                continue;
-            }
-
             a = accountService.getAccountById(r.getUserId());
 
             if(a == null){
