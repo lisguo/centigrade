@@ -13,15 +13,10 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/centigrade.css}"/>
     <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet"/>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-            crossorigin="anonymous"></script>
-    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
-    <script type="text/javascript" th:src="@{/js/centigrade.js}"></script>
 </head>
 <body>
 <nav th:fragment="navbar">
-    <div id="logo-container">
+    <div class="logo-container">
         <a href="/"><img th:src="@{/img/logos/logo.png}" alt="CentiGrade"/></a>
     </div>
     <div id="navigation">
@@ -63,47 +58,11 @@
     </div>
 </nav>
 <nav id="plain-nav" th:fragment="navbar-relative">
-    <div id="logo-container">
-        <a href="/"><img th:src="@{/img/logos/logo.png}" alt="CentiGrade"/></a>
-    </div>
-    <div id="navigation">
-        <div id="navs">
-            <div id="nav1">
-                <form action="/search" method="get">
-                    <input type="search" name="search" placeholder="Search movies, tv shows, actors, more..."
-                           onfocus="this.value=''" aria-label="Search"/>
-                    <button type="submit" value="submit"><i class="fas fa-search"></i></button>
-                </form>
-                <div id="following" class="functions">
-                    <a href="/following"><i class="far fa-smile"></i>Following</a>
-                </div>
-                <div th:if="${session.account == null}" class="sessionstuff">
-                    <div id="login" class="functions">
-                        <a href="/login"><i class="fas fa-sign-in-alt"></i>Login</a>
-                    </div>
-                    <div id="register" class="functions">
-                        <a href="/register"><i class="fas fa-user-plus"></i>Register</a>
-                    </div>
-                </div>
-                <div th:if="${session.account != null}" class="sessionstuff" id="greeting">
-                    <div id="greetin" class="functions">
-                        <a href="\edit_account"> <b th:text="${'Hello, ' + session.account.firstName}"/></a>
-                    </div>
-                    <div id="logout" class="functions">
-                        <a href="\logout">Logout</a>
-                    </div>
-                </div>
-            </div>
-            <div id="nav2">
-                <div id="container">
-                    <h2><a href="/movies">MOVIES</a></h2>
-                    <h2><a href="/shows">TV SHOWS</a></h2>
-                    <h2><a href="/">TICKETS AND SHOWTIMES</a></h2>
-                </div>
-            </div>
-        </div>
+    <div class="logo-container">
+        <a href="/"><img src="../img/logos/logo.png" alt="CentiGrade" /></a>
     </div>
 </nav>
+
 <footer th:fragment="footer">
     <div id="footerlogo">
         <a href="/"><img th:src="@{/img/logos/footerLogo.png}" alt=""/></a>
@@ -132,6 +91,11 @@
                 <a href="/"><i class="fab fa-youtube-square fa-2x"></i></a></li>
         </ul>
     </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/centigrade.js}"></script>
 </footer>
 </body>
 </html>

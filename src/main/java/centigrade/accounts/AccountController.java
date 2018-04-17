@@ -121,7 +121,6 @@ public class AccountController {
             return "login";
         }
 
-        // Check password
         Account a = accountService.getAccountByEmail(email);
 
         byte[] salt = a.getSalt();
@@ -132,14 +131,14 @@ public class AccountController {
             return "login";
         }
 
-        // make sure account is activated
-        if(a.getIsActive() != 1){
+        if (a.getIsActive() != 1) {
             model.addAttribute("message", env.getProperty("login_unverified"));
             return "login";
         }
 
         session.setAttribute("account", a);
         model.addAttribute("appName", env.getProperty("app_name"));
+
         return "index";
     }
 
@@ -148,6 +147,7 @@ public class AccountController {
 
         session.setAttribute("account", null);
         model.addAttribute("appName", env.getProperty("app_name"));
+
         return "redirect:/";
     }
 
@@ -211,7 +211,7 @@ public class AccountController {
             if (m != null) {
                 r.setContentName(m.getTitle());
                 movieReviews.add(r);
-            }else if(t != null){
+            } else if (t != null) {
                 r.setContentName(t.getSeriesName());
                 showReviews.add(r);
             }

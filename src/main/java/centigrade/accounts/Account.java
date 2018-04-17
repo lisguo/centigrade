@@ -7,33 +7,27 @@ import javax.persistence.*;
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+
     private long id;
-
-    @Column(name = "email")
     private String email;
-
-    @Column(name = "nonce")
     private String nonce;
-
-    @Column(name = "password")
     private byte[] password;
-
-    @Column(name = "firstname")
     private String firstName;
-
-    @Column(name = "lastname")
     private String lastName;
-
-    @Column(name = "accounttype")
     private AccountType accountType;
-
-    @Column(name = "isactive")
     private int isActive;
-
-    @Column(name = "salt")
     private byte[] salt;
 
+    @Column(name = "id")
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    @Column(name = "email")
     public String getEmail() {
         return email;
     }
@@ -42,6 +36,7 @@ public class Account {
         this.email = email;
     }
 
+    @Column(name = "nonce")
     public String getNonce() {
         return nonce;
     }
@@ -50,6 +45,7 @@ public class Account {
         this.nonce = nonce;
     }
 
+    @Column(name = "password")
     public byte[] getPassword() {
         return password;
     }
@@ -58,6 +54,7 @@ public class Account {
         this.password = password;
     }
 
+    @Column(name = "firstname")
     public String getFirstName() {
         return firstName;
     }
@@ -66,6 +63,7 @@ public class Account {
         this.firstName = firstName;
     }
 
+    @Column(name = "lastname")
     public String getLastName() {
         return lastName;
     }
@@ -74,6 +72,7 @@ public class Account {
         this.lastName = lastName;
     }
 
+    @Column(name = "accounttype")
     public AccountType getAccountType() {
         return accountType;
     }
@@ -82,6 +81,7 @@ public class Account {
         this.accountType = accountType;
     }
 
+    @Column(name = "isactive")
     public int getIsActive() {
         return isActive;
     }
@@ -90,20 +90,13 @@ public class Account {
         this.isActive = isActive;
     }
 
+    @Column(name = "salt")
     public byte[] getSalt() {
         return salt;
     }
 
     public void setSalt(byte[] salt) {
         this.salt = salt;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String toString() {

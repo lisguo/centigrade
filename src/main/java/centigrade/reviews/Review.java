@@ -7,19 +7,13 @@ import javax.persistence.*;
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private long id;
-    @Column(name = "contentid")
-    private long contentId;
-    @Column(name = "contenttype")
-    private String contentType;
-    @Column(name = "userid")
-    private long userId;
-    @Column(name = "rating")
-    private double rating;
-    @Column(name = "reviewtext")
-    private String reviewText;
 
+    private long id;
+    private long contentId;
+    private String contentType;
+    private long userId;
+    private double rating;
+    private String reviewText;
     @Transient
     private String userName;
     @Transient
@@ -28,7 +22,7 @@ public class Review {
     Review() {
     }
 
-
+    @Column(name = "id")
     public long getId() {
         return id;
     }
@@ -37,6 +31,7 @@ public class Review {
         this.id = id;
     }
 
+    @Column(name = "contentid")
     public long getContentId() {
         return contentId;
     }
@@ -45,6 +40,7 @@ public class Review {
         this.contentId = contentId;
     }
 
+    @Column(name = "contenttype")
     public String getContentType() {
         return contentType;
     }
@@ -53,6 +49,7 @@ public class Review {
         this.contentType = contentType;
     }
 
+    @Column(name = "userid")
     public long getUserId() {
         return userId;
     }
@@ -61,6 +58,7 @@ public class Review {
         this.userId = userId;
     }
 
+    @Column(name = "rating")
     public double getRating() {
         return rating;
     }
@@ -69,6 +67,7 @@ public class Review {
         this.rating = rating;
     }
 
+    @Column(name = "reviewtext")
     public String getReviewText() {
         return reviewText;
     }
