@@ -192,8 +192,8 @@ public class Movie implements Comparator<Movie> {
         return false;
     }
 
-    public void calculateBoxOffice(){
-        if(this.boxoffice.equals("N/A")){
+    public void calculateBoxOffice() {
+        if (this.boxoffice.equals("N/A")) {
             this.sortableBoxOffice = 0;
             return;
         }

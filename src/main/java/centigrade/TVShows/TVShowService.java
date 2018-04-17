@@ -31,7 +31,9 @@ public class TVShowService {
         return tvShowRepository.findAll();
     }
 
-    public List<TVShow> getAllTVShowsSortedBySeriesName(){ return tvShowRepository.findAllByOrderBySeriesName(); }
+    public List<TVShow> getAllTVShowsSortedBySeriesName() {
+        return tvShowRepository.findAllByOrderBySeriesName();
+    }
 
     public TVShow getTVShowById(long id) {
         return tvShowRepository.findTVShowById(id);
@@ -54,7 +56,7 @@ public class TVShowService {
 
                 while (rs.next()) {
                     TVShow t = tvShowRepository.findTVShowById(rs.getInt(1));
-                    if(t != null){
+                    if (t != null) {
                         shows.add(t);
                     }
                 }
@@ -69,14 +71,13 @@ public class TVShowService {
             token = " " + token + " ";
         }
         return template.query("select id from tvshows where seriesname like \"%" + token + "%\"or soundex(seriesname) like soundex(\"" + token + "\")", new ResultSetExtractor<List<TVShow>>() {
-            //      return template.query("SELECT contentId, castId FROM casttocontent t1 INNER JOIN tvshows t2 ON t1.contentId = t2.id WHERE castId='" + p.getId() +"'", new ResultSetExtractor<List<TVShow>>() {
             @Override
             public List<TVShow> extractData(ResultSet rs) throws SQLException, DataAccessException {
                 List<TVShow> shows = new ArrayList<TVShow>();
 
                 while (rs.next()) {
                     TVShow t = tvShowRepository.findTVShowById(rs.getInt(1));
-                    if(t != null){
+                    if (t != null) {
                         shows.add(t);
                     }
                 }

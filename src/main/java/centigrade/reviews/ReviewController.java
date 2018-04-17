@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
+
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -45,12 +46,10 @@ public class ReviewController {
 
         List<Review> reviews = reviewService.getReviewsByUserAndContent(a.getId(), contentID);
 
-        if(reviews.size() > 0)
-        {
-            if(contentType.equals("Movie")) {
+        if (reviews.size() > 0) {
+            if (contentType.equals("Movie")) {
                 rv.setUrl("movie?id=" + contentID + "&res=" + ReviewResult.ALREADY_REVIEWED);
-            }
-            else {
+            } else {
                 rv.setUrl("show?id=" + contentID + "&res=" + ReviewResult.ALREADY_REVIEWED);
             }
 
@@ -89,11 +88,11 @@ public class ReviewController {
         Movie m = movieService.getMovieById(r.getContentId());
         TVShow t = tvShowService.getTVShowById(r.getContentId());
 
-        if(fromProfile != null){
+        if (fromProfile != null) {
             rv.setUrl("profile?id=" + r.getUserId());
-        } else if(m != null ){
+        } else if (m != null) {
             rv.setUrl("movie?id=" + r.getContentId() + "&res=" + ReviewResult.DELETED);
-        } else if(t != null ){
+        } else if (t != null) {
             rv.setUrl("show?id=" + r.getContentId() + "&res=" + ReviewResult.DELETED);
         }
 
