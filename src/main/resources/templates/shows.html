@@ -5,53 +5,40 @@
 <body>
 <div th:replace="fragments :: navbar"></div>
 <div class="container container-fluid">
-    <div class="content-row-block">
-        <!--<div th:replace="fragments :: navbar"></div>-->
-        <table width="100%">
-            <tr>
-                <td height="75"></td>
-                <td></td>
-                <td></td>
-            </tr>
-        </table>
+    <h1>All Shows</h1>
 
-        <table>
-            <tr>
-                <td colspan="3">
-                    <h2>
-                        ALL SHOWS
-                    </h2>
-                </td>
-            </tr>
-            <tr>
-                <form action="/shows" method="get">
-                    <div class="form-group row">
-                        <td>
-                            <select class="form-control" name="sortBy">
-                                <option th:each="crit:${sortCriteria}"
-                                        th:value="${crit}"
-                                        th:text="${crit}"
-                                        th:selected="${crit.toString().equals(sortBy)}"/>
-                            </select>
-                        </td>
-                        <td>
-                            <select class="form-control" name="sortDirection">
-                                <option th:each="dir:${sortDirections}"
-                                        th:value="${dir}"
-                                        th:text="${dir}"
-                                        th:selected="${dir.toString().equals(sortDirection)}"/>
-                            </select>
-                        </td>
-                        <td>
-                            <input type="submit" value="Sort"/>
-                        </td>
-                    </div>
+    <!-- SORT BUTTONS -->
+    <form action="/shows" method="get">
+        <div class="row">
+            <div class="col">
+                <select class="custom-select" name="sortBy">
+                    <option th:each="crit:${sortCriteria}"
+                            th:value="${crit}"
+                            th:text="${crit}"
+                            th:selected="${crit.toString().equals(sortBy)}"/>
+                </select>
+            </div>
+            <div class="col">
+                <select class="custom-select" name="sortDirection">
+                    <option th:each="dir:${sortDirections}"
+                            th:value="${dir}"
+                            th:text="${dir}"
+                            th:selected="${dir.toString().equals(sortDirection)}"/>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-outline-primary">Sort</button>
+        </div>
+    </form>
 
-                </form>
-            </tr>
-        </table>
-
-        <table frame="above" rules="rows" cellspacing="10">
+    <!-- SHOW RESULTS -->
+    <table class="table">
+        <thead>
+            <th scope="col">Rating</th>
+            <th scope="col"></th>
+            <th scope="col">Title</th>
+            <th scope="col">Info</th>
+        </thead>
+        <tbody>
             <tr th:each="show : ${shows}">
                 <div th:if="${show.hasBeenRated()}">
                     <td th:text="@{${decimalFormat.format(show.getOverallRating())} + '%'}"/>
@@ -64,19 +51,24 @@
                 </td>
                 <td>
                     <a th:href="@{'/show?id=' + ${show.id}}" th:text="${show.seriesName}"/>
+                </td>
+                <td>
                     <p th:if="${show.firstAired != null}" th:text="@{'(First Aired: ' + ${show.firstAired} + ')'}"></p>
                     <p th:if="${show.firstAired == null}" th:text="@{'(First Aired: N/A)'}"></p>
                 </td>
+            </tr>
+        </tbody>
+    </table>
 
-            </tr>
-            <tr>
-                <td th:if="${prev!=null}"> <a th:href="${prev}"> Prev.</a></td>
-                <td th:if="${prev==null}"> Prev.</td>
-                <td>   </td>
-                <td th:if="${next!=null}"> <a th:href="${next}"> Next</a></td>
-                <td th:if="${next==null}"> Next</td>
-            </tr>
-        </table>
+    <!-- PAGINATION -->
+    <div class="container">
+        <div class="row">
+            <div th:if="${prev!=null}"> <a th:href="${prev}"> Prev.</a></div>
+            <div th:if="${prev==null}"> Prev.</div>
+            <div>   </div>
+            <div th:if="${next!=null}"> <a th:href="${next}"> Next</a></div>
+            <div th:if="${next==null}"> Next</div>
+        </div>
     </div>
 </div>
 </body>
