@@ -44,27 +44,29 @@ public class TVShowController {
 
     @GetMapping("/shows")
     public String displayAllTVShowsMap(Model model, @RequestParam(defaultValue = "TITLE") String sortBy,
-                                    @RequestParam(defaultValue = "ASCENDING") String sortDirection){
-        return  displayAllTVShows( model, sortBy,sortDirection, 1);
+                                       @RequestParam(defaultValue = "ASCENDING") String sortDirection) {
+        return displayAllTVShows(model, sortBy, sortDirection, 1);
 
 
-    }    @GetMapping("/shows{pageNum}")
+    }
+
+    @GetMapping("/shows{pageNum}")
     public String displayAllTVShowsMapWithPage(Model model, @RequestParam(defaultValue = "TITLE") String sortBy,
-                                    @RequestParam(defaultValue = "ASCENDING") String sortDirection,@PathVariable("pageNum") String pageNum){
-        return  displayAllTVShows( model, sortBy,sortDirection, Integer.parseInt(pageNum));
+                                               @RequestParam(defaultValue = "ASCENDING") String sortDirection, @PathVariable("pageNum") String pageNum) {
+        return displayAllTVShows(model, sortBy, sortDirection, Integer.parseInt(pageNum));
 
     }
 
     public String displayAllTVShows(Model model, @RequestParam(defaultValue = "TITLE") String sortBy,
-                                    @RequestParam(defaultValue = "ASCENDING") String sortDirection,int page) {
+                                    @RequestParam(defaultValue = "ASCENDING") String sortDirection, int page) {
 
         List<TVShow> shows = tvShowService.getAllTVShows();
-        String endLink ="?sortBy="+sortBy+"&sortDirection="+sortDirection;
+        String endLink = "?sortBy=" + sortBy + "&sortDirection=" + sortDirection;
 
 
         if (sortBy.equals("TITLE")) {
             shows = tvShowService.getAllTVShowsSortedBySeriesName();
-        } else { //rating or first aired
+        } else {
             shows = tvShowService.getAllTVShows();
         }
 
@@ -72,10 +74,10 @@ public class TVShowController {
             t.calculateOverallRating();
         }
 
-        if(sortBy.equals("RATING")){
+        if (sortBy.equals("RATING")) {
             Collections.sort(shows, new Comparator<TVShow>() {
                 @Override
-                public int compare( TVShow t1, TVShow t2) {
+                public int compare(TVShow t1, TVShow t2) {
                     if (t1.getOverallRating() > t2.getOverallRating()) {
                         return 1;
                     } else if (t1.getOverallRating() < t2.getOverallRating()) {
@@ -85,15 +87,15 @@ public class TVShowController {
                     }
                 }
             });
-        } else if(sortBy.equals("FIRST_AIRED")){
+        } else if (sortBy.equals("FIRST_AIRED")) {
             Collections.sort(shows, new Comparator<TVShow>() {
                 @Override
                 public int compare(TVShow t1, TVShow t2) {
-                    if(t1.getFirstAired() == null && t2.getFirstAired() == null){
+                    if (t1.getFirstAired() == null && t2.getFirstAired() == null) {
                         return 0;
-                    } else if(t1.getFirstAired() == null){
+                    } else if (t1.getFirstAired() == null) {
                         return -1;
-                    } else if(t2.getFirstAired() == null){
+                    } else if (t2.getFirstAired() == null) {
                         return 1;
                     }
 
@@ -135,10 +137,10 @@ public class TVShowController {
             Collections.reverse(shows);
         }
         List<TVShow> outShows = new ArrayList<TVShow>();
-        int searchAmount =Integer.parseInt(env.getProperty("num_search_results"));
+        int searchAmount = Integer.parseInt(env.getProperty("num_search_results"));
         int end = page * searchAmount;
-        int start = (page-1)*searchAmount;
-        for(int i =start; i<end && i<shows.size();i++){
+        int start = (page - 1) * searchAmount;
+        for (int i = start; i < end && i < shows.size(); i++) {
             outShows.add(shows.get(i));
         }
 
@@ -147,8 +149,8 @@ public class TVShowController {
         model.addAttribute("sortBy", sortBy);
         model.addAttribute("sortDirection", sortDirection);
         model.addAttribute("shows", outShows);
-        if(page!=1) model.addAttribute("prev", "/shows"+(page-1)+endLink);
-        if(end+1<shows.size())model.addAttribute("next", "/shows"+(page+1)+endLink);
+        if (page != 1) model.addAttribute("prev", "/shows" + (page - 1) + endLink);
+        if (end + 1 < shows.size()) model.addAttribute("next", "/shows" + (page + 1) + endLink);
         model.addAttribute("posterURL", tvShowService.getTVShowPosterURL());
         DecimalFormat df = new DecimalFormat("#.##");
         model.addAttribute("decimalFormat", df);
@@ -166,9 +168,9 @@ public class TVShowController {
 
         if (res == ReviewResult.SUCCESS) {
             model.addAttribute("message", env.getProperty("review_success"));
-        } else if (res == ReviewResult.ALREADY_REVIEWED){
+        } else if (res == ReviewResult.ALREADY_REVIEWED) {
             model.addAttribute("message", env.getProperty("review_already_reviewed"));
-        } else if (res == ReviewResult.DELETED){
+        } else if (res == ReviewResult.DELETED) {
             model.addAttribute("message", env.getProperty("review_deleted"));
         }
 
@@ -186,7 +188,7 @@ public class TVShowController {
         for (Review r : reviews) {
             a = accountService.getAccountById(r.getUserId());
 
-            if(a == null){
+            if (a == null) {
                 continue;
             }
 

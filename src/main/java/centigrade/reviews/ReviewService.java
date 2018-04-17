@@ -40,15 +40,15 @@ public class ReviewService {
         reviewRepository.save(r);
     }
 
-    public void deleteReview(Review r){
+    public void deleteReview(Review r) {
         Movie m = movieService.getMovieById(r.getContentId());
         TVShow t = tvShowService.getTVShowById(r.getContentId());
 
-        if ( m != null ){
+        if (m != null) {
             m.setTimesRated(m.getTimesRated() - 1);
             m.setRatingSum(m.getRatingSum() - r.getRating());
             movieService.saveMovie(m);
-        }else if ( t != null ){
+        } else if (t != null) {
             t.setTimesRated(t.getTimesRated() - 1);
             t.setRatingSum(t.getRatingSum() - r.getRating());
             tvShowService.saveShow(t);
@@ -69,7 +69,7 @@ public class ReviewService {
         return reviewRepository.findReviewsByUserIdAndContentId(userId, contentId);
     }
 
-    public Review getReviewById(long id){
+    public Review getReviewById(long id) {
         return reviewRepository.findReviewById(id);
     }
 }
