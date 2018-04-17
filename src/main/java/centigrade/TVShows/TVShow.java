@@ -7,39 +7,27 @@ import javax.persistence.*;
 public class TVShow {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private long id;
-    @Column(name = "seriesname")
-    private String seriesName;
-    @Column(name = "contentrating")
-    private String contentRating;
-    @Column(name = "firstaired")
-    private String firstAired;
-    @Column(name = "numseasons")
-    private int numSeasons;
-    @Column(name = "genres")
-    private String genres;
-    @Column(name = "language")
-    private String language;
-    @Column(name = "network")
-    private String network;
-    @Column(name = "overview")
-    private String overview;
-    @Column(name = "runtime")
-    private String runtime;
-    @Column(name = "status")
-    private String status;
-    @Column(name = "ratingsum")
-    private double ratingSum;
-    @Column(name = "timesrated")
-    private int timesRated;
 
+    private long id;
+    private String seriesName;
+    private String contentRating;
+    private String firstAired;
+    private int numSeasons;
+    private String genres;
+    private String language;
+    private String network;
+    private String overview;
+    private String runtime;
+    private String status;
+    private double ratingSum;
+    private int timesRated;
     @Transient
     private double overallRating;
 
     public TVShow() {
     }
 
+    @Column(name = "id")
     public long getId() {
         return id;
     }
@@ -48,6 +36,7 @@ public class TVShow {
         this.id = id;
     }
 
+    @Column(name = "seriesname")
     public String getSeriesName() {
         return seriesName;
     }
@@ -56,6 +45,7 @@ public class TVShow {
         this.seriesName = seriesName;
     }
 
+    @Column(name = "contentrating")
     public String getContentRating() {
         return contentRating;
     }
@@ -64,6 +54,7 @@ public class TVShow {
         this.contentRating = contentRating;
     }
 
+    @Column(name = "firstaired")
     public String getFirstAired() {
         return firstAired;
     }
@@ -72,54 +63,7 @@ public class TVShow {
         this.firstAired = firstAired;
     }
 
-    public String getGenres() {
-        return genres;
-    }
-
-    public void setGenres(String genres) {
-        this.genres = genres;
-    }
-
-    public String getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
-    }
-
-    public String getNetwork() {
-        return network;
-    }
-
-    public void setNetwork(String network) {
-        this.network = network;
-    }
-
-    public String getOverview() {
-        return overview;
-    }
-
-    public void setOverview(String overview) {
-        this.overview = overview;
-    }
-
-    public String getRuntime() {
-        return runtime;
-    }
-
-    public void setRuntime(String runtime) {
-        this.runtime = runtime;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
+    @Column(name = "numseasons")
     public int getNumSeasons() {
         return numSeasons;
     }
@@ -128,6 +72,61 @@ public class TVShow {
         this.numSeasons = numSeasons;
     }
 
+    @Column(name = "genres")
+    public String getGenres() {
+        return genres;
+    }
+
+    public void setGenres(String genres) {
+        this.genres = genres;
+    }
+
+    @Column(name = "language")
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    @Column(name = "network")
+    public String getNetwork() {
+        return network;
+    }
+
+    public void setNetwork(String network) {
+        this.network = network;
+    }
+
+    @Column(name = "overview")
+    public String getOverview() {
+        return overview;
+    }
+
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
+
+    @Column(name = "runtime")
+    public String getRuntime() {
+        return runtime;
+    }
+
+    public void setRuntime(String runtime) {
+        this.runtime = runtime;
+    }
+
+    @Column(name = "status")
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    @Column(name = "ratingsum")
     public double getRatingSum() {
         return ratingSum;
     }
@@ -136,6 +135,7 @@ public class TVShow {
         this.ratingSum = ratingSum;
     }
 
+    @Column(name = "timesrated")
     public int getTimesRated() {
         return timesRated;
     }
@@ -144,16 +144,16 @@ public class TVShow {
         this.timesRated = timesRated;
     }
 
+    public double getOverallRating() {
+        return overallRating;
+    }
+
     public void calculateOverallRating() {
         if (timesRated == 0) {
             overallRating = 0;
         } else {
             overallRating = ratingSum / (double) timesRated;
         }
-    }
-
-    public double getOverallRating() {
-        return overallRating;
     }
 
     public boolean hasBeenRated() {

@@ -7,28 +7,24 @@ import javax.persistence.*;
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+
     private long id;
-    @Column(name = "firstname")
     private String firstName;
-    @Column(name = "middlename")
     private String middleName;
-    @Column(name = "lastname")
     private String lastName;
-    @Column(name = "biography")
-    private String bio;
-    @Column(name = "casttype")
+    private String biography;
     private String castType;
 
     public Person() {
     }
 
-    public Person(long id, String firstname, String bio) {
+    public Person(long id, String firstname, String biography) {
         this.id = id;
         this.firstName = firstname;
-        this.bio = bio;
+        this.biography = biography;
     }
 
+    @Column(name = "id")
     public long getId() {
         return id;
     }
@@ -37,13 +33,44 @@ public class Person {
         this.id = id;
     }
 
-    public String getBio() {
-        return bio;
+    @Column(name = "firstname")
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setBio(String bio) {
-        this.bio = bio;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
+
+    @Column(name = "middlename")
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    @Column(name = "lastname")
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    @Column(name = "biography")
+    public String getBiography() {
+        return biography;
+    }
+
+    public void setBiography(String biography) { this.biography = biography; }
+
+    @Column(name = "casttype")
+    public String getCastType() { return castType; }
+
+    public void setCastType(String castType) { this.castType = castType; }
 
     @Override
     public String toString() {
@@ -56,38 +83,6 @@ public class Person {
             fullname += " " + lastName;
         }
         return fullname;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getCastType() {
-        return castType;
-    }
-
-    public void setCastType(String castType) {
-        this.castType = castType;
     }
 }
 
