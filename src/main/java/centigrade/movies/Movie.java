@@ -172,7 +172,7 @@ public class Movie implements Comparator<Movie> {
 
         return false;
     }
-    
+
     public double getSortableBoxOffice() {
         return sortableBoxOffice;
     }

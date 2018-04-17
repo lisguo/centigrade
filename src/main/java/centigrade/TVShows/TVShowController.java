@@ -40,28 +40,14 @@ public class TVShowController {
     private AccountService accountService;
     @Autowired
     private Environment env;
-
-
+    
     @GetMapping("/shows")
-    public String displayAllTVShowsMap(Model model, @RequestParam(defaultValue = "TITLE") String sortBy,
-                                       @RequestParam(defaultValue = "ASCENDING") String sortDirection) {
-        return displayAllTVShows(model, sortBy, sortDirection, 1);
-
-
-    }
-
-    @GetMapping("/shows{pageNum}")
-    public String displayAllTVShowsMapWithPage(Model model, @RequestParam(defaultValue = "TITLE") String sortBy,
-                                               @RequestParam(defaultValue = "ASCENDING") String sortDirection, @PathVariable("pageNum") String pageNum) {
-        return displayAllTVShows(model, sortBy, sortDirection, Integer.parseInt(pageNum));
-
-    }
-
     public String displayAllTVShows(Model model, @RequestParam(defaultValue = "TITLE") String sortBy,
-                                    @RequestParam(defaultValue = "ASCENDING") String sortDirection, int page) {
+                                    @RequestParam(defaultValue = "ASCENDING") String sortDirection,
+                                    @RequestParam(defaultValue="1") int page) {
 
         List<TVShow> shows = tvShowService.getAllTVShows();
-        String endLink = "?sortBy=" + sortBy + "&sortDirection=" + sortDirection;
+        String endLink = "&sortBy=" + sortBy + "&sortDirection=" + sortDirection;
 
 
         if (sortBy.equals("TITLE")) {
@@ -149,8 +135,8 @@ public class TVShowController {
         model.addAttribute("sortBy", sortBy);
         model.addAttribute("sortDirection", sortDirection);
         model.addAttribute("shows", outShows);
-        if (page != 1) model.addAttribute("prev", "/shows" + (page - 1) + endLink);
-        if (end + 1 < shows.size()) model.addAttribute("next", "/shows" + (page + 1) + endLink);
+        if (page != 1) model.addAttribute("prev", "/shows?page=" + (page - 1) + endLink);
+        if (end + 1 < shows.size()) model.addAttribute("next", "/shows?page=" + (page + 1) + endLink);
         model.addAttribute("posterURL", tvShowService.getTVShowPosterURL());
         DecimalFormat df = new DecimalFormat("#.##");
         model.addAttribute("decimalFormat", df);

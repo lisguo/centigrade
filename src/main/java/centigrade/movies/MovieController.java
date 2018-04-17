@@ -64,22 +64,12 @@ public class MovieController {
     }
 
     @GetMapping("/movies")
-    public String displayAllMoviesWithoutPageNum(Model model, @RequestParam(defaultValue = "TITLE") String sortBy,
-                                                 @RequestParam(defaultValue = "ASCENDING") String sortDirection) {
-        return displayAllMovies(model, sortBy, sortDirection, 1);
-    }
-
-    @GetMapping("/movies{pageNum}")
-    public String displayAllMoviesWithPageNum(Model model, @RequestParam(defaultValue = "TITLE") String sortBy,
-                                              @RequestParam(defaultValue = "ASCENDING") String sortDirection, @PathVariable("pageNum") String pageNum) {
-        return displayAllMovies(model, sortBy, sortDirection, Integer.parseInt(pageNum));
-    }
-
-    public String displayAllMovies(Model model, String sortBy,
-                                   String sortDirection, int page) {
+    public String displayAllMovies(Model model, @RequestParam(defaultValue = "TITLE")String sortBy,
+                                   @RequestParam(defaultValue = "ASCENDING") String sortDirection,
+                                   @RequestParam(defaultValue = "1") int page) {
 
         List<Movie> movies;
-        String endLink = "?sortBy=" + sortBy + "&sortDirection=" + sortDirection;
+        String endLink = "&sortBy=" + sortBy + "&sortDirection=" + sortDirection;
 
         if (sortBy.equals("TITLE")) {
             movies = movieService.getAllMoviesSortedByTitle();
@@ -138,8 +128,8 @@ public class MovieController {
         model.addAttribute("sortBy", sortBy);
         model.addAttribute("sortDirection", sortDirection);
         model.addAttribute("movies", outMovies);
-        if (page != 1) model.addAttribute("prev", "/movies" + (page - 1) + endLink);
-        if (end + 1 < movies.size()) model.addAttribute("next", "/movies" + (page + 1) + endLink);
+        if (page != 1) model.addAttribute("prev", "/movies?page=" + (page - 1) + endLink);
+        if (end + 1 < movies.size()) model.addAttribute("next", "/movies?page=" + (page + 1) + endLink);
 
         model.addAttribute("posterURL", movieService.getMoviePosterURL());
         DecimalFormat df = new DecimalFormat("#.##");
