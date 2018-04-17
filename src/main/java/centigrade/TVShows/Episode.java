@@ -7,23 +7,17 @@ import javax.persistence.*;
 public class Episode {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+
     private long id;
-    @Column(name = "seriesid")
     private long seriesId;
-    @Column(name = "seasonnumber")
     private int seasonNumber;
-    @Column(name = "episodename")
     private String episodeName;
-    @Column(name = "episodenumber")
     private String episodeNumber;
-    @Column(name = "firstaired")
     private String firstAired;
-    @Column(name = "imbdid")
     private String imbdId;
-    @Column(name = "overview")
     private String overview;
 
+    @Column(name = "id")
     public long getId() {
         return id;
     }
@@ -32,6 +26,7 @@ public class Episode {
         this.id = id;
     }
 
+    @Column(name = "seriesid")
     public long getSeriesId() {
         return seriesId;
     }
@@ -40,6 +35,7 @@ public class Episode {
         this.seriesId = seriesId;
     }
 
+    @Column(name = "seasonnumber")
     public int getSeasonNumber() {
         return seasonNumber;
     }
@@ -48,6 +44,7 @@ public class Episode {
         this.seasonNumber = seasonNumber;
     }
 
+    @Column(name = "episodename")
     public String getEpisodeName() {
         return episodeName;
     }
@@ -56,6 +53,7 @@ public class Episode {
         this.episodeName = episodeName;
     }
 
+    @Column(name = "episodenumber")
     public String getEpisodeNumber() {
         return episodeNumber;
     }
@@ -64,6 +62,7 @@ public class Episode {
         this.episodeNumber = episodeNumber;
     }
 
+    @Column(name = "firstaired")
     public String getFirstAired() {
         return firstAired;
     }
@@ -72,6 +71,7 @@ public class Episode {
         this.firstAired = firstAired;
     }
 
+    @Column(name = "imbdid")
     public String getImbdId() {
         return imbdId;
     }
@@ -80,6 +80,7 @@ public class Episode {
         this.imbdId = imbdId;
     }
 
+    @Column(name = "overview")
     public String getOverview() {
         return overview;
     }

@@ -8,33 +8,20 @@ import java.util.Comparator;
 public class Movie implements Comparator<Movie> {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "Id")
-    private long id;
-    @Column(name = "title")
-    private String title;
-    @Column(name = "year")
-    private int year;
-    @Column(name = "rated")
-    private String rated;
-    @Column(name = "released")
-    private String released;
-    @Column(name = "runtime")
-    private String runtime;
-    @Column(name = "genre")
-    private String genre;
-    @Column(name = "plot")
-    private String plot;
-    @Column(name = "boxoffice")
-    private String boxoffice;
-    @Column(name = "production")
-    private String production;
-    @Column(name = "website")
-    private String website;
-    @Column(name = "ratingsum")
-    private double ratingSum;
-    @Column(name = "timesrated")
-    private int timesRated;
 
+    private long id;
+    private String title;
+    private int year;
+    private String rated;
+    private String released;
+    private String runtime;
+    private String genre;
+    private String plot;
+    private String boxoffice;
+    private String production;
+    private String website;
+    private double ratingSum;
+    private int timesRated;
     @Transient
     private double overallRating;
     @Transient
@@ -49,6 +36,7 @@ public class Movie implements Comparator<Movie> {
         this.plot = plot;
     }
 
+    @Column(name = "Id")
     public long getId() {
         return id;
     }
@@ -57,6 +45,7 @@ public class Movie implements Comparator<Movie> {
         this.id = id;
     }
 
+    @Column(name = "title")
     public String getTitle() {
         return title;
     }
@@ -65,67 +54,16 @@ public class Movie implements Comparator<Movie> {
         this.title = title;
     }
 
-    public String getPlot() {
-        return plot;
+    @Column(name = "year")
+    public int getYear() {
+        return year;
     }
 
-    public void setPlot(String plot) {
-        this.plot = plot;
+    public void setYear(int year) {
+        this.year = year;
     }
 
-    @Override
-    public String toString() {
-        return String.format("Movie[id=%d, title='%s', plot='%s']", id, title, plot);
-    }
-
-    public String getWebsite() {
-        return website;
-    }
-
-    public void setWebsite(String website) {
-        this.website = website;
-    }
-
-    public String getProduction() {
-        return production;
-    }
-
-    public void setProduction(String production) {
-        this.production = production;
-    }
-
-    public String getBoxoffice() {
-        return boxoffice;
-    }
-
-    public void setBoxoffice(String boxoffice) {
-        this.boxoffice = boxoffice;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
-    }
-
-    public String getRuntime() {
-        return runtime;
-    }
-
-    public void setRuntime(String runtime) {
-        this.runtime = runtime;
-    }
-
-    public String getReleased() {
-        return released;
-    }
-
-    public void setReleased(String released) {
-        this.released = released;
-    }
-
+    @Column(name = "rated")
     public String getRated() {
         return rated;
     }
@@ -134,12 +72,124 @@ public class Movie implements Comparator<Movie> {
         this.rated = rated;
     }
 
-    public int getYear() {
-        return year;
+    @Column(name = "released")
+    public String getReleased() {
+        return released;
     }
 
-    public void setYear(int year) {
-        this.year = year;
+    public void setReleased(String released) {
+        this.released = released;
+    }
+
+    @Column(name = "runtime")
+    public String getRuntime() {
+        return runtime;
+    }
+
+    public void setRuntime(String runtime) {
+        this.runtime = runtime;
+    }
+
+    @Column(name = "genre")
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    @Column(name = "plot")
+    public String getPlot() {
+        return plot;
+    }
+
+    public void setPlot(String plot) {
+        this.plot = plot;
+    }
+
+    @Column(name = "boxoffice")
+    public String getBoxoffice() {
+        return boxoffice;
+    }
+
+    public void setBoxoffice(String boxoffice) {
+        this.boxoffice = boxoffice;
+    }
+
+    @Column(name = "production")
+    public String getProduction() {
+        return production;
+    }
+
+    public void setProduction(String production) {
+        this.production = production;
+    }
+
+    @Column(name = "website")
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
+    @Column(name = "ratingsum")
+    public double getRatingSum() {
+        return ratingSum;
+    }
+
+    public void setRatingSum(double ratingSum) {
+        this.ratingSum = ratingSum;
+    }
+
+    @Column(name = "timesrated")
+    public int getTimesRated() {
+        return timesRated;
+    }
+
+    public void setTimesRated(int timesRated) {
+        this.timesRated = timesRated;
+    }
+
+    public double getOverallRating() {
+        return overallRating;
+    }
+
+    public void calculateOverallRating() {
+        if (timesRated == 0) {
+            overallRating = 0;
+        } else {
+            overallRating = ratingSum / (double) timesRated;
+        }
+    }
+
+    public boolean hasBeenRated() {
+        if (timesRated > 0) {
+            return true;
+        }
+
+        return false;
+    }
+    
+    public double getSortableBoxOffice() {
+        return sortableBoxOffice;
+    }
+
+    public void calculateBoxOffice(){
+        if(this.boxoffice.equals("N/A")){
+            this.sortableBoxOffice = 0;
+            return;
+        }
+
+        String temp = this.boxoffice.replace("$", "").replace(",", "");
+        this.sortableBoxOffice = Double.parseDouble(temp);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Movie[id=%d, title='%s', plot='%s']", id, title, plot);
     }
 
     @Override
@@ -154,59 +204,5 @@ public class Movie implements Comparator<Movie> {
         }
 
         return out;
-    }
-
-    public double getRatingSum() {
-        return ratingSum;
-    }
-
-    public void setRatingSum(double ratingSum) {
-        this.ratingSum = ratingSum;
-    }
-
-    public int getTimesRated() {
-        return timesRated;
-    }
-
-    public void setTimesRated(int timesRated) {
-        this.timesRated = timesRated;
-    }
-
-    public void calculateOverallRating() {
-        if (timesRated == 0) {
-            overallRating = 0;
-        } else {
-            overallRating = ratingSum / (double) timesRated;
-        }
-    }
-
-    public double getOverallRating() {
-        return overallRating;
-    }
-
-    public boolean hasBeenRated() {
-        if (timesRated > 0) {
-            return true;
-        }
-
-        return false;
-    }
-
-    public void calculateBoxOffice(){
-        if(this.boxoffice.equals("N/A")){
-            this.sortableBoxOffice = 0;
-            return;
-        }
-
-        String temp = this.boxoffice.replace("$", "").replace(",", "");
-        this.sortableBoxOffice = Double.parseDouble(temp);
-    }
-
-    public double getSortableBoxOffice() {
-        return sortableBoxOffice;
-    }
-
-    public void setSortableBoxOffice(double sortableBoxOffice) {
-        this.sortableBoxOffice = sortableBoxOffice;
     }
 }

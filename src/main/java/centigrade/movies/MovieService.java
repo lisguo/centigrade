@@ -65,7 +65,7 @@ public class MovieService {
 
                 while (rs.next()) {
                     Movie m = movieRepository.findMovieById(rs.getInt(1));
-                    if(m != null){
+                    if (m != null) {
                         films.add(m);
                     }
                 }
@@ -80,14 +80,13 @@ public class MovieService {
             token = "" + token + "";
         }
         return template.query("select id from movies where title like \"%" + token + "%\"or soundex(title) like soundex(\"" + token + "\")", new ResultSetExtractor<List<Movie>>() {
-            //        return template.query("SELECT contentId FROM casttocontent t1 INNER JOIN movies t2 ON t1.contentId = t2.id WHERE castId='" + p.getId() +"'", new ResultSetExtractor<List<Movie>>() {
             @Override
             public List<Movie> extractData(ResultSet rs) throws SQLException, DataAccessException {
                 List<Movie> films = new ArrayList<Movie>();
 
                 while (rs.next()) {
                     Movie m = movieRepository.findMovieById(rs.getInt(1));
-                    if(m != null){
+                    if (m != null) {
                         films.add(m);
                     }
                 }
