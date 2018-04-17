@@ -32,9 +32,14 @@ nav {
 
 #plain-nav {
     position: relative;
+    z-index: 99999;
+    display: block;
+    height: 13vh;
+    width: 100%;
+    background: black;
 }
 
-nav #logo-container {
+nav .logo-container {
     height: 100%;
     vertical-align: middle;
     width: 13%;
@@ -45,14 +50,14 @@ nav #logo-container {
     margin: 0;
 }
 
-nav #logo-container:hover {
+nav .logo-container:hover {
     animation: bounce 0.75s ease-in-out;
     -o-animation: bounce 0.75s ease-in-out;
     -moz-animation: bounce 0.75s ease-in-out;
     -webkit-animation: bounce 0.75s ease-in-out;
 }
 
-#logo-container img {
+.logo-container img {
     height: 60%;
     width: auto;
     position: absolute;
