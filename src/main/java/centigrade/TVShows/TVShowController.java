@@ -40,15 +40,13 @@ public class TVShowController {
     private AccountService accountService;
     @Autowired
     private Environment env;
-    
+
     @GetMapping("/shows")
     public String displayAllTVShows(Model model, @RequestParam(defaultValue = "TITLE") String sortBy,
                                     @RequestParam(defaultValue = "ASCENDING") String sortDirection,
                                     @RequestParam(defaultValue="1") int page) {
 
         List<TVShow> shows = tvShowService.getAllTVShows();
-        String endLink = "&sortBy=" + sortBy + "&sortDirection=" + sortDirection;
-
 
         if (sortBy.equals("TITLE")) {
             shows = tvShowService.getAllTVShowsSortedBySeriesName();
@@ -135,6 +133,7 @@ public class TVShowController {
         model.addAttribute("sortBy", sortBy);
         model.addAttribute("sortDirection", sortDirection);
         model.addAttribute("shows", outShows);
+        String endLink = "&sortBy=" + sortBy + "&sortDirection=" + sortDirection;
         if (page != 1) model.addAttribute("prev", "/shows?page=" + (page - 1) + endLink);
         if (end + 1 < shows.size()) model.addAttribute("next", "/shows?page=" + (page + 1) + endLink);
         model.addAttribute("posterURL", tvShowService.getTVShowPosterURL());
