@@ -36,7 +36,7 @@ nav {
     display: block;
     height: 13vh;
     width: 100%;
-    background: black;
+    background: black !important;
 }
 
 nav .logo-container {
@@ -605,6 +605,10 @@ nav #nav2 h2 {
     text-align: left;
     padding: 1.5em;
     margin-right: 2em;
+}
+
+#movie-table td {
+    display: table-cell;
 }
 
 footer {

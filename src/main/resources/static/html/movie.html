@@ -15,8 +15,126 @@
     <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
 </head>
 <body>
-<div id="movie">
-    <img src="../img/placeholders/movie%20page.png" alt="">
-</div>
+    <nav>
+        <div id="logo-container">
+            <a href="index.html"><img src="../img/logos/logo.png" alt="CentiGrade"></a>
+        </div>
+        <div id="navigation">
+            <div id="navs">
+                <div id="nav1">
+                    <!--<form id="searchform" name="searchform" action="/" method="get">-->
+                    <form id="searchform" name="searchform" action="" method="get">
+                        <input type="search" name="search" placeholder="Search movies, tv shows, actors, more..."
+                               onfocus="this.value=''" aria-label="Search">
+                        <button type="submit" value="submit"><i class="fas fa-search"></i></button>
+                    </form>
+                    <div id="following" class="functions">
+                        <a href="/following"><i class="far fa-smile"></i>Following</a>
+                    </div>
+                    <div class="sessionstuff">
+                        <div id="login" class="functions">
+                            <a href="/login"><i class="fas fa-sign-in-alt"></i>Login</a>
+                        </div>
+                        <div id="register" class="functions">
+                            <a href="/register"><i class="fas fa-user-plus"></i>Register</a>
+                        </div>
+                    </div>
+
+                </div>
+                <div id="nav2">
+                    <div id="container">
+                        <h2><a href="/movies">MOVIES</a></h2>
+                        <h2><a href="/shows">TV SHOWS</a></h2>
+                        <h2><a href="">TICKETS AND SHOWTIMES</a></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <div id="movie-top">
+            <video src="../error/404.mp4" type="video/mp4" controls="controls"></video>
+        </div>
+        <div id="movie-videos" class="container">
+            
+        </div>
+        <div id="movie-photos" class="container">
+            
+        </div>
+        <div id="movie-info" class="table-responsive container">
+           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum dolorum saepe eaque cupiditate similique in veniam culpa odio sit corporis voluptatem debitis nemo nobis, ipsum officia fugit harum expedita a.</p>
+            <table class="table">
+                <tr>
+                    <td>Directed By: </td>
+                    <td>Dan</td>
+                </tr>
+                <tr>
+                    <td>Rated: </td>
+                    <td>PG-13</td>
+                </tr>
+                <tr>
+                    <td>Genre: </td>
+                    <td>Drama, Horror, Mystery</td>
+                </tr>
+                <tr>
+                    <td>Released: </td>
+                    <td>11 Mar 2016</td>
+                </tr>
+                <tr>
+                    <td>Box Office:</td>
+                    <td>$1</td>
+                </tr>
+                <tr>
+                    <td>Runtime</td>
+                    <td>130min</td>
+                </tr>
+                <tr>
+                    <td>Production</td>
+                    <td>Rw</td>
+                </tr>
+                <tr>
+                    <td>Website</td>
+                    <td>ok</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <footer>
+        <div id="footerlogo">
+            <a href="index.html"><img src="../img/logos/footerlogo.png" alt=""></a>
+        </div>
+        <div>
+            <ul>
+                <li><a href="">Help</a></li>
+                <li><a href="">About centigrade</a></li>
+                <li><a href="">Feedback</a></li>
+            </ul>
+        </div>
+        <div>
+            <ul>
+                <li><a href="">Critic Submission</a></li>
+                <li><a href="">Licensing</a></li>
+                <li><a href="">Privacy Policy</a></li>
+                <li><a href="">Terms and Policies</a></li>
+            </ul>
+        </div>
+        <div>
+            <ul>
+                <li><h4><i class="fas fa-newspaper fa-lg"></i>JOIN THE NEWSLETTER</h4></li>
+                <li><a href="" id="subscribe">SUBCRIBE</a></li>
+                <li id="followus"><span>FOLLOW US</span> <a href=""><i class="fab fa-facebook-square fa-2x"></i></a>
+                    <a href=""><i class="fab fa-snapchat-square fa-2x"></i></a>
+                    <a href=""><i class="fab fa-youtube-square fa-2x"></i></a></li>
+            </ul>
+        </div>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/centigrade.js"></script>
 </body>
 </html>
