@@ -41,19 +41,19 @@
                     </tr>
                     <tr>
                         <td>Box Office:</td>
-                        <td>$1</td>
+                        <td th:text="${movie.boxoffice}"/>
                     </tr>
                     <tr>
                         <td>Runtime</td>
-                        <td>130min</td>
+                        <td th:text="${movie.runtime}"/>
                     </tr>
                     <tr>
                         <td>Production</td>
-                        <td>Rw</td>
+                        <td th:text="${movie.production}"/>
                     </tr>
                     <tr>
                         <td>Website</td>
-                        <td>ok</td>
+                        <a th:href="${movie.website}" th:text="${movie.website}"/>
                     </tr>
                 </table>
             </div>
