@@ -33,7 +33,7 @@
                     </tr>
                     <tr>
                         <td>Genre: </td>
-                        <td th:text="${movie.genre}"/>
+                        <td th:text="${movie.genre.replace(&quot;,&quot;, &quot;,+&quot;)}"/>
                     </tr>
                     <tr>
                         <td>Released: </td>
@@ -52,8 +52,7 @@
                         <td th:text="${movie.production}"/>
                     </tr>
                     <tr>
-                        <td>Website</td>
-                        <td><a th:href="${movie.website}" th:text="${movie.website}"/></td>
+                        <td style="width: 100%;"><a th:href="${movie.website}">Visit their website</a></td>
                     </tr>
                 </table>
             </div>
@@ -108,101 +107,59 @@
             </div>
             <div class="movie-c-reviews movie-stuff container-fluid">
                 <h3>CRITIC REVIEWS</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum, veritatis, nihil? Ab ut voluptas fugiat totam cupiditate rerum, sapiente voluptates aut, culpa dicta optio architecto tempora alias explicabo possimus sequi!</p>
+                <div th:each="cr : ${criticReviews}">
+                    <table frame="box" width="600" rules="rows">
+                        <tr>
+                            <td>
+                                <a th:href="@{'/profile?id=' + ${cr.userId}}" th:text="@{${cr.userName}}"></a>
+
+                            </td>
+                            <td th:text="@{'Rating: ' + ${cr.rating} + '%'}"/>
+                            <td th:if="${session.account != null and cr.userId == session.account.id}">
+                                <form action = "delete_review" method="post">
+                                    <input type="hidden" th:value="${cr.id}" name="id" />
+                                    <input type="submit" value="X" />
+                                </form>
+                            </td>
+                        </tr>
+                        <tr th:unless="${cr.reviewText == null}">
+                            <td th:if="${session.account != null and cr.userId == session.account.id}" th:colspan="3" th:text="${cr.reviewText}"/>
+                            <td th:unless="${session.account != null and cr.userId == session.account.id}" th:colspan="2" th:text="${cr.reviewText}"/>
+                        </tr>
+                    </table>
+                    <p th:utext="@{'&lt;br&gt;'}"></p>
+                </div>
             </div>
             <div class="movie-u-reviews movie-stuff container-fluid">
                 <h3>USER REVIEWS</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat praesentium molestias officiis, voluptatibus, nemo a, quod voluptas quidem fugit corporis, necessitatibus commodi quam. Vero itaque iusto adipisci quis, laboriosam dicta.</p>
+                <div th:if="${userReviews.size() == 0}">
+                    <h3>NO REVIEWS</h3>
+                </div>
+                <div th:each="ur : ${userReviews}">
+                    <table frame="box" width="600" rules="rows">
+                        <tr>
+                            <td>
+                                <a th:href="@{'/profile?id=' + ${ur.userId}}" th:text="@{${ur.userName}}"></a>
+
+                            </td>
+                            <td th:text="@{'Rating: ' + ${ur.rating} + '%'}"/>
+                            <td th:if="${session.account != null and ur.userId == session.account.id}">
+                                <form action = "delete_review" method="post">
+                                    <input type="hidden" th:value="${ur.id}" name="id" />
+                                    <input type="submit" value="X" />
+                                </form>
+                            </td>
+                        </tr>
+                        <tr th:unless="${ur.reviewText == null}">
+                            <td th:if="${session.account != null and ur.userId == session.account.id}" th:colspan="3" th:text="${ur.reviewText}"/>
+                            <td th:unless="${session.account != null and ur.userId == session.account.id}" th:colspan="2" th:text="${ur.reviewText}"/>
+                        </tr>
+                    </table>
+                    <p th:utext="@{'&lt;br&gt;'}"></p> <!-- th:if="${}"-->
+                </div>
             </div>
         </div>
     </div>
-
-</div>
-<div class="container container-fluid">
-    <div class="content-row-block">
-        <table>
-            <tr>
-            <tr>
-                <td>
-                    <b>CAST</b>
-                </td>
-            </tr>
-            <td th:each="person : ${cast}">
-                <table>
-                    <tr>
-                        <td><img th:src="@{${photoURL} + 'pic' + ${person.id} + '.jpg'}" width="200" height="200"/></td>
-                    </tr>
-                    <tr>
-                        <td><a th:href="@{'/person?id=' + ${person.id}}" th:text="${person.toString()}"/></td>
-                    </tr>
-                </table>
-
-            </td>
-            </tr>
-        </table>
-
-        <table>
-            <tr>
-                <td>
-                    <b>CRITIC REVIEWS</b>
-                </td>
-            </tr>
-            <tr th:each="cr : ${criticReviews}">
-                <table frame="box" width="600" rules="rows">
-                    <tr>
-                        <td>
-                            <a th:href="@{'/profile?id=' + ${cr.userId}}" th:text="@{${cr.userName}}"></a>
-
-                        </td>
-                        <td th:text="@{'Rating: ' + ${cr.rating} + '%'}"/>
-                        <td th:if="${session.account != null and cr.userId == session.account.id}">
-                            <form action = "delete_review" method="post">
-                                <input type="hidden" th:value="${cr.id}" name="id" />
-                                <input type="submit" value="X" />
-                            </form>
-                        </td>
-                    </tr>
-                    <tr th:unless="${cr.reviewText == null}">
-                        <td th:if="${session.account != null and cr.userId == session.account.id}" th:colspan="3" th:text="${cr.reviewText}"/>
-                        <td th:unless="${session.account != null and cr.userId == session.account.id}" th:colspan="2" th:text="${cr.reviewText}"/>
-                    </tr>
-                </table>
-                <p th:utext="@{'&lt;br&gt;'}"></p>
-            </tr>
-        </table>
-
-        <table>
-            <tr>
-                <td>
-                    <b>USER REVIEWS</b>
-                </td>
-            </tr>
-            <tr th:each="ur : ${userReviews}">
-                <table frame="box" width="600" rules="rows">
-                    <tr>
-                        <td>
-                            <a th:href="@{'/profile?id=' + ${ur.userId}}" th:text="@{${ur.userName}}"></a>
-
-                        </td>
-                        <td th:text="@{'Rating: ' + ${ur.rating} + '%'}"/>
-                        <td th:if="${session.account != null and ur.userId == session.account.id}">
-                            <form action = "delete_review" method="post">
-                                <input type="hidden" th:value="${ur.id}" name="id" />
-                                <input type="submit" value="X" />
-                            </form>
-                        </td>
-                    </tr>
-                    <tr th:unless="${ur.reviewText == null}">
-                        <td th:if="${session.account != null and ur.userId == session.account.id}" th:colspan="3" th:text="${ur.reviewText}"/>
-                        <td th:unless="${session.account != null and ur.userId == session.account.id}" th:colspan="2" th:text="${ur.reviewText}"/>
-                    </tr>
-                </table>
-                <p th:utext="@{'&lt;br&gt;'}"></p>
-            </tr>
-        </table>
-
-    </div>
-
 </div>
 <div th:replace="fragments :: footer"></div>
 </body>
