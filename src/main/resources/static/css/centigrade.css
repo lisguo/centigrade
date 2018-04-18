@@ -611,6 +611,84 @@ nav #nav2 h2 {
     display: table-cell;
 }
 
+#movie-top {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    padding: 1em;
+    text-align: center;
+}
+
+#movie-top div {
+    min-width: 80%;
+    height: 80vh;
+    overflow: hidden;
+    position: relative;
+    -webkit-box-shadow: 0px 0px 15px 5px rgba(0,0,0,0.2);
+    box-shadow: 0px 0px 15px 5px rgba(0,0,0,0.2);
+}
+
+#movie-top div video {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    object-fit: fill;
+}
+
+#movie-top h1 {
+    padding: 0.5em;
+    background: red;
+    color: white;
+    text-align: left;
+    margin: 1em 0 1em 0;
+}
+
+.movie-information {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+}
+
+.movie-first, .movie-second {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.movie-first {
+    width: 35%;
+}
+
+.movie-second {
+    width: 63%;
+}
+
+.movie-photo-wrapper {
+    position: relative;
+    width: 100%;
+    height: 30vh;
+    overflow: hidden;
+}
+
+.movie-photo-wrapper img {
+    height: 100%;
+    width: auto;
+    position: absolute;
+    display: block;
+    margin: 0 auto;
+    background-size: cover;
+}
+
+.movie-stuff h3 {
+    font-weight: 900;
+    color: red;
+    border-bottom: 2px solid red;
+}
+
+.movie-stuff {
+    color: darkslategrey;
+}
+
 footer {
     height: 50vh;
     width: 100%;
