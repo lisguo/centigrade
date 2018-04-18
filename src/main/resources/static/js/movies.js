@@ -24,8 +24,6 @@ $(document).ready(function(){
 
 function getPrev(){
     page--;
-    var sortBy = $('select[name=sortBy]').val();
-    var sortDirection = $('select[name=sortDirection]').val();
 
     $.ajax({
         type : 'GET',
@@ -40,8 +38,6 @@ function getPrev(){
 
 function getNext(){
     page++;
-    var sortBy = $('select[name=sortBy]').val();
-    var sortDirection = $('select[name=sortDirection]').val();
 
     $.ajax({
         type : 'GET',
