@@ -678,6 +678,12 @@ nav #nav2 h2 {
     display: block;
     margin: 0 auto;
     background-size: cover;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
 }
 
 .movie-stuff h3 {
