@@ -653,14 +653,30 @@ nav #nav2 h2 {
     position: relative;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
 
 .movie-first {
-    width: 25%;
+    width: 30%;
+}
+
+#movie-info .table tr {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+#movie-info table td {
+    flex: 1;
+    -webkit-flex: 1;
+    -o-flex: 1;
+    -ms-flex: 1;
+    -moz-flex: 1;
 }
 
 .movie-second {
-    width: 73%;
+    width: 69%;
 }
 
 .movie-photo-wrapper {
@@ -669,6 +685,7 @@ nav #nav2 h2 {
     height: 50vh;
     overflow: hidden;
     text-align: center;
+    margin-bottom: 1em;
 }
 
 .movie-photo-wrapper img {
