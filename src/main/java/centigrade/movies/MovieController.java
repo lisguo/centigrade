@@ -69,7 +69,6 @@ public class MovieController {
                                    @RequestParam(defaultValue = "1") int page) {
 
         List<Movie> movies;
-        String endLink = "&sortBy=" + sortBy + "&sortDirection=" + sortDirection;
 
         if (sortBy.equals("TITLE")) {
             movies = movieService.getAllMoviesSortedByTitle();
@@ -130,6 +129,7 @@ public class MovieController {
         model.addAttribute("sortDirection", sortDirection);
         model.addAttribute("movies", outMovies);
 
+        String endLink = "&sortBy=" + sortBy + "&sortDirection=" + sortDirection;
         if (page != 1){
             model.addAttribute("prev", "/movies?page=" + (page - 1) + endLink);
         }
