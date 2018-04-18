@@ -1,9 +1,11 @@
-var page = 1;
+var page, sortBy, sortDirection;
 
 $(document).ready(function(){
     $('#sort-form').submit(function(event) {
-        var sortBy = $('select[name=sortBy]').val();
-        var sortDirection = $('select[name=sortDirection]').val();
+        page = 1;
+
+        sortBy = $('select[name=sortBy]').val();
+        sortDirection = $('select[name=sortDirection]').val();
 
         $.ajax({
             type : 'GET',
@@ -27,7 +29,7 @@ function getPrev(){
 
     $.ajax({
         type : 'GET',
-        url : '/movies_table?page=' + page,
+        url : '/movies_table?sortBy=' + sortBy + '&sortDirection=' + sortDirection + '&page=' + page,
         encode : true
     })
 
@@ -41,7 +43,7 @@ function getNext(){
 
     $.ajax({
         type : 'GET',
-        url : '/movies_table?page=' + page,
+        url : '/movies_table?sortBy=' + sortBy + '&sortDirection=' + sortDirection + '&page=' + page,
         encode : true
     })
 
