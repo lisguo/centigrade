@@ -1,6 +1,7 @@
 package centigrade.accounts;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,8 @@ import java.util.UUID;
 public class AccountService {
     @Autowired
     private AccountRepository accountRepository;
-
+    @Autowired
+    private Environment env;
     @Autowired
     private JavaMailSender mailSender;
 
@@ -41,7 +43,7 @@ public class AccountService {
         try {
             char[] passwordArr = password.toCharArray();
             PBEKeySpec spec = new PBEKeySpec(passwordArr, salt, ITERATIONS, KEY_LENGTH);
-            SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512");
+            SecretKeyFactory skf = SecretKeyFactory.getInstance(env.getProperty("encryption_algorithm"));
             SecretKey key = skf.generateSecret(spec);
             byte[] res = key.getEncoded();
             return res;
@@ -54,12 +56,10 @@ public class AccountService {
     }
 
     public Account addAccount(String email, String password, String firstName, String lastName) {
-
         SecureRandom random = new SecureRandom();
         byte[] salt = new byte[16];
         random.nextBytes(salt);
         byte[] hashedPassword = hashPassword(password, salt);
-
         String nonce = UUID.randomUUID().toString();
 
         Account a = new Account();
@@ -80,12 +80,22 @@ public class AccountService {
         byte[] salt = a.getSalt();
 
         byte[] hashedPassword = null;
-        if (password != null) hashedPassword = hashPassword(password, salt);
+        if (password != null){
+            hashedPassword = hashPassword(password, salt);
+        }
 
-        if (email != null) a.setEmail(email);
-        if (hashedPassword != null) a.setPassword(hashedPassword);
-        if (firstName != null) a.setFirstName(firstName);
-        if (lastName != null) a.setLastName(lastName);
+        if (email != null){
+            a.setEmail(email);
+        }
+        if (hashedPassword != null){
+            a.setPassword(hashedPassword);
+        }
+        if (firstName != null){
+            a.setFirstName(firstName);
+        }
+        if (lastName != null){
+            a.setLastName(lastName);
+        }
 
         accountRepository.save(a);
     }
@@ -99,7 +109,7 @@ public class AccountService {
             helper.setSubject(subject);
             helper.setText(
                     "Hello " + a.getFirstName() + ", \n\n"
-                            + "Click this link to verify you account: "
+                            + "Click this link to verify your account: "
                             + link + a.getNonce()
             );
             this.mailSender.send(message);

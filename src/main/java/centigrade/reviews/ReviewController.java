@@ -20,10 +20,8 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 public class ReviewController {
-
     @Autowired
     private Environment env;
-
     @Autowired
     private ReviewService reviewService;
     @Autowired
@@ -35,40 +33,31 @@ public class ReviewController {
     public RedirectView addReview(@RequestParam String reviewtext, @RequestParam double rating,
                                   @RequestParam String contentType, @RequestParam long contentID,
                                   HttpSession session) {
-
         RedirectView rv = new RedirectView();
         Account a = (Account) session.getAttribute("account");
-
         if (a == null) {
             rv.setUrl(("login"));
             return rv;
         }
-
         List<Review> reviews = reviewService.getReviewsByUserAndContent(a.getId(), contentID);
-
         if (reviews.size() > 0) {
             if (contentType.equals("Movie")) {
                 rv.setUrl("movie?id=" + contentID + "&res=" + ReviewResult.ALREADY_REVIEWED);
             } else {
                 rv.setUrl("show?id=" + contentID + "&res=" + ReviewResult.ALREADY_REVIEWED);
             }
-
             return rv;
         }
-
         if (reviewtext.trim().equals("Add Review (Optional)")) {
             reviewtext = null;
         }
-
         reviewService.addReview(contentID, a.getId(), rating, reviewtext);
-
         if (contentType.equals("Movie")) {
             Movie m = movieService.getMovieById(contentID);
             m.setRatingSum(m.getRatingSum() + rating);
             m.setTimesRated(m.getTimesRated() + 1);
             movieService.saveMovie(m);
             rv.setUrl("movie?id=" + contentID + "&res=" + ReviewResult.SUCCESS);
-
         } else {
             TVShow t = tvShowService.getTVShowById(contentID);
             t.setRatingSum(t.getRatingSum() + rating);
@@ -76,15 +65,14 @@ public class ReviewController {
             tvShowService.saveShow(t);
             rv.setUrl("show?id=" + contentID + "&res=" + ReviewResult.SUCCESS);
         }
-
         return rv;
     }
 
     @PostMapping("delete_review")
     public RedirectView deleteReview(@RequestParam long id, @RequestParam(required = false) String fromProfile) {
         Review r = reviewService.getReviewById(id);
-        RedirectView rv = new RedirectView();
 
+        RedirectView rv = new RedirectView();
         Movie m = movieService.getMovieById(r.getContentId());
         TVShow t = tvShowService.getTVShowById(r.getContentId());
 

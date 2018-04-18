@@ -21,16 +21,12 @@ import java.util.ArrayList;
 
 @Controller
 public class SearchController {
-
     @Autowired
     private PersonService personService;
-
     @Autowired
     private MovieService movieService;
-
     @Autowired
     private TVShowService tvShowService;
-
     @Autowired
     private Environment env;
 
@@ -42,7 +38,6 @@ public class SearchController {
             return "searchResults";
         }
 
-
         List<Movie> movies = getSearchMovies(search);
         if (movies.size() > 0) {
             model.addAttribute("movies", movies);
@@ -51,7 +46,6 @@ public class SearchController {
         if (shows.size() > 0) {
             model.addAttribute("shows", shows);
         }
-
 
         return "searchResults";
     }
@@ -65,7 +59,6 @@ public class SearchController {
                 continue;
             }
 
-
             List<TVShow> list = tvShowService.getLikeShows(splited[i]);
             shows.addAll(list);
         }
@@ -78,27 +71,24 @@ public class SearchController {
 
         shows = getTopMatchShows(shows, 10);
         return shows;
-
     }
 
     private List<TVShow> getTopMatchShows(List<TVShow> shows, int n) {
         if (shows.size() <= 0) {
-
             return shows;
         }
         List<TVShow> list = new ArrayList<TVShow>();
         for (int i = 0; i < Integer.parseInt(env.getProperty("num_search_results")); i++) {
-            TVShow topShow = get_max_show(shows);
+            TVShow topShow = getMaxShow(shows);
             if (topShow == null) {
                 break;
             }
             list.add(topShow);
         }
         return list;
-
     }
 
-    private TVShow get_max_show(List<TVShow> shows) {
+    private TVShow getMaxShow(List<TVShow> shows) {
         if (shows.size() <= 0) {
 
             return null;
@@ -107,24 +97,24 @@ public class SearchController {
         int count = 1;
         int maxCount = 1;
         TVShow maxShow = temp;
-        TVShow Cursor;
+        TVShow cursor;
         for (int i = 1; i < shows.size(); i++) {
-            Cursor = shows.get(i);
-            if (temp.equals(Cursor)) {
+            cursor = shows.get(i);
+            if (temp.equals(cursor)) {
                 count++;
             } else {
                 if (maxCount < count) {
                     maxShow = temp;
                     maxCount = count;
                 }
-                temp = Cursor;
+                temp = cursor;
                 count = 1;
             }
         }
         int i = 0;
         while (i < shows.size()) {
-            Cursor = shows.get(i);
-            if (maxShow.equals(Cursor)) {
+            cursor = shows.get(i);
+            if (maxShow.equals(cursor)) {
                 shows.remove(i);
             } else {
                 i++;
@@ -134,73 +124,70 @@ public class SearchController {
     }
 
     private List<Movie> getSearchMovies(String search) {
-        String[] splited = search.split("\\s+");
+        String[] splitted = search.split("\\s+");
         List<Movie> movies = new ArrayList();
 
-        for (int i = 0; i < splited.length; i++) {
-            if (isCommonWord(splited[i])) {
+        for (int i = 0; i < splitted.length; i++) {
+            if (isCommonWord(splitted[i])) {
                 continue;
             }
 
-            List<Movie> list = movieService.getLikeMovies(splited[i]);
+            List<Movie> list = movieService.getLikeMovies(splitted[i]);
             movies.addAll(list);
         }
         movies.sort(new Comparator<Movie>() {
             @Override
-            public int compare(Movie m1, Movie m2) {
+            public int compare(Movie m1, Movie m2)
+            {
                 return (int) (m1.getId() - m2.getId());
             }
         });
 
         movies = getTopMatchMovies(movies, 10);
         return movies;
-
     }
 
     private List<Movie> getTopMatchMovies(List<Movie> movies, int n) {
         if (movies.size() <= 0) {
-
             return movies;
         }
         List<Movie> list = new ArrayList<Movie>();
         for (int i = 0; i < Integer.parseInt(env.getProperty("num_search_results")); i++) {
-            Movie topMovie = get_max_movie(movies);
+            Movie topMovie = getMaxMovie(movies);
             if (topMovie == null) {
                 break;
             }
             list.add(topMovie);
         }
         return list;
-
     }
 
-    private Movie get_max_movie(List<Movie> movies) {
+    private Movie getMaxMovie(List<Movie> movies) {
         if (movies.size() <= 0) {
-
             return null;
         }
         Movie temp = movies.get(0);
         int count = 1;
         int maxCount = 1;
         Movie maxMovie = temp;
-        Movie Cursor;
+        Movie cursor;
         for (int i = 1; i < movies.size(); i++) {
-            Cursor = movies.get(i);
-            if (temp.equals(Cursor)) {
+            cursor = movies.get(i);
+            if (temp.equals(cursor)) {
                 count++;
             } else {
                 if (maxCount < count) {
                     maxMovie = temp;
                     maxCount = count;
                 }
-                temp = Cursor;
+                temp = cursor;
                 count = 1;
             }
         }
         int i = 0;
         while (i < movies.size()) {
-            Cursor = movies.get(i);
-            if (maxMovie.equals(Cursor)) {
+            cursor = movies.get(i);
+            if (maxMovie.equals(cursor)) {
                 movies.remove(i);
             } else {
                 i++;

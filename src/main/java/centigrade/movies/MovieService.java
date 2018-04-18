@@ -17,10 +17,8 @@ import java.util.List;
 public class MovieService {
     @Autowired
     private MovieRepository movieRepository;
-
     @Autowired
     private Environment env;
-
     @Autowired
     JdbcTemplate template;
 
@@ -58,7 +56,8 @@ public class MovieService {
     }
 
     public List<Movie> getFilmography(Person p) {
-        return template.query("SELECT contentId, castId FROM casttocontent t1 INNER JOIN movies t2 ON t1.contentId = t2.id WHERE castId='" + p.getId() + "'", new ResultSetExtractor<List<Movie>>() {
+        return template.query("SELECT contentId, castId FROM casttocontent t1 INNER JOIN movies t2 " +
+                "ON t1.contentId = t2.id WHERE castId='" + p.getId() + "'", new ResultSetExtractor<List<Movie>>() {
             @Override
             public List<Movie> extractData(ResultSet rs) throws SQLException, DataAccessException {
                 List<Movie> films = new ArrayList<Movie>();
@@ -69,7 +68,6 @@ public class MovieService {
                         films.add(m);
                     }
                 }
-
                 return films;
             }
         });
@@ -79,7 +77,8 @@ public class MovieService {
         if (token.length() > Integer.parseInt(env.getProperty("small_word_threshold"))) {
             token = "" + token + "";
         }
-        return template.query("select id from movies where title like \"%" + token + "%\"or soundex(title) like soundex(\"" + token + "\")", new ResultSetExtractor<List<Movie>>() {
+        return template.query("SELECT id FROM movies WHERE title LIKE \"%" + token +
+                "%\"OR soundex(title) LIKE soundex(\"" + token + "\")", new ResultSetExtractor<List<Movie>>() {
             @Override
             public List<Movie> extractData(ResultSet rs) throws SQLException, DataAccessException {
                 List<Movie> films = new ArrayList<Movie>();
@@ -90,7 +89,6 @@ public class MovieService {
                         films.add(m);
                     }
                 }
-
                 return films;
             }
         });

@@ -115,6 +115,7 @@ public class MovieController {
         if (sortDirection.equals("DESCENDING")) {
             Collections.reverse(movies);
         }
+
         List<Movie> outMovies = new ArrayList<Movie>();
         int searchAmount = Integer.parseInt(env.getProperty("num_search_results"));
         int end = page * searchAmount;
@@ -128,8 +129,14 @@ public class MovieController {
         model.addAttribute("sortBy", sortBy);
         model.addAttribute("sortDirection", sortDirection);
         model.addAttribute("movies", outMovies);
-        if (page != 1) model.addAttribute("prev", "/movies?page=" + (page - 1) + endLink);
-        if (end + 1 < movies.size()) model.addAttribute("next", "/movies?page=" + (page + 1) + endLink);
+
+        if (page != 1){
+            model.addAttribute("prev", "/movies?page=" + (page - 1) + endLink);
+        }
+        if (end + 1 < movies.size()){
+            model.addAttribute("next", "/movies?page=" + (page + 1) + endLink);
+
+        }
 
         model.addAttribute("posterURL", movieService.getMoviePosterURL());
         DecimalFormat df = new DecimalFormat("#.##");
@@ -165,13 +172,10 @@ public class MovieController {
 
         for (Review r : reviews) {
             a = accountService.getAccountById(r.getUserId());
-
             if (a == null) {
                 continue;
             }
-
             r.setUserName(a.toString());
-
             if (a.getAccountType() == AccountType.CRITIC) {
                 criticReviews.add(r);
             } else {
@@ -180,7 +184,6 @@ public class MovieController {
         }
 
         movie.calculateOverallRating();
-
         if (movie.getTimesRated() == 0) {
             model.addAttribute("rating", "Not Yet Rated");
         } else {
@@ -193,5 +196,4 @@ public class MovieController {
 
         return "movie";
     }
-
 }
