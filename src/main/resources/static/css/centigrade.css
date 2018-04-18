@@ -761,6 +761,9 @@ nav #nav2 h2 {
     transform: translate(-50%, -50%);
 }
 
+#movie-results {
+    padding-bottom: 1em;
+}
 
 footer {
     height: 50vh;
