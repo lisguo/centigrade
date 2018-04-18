@@ -9,7 +9,7 @@
         <div>
             <video th:src="@{${trailerURL} + 'trailer' + ${movie.id} + '.mp4'}" type="video/mp4" controls="controls"></video>
         </div>
-        <h1><b th:text="${movie.title}"/></h1>
+        <h1 th:text="${movie.title}"/>
     </div>
     <div class="movie-information container-fluid">
         <div class="movie-first">
@@ -20,8 +20,8 @@
                 <table class="table">
                     <tr>
                         <td>Directed By: </td>
-                        <td th:each="director : ${directors}">
-                            <p>
+                        <td>
+                            <p th:each="director : ${directors}">
                                 <a th:href="@{'/person?id=' + ${director.id}}"
                                    th:text="${director.toString()}"/>
                             </p>
@@ -41,19 +41,19 @@
                     </tr>
                     <tr>
                         <td>Box Office:</td>
-                        <td>$1</td>
+                        <td th:text="${movie.boxoffice}"/>
                     </tr>
                     <tr>
                         <td>Runtime</td>
-                        <td>130min</td>
+                        <td th:text="${movie.runtime}"/>
                     </tr>
                     <tr>
                         <td>Production</td>
-                        <td>Rw</td>
+                        <td th:text="${movie.production}"/>
                     </tr>
                     <tr>
                         <td>Website</td>
-                        <td>ok</td>
+                        <td><a th:href="${movie.website}" th:text="${movie.website}"/></td>
                     </tr>
                 </table>
             </div>
@@ -65,7 +65,35 @@
             </div>
             <div class="movie-review movie-stuff container-fluid">
                 <h3>REVIEW</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus animi provident maxime molestiae, voluptatum recusandae amet ipsum voluptates reprehenderit accusantium non soluta, sed iste repudiandae nobis facere saepe, vitae cum.</p>
+                <form action="/add_review" method="post">
+                    <table>
+                        <tr th:if="${message != null}">
+                            <td th:text="@{${message}}" />
+                        </tr>
+                        <tr>
+                            <td th:text="@{'Rating: ' + ${rating} + ' (Reviews Counted: ' + ${reviewsCounted} + ')'}"/>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>Add Your Rating</b> <input type="range" min="0" max="100" step="1"
+                                                              name="rating"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                                <textarea rows="4" cols="50" name="reviewtext" maxlength="520">Add Review (Optional)
+                                                </textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="submit"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <input type="hidden" th:value="${movie.id}" name="contentID"/>
+                    <input type="hidden" th:value="Movie" name="contentType"/>
+                </form>
             </div>
             <div class="movie-cast movie-stuff container-fluid">
                 <h3>CAST</h3>
@@ -89,133 +117,6 @@
 </div>
 <div class="container container-fluid">
     <div class="content-row-block">
-        <table>
-            <tr>
-                <td>
-                    <img th:src="@{${posterURL} + 'poster' + ${movie.id} + '.jpg'}" width="225" height="330"/>
-                </td>
-
-                <td>
-                    <table>
-                        <tr>
-                            <td>
-                                <b th:text="${movie.title}"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td th:text="${movie.plot}"/>
-                        </tr>
-
-
-                        <tr>
-                            <td>
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <b>Directed By: </b>
-                                        </td>
-                                    </tr>
-                                    <tr th:each="director : ${directors}">
-                                        <td>
-                                            <a th:href="@{'/person?id=' + ${director.id}}"
-                                               th:text="${director.toString()}"/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <b>Rated: </b>
-                                        </td>
-                                        <td th:text="${movie.rated}"/>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <b>Genre: </b>
-                                        </td>
-                                        <td th:text="${movie.genre}"/>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <b>Released: </b>
-                                        </td>
-                                        <td th:text="${movie.released}"/>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <b>Box Office: </b>
-                                        </td>
-                                        <td th:text="${movie.boxoffice}"/>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <b>Runtime: </b>
-                                        </td>
-                                        <td th:text="${movie.runtime}"/>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <b>Production: </b>
-                                        </td>
-                                        <td th:text="${movie.production}"/>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <b>Website: </b>
-                                        </td>
-                                        <td>
-                                            <a th:href="${movie.website}" th:text="${movie.website}"/>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td>
-                                <form action="/add_review" method="post">
-                                    <table>
-                                        <tr th:if="${message != null}">
-                                            <td th:text="@{${message}}" />
-                                        </tr>
-                                        <tr>
-                                            <td th:text="@{'Rating: ' + ${rating} + ' (Reviews Counted: ' + ${reviewsCounted} + ')'}"/>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <b>Add Your Rating</b> <input type="range" min="0" max="100" step="1"
-                                                                              name="rating"/>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <textarea rows="4" cols="50" name="reviewtext" maxlength="520">Add Review (Optional)
-                                                </textarea>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <input type="submit"/>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    <input type="hidden" th:value="${movie.id}" name="contentID"/>
-                                    <input type="hidden" th:value="Movie" name="contentType"/>
-                                </form>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
-        <table>
-            <tr>
-                <td>
-                    <b>Trailer</b>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <video th:src="@{${trailerURL} + 'trailer' + ${movie.id} + '.mp4'}" type="video/mp4" width="400"
-                           controls="controls"/>
-                </td>
-            </tr>
-        </table>
         <table>
             <tr>
             <tr>
