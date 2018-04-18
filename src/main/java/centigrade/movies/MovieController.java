@@ -64,6 +64,18 @@ public class MovieController {
     }
 
     @GetMapping("/movies")
+    public String displayMovies(Model model){
+        String sortBy = "TITLE";
+        String sortDirection = "ASCENDING";
+
+        model.addAttribute("sortCriteria", EnumSet.allOf(MovieSortCriteria.class));
+        model.addAttribute("sortDirections", EnumSet.allOf(MovieSortDirection.class));
+        model.addAttribute("sortBy", sortBy);
+        model.addAttribute("sortDirection", sortDirection);
+        return "movies";
+    }
+
+    @GetMapping("/movies_table")
     public String displayAllMovies(Model model, @RequestParam(defaultValue = "TITLE")String sortBy,
                                    @RequestParam(defaultValue = "ASCENDING") String sortDirection,
                                    @RequestParam(defaultValue = "1") int page) {
@@ -131,17 +143,16 @@ public class MovieController {
         model.addAttribute("movies", outMovies);
 
         if (page != 1){
-            model.addAttribute("prev", "/movies?page=" + (page - 1) + endLink);
+            model.addAttribute("prev", "1");
         }
         if (end + 1 < movies.size()){
-            model.addAttribute("next", "/movies?page=" + (page + 1) + endLink);
-
+            model.addAttribute("next", "1");
         }
 
         model.addAttribute("posterURL", movieService.getMoviePosterURL());
         DecimalFormat df = new DecimalFormat("#.##");
         model.addAttribute("decimalFormat", df);
-        return "movies";
+        return "movies_table";
     }
 
     @GetMapping("/movie")

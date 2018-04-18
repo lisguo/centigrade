@@ -8,7 +8,7 @@
     <h1>All Movies</h1>
 
     <!-- SORT BUTTONS -->
-    <form action="/movies" method="get">
+    <form action="/movies" method="get" id="sort-form">
         <div class="row">
             <div class="col">
                 <select class="custom-select" name="sortBy">
@@ -31,46 +31,10 @@
     </form>
 
     <!-- MOVIE RESULTS -->
-    <table class="table table-striped" id="movies-table">
-        <thead>
-            <th scope="col">Rating</th>
-            <th scope="col"></th>
-            <th scope="col">Title</th>
-            <th scope="col">Info</th>
-        </thead>
-        <tbody>
-            <tr th:each="movie : ${movies}">
-                <div th:if="${movie.hasBeenRated()}">
-                    <td th:text="@{${decimalFormat.format(movie.getOverallRating())} + '%'}"/>
-                </div>
-                <div th:unless="${movie.hasBeenRated()}">
-                    <td th:text="@{'N/A'}"/>
-                </div>
-                <td>
-                    <img th:src="@{${posterURL} + 'poster' + ${movie.id} + '.jpg'}" width="90" height="132"/>
-                </td>
-                <td>
-                    <a th:href="@{'/movie?id=' + ${movie.id}}" th:text="${movie.title}"/>
-                </td>
-                <td>
-                    <p th:text="@{'Year: ' + ${movie.year}}"></p>
-                    <p th:text="@{'Box Office: ' + ${movie.boxoffice}}"></p>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <div id="movie-results"></div>
 
-    <!-- PAGINATION -->
-    <div class="container">
-        <div class="row">
-            <div th:if="${prev!=null}"> <a th:href="${prev}"> Prev.</a></div>
-            <div th:if="${prev==null}"> Prev.</div>
-            <div>   </div>
-            <div th:if="${next!=null}"> <a th:href="${next}"> Next</a></div>
-            <div th:if="${next==null}"> Next</div>
-        </div>
-    </div>
 </div>
 <div th:replace="fragments :: footer"></div>
+<script type="text/javascript" th:src="@{/js/movies.js}"></script>
 </body>
 </html>

@@ -1,30 +1,55 @@
+var page = 1;
+
 $(document).ready(function(){
-    $('#login-form').submit(function(event) {
-        var formData = {
-            'username' : $('input[name=login-username]').val(),
-            'password' : $('input[name=login-password]').val()
-        };
+    $('#sort-form').submit(function(event) {
+        var sortBy = $('select[name=sortBy]').val();
+        var sortDirection = $('select[name=sortDirection]').val();
 
         $.ajax({
-            type : 'POST',
-            url : '/login',
-            data : JSON.stringify(formData),
-            dataType : 'json',
-            contentType: "application/json; charset=utf-8",
+            type : 'GET',
+            url : '/movies_table?sortBy=' + sortBy + '&sortDirection=' + sortDirection,
             encode : true
         })
 
             .done(function(data) {
-                if(data['status'] == 'OK'){
-                    $('#login-card').fadeOut();
-                    location.reload();
-                }
-                else{
-                    $('.alert').show();
-                    $('.alert').html(data['error']);
-                }
+                console.log(data);
+                $('#movie-results').html(data);
             });
 
         event.preventDefault();
     });
+
+    $('#sort-form').submit();
 });
+
+function getPrev(){
+    page--;
+    var sortBy = $('select[name=sortBy]').val();
+    var sortDirection = $('select[name=sortDirection]').val();
+
+    $.ajax({
+        type : 'GET',
+        url : '/movies_table?page=' + page,
+        encode : true
+    })
+
+        .done(function(data) {
+            $('#movie-results').html(data);
+        });
+}
+
+function getNext(){
+    page++;
+    var sortBy = $('select[name=sortBy]').val();
+    var sortDirection = $('select[name=sortDirection]').val();
+
+    $.ajax({
+        type : 'GET',
+        url : '/movies_table?page=' + page,
+        encode : true
+    })
+
+        .done(function(data) {
+            $('#movie-results').html(data);
+        });
+}
