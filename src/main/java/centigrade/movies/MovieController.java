@@ -141,7 +141,6 @@ public class MovieController {
         model.addAttribute("sortDirection", sortDirection);
         model.addAttribute("movies", outMovies);
 
-        String endLink = "&sortBy=" + sortBy + "&sortDirection=" + sortDirection;
         if (page != 1){
             model.addAttribute("prev", "1");
         }
