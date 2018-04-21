@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head(Centigrade)"></head>
+<body>
+<div th:replace="fragments :: navbar"></div>
+<div class="container container-fluid">
+    <div class="content-row-block">
+        <!--<div th:replace="fragments :: navbar"></div>-->
+        <form action="/edit_review" method="post">
+            <table>
+                <tr>
+                    <td th:text="@{'Edit Your Review Of: ' + ${review.contentName}}" />
+                </tr>
+                <tr>
+                    <td>
+                        <b>Rating:</b>
+                        <input type="range" min="0" max="100" step="1" th:value="${review.rating}" name="rating"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <textarea rows="4" cols="50" maxlength="520" th:field="*{review.reviewText}">
+                            Add Review (Optional)
+                        </textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="submit"/>
+                    </td>
+                </tr>
+            </table>
+            <input type="hidden" th:value="${review.id}" name="id" />
+            <input th:if="${fromProfile != null}" type="hidden" th:value="@{true}" th:name="fromProfile" />
+        </form>
+    </div>
+</div>
+<div th:replace="fragments :: footer"></div>
+</body>
+</html>

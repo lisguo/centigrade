@@ -33,6 +33,13 @@
 
                         <td th:text="@{'Rating: ' + ${mr.rating} + '%'}"/>
                         <td th:if="${session.account != null and mr.userId == session.account.id}">
+                            <form action = "edit_review" method="get">
+                                <input type="hidden" th:value="${mr.id}" name="id" />
+                                <input type="hidden" th:value="@{'true'}" name="fromProfile" />
+                                <input type="submit" value="Edit" />
+                            </form>
+                        </td>
+                        <td th:if="${session.account != null and mr.userId == session.account.id}">
                             <form action = "delete_review" method="post">
                                 <input type="hidden" th:value="${mr.id}" name="id" />
                                 <input type="hidden" th:value="@{'true'}" name="fromProfile" />
@@ -41,7 +48,7 @@
                         </td>
                     </tr>
                     <tr th:unless="${mr.reviewText == null}">
-                        <td th:if="${session.account != null and mr.userId == session.account.id}" th:colspan="3" th:text="${mr.reviewText}"/>
+                        <td th:if="${session.account != null and mr.userId == session.account.id}" th:colspan="4" th:text="${mr.reviewText}"/>
                         <td th:unless="${session.account != null and mr.userId == session.account.id}" th:colspan="2" th:text="${mr.reviewText}"/>
                     </tr>
                 </table>
@@ -63,6 +70,13 @@
                         </td>
                         <td th:text="@{'Rating: ' + ${sr.rating} + '%'}"/>
                         <td th:if="${session.account != null and sr.userId == session.account.id}">
+                            <form action = "edit_review" method="get">
+                                <input type="hidden" th:value="${sr.id}" name="id" />
+                                <input type="hidden" th:value="@{'true'}" name="fromProfile" />
+                                <input type="submit" value="Edit" />
+                            </form>
+                        </td>
+                        <td th:if="${session.account != null and sr.userId == session.account.id}">
                             <form action = "delete_review" method="post">
                                 <input type="hidden" th:value="${sr.id}" name="id" />
                                 <input type="hidden" th:value="@{'true'}" name="fromProfile" />
@@ -71,7 +85,7 @@
                         </td>
                     </tr>
                     <tr th:unless="${sr.reviewText == null}">
-                        <td th:if="${session.account != null and sr.userId == session.account.id}" th:colspan="3" th:text="${sr.reviewText}"/>
+                        <td th:if="${session.account != null and sr.userId == session.account.id}" th:colspan="4" th:text="${sr.reviewText}"/>
                         <td th:unless="${session.account != null and sr.userId == session.account.id}" th:colspan="2" th:text="${sr.reviewText}"/>
                     </tr>
                 </table>

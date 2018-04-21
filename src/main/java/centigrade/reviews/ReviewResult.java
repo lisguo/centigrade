@@ -1,5 +1,5 @@
 package centigrade.reviews;
 
 public enum ReviewResult {
-    SUCCESS, ALREADY_REVIEWED, DELETED
+    SUCCESS, ALREADY_REVIEWED, DELETED, EDITED
 }

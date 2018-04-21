@@ -168,6 +168,8 @@ public class MovieController {
             model.addAttribute("message", env.getProperty("review_already_reviewed"));
         } else if (res == ReviewResult.DELETED) {
             model.addAttribute("message", env.getProperty("review_deleted"));
+        } else if(res == ReviewResult.EDITED) {
+            model.addAttribute("message", env.getProperty("review_edited"));
         }
 
         List<Person> cast = personService.getCastByMovie(movie);

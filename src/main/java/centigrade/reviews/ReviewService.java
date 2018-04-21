@@ -40,6 +40,18 @@ public class ReviewService {
         reviewRepository.save(r);
     }
 
+    public void editReview(Review r, double newRating, String newReviewText){ ;
+        r.setRating(newRating);
+
+        if(newReviewText.trim().equals("")){
+            r.setReviewText(null);
+        }else{
+            r.setReviewText(newReviewText);
+        }
+
+        reviewRepository.save(r);
+    }
+
     public void deleteReview(Review r) {
         Movie m = movieService.getMovieById(r.getContentId());
         TVShow t = tvShowService.getTVShowById(r.getContentId());
