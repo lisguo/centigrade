@@ -31,35 +31,39 @@ public class ReviewController {
 
     @PostMapping("add_review")
     public RedirectView addReview(@RequestParam String reviewtext, @RequestParam double rating,
-                                  @RequestParam String contentType, @RequestParam long contentID,
-                                  HttpSession session) {
+                                  @RequestParam long contentID, HttpSession session) {
         RedirectView rv = new RedirectView();
         Account a = (Account) session.getAttribute("account");
         if (a == null) {
             rv.setUrl(("login"));
             return rv;
         }
+
+        Movie m = movieService.getMovieById(contentID);
+        TVShow t = tvShowService.getTVShowById(contentID);
+
         List<Review> reviews = reviewService.getReviewsByUserAndContent(a.getId(), contentID);
         if (reviews.size() > 0) {
-            if (contentType.equals("Movie")) {
+            if (m != null) {
                 rv.setUrl("movie?id=" + contentID + "&res=" + ReviewResult.ALREADY_REVIEWED);
-            } else {
+            } else if (t != null){
                 rv.setUrl("show?id=" + contentID + "&res=" + ReviewResult.ALREADY_REVIEWED);
             }
             return rv;
         }
+
         if (reviewtext.trim().equals("Add Review (Optional)")) {
             reviewtext = null;
         }
+
         reviewService.addReview(contentID, a.getId(), rating, reviewtext);
-        if (contentType.equals("Movie")) {
-            Movie m = movieService.getMovieById(contentID);
+
+        if (m != null) {
             m.setRatingSum(m.getRatingSum() + rating);
             m.setTimesRated(m.getTimesRated() + 1);
             movieService.saveMovie(m);
             rv.setUrl("movie?id=" + contentID + "&res=" + ReviewResult.SUCCESS);
-        } else {
-            TVShow t = tvShowService.getTVShowById(contentID);
+        } else if(t != null){
             t.setRatingSum(t.getRatingSum() + rating);
             t.setTimesRated(t.getTimesRated() + 1);
             tvShowService.saveShow(t);
@@ -85,6 +89,70 @@ public class ReviewController {
         }
 
         reviewService.deleteReview(r);
+        return rv;
+    }
+
+    @GetMapping("edit_review")
+    public String editReviewForm(@RequestParam long id, HttpSession session, Model model,
+                                 @RequestParam(required = false) String fromProfile){
+        Review r = reviewService.getReviewById(id);
+
+        Account a = (Account) session.getAttribute("account");
+        if (a == null) {
+            return "login";
+        }else if(a.getId() != r.getUserId()){
+            return "error";
+        }
+
+        Movie m = movieService.getMovieById(r.getContentId());
+        TVShow t = tvShowService.getTVShowById(r.getContentId());
+        if(m != null) {
+            r.setContentName(m.getTitle());
+        } else if(t != null) {
+            r.setContentName(t.getSeriesName());
+        }
+
+        model.addAttribute("review", r);
+        model.addAttribute("fromProfile", fromProfile);
+        return "edit_review";
+    }
+
+    @PostMapping("edit_review")
+    public RedirectView editReviewSubmit(@RequestParam long id, @RequestParam String reviewText,
+                                         @RequestParam double rating, HttpSession session,
+                                         @RequestParam(required = false) String fromProfile){
+        Review r = reviewService.getReviewById(id);
+        RedirectView rv = new RedirectView();
+
+        Account a = (Account) session.getAttribute("account");
+        if (a == null) {
+            rv.setUrl(("login"));
+            return rv;
+        }else if(a.getId() != r.getUserId()){
+            rv.setUrl("error");
+            return rv;
+        }
+
+        Movie m = movieService.getMovieById(r.getContentId());
+        TVShow t = tvShowService.getTVShowById(r.getContentId());
+
+        if (m != null) {
+            m.setRatingSum(m.getRatingSum() - r.getRating());
+            m.setRatingSum(m.getRatingSum() + rating);
+            movieService.saveMovie(m);
+            rv.setUrl("movie?id=" + r.getContentId() + "&res=" + ReviewResult.EDITED);
+        } else if (t != null){
+            t.setRatingSum(t.getRatingSum() - r.getRating());
+            t.setRatingSum(t.getRatingSum() + rating);
+            tvShowService.saveShow(t);
+            rv.setUrl("show?id=" + r.getContentId() + "&res=" + ReviewResult.EDITED);
+        }
+
+        reviewService.editReview(r, rating, reviewText);
+        if(fromProfile != null){
+            rv.setUrl("profile?id=" + r.getUserId());
+        }
+
         return rv;
     }
 }
