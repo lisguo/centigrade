@@ -30,3 +30,12 @@ $(window).scroll(function () {
 
 $('.carousel').carousel();
 $('.carousel').carousel('pause');
+
+// Load Icon for Ajax Requests
+$(document).ajaxStart(function() {
+    $("#loading").show();
+});
+
+$(document).ajaxStop(function() {
+    $("#loading").hide();
+});

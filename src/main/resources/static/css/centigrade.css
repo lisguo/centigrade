@@ -866,6 +866,10 @@ footer #followus a:hover {
     color: white;
 }
 
+#loading {
+    display: none;
+}
+
 /* Large Devices, Wide Screens */
 @media only screen and (max-width: 1200px) {
 
