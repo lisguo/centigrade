@@ -3,6 +3,7 @@ package centigrade.movies;
 import centigrade.accounts.Account;
 import centigrade.accounts.AccountService;
 import centigrade.accounts.AccountType;
+import centigrade.accounts.WishListResult;
 import centigrade.people.PersonService;
 import centigrade.people.Person;
 
@@ -155,7 +156,9 @@ public class MovieController {
     }
 
     @GetMapping("/movie")
-    public String displayMovie(@RequestParam long id, @RequestParam(required = false) ReviewResult res, Model model) {
+    public String displayMovie(@RequestParam long id,
+                               @RequestParam(required = false) ReviewResult res,
+                               @RequestParam(required = false) WishListResult wishList, Model model) {
         Movie movie = movieService.getMovieById(id);
         model.addAttribute("movie", movie);
         model.addAttribute("posterURL", movieService.getMoviePosterURL());
@@ -170,6 +173,15 @@ public class MovieController {
             model.addAttribute("message", env.getProperty("review_deleted"));
         } else if(res == ReviewResult.EDITED) {
             model.addAttribute("message", env.getProperty("review_edited"));
+        }
+
+        if(wishList == WishListResult.ADDED){
+            model.addAttribute("message", env.getProperty("wishlist_added"));
+        } else if (wishList == WishListResult.REMOVED){
+            model.addAttribute("message", env.getProperty("wishlist_removed"));
+        }
+        else if(wishList == WishListResult.EXISTS){
+            model.addAttribute("message", env.getProperty("wishlist_exists"));
         }
 
         List<Person> cast = personService.getCastByMovie(movie);

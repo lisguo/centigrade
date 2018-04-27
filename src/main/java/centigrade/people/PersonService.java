@@ -56,7 +56,7 @@ public class PersonService {
                 List<Person> cast = new ArrayList<Person>();
 
                 while (rs.next()) {
-                    Person p = personRepository.findPersonById(rs.getInt(2));
+                    Person p = personRepository.findPersonById(rs.getLong(2));
                     if (p != null) {
                         cast.add(p);
                     }
@@ -74,7 +74,7 @@ public class PersonService {
                 List<Person> cast = new ArrayList<Person>();
 
                 while (rs.next()) {
-                    Person p = personRepository.findPersonById(rs.getInt(2));
+                    Person p = personRepository.findPersonById(rs.getLong(2));
                     if (p != null) {
                         cast.add(p);
                     }
@@ -93,7 +93,7 @@ public class PersonService {
                 List<Person> directors = new ArrayList<Person>();
 
                 while (rs.next()) {
-                    Person p = personRepository.findPersonById(rs.getInt(2));
+                    Person p = personRepository.findPersonById(rs.getLong(2));
                     if (p != null) {
                         directors.add(p);
                     }
@@ -111,7 +111,7 @@ public class PersonService {
                 List<Person> cast = new ArrayList<Person>();
 
                 while (rs.next()) {
-                    Person p = personRepository.findPersonById(rs.getInt(1));
+                    Person p = personRepository.findPersonById(rs.getLong(1));
                     if (p != null) {
                         cast.add(p);
                     }

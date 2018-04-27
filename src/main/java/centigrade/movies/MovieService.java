@@ -63,7 +63,7 @@ public class MovieService {
                 List<Movie> films = new ArrayList<Movie>();
 
                 while (rs.next()) {
-                    Movie m = movieRepository.findMovieById(rs.getInt(1));
+                    Movie m = movieRepository.findMovieById(rs.getLong(1));
                     if (m != null) {
                         films.add(m);
                     }
@@ -84,7 +84,7 @@ public class MovieService {
                 List<Movie> films = new ArrayList<Movie>();
 
                 while (rs.next()) {
-                    Movie m = movieRepository.findMovieById(rs.getInt(1));
+                    Movie m = movieRepository.findMovieById(rs.getLong(1));
                     if (m != null) {
                         films.add(m);
                     }

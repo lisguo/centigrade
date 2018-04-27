@@ -1,8 +1,6 @@
 package centigrade.TVShows;
 
-import centigrade.accounts.Account;
-import centigrade.accounts.AccountService;
-import centigrade.accounts.AccountType;
+import centigrade.accounts.*;
 import centigrade.people.PersonService;
 import centigrade.people.Person;
 
@@ -145,6 +143,7 @@ public class TVShowController {
 
     @GetMapping("/show")
     public String displayTVShow(@RequestParam long id, @RequestParam(required = false) ReviewResult res,
+                                @RequestParam(required = false)WishListResult wishList,
                                 @RequestParam(defaultValue = "1") int season, Model model) {
         TVShow show = tvShowService.getTVShowById(id);
         model.addAttribute("show", show);
@@ -159,6 +158,15 @@ public class TVShowController {
             model.addAttribute("message", env.getProperty("review_deleted"));
         } else if (res == ReviewResult.EDITED) {
             model.addAttribute("message", env.getProperty("review_edited"));
+        }
+
+        if(wishList == WishListResult.ADDED){
+            model.addAttribute("message", env.getProperty("wishlist_added"));
+        } else if (wishList == WishListResult.REMOVED){
+            model.addAttribute("message", env.getProperty("wishlist_removed"));
+        }
+        else if(wishList == WishListResult.EXISTS){
+            model.addAttribute("message", env.getProperty("wishlist_exists"));
         }
 
         List<Episode> selectedSeason = tvShowService.getSeason(show, season);

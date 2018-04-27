@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -220,7 +221,66 @@ public class AccountController {
         model.addAttribute("movieReviews", movieReviews);
         model.addAttribute("showReviews", showReviews);
 
+        model.addAttribute("posterURL", movieService.getMoviePosterURL());
+        model.addAttribute("tvPosterURL", tvShowService.getTVShowPosterURL());
+        List<WishListItem> wishList = accountService.getWishList(a);
+        model.addAttribute("wishList", wishList);
+
         return "profile";
+    }
+
+    @PostMapping("/add_to_wishlist")
+    public RedirectView addToWishList(@RequestParam long contentID, HttpSession session){
+        RedirectView rv = new RedirectView();
+
+        Account a = (Account) session.getAttribute("account");
+        if (a == null) {
+            rv.setUrl("login");
+            return rv;
+        }
+
+        Movie m = movieService.getMovieById(contentID);
+        TVShow t = tvShowService.getTVShowById(contentID);
+
+        // is this already on the user's wishlist?
+        for(WishListItem w : accountService.getWishList(a)){
+            if(w.getId() == contentID){
+                if(m != null){
+                    rv.setUrl("movie?id=" + contentID + "&wishList=" + WishListResult.EXISTS);
+                    return rv;
+                }else if(t != null){
+                    rv.setUrl("show?id=" + contentID + "&wishList=" + WishListResult.EXISTS);
+                    return rv;
+                }
+
+            }
+        }
+
+        if(m != null){
+            rv.setUrl("movie?id=" + contentID + "&wishList=" + WishListResult.ADDED);
+            accountService.insertIntoWishList(a.getId(), contentID, true);
+        }else if(t != null){
+            rv.setUrl("show?id=" + contentID + "&wishList=" + WishListResult.ADDED);
+            accountService.insertIntoWishList(a.getId(), contentID, false);
+        }
+
+        return rv;
+    }
+
+    @PostMapping("/remove_from_wishlist")
+    public RedirectView removeFromWishList(@RequestParam long contentID, HttpSession session){
+        RedirectView rv = new RedirectView();
+
+        Account a = (Account) session.getAttribute("account");
+        if (a == null) {
+            rv.setUrl("login");
+            return rv;
+        }
+
+        accountService.removeFromWishList(a.getId(), contentID);
+
+        rv.setUrl("profile?id=" + a.getId());
+        return rv;
     }
 
 }

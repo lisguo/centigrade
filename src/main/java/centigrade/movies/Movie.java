@@ -1,11 +1,13 @@
 package centigrade.movies;
 
+import centigrade.accounts.WishListItem;
+
 import javax.persistence.*;
 import java.util.Comparator;
 
 @Entity
 @Table(name = "movies")
-public class Movie implements Comparator<Movie> {
+public class Movie implements Comparator<Movie>, WishListItem {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 
@@ -204,5 +206,10 @@ public class Movie implements Comparator<Movie> {
         }
 
         return out;
+    }
+
+    @Override
+    public String getType() {
+        return "movie";
     }
 }

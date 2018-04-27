@@ -57,7 +57,7 @@ public class TVShowService {
                 List<TVShow> shows = new ArrayList<TVShow>();
 
                 while (rs.next()) {
-                    TVShow t = tvShowRepository.findTVShowById(rs.getInt(1));
+                    TVShow t = tvShowRepository.findTVShowById(rs.getLong(1));
                     if (t != null) {
                         shows.add(t);
                     }
@@ -79,7 +79,7 @@ public class TVShowService {
                 List<TVShow> shows = new ArrayList<TVShow>();
 
                 while (rs.next()) {
-                    TVShow t = tvShowRepository.findTVShowById(rs.getInt(1));
+                    TVShow t = tvShowRepository.findTVShowById(rs.getLong(1));
                     if (t != null) {
                         shows.add(t);
                     }

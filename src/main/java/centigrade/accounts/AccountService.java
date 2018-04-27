@@ -1,7 +1,15 @@
 package centigrade.accounts;
 
+import centigrade.TVShows.TVShow;
+import centigrade.TVShows.TVShowService;
+import centigrade.movies.Movie;
+import centigrade.movies.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCallback;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -14,6 +22,11 @@ import javax.mail.internet.MimeMessage;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -24,10 +37,63 @@ public class AccountService {
     private Environment env;
     @Autowired
     private JavaMailSender mailSender;
+    @Autowired
+    JdbcTemplate template;
+    @Autowired
+    private MovieService movieService;
+    @Autowired
+    private TVShowService tvShowService;
 
     // Constants for hashing password
     private static final int ITERATIONS = 5000;
     private static final int KEY_LENGTH = 256;
+
+    public List<WishListItem> getWishList(Account a){
+        return template.query("SELECT isMovie, contentId FROM wishlistitems WHERE accountId='" + a.getId() + "'", new ResultSetExtractor<List<WishListItem>>() {
+            @Override
+            public List<WishListItem> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                List<WishListItem> items = new ArrayList<WishListItem>();
+                Movie m;
+                TVShow t;
+
+                while (rs.next()) {
+                    if(rs.getBoolean(1)){
+                        m = movieService.getMovieById(rs.getLong(2));
+                        if(m != null){
+                            items.add(m);
+                        }
+                    }else{
+                        t = tvShowService.getTVShowById(rs.getLong(2));
+                        if(t != null){
+                            items.add(t);
+                        }
+                    }
+                }
+                return items;
+            }
+        });
+    }
+
+    public void removeFromWishList(long accountId, long contentID){
+        String query = "delete from wishlistitems where accountId = ? and contentId = ?";
+        Object[] args = new Object[] {accountId, contentID};
+
+        template.update(query, args);
+    }
+
+    public Boolean insertIntoWishList(long accountID, long contentID, boolean isMovie){
+        String query = "insert into wishlistitems(accountId, isMovie, contentId) values(?,?,?)";
+        return template.execute(query, new PreparedStatementCallback<Boolean>() {
+            @Override
+            public Boolean doInPreparedStatement(PreparedStatement ps) throws SQLException, DataAccessException {
+                ps.setLong(1, accountID);
+                ps.setBoolean(2, isMovie);
+                ps.setLong(3, contentID);
+
+                return ps.execute();
+            }
+        });
+    }
 
     public boolean isValidRegister(String email) {
         Account a = getAccountByEmail(email);

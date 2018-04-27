@@ -106,6 +106,17 @@
                                     </table>
                                     <input type="hidden" th:value="${show.id}" name="contentID"/>
                                 </form>
+                                <form action="add_to_wishlist" method="post">
+                                    <table>
+                                        <tr>
+                                            <td th:text="@{'Add To WishList&nbsp;'}"></td>
+                                            <td>
+                                                <input type="submit" value="&nbsp;+&nbsp;" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <input type="hidden" th:value="${show.id}" name="contentID" />
+                                </form>
                             </td>
                         </tr>
                     </table>

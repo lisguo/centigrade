@@ -92,6 +92,37 @@
                 <p th:utext="@{'&lt;br&gt;'}"></p>
             </tr>
         </table>
+
+        <table>
+            <tr>
+                <td>
+                    <b>WISH LIST</b>
+                </td>
+            </tr>
+            <td th:each="item : ${wishList}">
+                <table>
+                    <tr th:if="${session.account != null and user.id == session.account.id}">
+                        <form action="remove_from_wishlist" method="post">
+                            <input type="hidden" th:value="${item.getId()}" name="contentID" />
+                            <input type="submit" value="X" />
+                        </form>
+                    </tr>
+                    <tr>
+                        <td th:if="${item.getType().equals('movie')}">
+                            <img th:src="@{${posterURL} + 'poster' + ${item.getId()} + '.jpg'}" width="200" height="200"/>
+                        </td>
+                        <td th:unless="${item.getType().equals('movie')}">
+                            <img th:src="@{${tvPosterURL} + 'tvposter' + ${item.getId()} + '.jpg'}" width="200" height="200"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a th:href="@{'/' + ${item.getType()} + '?id=' + ${item.getId()}}" th:text="${item.getTitle()}"/>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </table>
     </div>
 </div>
 

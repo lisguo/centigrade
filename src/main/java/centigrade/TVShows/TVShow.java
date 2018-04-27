@@ -1,10 +1,12 @@
 package centigrade.TVShows;
 
+import centigrade.accounts.WishListItem;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "tvshows")
-public class TVShow {
+public class TVShow implements WishListItem{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 
@@ -30,6 +32,11 @@ public class TVShow {
     @Column(name = "id")
     public long getId() {
         return id;
+    }
+
+    @Override
+    public String getTitle() {
+        return getSeriesName();
     }
 
     public void setId(long id) {
@@ -162,5 +169,10 @@ public class TVShow {
         }
 
         return false;
+    }
+
+    @Override
+    public String getType() {
+        return "show";
     }
 }
