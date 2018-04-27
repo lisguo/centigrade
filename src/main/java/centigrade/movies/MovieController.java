@@ -175,10 +175,8 @@ public class MovieController {
             model.addAttribute("message", env.getProperty("review_edited"));
         }
 
-        if(wishList == WishListResult.ADDED){
+        if(wishList == WishListResult.ADDED) {
             model.addAttribute("message", env.getProperty("wishlist_added"));
-        } else if (wishList == WishListResult.REMOVED){
-            model.addAttribute("message", env.getProperty("wishlist_removed"));
         }
         else if(wishList == WishListResult.EXISTS){
             model.addAttribute("message", env.getProperty("wishlist_exists"));
