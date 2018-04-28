@@ -123,6 +123,37 @@
                 </table>
             </td>
         </table>
+
+        <table>
+            <tr>
+                <td>
+                    <b>NOT INTERESTED LIST</b>
+                </td>
+            </tr>
+            <td th:each="ni_item : ${notInterestedList}">
+                <table>
+                    <tr th:if="${session.account != null and user.id == session.account.id}">
+                        <form action="remove_from_not_interested_list" method="post">
+                            <input type="hidden" th:value="${ni_item.getId()}" name="contentID" />
+                            <input type="submit" value="X" />
+                        </form>
+                    </tr>
+                    <tr>
+                        <td th:if="${ni_item.getType().equals('movie')}">
+                            <img th:src="@{${posterURL} + 'poster' + ${ni_item.getId()} + '.jpg'}" width="200" height="200"/>
+                        </td>
+                        <td th:unless="${ni_item.getType().equals('movie')}">
+                            <img th:src="@{${tvPosterURL} + 'tvposter' + ${ni_item.getId()} + '.jpg'}" width="200" height="200"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a th:href="@{'/' + ${ni_item.getType()} + '?id=' + ${ni_item.getId()}}" th:text="${ni_item.getTitle()}"/>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </table>
     </div>
 </div>
 

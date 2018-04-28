@@ -158,6 +158,7 @@ public class MovieController {
     @GetMapping("/movie")
     public String displayMovie(@RequestParam long id,
                                @RequestParam(required = false) ReviewResult res,
+                               @RequestParam(required = false) WishListResult notInterested,
                                @RequestParam(required = false) WishListResult wishList, Model model) {
         Movie movie = movieService.getMovieById(id);
         model.addAttribute("movie", movie);
@@ -180,6 +181,13 @@ public class MovieController {
         }
         else if(wishList == WishListResult.EXISTS){
             model.addAttribute("message", env.getProperty("wishlist_exists"));
+        }
+
+        if(notInterested == WishListResult.ADDED) {
+            model.addAttribute("message", env.getProperty("not_interested_added"));
+        }
+        else if(notInterested == WishListResult.EXISTS){
+            model.addAttribute("message", env.getProperty("not_interested_exists"));
         }
 
         List<Person> cast = personService.getCastByMovie(movie);

@@ -225,6 +225,8 @@ public class AccountController {
         model.addAttribute("tvPosterURL", tvShowService.getTVShowPosterURL());
         List<WishListItem> wishList = accountService.getWishList(a);
         model.addAttribute("wishList", wishList);
+        List<WishListItem> notInterestedList = accountService.getNotInterestedList(a);
+        model.addAttribute("notInterestedList", notInterestedList);
 
         return "profile";
     }
@@ -267,6 +269,44 @@ public class AccountController {
         return rv;
     }
 
+    @PostMapping("/add_to_not_interested_list")
+    public RedirectView addToNotInterestedList(@RequestParam long contentID, HttpSession session){
+        RedirectView rv = new RedirectView();
+
+        Account a = (Account) session.getAttribute("account");
+        if (a == null) {
+            rv.setUrl("login");
+            return rv;
+        }
+
+        Movie m = movieService.getMovieById(contentID);
+        TVShow t = tvShowService.getTVShowById(contentID);
+
+        // is this already on the user's not interested list?
+        for(WishListItem w : accountService.getNotInterestedList(a)){
+            if(w.getId() == contentID){
+                if(m != null){
+                    rv.setUrl("movie?id=" + contentID + "&notInterested=" + WishListResult.EXISTS);
+                    return rv;
+                }else if(t != null){
+                    rv.setUrl("show?id=" + contentID + "&notInterested=" + WishListResult.EXISTS);
+                    return rv;
+                }
+
+            }
+        }
+
+        if(m != null){
+            rv.setUrl("movie?id=" + contentID + "&notInterested=" + WishListResult.ADDED);
+            accountService.insertIntoNotInterestedList(a.getId(), contentID, true);
+        }else if(t != null){
+            rv.setUrl("show?id=" + contentID + "&notInterested=" + WishListResult.ADDED);
+            accountService.insertIntoNotInterestedList(a.getId(), contentID, false);
+        }
+
+        return rv;
+    }
+
     @PostMapping("/remove_from_wishlist")
     public RedirectView removeFromWishList(@RequestParam long contentID, HttpSession session){
         RedirectView rv = new RedirectView();
@@ -278,6 +318,22 @@ public class AccountController {
         }
 
         accountService.removeFromWishList(a.getId(), contentID);
+
+        rv.setUrl("profile?id=" + a.getId());
+        return rv;
+    }
+
+    @PostMapping("/remove_from_not_interested_list")
+    public RedirectView removeFromNotInterestedList(@RequestParam long contentID, HttpSession session){
+        RedirectView rv = new RedirectView();
+
+        Account a = (Account) session.getAttribute("account");
+        if (a == null) {
+            rv.setUrl("login");
+            return rv;
+        }
+
+        accountService.removeFromNotInterestedList(a.getId(), contentID);
 
         rv.setUrl("profile?id=" + a.getId());
         return rv;

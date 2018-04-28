@@ -117,6 +117,17 @@
                                     </table>
                                     <input type="hidden" th:value="${show.id}" name="contentID" />
                                 </form>
+                                <form action="add_to_not_interested_list" method="post">
+                                    <table>
+                                        <tr>
+                                            <td th:text="@{'Add To Not Interested List&nbsp;'}"></td>
+                                            <td>
+                                                <input type="submit" value="&nbsp;+&nbsp;" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <input type="hidden" th:value="${show.id}" name="contentID" />
+                                </form>
                             </td>
                         </tr>
                     </table>

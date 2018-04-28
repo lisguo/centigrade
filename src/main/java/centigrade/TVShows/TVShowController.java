@@ -144,6 +144,7 @@ public class TVShowController {
     @GetMapping("/show")
     public String displayTVShow(@RequestParam long id, @RequestParam(required = false) ReviewResult res,
                                 @RequestParam(required = false)WishListResult wishList,
+                                @RequestParam(required = false)WishListResult notInterested,
                                 @RequestParam(defaultValue = "1") int season, Model model) {
         TVShow show = tvShowService.getTVShowById(id);
         model.addAttribute("show", show);
@@ -165,6 +166,13 @@ public class TVShowController {
         }
         else if(wishList == WishListResult.EXISTS){
             model.addAttribute("message", env.getProperty("wishlist_exists"));
+        }
+
+        if(notInterested == WishListResult.ADDED) {
+            model.addAttribute("message", env.getProperty("not_interested_added"));
+        }
+        else if(notInterested == WishListResult.EXISTS){
+            model.addAttribute("message", env.getProperty("not_interested_exists"));
         }
 
         List<Episode> selectedSeason = tvShowService.getSeason(show, season);

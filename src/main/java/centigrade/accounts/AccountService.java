@@ -74,6 +74,32 @@ public class AccountService {
         });
     }
 
+    public List<WishListItem> getNotInterestedList(Account a){
+        return template.query("SELECT isMovie, contentId FROM notinterestedlistitems WHERE accountId='" + a.getId() + "'", new ResultSetExtractor<List<WishListItem>>() {
+            @Override
+            public List<WishListItem> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                List<WishListItem> items = new ArrayList<WishListItem>();
+                Movie m;
+                TVShow t;
+
+                while (rs.next()) {
+                    if(rs.getBoolean(1)){
+                        m = movieService.getMovieById(rs.getLong(2));
+                        if(m != null){
+                            items.add(m);
+                        }
+                    }else{
+                        t = tvShowService.getTVShowById(rs.getLong(2));
+                        if(t != null){
+                            items.add(t);
+                        }
+                    }
+                }
+                return items;
+            }
+        });
+    }
+
     public void removeFromWishList(long accountId, long contentID){
         String query = "delete from wishlistitems where accountId = ? and contentId = ?";
         Object[] args = new Object[] {accountId, contentID};
@@ -81,8 +107,29 @@ public class AccountService {
         template.update(query, args);
     }
 
+    public void removeFromNotInterestedList(long accountId, long contentID){
+        String query = "delete from notinterestedlistitems where accountId = ? and contentId = ?";
+        Object[] args = new Object[] {accountId, contentID};
+
+        template.update(query, args);
+    }
+
     public Boolean insertIntoWishList(long accountID, long contentID, boolean isMovie){
         String query = "insert into wishlistitems(accountId, isMovie, contentId) values(?,?,?)";
+        return template.execute(query, new PreparedStatementCallback<Boolean>() {
+            @Override
+            public Boolean doInPreparedStatement(PreparedStatement ps) throws SQLException, DataAccessException {
+                ps.setLong(1, accountID);
+                ps.setBoolean(2, isMovie);
+                ps.setLong(3, contentID);
+
+                return ps.execute();
+            }
+        });
+    }
+
+    public Boolean insertIntoNotInterestedList(long accountID, long contentID, boolean isMovie){
+        String query = "insert into notinterestedlistitems(accountId, isMovie, contentId) values(?,?,?)";
         return template.execute(query, new PreparedStatementCallback<Boolean>() {
             @Override
             public Boolean doInPreparedStatement(PreparedStatement ps) throws SQLException, DataAccessException {
