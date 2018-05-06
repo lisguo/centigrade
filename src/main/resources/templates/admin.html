@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head(Centigrade)"></head>
+
+<body>
+<div th:replace="fragments :: navbar"></div>
+<!-- Page content -->
+<div class="container container-fluid">
+    <h1>Admin Panel</h1>
+    <div class="row">
+        <!-- TABS -->
+        <div class="col-3">
+            <div class="nav flex-column nav-pills" id="admin-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link active" id="admin-create-tab" data-toggle="pill" href="#admin-create" role="tab" aria-controls="admin-create" aria-selected="true">Create Content</a>
+                <a class="nav-link" id="admin-update-tab" data-toggle="pill" href="#admin-update" role="tab" aria-controls="admin-update" aria-selected="false">Update Content</a>
+                <a class="nav-link" id="admin-delete-tab" data-toggle="pill" href="#admin-delete" role="tab" aria-controls="admin-delete" aria-selected="false">Delete Content</a>
+                <a class="nav-link" id="admin-reports-tab" data-toggle="pill" href="#admin-reports" role="tab" aria-controls="admin-reports" aria-selected="false">View Reports</a>
+                <a class="nav-link" id="admin-applications-tab" data-toggle="pill" href="#admin-applications" role="tab" aria-controls="admin-applications" aria-selected="false">View Applications</a>
+            </div>
+        </div>
+
+        <!-- CONTENT -->
+        <div class="col-9">
+            <div class="tab-content" id="admin-tabContent">
+                <div class="tab-pane fade show active" id="admin-create" role="tabpanel" aria-labelledby="admin-create-tab">
+                    <h1>Create Content</h1>
+                </div>
+                <div class="tab-pane fade" id="admin-update" role="tabpanel" aria-labelledby="admin-update-tab">
+                    <h1>Update Content</h1>
+                </div>
+                <div class="tab-pane fade" id="admin-delete" role="tabpanel" aria-labelledby="admin-delete-tab">
+                    <h1>Delete Content</h1>
+                </div>
+                <div class="tab-pane fade" id="admin-reports" role="tabpanel" aria-labelledby="admin-reports-tab">
+                    <h1>View Reports</h1>
+                </div>
+                <div class="tab-pane fade" id="admin-applications" role="tabpanel" aria-labelledby="admin-applications-tab">
+                    <h1>View Applications</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments :: footer"></div>
+
+</body>
+</html>
