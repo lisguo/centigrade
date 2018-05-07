@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.core.env.Environment;
 
 enum TVShowSortCriteria {
-    TITLE, RATING, FIRST_AIRED
+    TITLE, RATING, FIRST_AIRED,POPULAR
 }
 
 enum TVShowSortDirection {
@@ -110,6 +110,27 @@ public class TVShowController {
                                 return 0;
                             }
                         }
+                    }
+                }
+            });
+        }else if (sortBy.equals("POPULAR")) {
+            Collections.sort(shows, new Comparator<TVShow>() {
+                @Override
+                public int compare(TVShow t1, TVShow t2) {
+
+                    if (t1.getOverallRating() > t2.getOverallRating()) {
+                        return 1;
+                    } else if (t1.getOverallRating() < t2.getOverallRating()) {
+                        return -1;
+                    } else {
+                        if (t1.getTimesRated() > t2.getTimesRated()) {
+                            return 1;
+                        } else if (t1.getTimesRated() < t2.getTimesRated()) {
+                            return -1;
+                        } else {
+                            return 0;
+                        }
+//                        return 0;
                     }
                 }
             });
