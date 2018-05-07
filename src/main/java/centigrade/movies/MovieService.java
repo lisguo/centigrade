@@ -22,10 +22,20 @@ public class MovieService {
     @Autowired
     JdbcTemplate template;
 
-    public void addMovie(String title, String plot) {
+    public void addMovie(String title, int year, String rated, String released,
+                         String runtime, String genre, String plot, String boxoffice,
+                         String production, String website) {
         Movie m = new Movie();
         m.setTitle(title);
+        m.setYear(year);
+        m.setRated(rated);
+        m.setReleased(released);
+        m.setRuntime(runtime);
+        m.setGenre(genre);
         m.setPlot(plot);
+        m.setBoxoffice(boxoffice);
+        m.setProduction(production);
+        m.setWebsite(website);
         movieRepository.save(m);
     }
 

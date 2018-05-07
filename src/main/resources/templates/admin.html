@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head(Centigrade)"></head>
+
+<body>
+<div th:replace="fragments :: navbar"></div>
+<!-- Page content -->
+<div class="container container-fluid">
+    <h1>Admin Panel</h1>
+    <div class="row">
+        <!-- TABS -->
+        <div class="col-3">
+            <div class="nav flex-column nav-pills" id="admin-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link active" id="admin-create-tab" data-toggle="pill" href="#admin-create" role="tab" aria-controls="admin-create" aria-selected="true">Create Content</a>
+                <a class="nav-link" id="admin-update-tab" data-toggle="pill" href="#admin-update" role="tab" aria-controls="admin-update" aria-selected="false">Update Content</a>
+                <a class="nav-link" id="admin-delete-tab" data-toggle="pill" href="#admin-delete" role="tab" aria-controls="admin-delete" aria-selected="false">Delete Content</a>
+                <a class="nav-link" id="admin-reports-tab" data-toggle="pill" href="#admin-reports" role="tab" aria-controls="admin-reports" aria-selected="false">View Reports</a>
+                <a class="nav-link" id="admin-applications-tab" data-toggle="pill" href="#admin-applications" role="tab" aria-controls="admin-applications" aria-selected="false">View Applications</a>
+            </div>
+        </div>
+
+        <!-- CONTENT -->
+        <div class="col-9">
+            <div class="tab-content" id="admin-tabContent">
+                <!-- CREATE CONTENT -->
+                <div class="tab-pane fade show active" id="admin-create" role="tabpanel" aria-labelledby="admin-create-tab">
+                    <h2>Create Content</h2>
+                    <ul class="nav nav-tabs nav-fill" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="create-movie-tab" data-toggle="tab" href="#create-movie" role="tab" aria-controls="movie" aria-selected="true">Movie</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="create-show-tab" data-toggle="tab" href="#create-show" role="tab" aria-controls="contact" aria-selected="false">TV Show</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="create-movie-tab-content">
+                        <div class="tab-pane fade show active" id="create-movie" role="tabpanel" aria-labelledby="create-movie-tab">
+                            <form>
+                                <div class="form-group">
+                                    <label for="create-movie-title">Title</label>
+                                    <input type="text" class="form-control" id="create-movie-title" placeholder="Black Panther" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="create-movie-year">Year</label>
+                                    <input type="number" class="form-control" id="create-movie-year" placeholder="2018" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="create-movie-runtime">Runtime (in minutes)</label>
+                                    <input type="text" class="form-control" id="create-movie-runtime" placeholder="134min" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="create-movie-genre">Genre</label>
+                                    <select class="form-control selectpicker" id="create-movie-genre" data-live-search="true" multiple="multiple" title="Action,Adventure,Sci-Fi">
+                                        <option>Adventure</option>
+                                        <option>Mystery</option>
+                                        <option>Crime</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="create-movie-plot">Plot</label>
+                                    <textarea class="form-control" id="create-movie-plot" placeholder="T'Challa, the King of Wakanda, rises to the throne in the isolated..." />
+                                </div>
+                                <div class="form-group">
+                                    <label for="create-movie-boxoffice">Box Office</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">$</span>
+                                        <input type="text" class="form-control" id="create-movie-boxoffice" />
+                                        <span class="input-group-text">.00</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="create-movie-production">Production</label>
+                                    <input type="text" class="form-control" id="create-movie-production" placeholder="Marvel Studios" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="create-movie-website">Website</label>
+                                    <input type="text" class="form-control" id="create-movie-website" placeholder="https://www.facebook.com/BlackPantherMovie/" />
+                                </div>
+                                <button type="button" class="btn btn-primary">Submit New Movie</button>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="create-show" role="tabpanel" aria-labelledby="create-show-tab">
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- UPDATE CONTENT -->
+                <div class="tab-pane fade" id="admin-update" role="tabpanel" aria-labelledby="admin-update-tab">
+                    <h2>Update Content</h2>
+                </div>
+                <div class="tab-pane fade" id="admin-delete" role="tabpanel" aria-labelledby="admin-delete-tab">
+                    <h2>Delete Content</h2>
+                </div>
+                <div class="tab-pane fade" id="admin-reports" role="tabpanel" aria-labelledby="admin-reports-tab">
+                    <h2>View Reports</h2>
+                </div>
+                <div class="tab-pane fade" id="admin-applications" role="tabpanel" aria-labelledby="admin-applications-tab">
+                    <h2>View Applications</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments :: footer"></div>
+
+</body>
+</html>
