@@ -168,6 +168,7 @@ public class TVShowController {
                                 @RequestParam(required = false)WishListResult notInterested,
                                 @RequestParam(defaultValue = "1") int season, Model model) {
         TVShow show = tvShowService.getTVShowById(id);
+
         model.addAttribute("show", show);
         model.addAttribute("posterURL", tvShowService.getTVShowPosterURL());
         model.addAttribute("photoURL", personService.getPersonPhotoURL());

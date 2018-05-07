@@ -1,9 +1,12 @@
 package centigrade.movies;
 
+import centigrade.Genre;
 import centigrade.accounts.WishListItem;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
 @Entity
 @Table(name = "movies")
@@ -28,6 +31,8 @@ public class Movie implements Comparator<Movie>, WishListItem {
     private double overallRating;
     @Transient
     private double sortableBoxOffice;
+    @Transient
+    private List<Genre> genreEnums;
 
     public Movie() {
     }
@@ -211,5 +216,73 @@ public class Movie implements Comparator<Movie>, WishListItem {
     @Override
     public String getType() {
         return "movie";
+    }
+
+    public void fillGenreEnums(){
+        String[] genres = genre.split("\\s+");
+        genreEnums = new ArrayList<>();
+
+        for(String genre : genres){
+            String g = genre.replace(",", "");
+            if(g.equals("Drama")){
+                genreEnums.add(Genre.DRAMA);
+            }else if(g.equals("Musical")){
+                genreEnums.add(Genre.MUSICAL);
+            }else if(g.equals("Romance")){
+                genreEnums.add(Genre.ROMANCE);
+            }else if(g.equals("Family")){
+                genreEnums.add(Genre.FAMILY);
+            }else if(g.equals("War")){
+                genreEnums.add(Genre.WAR);
+            }else if(g.equals("Crime")){
+                genreEnums.add(Genre.CRIME);
+            }else if(g.equals("Thriller")){
+                genreEnums.add(Genre.THRILLER);
+            }else if(g.equals("Action")){
+                genreEnums.add(Genre.ACTION);
+            }else if(g.equals("Adventure")){
+                genreEnums.add(Genre.ADVENTURE);
+            }else if(g.equals("Comedy")){
+                genreEnums.add(Genre.COMEDY);
+            }else if(g.equals("History")){
+                genreEnums.add(Genre.HISTORY);
+            }else if(g.equals("Biography")){
+                genreEnums.add(Genre.BIOGRAPHY);
+            }else if(g.equals("Mystery")){
+                genreEnums.add(Genre.MYSTERY);
+            }else if(g.equals("Documentary")){
+                genreEnums.add(Genre.DOCUMENTARY);
+            }else if(g.equals("Short")){
+                genreEnums.add(Genre.SHORT);
+            }else if(g.equals("Sport")){
+                genreEnums.add(Genre.SPORT);
+            }else if(g.equals("Western")){
+                genreEnums.add(Genre.WESTERN);
+            }else if(g.equals("Fantasy")){
+                genreEnums.add(Genre.FANTASY);
+            }else if(g.equals("Sci-Fi")){
+                genreEnums.add(Genre.SCI_FI);
+            }else if(g.equals("Horror")){
+                genreEnums.add(Genre.HORROR);
+            }else if(g.equals("Adult")){
+                genreEnums.add(Genre.ADULT);
+            }else if(g.equals("Animation")){
+                genreEnums.add(Genre.ANIMATION);
+            }else if(g.equals("Music")){
+                genreEnums.add(Genre.MUSIC);
+            }else if(g.equals("Film-Noir")){
+                genreEnums.add(Genre.FILM_NOIR);
+            }else if(g.equals("News")){
+                genreEnums.add(Genre.NEWS);
+            }
+        }
+    }
+
+    public List<Genre> getGenreEnums() {
+        return genreEnums;
+    }
+
+    public void setGenreEnums(List<Genre> genreEnums) {
+        this.genreEnums = genreEnums;
     }
 }

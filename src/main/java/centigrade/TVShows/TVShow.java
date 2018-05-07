@@ -1,8 +1,11 @@
 package centigrade.TVShows;
 
+import centigrade.Genre;
 import centigrade.accounts.WishListItem;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "tvshows")
@@ -25,6 +28,8 @@ public class TVShow implements WishListItem{
     private int timesRated;
     @Transient
     private double overallRating;
+    @Transient
+    private List<Genre> genreEnums;
 
     public TVShow() {
     }
@@ -174,5 +179,78 @@ public class TVShow implements WishListItem{
     @Override
     public String getType() {
         return "show";
+    }
+
+    public void fillGenreEnums(){
+        String[] genreList = genres.split("\\s+");
+        genreEnums = new ArrayList<>();
+
+        for(String genre : genreList){
+            String g = genre.replace(",", "");
+            if(g.equals("Animation")){
+                genreEnums.add(Genre.ANIMATION);
+            } else if(g.equals("Comedy")){
+                genreEnums.add(Genre.COMEDY);
+            }else if(g.equals("Food")){
+                genreEnums.add(Genre.FOOD);
+            }else if(g.equals("Drama")){
+                genreEnums.add(Genre.DRAMA);
+            }else if(g.equals("Family")){
+                genreEnums.add(Genre.FAMILY);
+            }else if(g.equals("Documentary")){
+                genreEnums.add(Genre.DOCUMENTARY);
+            }else if(g.equals("News")){
+                genreEnums.add(Genre.NEWS);
+            }else if(g.equals("Reality")){
+                genreEnums.add(Genre.REALITY);
+            }else if(g.equals("Adventure")){
+                genreEnums.add(Genre.ADVENTURE);
+            }else if(g.equals("Fantasy")){
+                genreEnums.add(Genre.FANTASY);
+            }else if(g.equals("Children")){
+                genreEnums.add(Genre.CHILDREN);
+            }else if(g.equals("Game")){
+                genreEnums.add(Genre.GAME_SHOW);
+            }else if(g.equals("Action")){
+                genreEnums.add(Genre.ACTION);
+            }else if(g.equals("Horror")){
+                genreEnums.add(Genre.HORROR);
+            }else if(g.equals("Sport")){
+                genreEnums.add(Genre.SPORT);
+            }else if(g.equals("Travel")){
+                genreEnums.add(Genre.TRAVEL);
+            }else if(g.equals("Crime")){
+                genreEnums.add(Genre.CRIME);
+            }else if(g.equals("Thriller")){
+                genreEnums.add(Genre.THRILLER);
+            } else if(g.equals("Mini-Series")){
+                genreEnums.add(Genre.MINI_SERIES);
+            }else if(g.equals("Science-Fiction")){
+                genreEnums.add(Genre.SCI_FI);
+            }else if(g.equals("Home")){
+                genreEnums.add(Genre.HOME_AND_GARDEN);
+            }else if(g.equals("Mystery")){
+                genreEnums.add(Genre.MYSTERY);
+            }else if(g.equals("Romance")){
+                genreEnums.add(Genre.ROMANCE);
+            }else if(g.equals("Soap")){
+                genreEnums.add(Genre.SOAP);
+            }else if(g.equals("Talk")){
+                genreEnums.add(Genre.TALK);
+            }else if(g.equals("Western")){
+                genreEnums.add(Genre.WESTERN);
+            }else if(g.equals("Suspense")){
+                genreEnums.add(Genre.SUSPENSE);
+            }
+        }
+
+    }
+
+    public List<Genre> getGenreEnums() {
+        return genreEnums;
+    }
+
+    public void setGenreEnums(List<Genre> genreEnums) {
+        this.genreEnums = genreEnums;
     }
 }

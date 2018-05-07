@@ -188,6 +188,7 @@ public class MovieController {
                                @RequestParam(required = false) WishListResult notInterested,
                                @RequestParam(required = false) WishListResult wishList, Model model) {
         Movie movie = movieService.getMovieById(id);
+
         model.addAttribute("movie", movie);
         model.addAttribute("posterURL", movieService.getMoviePosterURL());
         model.addAttribute("trailerURL", movieService.getMovieTrailerURL());
