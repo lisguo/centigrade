@@ -7,7 +7,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Service;
-
+import java.util.Calendar;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -93,7 +93,76 @@ public class MovieService {
             }
         });
     }
+    public String monthToMonth(int mon){
 
+        String monthString;
+        switch (mon) {
+            case 1:  monthString = "Jan";
+                break;
+            case 2:  monthString = "Feb";
+                break;
+            case 3:  monthString = "Mar";
+                break;
+            case 4:  monthString = "Apr";
+                break;
+            case 5:  monthString = "May";
+                break;
+            case 6:  monthString = "Jun";
+                break;
+            case 7:  monthString = "Jul";
+                break;
+            case 8:  monthString = "Aug";
+                break;
+            case 9:  monthString = "Sep";
+                break;
+            case 10: monthString = "Oct";
+                break;
+            case 11: monthString = "Nov";
+                break;
+            default: monthString = "Dec";
+                break;
+        }
+        return monthString;
+    }
+    public String[] getNextDays(int N){
+        String [] next = new String[N];
+        Calendar now = Calendar.getInstance();
+        for(int i = 0;i < N;i++){
+            String year = now.get(Calendar.YEAR)+"";
+            String month = monthToMonth(now.get(Calendar.MONTH));
+            String day = now.get(Calendar.DAY_OF_MONTH)+"";
+            next[i] = day+" "+month+" "+year;
+            now.add(Calendar.DATE,1);
+        }
+        return next;
+
+    }
+    public List<Movie> getLatestMovies(int days) {
+        String [] nextDays = getNextDays(days);
+        ArrayList<Movie> movies = new ArrayList<Movie>();
+        for (int i =0;i<nextDays.length;i++){
+            movies.addAll(getMovieDate(nextDays[i]));
+
+        }
+        return movies;
+
+    }
+    public List<Movie> getMovieDate(String date) {
+        return template.query("select id from movies where released = '"+date+"';", new ResultSetExtractor<List<Movie>>() {
+            @Override
+            public List<Movie> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                List<Movie> films = new ArrayList<Movie>();
+
+                while (rs.next()) {
+                    Movie m = movieRepository.findMovieById(rs.getLong(1));
+                    if (m != null) {
+                        films.add(m);
+                    }
+                }
+                return films;
+            }
+        });
+    }
     public void saveMovie(Movie m) {
         movieRepository.save(m);
     }

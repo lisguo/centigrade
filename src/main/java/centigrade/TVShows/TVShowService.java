@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 @Service
@@ -74,6 +75,45 @@ public class TVShowService {
         }
         return template.query("SELECT id FROM tvshows WHERE seriesname LIKE \"%" +
                 token + "%\"OR soundex(seriesname) LIKE soundex(\"" + token + "\")", new ResultSetExtractor<List<TVShow>>() {
+            @Override
+            public List<TVShow> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                List<TVShow> shows = new ArrayList<TVShow>();
+
+                while (rs.next()) {
+                    TVShow t = tvShowRepository.findTVShowById(rs.getLong(1));
+                    if (t != null) {
+                        shows.add(t);
+                    }
+                }
+
+                return shows;
+            }
+        });
+    }
+    public String[] getNextDays(int N){
+        String [] next = new String[N];
+        Calendar now = Calendar.getInstance();
+        for(int i = 0;i < N;i++){
+            next[i] = now.get(Calendar.YEAR)+"-"+ now.get(Calendar.MONTH)+"-"+now.get(Calendar.DAY_OF_MONTH);
+            now.add(Calendar.DATE,1);
+        }
+        return next;
+
+    }
+
+    public List<TVShow> getLatestMovies(int days) {
+        String [] nextDays = getNextDays(days);
+        ArrayList<TVShow> tvShows = new ArrayList<TVShow>();
+        for (int i =0;i<nextDays.length;i++){
+            tvShows.addAll(getEpisodeByDate(nextDays[i]));
+
+        }
+        return tvShows;
+
+    }
+    public List<TVShow> getEpisodeByDate(String date) {
+
+        return template.query("select  T.id from tvshows T, episodes E where E.firstaired = '"+date+";", new ResultSetExtractor<List<TVShow>>() {
             @Override
             public List<TVShow> extractData(ResultSet rs) throws SQLException, DataAccessException {
                 List<TVShow> shows = new ArrayList<TVShow>();
