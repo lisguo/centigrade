@@ -44,26 +44,6 @@ public class MovieController {
     @Autowired
     private Environment env;
 
-    @GetMapping("/add_movie")
-    public String addMovieForm(HttpSession session) {
-        Account a = (Account) session.getAttribute("account");
-        if (a == null || a.getAccountType() != AccountType.ADMIN) {
-            return "index";
-        }
-        return "add_movie";
-    }
-
-    @PostMapping("/add_movie")
-    public @ResponseBody
-    String addMovieSubmit(@RequestParam String title, @RequestParam String plot, HttpSession session) {
-        Account a = (Account) session.getAttribute("account");
-        if (a == null || a.getAccountType() != AccountType.ADMIN) {
-            return "index";
-        }
-        movieService.addMovie(title, plot);
-        return "Saved";
-    }
-
     @GetMapping("/movies")
     public String displayMovies(Model model){
         String sortBy = "TITLE";
