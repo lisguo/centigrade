@@ -73,6 +73,34 @@
         </div>
     </div>
 </div>
+
+<table>
+    <tr>
+        <td>
+            <b>LATEST CRITIC REVIEWS</b>
+        </td>
+    </tr>
+    <tr th:each="r : ${latestReviews}">
+        <table frame="box" width="600" rules="rows">
+            <tr>
+                <td>
+                    <a th:if="${r.contentType.equals('Show')}" th:href="@{'/show?id=' + ${r.contentId}}" th:text="@{${r.contentName}}"></a>
+                    <a th:unless="${r.contentType.equals('Show')}" th:href="@{'/movie?id=' + ${r.contentId}}" th:text="@{${r.contentName}}"></a>
+                </td>
+                <td>
+                    <a th:href="@{'/profile?id=' + ${r.userId}}" th:text="@{${r.userName}}"></a>
+                </td>
+
+                <td th:text="@{'Rating: ' + ${r.rating} + '%'}"/>
+            </tr>
+            <tr th:unless="${r.reviewText == null}">
+                <td th:colspan="3" th:text="${r.reviewText}"/>
+            </tr>
+        </table>
+        <p th:utext="@{'&lt;br&gt;'}"></p>
+    </tr>
+</table>
+
 <footer th:replace="fragments :: footer"></footer>
 </body>
 </html>

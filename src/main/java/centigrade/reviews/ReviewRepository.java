@@ -7,6 +7,8 @@ import java.util.List;
 
 @Repository
 public interface ReviewRepository extends CrudRepository<Review, Long> {
+    List<Review> findAllByOrderById();
+
     List<Review> findReviewsByUserId(long userId);
 
     List<Review> findReviewsByContentId(long contentId);

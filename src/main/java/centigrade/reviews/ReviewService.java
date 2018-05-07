@@ -31,6 +31,10 @@ public class ReviewService {
     @Autowired
     JdbcTemplate template;
 
+    public List<Review> getAllReviewsOrderedById(){
+        return reviewRepository.findAllByOrderById();
+    }
+
     public void addReview(long contentId, long userId, double rating, String reviewText) {
         Review r = new Review();
         r.setContentId(contentId);
