@@ -73,6 +73,29 @@
         </div>
     </div>
 </div>
+<h3>TOP BOX OFFICE (<a th:href="@{'/movies?sortBy=BOX_OFFICE&amp;sortDirection=DESCENDING'}">View All</a>)</h3>
+<table class="table table-striped" id="topboxoffice-table">
+    <tbody>
+    <tr th:each="movie : ${topBoxOffice}">
+        <div th:if="${movie.hasBeenRated()}">
+            <td th:text="@{${decimalFormat.format(movie.getOverallRating())} + '%'}"/>
+        </div>
+        <div th:unless="${movie.hasBeenRated()}">
+            <td th:text="@{'N/A'}"/>
+        </div>
+        <td>
+            <img th:src="@{${posterURL} + 'poster' + ${movie.id} + '.jpg'}" width="90" height="132"/>
+        </td>
+        <td>
+            <a th:href="@{'/movie?id=' + ${movie.id}}" th:text="${movie.title}"/>
+        </td>
+        <td>
+            <p th:text="@{'Year: ' + ${movie.year}}"></p>
+            <p th:text="@{'Box Office: ' + ${movie.boxoffice}}"></p>
+        </td>
+    </tr>
+    </tbody>
+</table>
 
 <table>
     <tr>
