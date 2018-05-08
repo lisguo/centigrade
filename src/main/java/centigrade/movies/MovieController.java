@@ -45,9 +45,11 @@ public class MovieController {
     private Environment env;
 
     @GetMapping("/movies")
-    public String displayMovies(Model model){
-        String sortBy = "TITLE";
-        String sortDirection = "ASCENDING";
+    public String displayMovies(Model model,
+                                @RequestParam(defaultValue = "TITLE")String sortBy,
+                                @RequestParam(defaultValue = "ASCENDING") String sortDirection){
+        //String sortBy = "TITLE";
+        //String sortDirection = "ASCENDING";
 
         model.addAttribute("sortCriteria", EnumSet.allOf(MovieSortCriteria.class));
         model.addAttribute("sortDirections", EnumSet.allOf(MovieSortDirection.class));
