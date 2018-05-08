@@ -338,9 +338,4 @@ public class AccountController {
         rv.setUrl("profile?id=" + a.getId());
         return rv;
     }
-
-    @GetMapping("/critic_application")
-    public String displayCriticApplication(){
-        return "critic_application";
-    }
 }

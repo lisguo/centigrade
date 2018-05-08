@@ -25,27 +25,20 @@
             <div th:if="${session.account != null}">
                 <p>Please fill out the form below to send an application to become a certified Centigrade Critic.</p>
                 <form id="critic-application-form" class="container-fluid">
+                    <input type="hidden" id="critic-application-id" th:value="${session.account.id}" />
                     <div class="form-group">
-                        <label for="critic-application-name">Your Name</label>
-                        <input type="text" class="form-control" id="critic-application-name" placeholder="John Smith" />
-                    </div>
-                    <div class="form-group">
-                        <label for="critic-application-email">Email</label>
-                        <input type="email" class="form-control" id="critic-application-email" placeholder="centigrade@example.com" />
-                    </div>
-                    <div class="form-group">
-                        <label for="critic-application-source">Source Name</label>
-                        <input type="text" class="form-control" id="critic-application-source" placeholder="Vox, Youtube, etc." />
+                        <label for="critic-application-source-name">Source Name</label>
+                        <input type="text" class="form-control" id="critic-application-source-name" placeholder="Vox, Youtube, etc." />
                     </div>
                     <div class="form-group">
                         <label for="critic-application-source-url">Source URL</label>
-                        <input type="email" class="form-control" id="critic-application-source-url" placeholder="www.vox.com, www.youtube.com/user/moviecritic" />
+                        <input type="text" class="form-control" id="critic-application-source-url" placeholder="www.vox.com, www.youtube.com/user/moviecritic" />
                     </div>
                     <div class="form-group">
-                        <label for="critic-application-resume">Tell us a bit about yourself</label>
-                        <textarea class="form-control" id="critic-application-resume" placeholder="I am a movie critic at ..." />
+                        <label for="critic-application-resume-text">Tell us a bit about yourself (Max 500 characters)</label>
+                        <textarea class="form-control" id="critic-application-resume-text" placeholder="I am a movie critic at ..." rows="5"/>
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit Application</button>
+                    <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#notificationModal">Submit Application</button>
                 </form>
             </div>
             <div th:if="${session.account == null}">
@@ -53,7 +46,13 @@
             </div>
         </div>
     </div>
+
+    <!-- NOTIFICATION POPUP -->
+    <div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModal" aria-hidden="true">
+        <img id="loading" th:src="@{/img/icons/loading.gif}" alt="" />
+    </div>
 </div>
 <div th:replace="fragments :: footer"></div>
+<script type="text/javascript" th:src="@{/js/critic_application.js}"></script>
 </body>
 </html>
