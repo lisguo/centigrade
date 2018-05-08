@@ -6,154 +6,141 @@
 <div class="container container-fluid">
     <div class="content-row-block">
         <!--<div th:replace="fragments :: navbar"></div>-->
-        <table width="100%">
-            <tr>
-                <td height="70"></td>
-                <td></td>
-                <td></td>
-            </tr>
-        </table>
-        <table>
-            <tr>
-                <td th:text="${user.toString()}"/>
-            </tr>
-        </table>
-        <table>
-            <tr>
-                <td>
-                    <b>MOVIE REVIEWS</b>
-                </td>
-            </tr>
-            <tr th:each="mr : ${movieReviews}">
-                <table frame="box" width="600" rules="rows">
-                    <tr>
-                        <td>
-                            <a th:href="@{'/movie?id=' + ${mr.contentId}}" th:text="@{${mr.contentName}}"></a>
-                        </td>
+        <div id="movie-top" class="container">
+            <h1 th:text="${user.toString()}"/>
+        </div>
+        <div class="movie-information container-fluid">
+            <div class="movie-second">
+                <div class="movie-u-reviews movie-stuff container-fluid">
+                    <h3>MOVIE REVIEWS</h3>
+                    <div th:if="${movieReviews.size() == 0}">
+                        <p>NO REVIEWS</p>
+                    </div>
+                    <div th:each="ur : ${movieReviews}">
 
-                        <td th:text="@{'Rating: ' + ${mr.rating} + '%'}"/>
-                        <td th:if="${session.account != null and mr.userId == session.account.id}">
-                            <form action = "edit_review" method="get">
-                                <input type="hidden" th:value="${mr.id}" name="id" />
-                                <input type="hidden" th:value="@{'true'}" name="fromProfile" />
-                                <input type="submit" value="Edit" />
-                            </form>
-                        </td>
-                        <td th:if="${session.account != null and mr.userId == session.account.id}">
-                            <form action = "delete_review" method="post">
-                                <input type="hidden" th:value="${mr.id}" name="id" />
-                                <input type="hidden" th:value="@{'true'}" name="fromProfile" />
-                                <input type="submit" value="X" />
-                            </form>
-                        </td>
-                    </tr>
-                    <tr th:unless="${mr.reviewText == null}">
-                        <td th:if="${session.account != null and mr.userId == session.account.id}" th:colspan="4" th:text="${mr.reviewText}"/>
-                        <td th:unless="${session.account != null and mr.userId == session.account.id}" th:colspan="2" th:text="${mr.reviewText}"/>
-                    </tr>
-                </table>
-                <p th:utext="@{'&lt;br&gt;'}"></p>
-            </tr>
-        </table>
+                        <div class="card border-danger">
+                            <div class="card-header container-fluid" th:text="@{'Rating: ' + ${ur.rating} + '%'}"></div>
+                            <div class="card-body text-danger container-fluid">
+                                <h5 class="card-title">
+                                    <a th:href="@{'/movie?id=' + ${ur.contentId}}" th:text="@{${ur.contentName}}"></a>
+                                </h5>
+                                <p class="card-text" th:unless="${ur.reviewText == null}" th:text="${ur.reviewText}">
+                                </p>
+                                <div class="row">
+                                    <form th:if="${session.account != null and ur.userId == session.account.id}" action = "edit_review" method="get">
+                                        <input type="hidden" th:value="${ur.id}" name="id" />
+                                        <input class="btn btn-outline-danger" type="submit" value="Edit" />
+                                    </form>
+                                    <form th:if="${session.account != null} and ${ur.userId == session.account.id or session.account.accountType == T(centigrade.accounts.AccountType).ADMIN}" action = "delete_review" method="post">
+                                        <input type="hidden" th:value="${ur.id}" name="id" />
+                                        <input class="btn btn-outline-danger" type="submit" value="X" />
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <p th:utext="@{'&lt;br&gt;'}"></p> <!-- th:if="${}"-->
+                    </div>
+                </div>
 
-        <table>
-            <tr>
-                <td>
-                    <b>TV SHOW REVIEWS</b>
-                </td>
-            </tr>
-            <tr th:each="sr : ${showReviews}">
-                <table frame="box" width="600" rules="rows">
-                    <tr>
-                        <td>
-                            <a th:href="@{'/show?id=' + ${sr.contentId}}" th:text="@{${sr.contentName}}"></a>
-                        </td>
-                        <td th:text="@{'Rating: ' + ${sr.rating} + '%'}"/>
-                        <td th:if="${session.account != null and sr.userId == session.account.id}">
-                            <form action = "edit_review" method="get">
-                                <input type="hidden" th:value="${sr.id}" name="id" />
-                                <input type="hidden" th:value="@{'true'}" name="fromProfile" />
-                                <input type="submit" value="Edit" />
-                            </form>
-                        </td>
-                        <td th:if="${session.account != null and sr.userId == session.account.id}">
-                            <form action = "delete_review" method="post">
-                                <input type="hidden" th:value="${sr.id}" name="id" />
-                                <input type="hidden" th:value="@{'true'}" name="fromProfile" />
-                                <input type="submit" value="X" />
-                            </form>
-                        </td>
-                    </tr>
-                    <tr th:unless="${sr.reviewText == null}">
-                        <td th:if="${session.account != null and sr.userId == session.account.id}" th:colspan="4" th:text="${sr.reviewText}"/>
-                        <td th:unless="${session.account != null and sr.userId == session.account.id}" th:colspan="2" th:text="${sr.reviewText}"/>
-                    </tr>
-                </table>
-                <p th:utext="@{'&lt;br&gt;'}"></p>
-            </tr>
-        </table>
+                <div class="movie-u-reviews movie-stuff container-fluid">
+                    <h3>TV SHOW REVIEWS</h3>
+                    <div th:if="${showReviews.size() == 0}">
+                        <p>NO REVIEWS</p>
+                    </div>
+                    <div th:each="ur : ${showReviews}">
 
-        <table>
-            <tr>
-                <td>
-                    <b>WISH LIST</b>
-                </td>
-            </tr>
-            <td th:each="item : ${wishList}">
-                <table>
-                    <tr th:if="${session.account != null and user.id == session.account.id}">
-                        <form action="remove_from_wishlist" method="post">
-                            <input type="hidden" th:value="${item.getId()}" name="contentID" />
-                            <input type="submit" value="X" />
-                        </form>
-                    </tr>
-                    <tr>
-                        <td th:if="${item.getType().equals('movie')}">
-                            <img th:src="@{${posterURL} + 'poster' + ${item.getId()} + '.jpg'}" width="200" height="200"/>
-                        </td>
-                        <td th:unless="${item.getType().equals('movie')}">
-                            <img th:src="@{${tvPosterURL} + 'tvposter' + ${item.getId()} + '.jpg'}" width="200" height="200"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a th:href="@{'/' + ${item.getType()} + '?id=' + ${item.getId()}}" th:text="${item.getTitle()}"/>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </table>
+                        <div class="card border-danger">
+                            <div class="card-header container-fluid" th:text="@{'Rating: ' + ${ur.rating} + '%'}"></div>
+                            <div class="card-body text-danger container-fluid">
+                                <h5 class="card-title">
+                                    <a th:href="@{'/show?id=' + ${ur.contentId}}" th:text="@{${ur.contentName}}"></a>
+                                </h5>
+                                <p class="card-text" th:unless="${ur.reviewText == null}" th:text="${ur.reviewText}">
+                                </p>
+                                <div class="row">
+                                    <form th:if="${session.account != null and ur.userId == session.account.id}" action = "edit_review" method="get">
+                                        <input type="hidden" th:value="${ur.id}" name="id" />
+                                        <input class="btn btn-outline-danger" type="submit" value="Edit" />
+                                    </form>
+                                    <form th:if="${session.account != null} and ${ur.userId == session.account.id or session.account.accountType == T(centigrade.accounts.AccountType).ADMIN}" action = "delete_review" method="post">
+                                        <input type="hidden" th:value="${ur.id}" name="id" />
+                                        <input class="btn btn-outline-danger" type="submit" value="X" />
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <p th:utext="@{'&lt;br&gt;'}"></p> <!-- th:if="${}"-->
+                    </div>
+                </div>
 
-        <table>
-            <tr>
-                <td>
-                    <b>NOT INTERESTED LIST</b>
-                </td>
-            </tr>
-            <td th:each="ni_item : ${notInterestedList}">
-                <table>
-                    <tr th:if="${session.account != null and user.id == session.account.id}">
-                        <form action="remove_from_not_interested_list" method="post">
-                            <input type="hidden" th:value="${ni_item.getId()}" name="contentID" />
-                            <input type="submit" value="X" />
-                        </form>
-                    </tr>
-                    <tr>
-                        <td th:if="${ni_item.getType().equals('movie')}">
-                            <img th:src="@{${posterURL} + 'poster' + ${ni_item.getId()} + '.jpg'}" width="200" height="200"/>
+                <div class="user-wish-list movie-stuff container-fluid">
+                    <h3>WISH LIST</h3>
+                    <div th:if="${wishList.size() == 0}">
+                        <p>NO ITEMS</p>
+                    </div>
+
+                    <table>
+                        <td th:each="item : ${wishList}">
+                            <table>
+                                <tr th:if="${session.account != null and user.id == session.account.id}">
+                                    <form action="remove_from_wishlist" method="post">
+                                        <input type="hidden" th:value="${item.getId()}" name="contentID" />
+                                        <input class="btn btn-outline-danger" type="submit" value="X" />
+                                    </form>
+                                </tr>
+                                <tr>
+                                    <td th:if="${item.getType().equals('movie')}">
+                                        <img th:src="@{${posterURL} + 'poster' + ${item.getId()} + '.jpg'}" width="200" height="200"/>
+                                    </td>
+                                    <td th:unless="${item.getType().equals('movie')}">
+                                        <img th:src="@{${tvPosterURL} + 'tvposter' + ${item.getId()} + '.jpg'}" width="200" height="200"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a th:href="@{'/' + ${item.getType()} + '?id=' + ${item.getId()}}" th:text="${item.getTitle()}"/>
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
-                        <td th:unless="${ni_item.getType().equals('movie')}">
-                            <img th:src="@{${tvPosterURL} + 'tvposter' + ${ni_item.getId()} + '.jpg'}" width="200" height="200"/>
+                    </table>
+                </div>
+
+                <div class="user-wish-list movie-stuff container-fluid">
+                    <h3>NOT INTERESTED LIST</h3>
+                    <div th:if="${notInterestedList.size() == 0}">
+                        <p>NO ITEMS</p>
+                    </div>
+
+                    <table>
+                        <td th:each="ni_item : ${notInterestedList}">
+                            <table>
+                                <tr th:if="${session.account != null and user.id == session.account.id}">
+                                    <form action="remove_from_not_interested_list" method="post">
+                                        <input type="hidden" th:value="${ni_item.getId()}" name="contentID" />
+                                        <input class="btn btn-outline-danger" type="submit" value="X" />
+                                    </form>
+                                </tr>
+                                <tr>
+                                    <td th:if="${ni_item.getType().equals('movie')}">
+                                        <img th:src="@{${posterURL} + 'poster' + ${ni_item.getId()} + '.jpg'}" width="200" height="200"/>
+                                    </td>
+                                    <td th:unless="${ni_item.getType().equals('movie')}">
+                                        <img th:src="@{${tvPosterURL} + 'tvposter' + ${ni_item.getId()} + '.jpg'}" width="200" height="200"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a th:href="@{'/' + ${ni_item.getType()} + '?id=' + ${ni_item.getId()}}" th:text="${ni_item.getTitle()}"/>
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a th:href="@{'/' + ${ni_item.getType()} + '?id=' + ${ni_item.getId()}}" th:text="${ni_item.getTitle()}"/>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </table>
+                    </table>
+                </div>
+
+            </div>
+        </div>
     </div>
 </div>
 

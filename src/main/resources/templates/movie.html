@@ -128,66 +128,56 @@
             </div>
             <div class="movie-c-reviews movie-stuff container-fluid">
                 <h3>CRITIC REVIEWS</h3>
+                <div th:if="${criticReviews.size() == 0}">
+                    <p>NO REVIEWS</p>
+                </div>
                 <div th:each="cr : ${criticReviews}">
-                    <table frame="box" width="600" rules="rows">
-                        <tr>
-                            <td>
-                                <a th:href="@{'/profile?id=' + ${cr.userId}}" th:text="@{${cr.userName}}"></a>
-
-                            </td>
-                            <td th:text="@{'Rating: ' + ${cr.rating} + '%'}"/>
-                            <td th:if="${session.account != null and cr.userId == session.account.id}">
-                                <form action = "edit_review" method="get">
+                    <div class="card border-danger">
+                        <div class="card-header container-fluid" th:text="@{'Rating: ' + ${cr.rating} + '%'}"></div>
+                        <div class="card-body text-danger container-fluid">
+                            <h5 class="card-title"><a th:href="@{'/profile?id=' + ${cr.userId}}" th:text="@{${cr.userName}}"></a></h5>
+                            <p class="card-text" th:unless="${cr.reviewText == null}" th:text="${cr.reviewText}">
+                            </p>
+                            <div class="row">
+                                <form th:if="${session.account != null and cr.userId == session.account.id}" action = "edit_review" method="get">
                                     <input type="hidden" th:value="${cr.id}" name="id" />
-                                    <input type="submit" value="Edit" />
+                                    <input class="btn btn-outline-danger" type="submit" value="Edit" />
                                 </form>
-                            </td>
-                            <td th:if="${session.account != null and cr.userId == session.account.id}">
-                                <form action = "delete_review" method="post">
+                                <form th:if="${session.account != null} and ${cr.userId == session.account.id or session.account.accountType == T(centigrade.accounts.AccountType).ADMIN}" action = "delete_review" method="post">
                                     <input type="hidden" th:value="${cr.id}" name="id" />
-                                    <input type="submit" value="X" />
+                                    <input class="btn btn-outline-danger" type="submit" value="X" />
                                 </form>
-                            </td>
-                        </tr>
-                        <tr th:unless="${cr.reviewText == null}">
-                            <td th:if="${session.account != null and cr.userId == session.account.id}" th:colspan="4" th:text="${cr.reviewText}"/>
-                            <td th:unless="${session.account != null and cr.userId == session.account.id}" th:colspan="2" th:text="${cr.reviewText}"/>
-                        </tr>
-                    </table>
+                            </div>
+                        </div>
+                    </div>
                     <p th:utext="@{'&lt;br&gt;'}"></p>
                 </div>
             </div>
             <div class="movie-u-reviews movie-stuff container-fluid">
                 <h3>USER REVIEWS</h3>
                 <div th:if="${userReviews.size() == 0}">
-                    <h3>NO REVIEWS</h3>
+                    <p>NO REVIEWS</p>
                 </div>
                 <div th:each="ur : ${userReviews}">
-                    <table frame="box" width="600" rules="rows">
-                        <tr>
-                            <td>
-                                <a th:href="@{'/profile?id=' + ${ur.userId}}" th:text="@{${ur.userName}}"></a>
 
-                            </td>
-                            <td th:text="@{'Rating: ' + ${ur.rating} + '%'}"/>
-                            <td th:if="${session.account != null and ur.userId == session.account.id}">
-                                <form action = "edit_review" method="get">
+                    <div class="card border-danger">
+                        <div class="card-header container-fluid" th:text="@{'Rating: ' + ${ur.rating} + '%'}"></div>
+                        <div class="card-body text-danger container-fluid">
+                            <h5 class="card-title"><a th:href="@{'/profile?id=' + ${ur.userId}}" th:text="@{${ur.userName}}"></a></h5>
+                            <p class="card-text" th:unless="${ur.reviewText == null}" th:text="${ur.reviewText}">
+                            </p>
+                            <div class="row">
+                                <form th:if="${session.account != null and ur.userId == session.account.id}" action = "edit_review" method="get">
                                     <input type="hidden" th:value="${ur.id}" name="id" />
-                                    <input type="submit" value="Edit" />
+                                    <input class="btn btn-outline-danger" type="submit" value="Edit" />
                                 </form>
-                            </td>
-                            <td th:if="${session.account != null and ur.userId == session.account.id}">
-                                <form action = "delete_review" method="post">
+                                <form th:if="${session.account != null} and ${ur.userId == session.account.id or session.account.accountType == T(centigrade.accounts.AccountType).ADMIN}" action = "delete_review" method="post">
                                     <input type="hidden" th:value="${ur.id}" name="id" />
-                                    <input type="submit" value="X" />
+                                    <input class="btn btn-outline-danger" type="submit" value="X" />
                                 </form>
-                            </td>
-                        </tr>
-                        <tr th:unless="${ur.reviewText == null}">
-                            <td th:if="${session.account != null and ur.userId == session.account.id}" th:colspan="4" th:text="${ur.reviewText}"/>
-                            <td th:unless="${session.account != null and ur.userId == session.account.id}" th:colspan="2" th:text="${ur.reviewText}"/>
-                        </tr>
-                    </table>
+                            </div>
+                        </div>
+                    </div>
                     <p th:utext="@{'&lt;br&gt;'}"></p> <!-- th:if="${}"-->
                 </div>
             </div>
