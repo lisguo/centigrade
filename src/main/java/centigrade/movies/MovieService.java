@@ -24,7 +24,12 @@ public class MovieService {
 
     public void addMovie(String title, int year, String rated, String released,
                          String runtime, String genre, String plot, String boxoffice,
-                         String production, String website) {
+                         String production, String website) throws DuplicateMovieException {
+
+        if (movieRepository.findMovieByTitle(title) != null){
+            throw new DuplicateMovieException();
+        }
+
         Movie m = new Movie();
         m.setTitle(title);
         m.setYear(year);
@@ -37,6 +42,8 @@ public class MovieService {
         m.setProduction(production);
         m.setWebsite(website);
         movieRepository.save(m);
+
+        template.execute("INSERT INTO content VALUES(" + m.getId() + ",NULL");
     }
 
     public List<Movie> getAllMovies() {

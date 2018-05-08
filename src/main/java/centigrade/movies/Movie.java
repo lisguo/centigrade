@@ -13,7 +13,6 @@ import java.util.List;
 public class Movie implements Comparator<Movie>, WishListItem {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-
     private long id;
     private String title;
     private int year;
@@ -35,12 +34,6 @@ public class Movie implements Comparator<Movie>, WishListItem {
     private List<Genre> genreEnums;
 
     public Movie() {
-    }
-
-    public Movie(long id, String title, String plot) {
-        this.id = id;
-        this.title = title;
-        this.plot = plot;
     }
 
     @Column(name = "Id")

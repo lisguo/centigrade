@@ -15,6 +15,8 @@ public interface MovieRepository extends CrudRepository<Movie, Long> {
 
     Movie findMovieById(long id);
 
+    Movie findMovieByTitle(String title);
+
     Movie save(Movie m);
 
     void delete(Movie m);
