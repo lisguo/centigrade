@@ -4,49 +4,56 @@
 
 <body>
 <div th:replace="fragments :: navbar"></div>
-<div class="container container-fluid">
-    <div class="content-row-block">
-        <!--<div th:replace="fragments :: navbar"></div>-->
-        <table width="100%">
+<div class="container container-fluid" style="padding: 1em;">
+    <h1 >Search Results</h1>
+    <nav id="search-nav" class="navbar navbar-light bg-light" style="position: sticky; position: -webkit-sticky; top: 0;">
+        <ul class="nav nav-pills">
+            <li class="nav-item">
+                <a class="nav-link" href="#movie-results">Movies Results</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#tv-results">TV Show Results</a>
+            </li>
+        </ul>
+    </nav>
+    <div data-spy="scroll" data-target="#search-nav" data-offset="0">
+        <h4 id="movie-results">Movie Results</h4>
+        <table class="table table-striped">
+            <thead>
             <tr>
-                <td height="70"></td>
-                <td></td>
-                <td></td>
+                <th scope="col" colspan="3" style="text-align:center;">Title</th>
+                <th scope="col">Plot</th>
             </tr>
-        </table>
-        <table width="100%">
-            <tr>
-                <td></td>
-                <td><b>Title</b></td>
-                <td><b>Plot</b></td>
-            </tr>
-            <tr>
-                <td><b>Movies</b></td>
-            </tr>
+            </thead>
+            <tbody>
             <tr th:each="movie : ${movies}">
-                <td>
-                    <img th:src="@{${moviePosterURL} + 'poster' + ${movie.id} + '.jpg'}" width="45" height="66"/>
-                </td>
-                <td><a th:href="@{'/movie?id=' + ${movie.id}}" th:text="${movie.title}"/></td>
+                <td><img th:src="@{${moviePosterURL} + 'poster' + ${movie.id} + '.jpg'}" width="45" height="75"/></td>
+                <td colspan="2"><a th:href="@{'/movie?id=' + ${movie.id}}" th:text="${movie.title}"/></td>
                 <td th:text="${movie.plot}"/>
             </tr>
             <tr th:if="${movies == null}">
                 <td><b>NO RESULTS FOUND</b></td>
             </tr>
+            </tbody>
+        </table>
+        <h4 id="tv-results">TV Show Results</h4>
+        <table class="table table-striped">
+            <thead>
             <tr>
-                <td><b>TV Shows</b></td>
+                <th scope="col" colspan="3" style="text-align:center;">Title</th>
+                <th scope="col">Plot</th>
             </tr>
+            </thead>
+            <tbody>
             <tr th:each="show : ${shows}">
-                <td>
-                    <img th:src="@{${showPosterURL} + 'tvposter' + ${show.id} + '.jpg'}" width="45" height="66"/>
-                </td>
-                <td><a th:href="@{'/show?id=' + ${show.id}}" th:text="${show.seriesName}"/></td>
+                <td><img th:src="@{${showPosterURL} + 'tvposter' + ${show.id} + '.jpg'}" width="45" height="75"/></td>
+                <td colspan="2"><a th:href="@{'/show?id=' + ${show.id}}" th:text="${show.seriesName}"/></td>
                 <td th:text="${show.overview}"/>
             </tr>
             <tr th:if="${shows == null}">
                 <td><b>NO RESULTS FOUND</b></td>
             </tr>
-
+            </tbody>
         </table>
     </div>
 </div>

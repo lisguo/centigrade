@@ -39,3 +39,21 @@ $(document).ajaxStart(function() {
 $(document).ajaxStop(function() {
     $("#loading").hide();
 });
+
+// scrolling function for clicking
+$('a[href^="#"]').on('click', function(event) {
+    var target = $(this.getAttribute('href'));
+    //var difference = ($(window).outerWidth() < 900)? 30: 50;
+
+    /*if (navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1 && $(this).attr('href') == '#about') {
+        difference = 0;
+    };*/
+
+    if( target.length ) {
+        event.preventDefault();
+        $('html, body').stop().animate({
+            scrollTop: target.offset().top
+        }, 1000);
+    }
+
+});
