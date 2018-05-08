@@ -1,0 +1,20 @@
+<table class="table table-striped" id="critic-applications-table">
+    <thead>
+    <th scope="col">Name</th>
+    <th scope="col">Source (Publication/YouTube/etc.)</th>
+    <th scope="col"></th>
+    </thead>
+    <tbody>
+    <tr th:each="app : ${applications}">
+        <td>
+            <a th:href="@{'/profile?id=' + ${app.account}}" th:text="${app.firstName + ' ' + app.lastName}"/>
+        </td>
+        <td>
+            <p th:text="${app.sourceName}"></p>
+        </td>
+        <td>
+            <a th:href="@{'/application?id=' + ${app.id}}">View Details</a>
+        </td>
+    </tr>
+    </tbody>
+</table>

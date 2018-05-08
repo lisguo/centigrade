@@ -13,6 +13,13 @@ public class CriticApplication {
     private String sourceUrl;
     private String resumeText;
 
+    @Transient
+    private String firstName;
+    @Transient
+    private String lastName;
+    @Transient
+    private String email;
+
     @Column(name="Id")
     public long getId() {
         return id;
@@ -56,5 +63,29 @@ public class CriticApplication {
 
     public void setResumeText(String resumeText) {
         this.resumeText = resumeText;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

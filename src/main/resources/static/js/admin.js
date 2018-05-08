@@ -27,12 +27,21 @@ $(document).ready(function(){
                 website: website
             }
         }).done(function(data) {
-                console.log(data);
+                $('#notification').html(data);
             });
     });
 
     $('#create-movie-released').datepicker({
         uiLibrary: 'bootstrap4',
         format: 'dd mmm yyyy'
+    });
+
+    $('#admin-applications-tab').click(function(){
+        $.ajax({
+            type : 'GET',
+            url : '/get_critic_applications'
+        }).done(function(data) {
+            $('#admin-critic-applications').html(data);
+        });
     });
 });

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,15 +41,19 @@ public class AdminController {
                               @RequestParam String rated, @RequestParam String released,
                               @RequestParam String runtime, @RequestParam String genre,
                               @RequestParam String plot, @RequestParam String boxoffice,
-                              @RequestParam String production, @RequestParam String website){
+                              @RequestParam String production, @RequestParam String website,
+                              Model model){
         String successMsg = env.getProperty("create_movie_success");
         String duplicateMsg = env.getProperty("create_movie_duplicate_error");
         boxoffice = "$" + boxoffice;
         try {
             movieService.addMovie(title, year, rated, released, runtime, genre, plot, boxoffice, production, website);
+            model.addAttribute("notificationTitle", "Success!");
+            model.addAttribute("notificationDetails", successMsg);
         } catch (DuplicateMovieException e){
-            return duplicateMsg;
+            model.addAttribute("notificationTitle", "Error!");
+            model.addAttribute("notificationDetails", duplicateMsg);
         }
-        return successMsg;
+        return "notification_alert";
     }
 }
