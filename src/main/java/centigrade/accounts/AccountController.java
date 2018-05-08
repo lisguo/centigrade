@@ -339,4 +339,8 @@ public class AccountController {
         return rv;
     }
 
+    @GetMapping("/critic_application")
+    public String displayCriticApplication(){
+        return "critic_application";
+    }
 }

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head('Centigrade: Critic Application')"></head>
+<body>
+<div th:replace="fragments :: navbar"></div>
+<div class="container container-fluid">
+    <div class="content-row-block">
+        <div id="movie-top" class="container">
+            <h1>Centigrade Critic Application</h1>
+        </div>
+        <div class="container-fluid">
+            <h2>Requirements</h2>
+            <ol>
+                <li>Must have a registered Centigrade account.</li>
+                <li>
+                    <ul>One of the following:
+                        <li>Must be employed at a Centigrade-approved publication.</li>
+                        <li>Must have at least 10,000 subscribers on a video hosting website.</li>
+                        <li>Must have published more than 100 reviews in 2 years with each review having an average length of more than 300 words.</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h2>Application Form</h2>
+            <div th:if="${session.account != null}">
+                <p>Please fill out the form below to send an application to become a certified Centigrade Critic.</p>
+                <form id="critic-application-form" class="container-fluid">
+                    <div class="form-group">
+                        <label for="critic-application-name">Your Name</label>
+                        <input type="text" class="form-control" id="critic-application-name" placeholder="John Smith" />
+                    </div>
+                    <div class="form-group">
+                        <label for="critic-application-email">Email</label>
+                        <input type="email" class="form-control" id="critic-application-email" placeholder="centigrade@example.com" />
+                    </div>
+                    <div class="form-group">
+                        <label for="critic-application-source">Source Name</label>
+                        <input type="text" class="form-control" id="critic-application-source" placeholder="Vox, Youtube, etc." />
+                    </div>
+                    <div class="form-group">
+                        <label for="critic-application-source-url">Source URL</label>
+                        <input type="email" class="form-control" id="critic-application-source-url" placeholder="www.vox.com, www.youtube.com/user/moviecritic" />
+                    </div>
+                    <div class="form-group">
+                        <label for="critic-application-resume">Tell us a bit about yourself</label>
+                        <textarea class="form-control" id="critic-application-resume" placeholder="I am a movie critic at ..." />
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit Application</button>
+                </form>
+            </div>
+            <div th:if="${session.account == null}">
+                <p>Please login to apply.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments :: footer"></div>
+</body>
+</html>

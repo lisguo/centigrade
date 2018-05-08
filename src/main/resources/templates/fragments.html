@@ -46,9 +46,15 @@
                     </div>
                 </div>
                 <div th:if="${session.account != null}" class="sessionstuff">
-                    <div id="greeting" class="functions">
-                        <a href="/edit_account"> <b th:text="${'Hello, ' + session.account.firstName}"></b></a>
-                    </div>
+                    <li class="dropdown functions">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"> <b th:text="${'Hello, ' + session.account.firstName}"></b></a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" style="color:black" th:href="${'/profile?id=' + session.account.id}">Profile</a>
+                            <a class="dropdown-item" style="color:black" href="/edit_account">Edit Account</a>
+                            <a th:if="${session.account.accountType == T(centigrade.accounts.AccountType).USER}" class="dropdown-item" style="color:black" href="/critic_application">Upgrade to Critic</a>
+                        </div>
+                        <!-- <a class="dropdown-item" href="/edit_account"></a> -->
+                    </li>
                     <div id="logout" class="functions">
                         <a href="/logout">Logout</a>
                     </div>
