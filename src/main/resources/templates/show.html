@@ -4,242 +4,218 @@
 <body>
 <div th:replace="fragments :: navbar"></div>
 <div class="container container-fluid">
-    <div class="content-row-block">
-        <!--<div th:replace="fragments :: navbar"></div>-->
-        <table width="100%">
-            <tr>
-                <td height="70"></td>
-                <td></td>
-                <td></td>
-            </tr>
-        </table>
-        <table>
-            <tr>
-                <td>
-                    <img th:src="@{${posterURL} + 'tvposter' + ${show.id} + '.jpg'}" width="225" height="330"/>
-                </td>
-
-                <td>
-                    <table>
-                        <tr>
-                            <td>
-                                <b th:text="${show.seriesName}"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td th:text="${show.overview}"/>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <b>Rated: </b>
-                                        </td>
-                                        <td th:text="${show.contentRating}"/>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <b>Genre: </b>
-                                        </td>
-                                        <td th:text="${show.genres}"/>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <b>First Aired: </b>
-                                        </td>
-                                        <td th:text="${show.firstAired}"/>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <b>Language: </b>
-                                        </td>
-                                        <td th:text="${show.language}"/>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <b>Runtime: </b>
-                                        </td>
-                                        <td th:text="${show.runtime}"/>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <b>Network: </b>
-                                        </td>
-                                        <td th:text="${show.network}"/>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <b>Status: </b>
-                                        </td>
-                                        <td th:text="${show.status}"/>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td>
-                                <form action="/add_review" method="post">
-                                    <table>
-                                        <tr th:if="${message != null}">
-                                            <td th:text="@{${message}}" />
-                                        </tr>
-                                        <tr>
-                                            <td th:text="@{'Rating: ' + ${rating} + ' (Reviews Counted: ' + ${reviewsCounted} + ')'}"/>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <b>Add Your Rating</b>
-                                                <input type="range" min="0" max="100" step="1" th:value="${show.overallRating}" name="rating"/>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <textarea rows="4" cols="50" name="reviewtext" maxlength="520">Add Review (Optional)
-                                                </textarea>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <input type="submit"/>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    <input type="hidden" th:value="${show.id}" name="contentID"/>
-                                </form>
-                                <form action="add_to_wishlist" method="post">
-                                    <table>
-                                        <tr>
-                                            <td th:text="@{'Add To WishList&nbsp;'}"></td>
-                                            <td>
-                                                <input type="submit" value="&nbsp;+&nbsp;" />
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    <input type="hidden" th:value="${show.id}" name="contentID" />
-                                </form>
-                                <form action="add_to_not_interested_list" method="post">
-                                    <table>
-                                        <tr>
-                                            <td th:text="@{'Add To Not Interested List&nbsp;'}"></td>
-                                            <td>
-                                                <input type="submit" value="&nbsp;+&nbsp;" />
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    <input type="hidden" th:value="${show.id}" name="contentID" />
-                                </form>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
-
-
-        <table>
-            <tr>
-                <td>
-                    <b>CAST</b>
-                </td>
-            </tr>
-            <tr>
-                <td th:each="person : ${cast}">
-                    <table>
-                        <tr>
-                            <td><img th:src="@{${photoURL} + 'pic' + ${person.id} + '.jpg'}" width="200" height="200"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><a th:href="@{'/person?id=' + ${person.id}}" th:text="${person.toString()}"/></td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
-
-        <table>
-            <tr>
-                <td>
-                    <b>SEASONS</b>
-                </td>
-            </tr>
-            <tr>
-                <table>
+    <div id="movie-top" class="container">
+        <h1 th:text="${show.seriesName}"/>
+    </div>
+    <div class="movie-information container-fluid">
+        <div class="movie-first">
+            <div class="movie-photo-wrapper">
+                <img th:src="@{${posterURL} + 'tvposter' + ${show.id} + '.jpg'}" alt="POSTER IMG"/>
+            </div>
+            <div id="movie-info" class="table-responsive">
+                <table class="table">
                     <tr>
-                        <option th:each="i : ${#numbers.sequence(1, show.numSeasons)}">
-                            <td>
-                                <a th:href="@{'/show?id=' + ${show.id} + '&amp;season=' + ${i}}"
-                                   th:text="@{'Season ' + ${i}}"/>
-                            </td>
-                        </option>
+                        <td>
+                            <b>Rated: </b>
+                        </td>
+                        <td th:text="${show.contentRating}"/>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Genre: </b>
+                        </td>
+                        <td th:text="${show.genres}"/>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>First Aired: </b>
+                        </td>
+                        <td th:text="${show.firstAired}"/>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Language: </b>
+                        </td>
+                        <td th:text="${show.language}"/>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Runtime: </b>
+                        </td>
+                        <td th:text="${show.runtime}"/>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Network: </b>
+                        </td>
+                        <td th:text="${show.network}"/>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Status: </b>
+                        </td>
+                        <td th:text="${show.status}"/>
                     </tr>
                 </table>
-            </tr>
-        </table>
-        <ol>
-            <li th:each="episode : ${season}">
-                <a th:href="@{'/episode?id=' + ${episode.id}}" th:text="${episode.episodeName}"/>
-            </li>
-        </ol>
-
-        <div class="movie-c-reviews movie-stuff container-fluid">
-            <h3>CRITIC REVIEWS</h3>
-            <div th:if="${criticReviews.size() == 0}">
-                <p>NO REVIEWS</p>
-            </div>
-            <div th:each="cr : ${criticReviews}">
-                <div class="card border-danger">
-                    <div class="card-header container-fluid" th:text="@{'Rating: ' + ${cr.rating} + '%'}"></div>
-                    <div class="card-body text-danger container-fluid">
-                        <h5 class="card-title"><a th:href="@{'/profile?id=' + ${cr.userId}}" th:text="@{${cr.userName}}"></a></h5>
-                        <p class="card-text" th:unless="${cr.reviewText == null}" th:text="${cr.reviewText}">
-                        </p>
-                        <div class="row">
-                            <form th:if="${session.account != null and cr.userId == session.account.id}" action = "edit_review" method="get">
-                                <input type="hidden" th:value="${cr.id}" name="id" />
-                                <input class="btn btn-outline-danger" type="submit" value="Edit" />
-                            </form>
-                            <form th:if="${session.account != null} and ${cr.userId == session.account.id or session.account.accountType == T(centigrade.accounts.AccountType).ADMIN}" action = "delete_review" method="post">
-                                <input type="hidden" th:value="${cr.id}" name="id" />
-                                <input class="btn btn-outline-danger" type="submit" value="X" />
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <p th:utext="@{'&lt;br&gt;'}"></p>
-            </div>
-        </div>
-        <div class="movie-u-reviews movie-stuff container-fluid">
-            <h3>USER REVIEWS</h3>
-            <div th:if="${userReviews.size() == 0}">
-                <p>NO REVIEWS</p>
-            </div>
-            <div th:each="ur : ${userReviews}">
-
-                <div class="card border-danger">
-                    <div class="card-header container-fluid" th:text="@{'Rating: ' + ${ur.rating} + '%'}"></div>
-                    <div class="card-body text-danger container-fluid">
-                        <h5 class="card-title"><a th:href="@{'/profile?id=' + ${ur.userId}}" th:text="@{${ur.userName}}"></a></h5>
-                        <p class="card-text" th:unless="${ur.reviewText == null}" th:text="${ur.reviewText}">
-                        </p>
-                        <div class="row">
-                            <form th:if="${session.account != null and ur.userId == session.account.id}" action = "edit_review" method="get">
-                                <input type="hidden" th:value="${ur.id}" name="id" />
-                                <input class="btn btn-outline-danger" type="submit" value="Edit" />
-                            </form>
-                            <form th:if="${session.account != null} and ${ur.userId == session.account.id or session.account.accountType == T(centigrade.accounts.AccountType).ADMIN}" action = "delete_review" method="post">
-                                <input type="hidden" th:value="${ur.id}" name="id" />
-                                <input class="btn btn-outline-danger" type="submit" value="X" />
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <p th:utext="@{'&lt;br&gt;'}"></p> <!-- th:if="${}"-->
             </div>
         </div>
 
+        <div class="movie-second">
+            <div class="movie-summary movie-stuff container-fluid">
+                <h3>PLOT</h3>
+                <p th:text="${show.overview}"/>
+            </div>
 
+            <div class="movie-review movie-stuff container-fluid">
+                <h3>REVIEW</h3>
+                <form action="/add_review" method="post">
+                    <table>
+                        <tr th:if="${message != null}">
+                            <td th:text="@{${message}}" />
+                        </tr>
+                        <tr>
+                            <td th:text="@{'Rating: ' + ${rating} + ' (Reviews Counted: ' + ${reviewsCounted} + ')'}"/>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>Add Your Rating</b>
+                                <input type="range" min="0" max="100" step="1" th:value="${show.overallRating}" name="rating"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                                <textarea rows="4" cols="50" name="reviewtext" maxlength="520">Add Review (Optional)
+                                                </textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input class="btn btn-outline-danger" type="submit"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <input type="hidden" th:value="${show.id}" name="contentID"/>
+                </form>
+                <form action="add_to_wishlist" method="post">
+                    <table>
+                        <tr>
+                            <td th:text="@{'Add To WishList&nbsp;'}"></td>
+                            <td>
+                                <input class="btn btn-outline-danger" type="submit" value="+" />
+                            </td>
+                        </tr>
+                    </table>
+                    <input type="hidden" th:value="${show.id}" name="contentID" />
+                </form>
+                <form action="add_to_not_interested_list" method="post">
+                    <table>
+                        <tr>
+                            <td th:text="@{'Add To Not Interested List&nbsp;'}"></td>
+                            <td>
+                                <input class="btn btn-outline-danger" type="submit" value="+" />
+                            </td>
+                        </tr>
+                    </table>
+                    <input type="hidden" th:value="${show.id}" name="contentID" />
+                </form>
+            </div>
+
+            <div class="movie-cast movie-stuff container-fluid">
+                <h3>CAST</h3>
+                <div th:if="${cast.size() == 0}">
+                    <p>NO CAST</p>
+                </div>
+                <div class="cast-container container-fluid">
+                    <a th:each="person : ${cast}" th:href="@{'/person?id=' + ${person.id}}">
+                        <div class="cast-img-container">
+                            <img th:src="@{${photoURL} + 'pic' + ${person.id} + '.jpg'}" alt="CAST IMAGE"/>
+                        </div>
+                        <p th:text="${person.toString()}"/>
+                    </a>
+                </div>
+            </div>
+
+            <div id="seasons" class="show-seasons movie-stuff container-fluid">
+                <h3>SEASONS</h3>
+                <table>
+                    <tr>
+                        <table>
+                            <tr>
+                                <option th:each="i : ${#numbers.sequence(1, show.numSeasons)}">
+                                    <td>
+                                        <a class="btn btn-outline-danger" th:href="@{'/show?id=' + ${show.id} + '&amp;season=' + ${i} + '#seasons'}"
+                                           th:text="@{'Season ' + ${i}}"/>
+                                    </td>
+                                </option>
+                            </tr>
+                        </table>
+                    </tr>
+                </table>
+                <ol>
+                    <li th:each="episode : ${season}" style="margin-left: 2em;">
+                        <a th:href="@{'/episode?id=' + ${episode.id}}" th:text="${episode.episodeName}"/>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="movie-c-reviews movie-stuff container-fluid">
+                <h3>CRITIC REVIEWS</h3>
+                <div th:if="${criticReviews.size() == 0}">
+                    <p>NO REVIEWS</p>
+                </div>
+                <div th:each="cr : ${criticReviews}">
+                    <div class="card border-danger">
+                        <div class="card-header container-fluid" th:text="@{'Rating: ' + ${cr.rating} + '%'}"></div>
+                        <div class="card-body text-danger container-fluid">
+                            <h5 class="card-title"><a th:href="@{'/profile?id=' + ${cr.userId}}" th:text="@{${cr.userName}}"></a></h5>
+                            <p class="card-text" th:unless="${cr.reviewText == null}" th:text="${cr.reviewText}">
+                            </p>
+                            <div class="row">
+                                <form th:if="${session.account != null and cr.userId == session.account.id}" action = "edit_review" method="get">
+                                    <input type="hidden" th:value="${cr.id}" name="id" />
+                                    <input class="btn btn-outline-danger" type="submit" value="Edit" />
+                                </form>
+                                <form th:if="${session.account != null} and ${cr.userId == session.account.id or session.account.accountType == T(centigrade.accounts.AccountType).ADMIN}" action = "delete_review" method="post">
+                                    <input type="hidden" th:value="${cr.id}" name="id" />
+                                    <input class="btn btn-outline-danger" type="submit" value="X" />
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <p th:utext="@{'&lt;br&gt;'}"></p>
+                </div>
+            </div>
+            <div class="movie-u-reviews movie-stuff container-fluid">
+                <h3>USER REVIEWS</h3>
+                <div th:if="${userReviews.size() == 0}">
+                    <p>NO REVIEWS</p>
+                </div>
+                <div th:each="ur : ${userReviews}">
+
+                    <div class="card border-danger">
+                        <div class="card-header container-fluid" th:text="@{'Rating: ' + ${ur.rating} + '%'}"></div>
+                        <div class="card-body text-danger container-fluid">
+                            <h5 class="card-title"><a th:href="@{'/profile?id=' + ${ur.userId}}" th:text="@{${ur.userName}}"></a></h5>
+                            <p class="card-text" th:unless="${ur.reviewText == null}" th:text="${ur.reviewText}">
+                            </p>
+                            <div class="row">
+                                <form th:if="${session.account != null and ur.userId == session.account.id}" action = "edit_review" method="get">
+                                    <input type="hidden" th:value="${ur.id}" name="id" />
+                                    <input class="btn btn-outline-danger" type="submit" value="Edit" />
+                                </form>
+                                <form th:if="${session.account != null} and ${ur.userId == session.account.id or session.account.accountType == T(centigrade.accounts.AccountType).ADMIN}" action = "delete_review" method="post">
+                                    <input type="hidden" th:value="${ur.id}" name="id" />
+                                    <input class="btn btn-outline-danger" type="submit" value="X" />
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <p th:utext="@{'&lt;br&gt;'}"></p> <!-- th:if="${}"-->
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+<div th:replace="fragments :: footer"></div>
 </body>
 </html>

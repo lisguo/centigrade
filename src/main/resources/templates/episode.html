@@ -4,58 +4,53 @@
 <body>
 <div th:replace="fragments :: navbar"></div>
 <div class="container container-fluid">
-    <div class="content-row-block">
-        <!--<div th:replace="fragments :: navbar"></div>-->
-        <table>
-            <tr>
-                <td>
-                    <img th:src="@{${posterURL} + 'tvposter' + ${show.id} + '.jpg'}" width="225" height="330"/>
-                </td>
+    <div id="movie-top" class="container">
+        <h1 th:text="${episode.episodeName}"/>
+    </div>
+    <div class="movie-information container-fluid">
+        <div class="movie-first">
+            <div class="movie-photo-wrapper">
+                <img th:src="@{${posterURL} + 'tvposter' + ${show.id} + '.jpg'}" alt="POSTER IMG"/>
+            </div>
+        </div>
 
-                <td>
-                    <table>
-                        <tr>
-                            <td>
-                                <b th:text="${episode.episodeName}"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td th:text="${episode.overview}"/>
-                        </tr>
+        <div class="movie-second">
+            <div id="movie-info" class="table-responsive">
+                <table class="table">
+                    <tr>
+                        <td>
+                            <b>Series: </b>
+                        </td>
+                        <td>
+                            <a th:href="@{'/show?id=' + ${show.id}}" th:text="${show.seriesName}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Season Number: </b>
+                        </td>
+                        <td th:text="${episode.seasonNumber}"/>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Episode Number: </b>
+                        </td>
+                        <td th:text="${episode.episodeNumber}"/>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>First Aired: </b>
+                        </td>
+                        <td th:text="${episode.firstAired}"/>
+                    </tr>
+                </table>
+            </div>
 
-                        <table>
-                            <tr>
-                                <td>
-                                    <b>Series: </b>
-                                </td>
-                                <td>
-                                    <a th:href="@{'/show?id=' + ${show.id}}" th:text="${show.seriesName}"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <b>Season Number: </b>
-                                </td>
-                                <td th:text="${episode.seasonNumber}"/>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <b>Episode Number: </b>
-                                </td>
-                                <td th:text="${episode.episodeNumber}"/>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <b>First Aired: </b>
-                                </td>
-                                <td th:text="${episode.firstAired}"/>
-                            </tr>
-                        </table>
-
-                    </table>
-                </td>
-            </tr>
-        </table>
+            <div class="movie-summary movie-stuff container-fluid">
+                <h3>PLOT</h3>
+                <p th:text="${episode.overview}"/>
+            </div>
+        </div>
     </div>
 </div>
 <div th:replace="fragments :: footer"></div>

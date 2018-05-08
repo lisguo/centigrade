@@ -86,7 +86,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <input type="submit"/>
+                                <input class="btn btn-outline-danger" type="submit"/>
                             </td>
                         </tr>
                     </table>
@@ -97,7 +97,7 @@
                         <tr>
                             <td th:text="@{'Add To WishList&nbsp;'}"></td>
                             <td>
-                                <input type="submit" value="&nbsp;+&nbsp;" />
+                                <input class="btn btn-outline-danger" type="submit" value="+" />
                             </td>
                         </tr>
                     </table>
@@ -108,7 +108,7 @@
                         <tr>
                             <td th:text="@{'Add To Not Interested List&nbsp;'}"></td>
                             <td>
-                                <input type="submit" value="&nbsp;+&nbsp;" />
+                                <input class="btn btn-outline-danger" type="submit" value="+" />
                             </td>
                         </tr>
                     </table>
@@ -117,6 +117,9 @@
             </div>
             <div class="movie-cast movie-stuff container-fluid">
                 <h3>CAST</h3>
+                <div th:if="${cast.size() == 0}">
+                    <p>NO CAST</p>
+                </div>
                 <div class="cast-container container-fluid">
                     <a th:each="person : ${cast}" th:href="@{'/person?id=' + ${person.id}}">
                         <div class="cast-img-container">

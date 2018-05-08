@@ -29,10 +29,12 @@
                                 <div class="row">
                                     <form th:if="${session.account != null and ur.userId == session.account.id}" action = "edit_review" method="get">
                                         <input type="hidden" th:value="${ur.id}" name="id" />
+                                        <input type="hidden" th:value="@{'true'}" name="fromProfile" />
                                         <input class="btn btn-outline-danger" type="submit" value="Edit" />
                                     </form>
                                     <form th:if="${session.account != null} and ${ur.userId == session.account.id or session.account.accountType == T(centigrade.accounts.AccountType).ADMIN}" action = "delete_review" method="post">
                                         <input type="hidden" th:value="${ur.id}" name="id" />
+                                        <input type="hidden" th:value="@{'true'}" name="fromProfile" />
                                         <input class="btn btn-outline-danger" type="submit" value="X" />
                                     </form>
                                 </div>
@@ -60,10 +62,12 @@
                                 <div class="row">
                                     <form th:if="${session.account != null and ur.userId == session.account.id}" action = "edit_review" method="get">
                                         <input type="hidden" th:value="${ur.id}" name="id" />
+                                        <input type="hidden" th:value="@{'true'}" name="fromProfile" />
                                         <input class="btn btn-outline-danger" type="submit" value="Edit" />
                                     </form>
                                     <form th:if="${session.account != null} and ${ur.userId == session.account.id or session.account.accountType == T(centigrade.accounts.AccountType).ADMIN}" action = "delete_review" method="post">
                                         <input type="hidden" th:value="${ur.id}" name="id" />
+                                        <input type="hidden" th:value="@{'true'}" name="fromProfile" />
                                         <input class="btn btn-outline-danger" type="submit" value="X" />
                                     </form>
                                 </div>
@@ -143,6 +147,6 @@
         </div>
     </div>
 </div>
-
+<div th:replace="fragments :: footer"></div>
 </body>
 </html>
