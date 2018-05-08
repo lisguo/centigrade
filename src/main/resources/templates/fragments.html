@@ -17,59 +17,48 @@
     <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet"/>
 </head>
 <body>
-<nav th:fragment="navbar">
-    <div class="logo-container">
-        <a href="/"><img th:src="@{/img/logos/logo.png}" alt="CentiGrade"/></a>
-    </div>
-    <div id="navigation">
-        <div id="navs">
-            <div id="nav1">
-                <form action="/search" method="get">
-                    <input type="search" name="search" placeholder="Search movies, tv shows, actors, more..."
-                           onfocus="this.value=''" aria-label="Search"/>
-                    <button type="submit" value="submit"><i class="fas fa-search"></i></button>
-                </form>
-
-                <div th:if="${session.account != null} and ${session.account.accountType == T(centigrade.accounts.AccountType).ADMIN}" class="functions">
-                    <a href="/admin">Admin</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" th:fragment="navbar">
+    <a id="logo" class="navbar-brand" href="/"><img th:src="@{/img/logos/logo.png}" alt="CentiGrade" width="100"/></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown" th:if="${session.account != null}">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" th:text="${'Hello, ' + session.account.firstName}"></a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" th:href="${'/profile?id=' + session.account.id}">Profile</a>
+                    <a class="dropdown-item" href="/edit_account">Edit Account</a>
+                    <a th:if="${session.account.accountType == T(centigrade.accounts.AccountType).USER}" class="dropdown-item" style="color:black" href="/critic_application">Upgrade to Critic</a>
                 </div>
-                <div id="following" class="functions">
-                    <a href="/following"><i class="far fa-smile"></i>Following</a>
-                </div>
-
-                <div th:if="${session.account == null}" class="sessionstuff">
-                    <div id="login" class="functions">
-                        <a href="/login"><i class="fas fa-sign-in-alt"></i>Login</a>
-                    </div>
-                    <div id="register" class="functions">
-                        <a href="/register"><i class="fas fa-user-plus"></i>Register</a>
-                    </div>
-                </div>
-                <div th:if="${session.account != null}" class="sessionstuff">
-                    <li class="dropdown functions">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"> <b th:text="${'Hello, ' + session.account.firstName}"></b></a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" style="color:black" th:href="${'/profile?id=' + session.account.id}">Profile</a>
-                            <a class="dropdown-item" style="color:black" href="/edit_account">Edit Account</a>
-                            <a th:if="${session.account.accountType == T(centigrade.accounts.AccountType).USER}" class="dropdown-item" style="color:black" href="/critic_application">Upgrade to Critic</a>
-                        </div>
-                        <!-- <a class="dropdown-item" href="/edit_account"></a> -->
-                    </li>
-                    <div id="logout" class="functions">
-                        <a href="/logout">Logout</a>
-                    </div>
-                </div>
-            </div>
-            <div id="nav2">
-                <div id="container">
-                    <h2><a href="/movies">MOVIES</a></h2>
-                    <h2><a href="/shows">TV SHOWS</a></h2>
-                    <h2><a href="/">TICKETS AND SHOWTIMES</a></h2>
-                </div>
-            </div>
-        </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/movies">Movies</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/shows">TV Shows</a>
+            </li>
+            <li class="nav-item" th:if="${session.account == null}">
+                <a class="nav-link" href="/login"><i class="fas fa-sign-in-alt"></i>Login</a>
+            </li>
+            <li class="nav-item" th:if="${session.account == null}">
+                <a class="nav-link" href="/register"><i class="fas fa-user-plus"></i>Register</a>
+            </li>
+            <li class="nav-item functions" th:if="${session.account != null} and ${session.account.accountType == T(centigrade.accounts.AccountType).ADMIN}">
+                <a class="nav-link" href="/admin"><i class="fas fa-user-plus"></i>Admin</a>
+            </li>
+            <li class="nav-item" th:if="${session.account != null}">
+                <a class="nav-link" href="/logout">Log out</a>
+            </li>
+        </ul>
+        <form id="search-form" class="form-inline my-2 my-lg-0" action="/search" method="get">
+            <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search movies, tv shows, actors, more..."
+                   onfocus="this.value=''" aria-label="Search"/>
+            <button type="submit" value="submit"><i class="fas fa-search"></i></button>
+        </form>
     </div>
 </nav>
+
 <nav id="plain-nav" th:fragment="navbar-relative">
     <div class="logo-container">
         <a href="/"><img src="../img/logos/logo.png" alt="CentiGrade" /></a>
