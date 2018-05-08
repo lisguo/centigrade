@@ -8,9 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCallback;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpSession;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -87,5 +91,19 @@ public class ReviewService {
 
     public Review getReviewById(long id) {
         return reviewRepository.findReviewById(id);
+    }
+
+    public Boolean reportReview(long reviewId, String message, long reporterID){
+        String query = "insert into reportedreviews(message, reporterid, reviewid) values(?,?,?)";
+        return template.execute(query, new PreparedStatementCallback<Boolean>() {
+            @Override
+            public Boolean doInPreparedStatement(PreparedStatement ps) throws SQLException, DataAccessException {
+                ps.setString(1, message);
+                ps.setLong(2, reporterID);
+                ps.setLong(3, reviewId);
+
+                return ps.execute();
+            }
+        });
     }
 }

@@ -7,9 +7,20 @@
     <div class="content-row-block">
         <!--<div th:replace="fragments :: navbar"></div>-->
         <div id="movie-top" class="container">
-            <h1 th:text="${user.toString()}"/>
+            <h1 th:if="${user.accountType == T(centigrade.accounts.AccountType).ADMIN}" th:text="@{${user.toString()} + ' (Admin)'}"/>
+            <h1 th:if="${user.accountType == T(centigrade.accounts.AccountType).CRITIC}" th:text="@{${user.toString()} + ' (Critic)'}"/>
+            <h1 th:if="${user.accountType == T(centigrade.accounts.AccountType).USER}" th:text="${user.toString()}"/>
         </div>
         <div class="movie-information container-fluid">
+            <div class="movie-first">
+                <div class="movie-photo-wrapper">
+                    <img th:src="@{${photoURL} + 'user' + ${user.id} + '.jpg'}" alt="POSTER IMG"/>
+                </div>
+                <form th:if="${session.account != null and user.id == session.account.id}" action = "upload_photo" method="post" enctype="multipart/form-data">
+                    <input type="file" name="file"/><br/><br/>
+                    <input class="btn btn-outline-danger" type="submit" value="Upload" />
+                </form>
+            </div>
             <div class="movie-second">
                 <div class="movie-u-reviews movie-stuff container-fluid">
                     <h3>MOVIE REVIEWS</h3>
@@ -36,6 +47,11 @@
                                         <input type="hidden" th:value="${ur.id}" name="id" />
                                         <input type="hidden" th:value="@{'true'}" name="fromProfile" />
                                         <input class="btn btn-outline-danger" type="submit" value="X" />
+                                    </form>
+                                    <form th:if="${session.account != null} and ${ur.userId != session.account.id and session.account.accountType != T(centigrade.accounts.AccountType).ADMIN}" action = "report_review" method="get">
+                                        <input type="hidden" th:value="${ur.id}" name="id" />
+                                        <input type="hidden" th:value="@{'true'}" name="fromProfile" />
+                                        <input class="btn btn-outline-danger" type="submit" value="Report" />
                                     </form>
                                 </div>
                             </div>
@@ -69,6 +85,11 @@
                                         <input type="hidden" th:value="${ur.id}" name="id" />
                                         <input type="hidden" th:value="@{'true'}" name="fromProfile" />
                                         <input class="btn btn-outline-danger" type="submit" value="X" />
+                                    </form>
+                                    <form th:if="${session.account != null} and ${ur.userId != session.account.id and session.account.accountType != T(centigrade.accounts.AccountType).ADMIN}" action = "report_review" method="get">
+                                        <input type="hidden" th:value="${ur.id}" name="id" />
+                                        <input type="hidden" th:value="@{'true'}" name="fromProfile" />
+                                        <input class="btn btn-outline-danger" type="submit" value="Report" />
                                     </form>
                                 </div>
                             </div>

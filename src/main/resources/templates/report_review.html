@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head(Centigrade)"></head>
+<body>
+<div th:replace="fragments :: navbar"></div>
+<div class="container container-fluid">
+    <div class="content-row-block">
+        <!--<div th:replace="fragments :: navbar"></div>-->
+        <form action="/report_review" method="post">
+            <table>
+                <tr>
+                    <td th:text="@{'Please Enter Your Reason For Reporting: '}" />
+                </tr>
+                <tr>
+                    <td>
+                        <textarea rows="4" cols="50" maxlength="520" name="message">Reason
+                        </textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input class="btn btn-outline-danger" type="submit"/>
+                    </td>
+                </tr>
+            </table>
+            <input type="hidden" th:value="${review.id}" name="id" />
+            <input th:if="${fromProfile != null}" type="hidden" th:value="@{true}" th:name="fromProfile" />
+        </form>
+    </div>
+</div>
+<div th:replace="fragments :: footer"></div>
+</body>
+</html>

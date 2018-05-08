@@ -247,4 +247,10 @@ public class AccountService {
     public Account getAccountByEmail(String email) {
         return accountRepository.findAccountByEmail(email);
     }
+
+    public String getUserPhotoURL() {
+        String path = env.getProperty("user_photo_dir");
+        return path;
+    }
+
 }
