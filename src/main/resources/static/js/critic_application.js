@@ -15,7 +15,7 @@ $(document).ready(function(){
                 resumeText: resumeText
             }
         }).done(function(data) {
-            $('#notificationModal').html(data);
+            $('#notification').html(data);
         });
         event.preventDefault();
     });

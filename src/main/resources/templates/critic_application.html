@@ -23,6 +23,7 @@
 
             <h2>Application Form</h2>
             <div th:if="${session.account != null}">
+                <div id="notification" />
                 <p>Please fill out the form below to send an application to become a certified Centigrade Critic.</p>
                 <form id="critic-application-form" class="container-fluid">
                     <input type="hidden" id="critic-application-id" th:value="${session.account.id}" />
@@ -45,11 +46,6 @@
                 <p>Please login to apply.</p>
             </div>
         </div>
-    </div>
-
-    <!-- NOTIFICATION POPUP -->
-    <div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModal" aria-hidden="true">
-        <img id="loading" th:src="@{/img/icons/loading.gif}" alt="" />
     </div>
 </div>
 <div th:replace="fragments :: footer"></div>

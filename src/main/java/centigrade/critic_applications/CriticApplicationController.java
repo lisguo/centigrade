@@ -35,6 +35,6 @@ public class CriticApplicationController {
                 model.addAttribute("notificationDetails", "Please try again later.");
             }
         }
-        return "notification_modal";
+        return "notification_alert";
     }
 }
