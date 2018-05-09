@@ -81,32 +81,53 @@
             <div class="movie-review movie-stuff container-fluid">
                 <h3>REVIEW</h3>
                 <form action="/add_review" method="post">
-                    <table>
-                        <tr th:if="${message != null}">
-                            <td th:text="@{${message}}" />
-                        </tr>
-                        <tr>
-                            <td th:text="@{'Rating: ' + ${rating} + ' (Reviews Counted: ' + ${reviewsCounted} + ')'}"/>
-                        </tr>
-                        <tr>
-                            <td>
-                                <b>Add Your Rating</b>
-                                <input type="range" min="0" max="100" step="1" th:value="${show.overallRating}" name="rating"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                                <textarea rows="4" cols="50" name="reviewtext" maxlength="520">Add Review (Optional)
-                                                </textarea>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input class="btn btn-outline-danger" type="submit"/>
-                            </td>
-                        </tr>
-                    </table>
+                    <div class="form-group" th:if="${message != null}">
+                        <h4 th:text="@{${message}}"></h4>
+                    </div>
+                    <div class="form-group">
+                        <div style="padding-left: 15px;" class="row" th:if="${#strings.arraySplit(rating,'%')[0]} == -1.0">
+                            <h4>Not Yet Rated</h4>
+                        </div>
+                        <div th:if="${#strings.arraySplit(rating,'%')[0]} != -1.0">
+                            <div style="padding-left: 15px;" class="row" th:if="${#strings.arraySplit(rating,'%')[0]} &lt; 20.0">
+                                <img style="padding-right: 15px;" th:src="@{/img/ratings/snow.png}" alt="Cold" />
+                                <h4 th:text="@{${rating} + ' (Reviews Counted: ' + ${reviewsCounted} + ')'}"></h4>
+                            </div>
+                            <div style="padding-left: 15px;" class="row" th:unless="${#strings.arraySplit(rating,'%')[0]} &lt; 20.0">
+                                <div style="padding-left: 15px;" class="row" th:if="${#strings.arraySplit(rating,'%')[0]} &lt; 40.0">
+                                    <img style="padding-right: 15px;" th:src="@{/img/ratings/cloudy.png}" alt="Cloudy" />
+                                    <h4 th:text="@{${rating} + ' (Reviews Counted: ' + ${reviewsCounted} + ')'}"></h4>
+                                </div>
+                                <div style="padding-left: 15px;" class="row" th:unless="${#strings.arraySplit(rating,'%')[0]} &lt; 40.0">
+                                    <div style="padding-left: 15px;" class="row" th:if="${#strings.arraySplit(rating,'%')[0]} &lt; 60.0">
+                                        <img style="padding-right: 15px;" th:src="@{/img/ratings/mediocre.png}" alt="Mediocre" />
+                                        <h4 th:text="@{${rating} + ' (Reviews Counted: ' + ${reviewsCounted} + ')'}"></h4>
+                                    </div>
+                                    <div style="padding-left: 15px;" class="row" th:unless="${#strings.arraySplit(rating,'%')[0]} &lt; 60.0">
+                                        <div style="padding-left: 15px;" class="row" th:if="${#strings.arraySplit(rating,'%')[0]} &lt; 80.0">
+                                            <img style="padding-right: 15px;" th:src="@{/img/ratings/sun.png}" alt="Sunny" />
+                                            <h4 th:text="@{${rating} + ' (Reviews Counted: ' + ${reviewsCounted} + ')'}"></h4>
+                                        </div>
+                                        <div style="padding-left: 15px;" class="row" th:unless="${#strings.arraySplit(rating,'%')[0]} &lt; 80.0">
+                                            <img style="padding-right: 15px;" th:src="@{/img/ratings/flame.png}" alt="Hot" />
+                                            <h4 th:text="@{${rating} + ' (Reviews Counted: ' + ${reviewsCounted} + ')'}"></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <label for="rating">Tell us what you think! Rate this show.</label>
+                    </div>
+                    <div class="form-group">
+                        <img class="rating-icon" th:src="@{/img/ratings/snow.png}" alt="Cold" />
+                        <input id="rating" type="range" min="0" max="100" step="20" th:value="${show.overallRating}" name="rating"/>
+                        <img class="rating-icon" th:src="@{/img/ratings/flame.png}" alt="Hot" />
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" rows="4" cols="50" id="reviewtext" name="reviewtext" maxlength="520" placeholder="Add Review (Optional)"></textarea>
+                    </div>
                     <input type="hidden" th:value="${show.id}" name="contentID"/>
+                    <button type="submit" class="btn btn-danger mb-2">Submit</button>
                 </form>
             </div>
 
@@ -116,7 +137,7 @@
                     <p>NO CAST</p>
                 </div>
                 <div class="cast-container container-fluid">
-                    <a th:each="person : ${cast}" th:href="@{'/person?id=' + ${person.id}}">
+                    <a class="cast-link" th:each="person : ${cast}" th:href="@{'/person?id=' + ${person.id}}">
                         <div class="cast-img-container">
                             <img th:src="@{${photoURL} + 'pic' + ${person.id} + '.jpg'}" alt="CAST IMAGE"/>
                         </div>

@@ -227,7 +227,7 @@ public class TVShowController {
         show.calculateOverallRating();
 
         if (show.getTimesRated() == 0) {
-            model.addAttribute("rating", "Not Yet Rated");
+            model.addAttribute("rating", String.format("%.2f", -1.0) + "%");
         } else {
             model.addAttribute("rating", String.format("%.2f", show.getOverallRating()) + "%");
         }
