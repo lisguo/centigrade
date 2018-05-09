@@ -161,8 +161,8 @@
                                         </div>
                                     </form>
                                 </div>
-                                <div class="col-sm-1">
-                                    <form th:if="${session.account != null} and ${cr.userId == session.account.id or session.account.accountType == T(centigrade.accounts.AccountType).ADMIN}" action = "delete_review" method="post">
+                                <div class="col-sm-1" th:if="${session.account != null} and ${cr.userId == session.account.id or session.account.accountType == T(centigrade.accounts.AccountType).ADMIN}">
+                                    <form action = "delete_review" method="post">
                                         <div class="form-group">
                                             <input type="hidden" th:value="${cr.id}" name="id" />
                                             <button class="btn btn-outline-danger" type="submit" value="X">Delete</button>

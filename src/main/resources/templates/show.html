@@ -148,22 +148,15 @@
 
             <div id="seasons" class="show-seasons movie-stuff container-fluid">
                 <h3>SEASONS</h3>
-                <table>
-                    <tr>
-                        <table>
-                            <tr>
-                                <option th:each="i : ${#numbers.sequence(1, show.numSeasons)}">
-                                    <td>
-                                        <a class="btn btn-outline-danger" th:href="@{'/show?id=' + ${show.id} + '&amp;season=' + ${i} + '#seasons'}"
-                                           th:text="@{'Season ' + ${i}}"/>
-                                    </td>
-                                </option>
-                            </tr>
-                        </table>
-                    </tr>
-                </table>
-                <ol>
-                    <li th:each="episode : ${season}" style="margin-left: 2em;">
+                <div class="row">
+                    <div class="col-sm-2" th:each="i : ${#numbers.sequence(1, show.numSeasons)}">
+                        <a style="margin-bottom: 5px;" class="btn btn-outline-danger" th:href="@{'/show?id=' + ${show.id} + '&amp;season=' + ${i} + '#seasons'}"
+                           th:text="@{'Season ' + ${i}}"/>
+                    </div>
+                </div>
+                <h4 style="padding: 0.25em;">Episode Titles</h4>
+                <ol style="margin-left: 1.5em; margin-bottom: 1.5em;" class="list-group list-group-flush">
+                    <li th:each="episode : ${season}">
                         <a th:href="@{'/episode?id=' + ${episode.id}}" th:text="${episode.episodeName}"/>
                     </li>
                 </ol>
@@ -178,22 +171,34 @@
                     <div class="card border-danger">
                         <div class="card-header container-fluid" th:text="@{'Rating: ' + ${cr.rating} + '%'}"></div>
                         <div class="card-body text-danger container-fluid">
-                            <h5 class="card-title"><a th:href="@{'/profile?id=' + ${cr.userId}}" th:text="@{${cr.userName}}"></a></h5>
+                            <h5 class="card-title">By: <a th:href="@{'/profile?id=' + ${cr.userId}}" th:text="@{${cr.userName}}"></a></h5>
                             <p class="card-text" th:unless="${cr.reviewText == null}" th:text="${cr.reviewText}">
                             </p>
-                            <div class="row">
-                                <form th:if="${session.account != null and cr.userId == session.account.id}" action = "edit_review" method="get">
-                                    <input type="hidden" th:value="${cr.id}" name="id" />
-                                    <input class="btn btn-outline-danger" type="submit" value="Edit" />
-                                </form>
-                                <form th:if="${session.account != null} and ${cr.userId == session.account.id or session.account.accountType == T(centigrade.accounts.AccountType).ADMIN}" action = "delete_review" method="post">
-                                    <input type="hidden" th:value="${cr.id}" name="id" />
-                                    <input class="btn btn-outline-danger" type="submit" value="X" />
-                                </form>
-                                <form th:if="${session.account != null} and ${cr.userId != session.account.id and session.account.accountType != T(centigrade.accounts.AccountType).ADMIN}" action = "report_review" method="get">
-                                    <input type="hidden" th:value="${cr.id}" name="id" />
-                                    <input class="btn btn-outline-danger" type="submit" value="Report" />
-                                </form>
+                            <div class="row card-text">
+                                <div th:if="${session.account != null and cr.userId == session.account.id}" class="col-sm-1">
+                                    <form action = "edit_review" method="get">
+                                        <div class="form-group">
+                                            <input type="hidden" th:value="${cr.id}" name="id" />
+                                            <button class="btn btn-outline-danger" type="submit" value="Edit">Edit</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="col-sm-1" th:if="${session.account != null} and ${cr.userId == session.account.id or session.account.accountType == T(centigrade.accounts.AccountType).ADMIN}">
+                                    <form action = "delete_review" method="post">
+                                        <div class="form-group">
+                                            <input type="hidden" th:value="${cr.id}" name="id" />
+                                            <button class="btn btn-outline-danger" type="submit" value="X">Delete</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="col-sm-1">
+                                    <form th:if="${session.account != null} and ${cr.userId != session.account.id and session.account.accountType != T(centigrade.accounts.AccountType).ADMIN}" action = "report_review" method="get">
+                                        <div class="form-group">
+                                            <input type="hidden" th:value="${cr.id}" name="id" />
+                                            <button class="btn btn-outline-danger" type="submit" value="Report">Report</button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -206,26 +211,37 @@
                     <p>NO REVIEWS</p>
                 </div>
                 <div th:each="ur : ${userReviews}">
-
                     <div class="card border-danger">
                         <div class="card-header container-fluid" th:text="@{'Rating: ' + ${ur.rating} + '%'}"></div>
                         <div class="card-body text-danger container-fluid">
-                            <h5 class="card-title"><a th:href="@{'/profile?id=' + ${ur.userId}}" th:text="@{${ur.userName}}"></a></h5>
+                            <h5 class="card-title">By: <a th:href="@{'/profile?id=' + ${ur.userId}}" th:text="@{${ur.userName}}"></a></h5>
                             <p class="card-text" th:unless="${ur.reviewText == null}" th:text="${ur.reviewText}">
                             </p>
-                            <div class="row">
-                                <form th:if="${session.account != null and ur.userId == session.account.id}" action = "edit_review" method="get">
-                                    <input type="hidden" th:value="${ur.id}" name="id" />
-                                    <input class="btn btn-outline-danger" type="submit" value="Edit" />
-                                </form>
-                                <form th:if="${session.account != null} and ${ur.userId == session.account.id or session.account.accountType == T(centigrade.accounts.AccountType).ADMIN}" action = "delete_review" method="post">
-                                    <input type="hidden" th:value="${ur.id}" name="id" />
-                                    <input class="btn btn-outline-danger" type="submit" value="X" />
-                                </form>
-                                <form th:if="${session.account != null} and ${ur.userId != session.account.id and session.account.accountType != T(centigrade.accounts.AccountType).ADMIN}" action = "report_review" method="get">
-                                    <input type="hidden" th:value="${ur.id}" name="id" />
-                                    <input class="btn btn-outline-danger" type="submit" value="Report" />
-                                </form>
+                            <div class="row card-text">
+                                <div th:if="${session.account != null and ur.userId == session.account.id}" class="col-sm-1">
+                                    <form action = "edit_review" method="get">
+                                        <div class="form-group">
+                                            <input type="hidden" th:value="${ur.id}" name="id" />
+                                            <button class="btn btn-outline-danger" type="submit" value="Edit">Edit</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div th:if="${session.account != null} and ${ur.userId == session.account.id or session.account.accountType == T(centigrade.accounts.AccountType).ADMIN}" class="col-sm-1">
+                                    <form action = "delete_review" method="post">
+                                        <div class="form-group">
+                                            <input type="hidden" th:value="${ur.id}" name="id" />
+                                            <button class="btn btn-outline-danger" type="submit" value="X" >Delete</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div th:if="${session.account != null} and ${ur.userId != session.account.id and session.account.accountType != T(centigrade.accounts.AccountType).ADMIN}" class="col-sm-1">
+                                    <form action = "report_review" method="get">
+                                        <div class="form-group">
+                                            <input type="hidden" th:value="${ur.id}" name="id" />
+                                            <button class="btn btn-outline-danger" type="submit" value="Report" >Report</button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
