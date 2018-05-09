@@ -26,8 +26,8 @@
             <a th:text="${r.review.userName}" th:href="@{'/profile?id=' + ${r.review.userId}}"></a>
         </td>
         <td>
-            <button th:onclick="@{'allowReportedReview(' + ${r.id}} + ')'" class="btn btn-outline-danger">Allow</button>
-            <button th:onclick="@{'deleteReportedReview(' + ${r.review.id}} + ')'" class="btn btn-outline-danger">Delete</button>
+            <button style="margin-bottom: 0.25em;" th:onclick="@{'allowReportedReview(' + ${r.id}} + ')'" class="btn btn-success">Allow</button>
+            <button th:onclick="@{'deleteReportedReview(' + ${r.review.id}} + ')'" class="btn btn-danger">Delete</button>
         </td>
     </tr>
     </tbody>
