@@ -85,25 +85,31 @@
                             <h4>Not Yet Rated</h4>
                         </div>
                         <div th:if="${#strings.arraySplit(rating,'%')[0]} != -1.0">
-                            <div style="padding-left: 15px;" class="row" th:if="${#strings.arraySplit(rating,'%')[0]} &lt; 20">
+                            <div style="padding-left: 15px;" class="row" th:if="${#strings.arraySplit(rating,'%')[0]} &lt; 20.0">
                                 <img style="padding-right: 15px;" th:src="@{/img/ratings/snow.png}" alt="Cold" />
                                 <h4 th:text="@{${rating} + ' (Reviews Counted: ' + ${reviewsCounted} + ')'}"></h4>
                             </div>
-                            <div style="padding-left: 15px;" class="row" th:unless="${#strings.arraySplit(rating,'%')[0]} &lt; 40">
-                                <img style="padding-right: 15px;" th:src="@{/img/ratings/cloudy.png}" alt="Cloudy" />
-                                <h4 th:text="@{${rating} + ' (Reviews Counted: ' + ${reviewsCounted} + ')'}"></h4>
-                            </div>
-                            <div style="padding-left: 15px;" class="row" th:unless="${#strings.arraySplit(rating,'%')[0]} &lt; 60">
-                                <img style="padding-right: 15px;" th:src="@{/img/ratings/mediocre.png}" alt="Mediocre" />
-                                <h4 th:text="@{${rating} + ' (Reviews Counted: ' + ${reviewsCounted} + ')'}"></h4>
-                            </div>
-                            <div style="padding-left: 15px;" class="row" th:unless="${#strings.arraySplit(rating,'%')[0]} &lt; 80">
-                                <img style="padding-right: 15px;" th:src="@{/img/ratings/sun.png}" alt="Sunny" />
-                                <h4 th:text="@{${rating} + ' (Reviews Counted: ' + ${reviewsCounted} + ')'}"></h4>
-                            </div>
-                            <div style="padding-left: 15px;" class="row" th:unless="${#strings.arraySplit(rating,'%')[0]} &lt; 100">
-                                <img style="padding-right: 15px;" th:src="@{/img/ratings/flame.png}" alt="Hot" />
-                                <h4 th:text="@{${rating} + ' (Reviews Counted: ' + ${reviewsCounted} + ')'}"></h4>
+                            <div style="padding-left: 15px;" class="row" th:unless="${#strings.arraySplit(rating,'%')[0]} &lt; 20.0">
+                                <div style="padding-left: 15px;" class="row" th:if="${#strings.arraySplit(rating,'%')[0]} &lt; 40.0">
+                                    <img style="padding-right: 15px;" th:src="@{/img/ratings/cloudy.png}" alt="Cloudy" />
+                                    <h4 th:text="@{${rating} + ' (Reviews Counted: ' + ${reviewsCounted} + ')'}"></h4>
+                                </div>
+                                <div style="padding-left: 15px;" class="row" th:unless="${#strings.arraySplit(rating,'%')[0]} &lt; 40.0">
+                                    <div style="padding-left: 15px;" class="row" th:if="${#strings.arraySplit(rating,'%')[0]} &lt; 60.0">
+                                        <img style="padding-right: 15px;" th:src="@{/img/ratings/mediocre.png}" alt="Mediocre" />
+                                        <h4 th:text="@{${rating} + ' (Reviews Counted: ' + ${reviewsCounted} + ')'}"></h4>
+                                    </div>
+                                    <div style="padding-left: 15px;" class="row" th:unless="${#strings.arraySplit(rating,'%')[0]} &lt; 60.0">
+                                        <div style="padding-left: 15px;" class="row" th:if="${#strings.arraySplit(rating,'%')[0]} &lt; 80.0">
+                                            <img style="padding-right: 15px;" th:src="@{/img/ratings/sun.png}" alt="Sunny" />
+                                            <h4 th:text="@{${rating} + ' (Reviews Counted: ' + ${reviewsCounted} + ')'}"></h4>
+                                        </div>
+                                        <div style="padding-left: 15px;" class="row" th:unless="${#strings.arraySplit(rating,'%')[0]} &lt; 80.0">
+                                            <img style="padding-right: 15px;" th:src="@{/img/ratings/flame.png}" alt="Hot" />
+                                            <h4 th:text="@{${rating} + ' (Reviews Counted: ' + ${reviewsCounted} + ')'}"></h4>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <label for="rating">Tell us what you think! Rate this movie.</label>
@@ -143,7 +149,7 @@
                     <div class="card border-danger">
                         <div class="card-header container-fluid" th:text="@{'Rating: ' + ${cr.rating} + '%'}"></div>
                         <div class="card-body text-danger container-fluid">
-                            <h5 class="card-title"><a th:href="@{'/profile?id=' + ${cr.userId}}" th:text="@{${cr.userName}}"></a></h5>
+                            <h5 class="card-title">By: <a th:href="@{'/profile?id=' + ${cr.userId}}" th:text="@{${cr.userName}}"></a></h5>
                             <p class="card-text" th:unless="${cr.reviewText == null}" th:text="${cr.reviewText}">
                             </p>
                             <div class="row card-text">
@@ -186,7 +192,7 @@
                     <div class="card border-danger">
                         <div class="card-header container-fluid" th:text="@{'Rating: ' + ${ur.rating} + '%'}"></div>
                         <div class="card-body text-danger container-fluid">
-                            <h5 class="card-title"><a th:href="@{'/profile?id=' + ${ur.userId}}" th:text="@{${ur.userName}}"></a></h5>
+                            <h5 class="card-title">By: <a th:href="@{'/profile?id=' + ${ur.userId}}" th:text="@{${ur.userName}}"></a></h5>
                             <p class="card-text" th:unless="${ur.reviewText == null}" th:text="${ur.reviewText}">
                             </p>
                             <div class="row card-text">
