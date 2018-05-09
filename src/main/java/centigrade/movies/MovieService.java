@@ -90,6 +90,23 @@ public class MovieService {
         });
     }
 
+    public List<Movie> getBestPictureWinners(){
+        return template.query("SELECT winnerid FROM year_to_winner", new ResultSetExtractor<List<Movie>>() {
+            @Override
+            public List<Movie> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                List<Movie> films = new ArrayList<Movie>();
+
+                while (rs.next()) {
+                    Movie m = movieRepository.findMovieById(rs.getLong(1));
+                    if (m != null) {
+                        films.add(m);
+                    }
+                }
+                return films;
+            }
+        });
+    }
+
     public List<Movie> getLikeMovies(String token) {
         if (token.length() > Integer.parseInt(env.getProperty("small_word_threshold"))) {
             token = "" + token + "";

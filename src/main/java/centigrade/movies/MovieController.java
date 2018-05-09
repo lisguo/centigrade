@@ -164,6 +164,20 @@ public class MovieController {
         return "movies_table";
     }
 
+    @GetMapping("/best_pictures")
+    public String bestPictures(Model model){
+        List<Movie> movies = movieService.getBestPictureWinners();
+        for (Movie m : movies) {
+            m.calculateOverallRating();
+            m.calculateBoxOffice();
+        }
+        model.addAttribute("posterURL", movieService.getMoviePosterURL());
+        DecimalFormat df = new DecimalFormat("#.##");
+        model.addAttribute("decimalFormat", df);
+        model.addAttribute("movies", movies);
+        return "best_pictures";
+    }
+
     @GetMapping("/movie")
     public String displayMovie(@RequestParam long id,
                                @RequestParam(required = false) ReviewResult res,
