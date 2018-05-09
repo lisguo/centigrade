@@ -6,7 +6,7 @@
 <div th:replace="fragments :: navbar"></div>
 <div class="container container-fluid">
     <div id="movie-top" class="container">
-        <div>
+        <div th:if="">
             <video th:src="@{${trailerURL} + 'trailer' + ${movie.id} + '.mp4'}" type="video/mp4" controls="controls"></video>
         </div>
         <h1 th:text="${movie.title}"/>
@@ -152,8 +152,8 @@
                             <h5 class="card-title">By: <a th:href="@{'/profile?id=' + ${cr.userId}}" th:text="@{${cr.userName}}"></a></h5>
                             <p class="card-text" th:unless="${cr.reviewText == null}" th:text="${cr.reviewText}">
                             </p>
-                            <div class="row card-text">
-                                <div th:if="${session.account != null and cr.userId == session.account.id}" class="col-sm-1">
+                            <div class="row card-text button-row">
+                                <div th:if="${session.account != null and cr.userId == session.account.id}">
                                     <form action = "edit_review" method="get">
                                         <div class="form-group">
                                             <input type="hidden" th:value="${cr.id}" name="id" />
@@ -161,7 +161,7 @@
                                         </div>
                                     </form>
                                 </div>
-                                <div class="col-sm-1" th:if="${session.account != null} and ${cr.userId == session.account.id or session.account.accountType == T(centigrade.accounts.AccountType).ADMIN}">
+                                <div th:if="${session.account != null} and ${cr.userId == session.account.id or session.account.accountType == T(centigrade.accounts.AccountType).ADMIN}">
                                     <form action = "delete_review" method="post">
                                         <div class="form-group">
                                             <input type="hidden" th:value="${cr.id}" name="id" />
@@ -169,7 +169,7 @@
                                         </div>
                                     </form>
                                 </div>
-                                <div class="col-sm-1">
+                                <div>
                                     <form th:if="${session.account != null} and ${cr.userId != session.account.id and session.account.accountType != T(centigrade.accounts.AccountType).ADMIN}" action = "report_review" method="get">
                                         <div class="form-group">
                                             <input type="hidden" th:value="${cr.id}" name="id" />
@@ -195,8 +195,8 @@
                             <h5 class="card-title">By: <a th:href="@{'/profile?id=' + ${ur.userId}}" th:text="@{${ur.userName}}"></a></h5>
                             <p class="card-text" th:unless="${ur.reviewText == null}" th:text="${ur.reviewText}">
                             </p>
-                            <div class="row card-text">
-                                <div th:if="${session.account != null and ur.userId == session.account.id}" class="col-sm-1">
+                            <div class="row card-text button-row">
+                                <div th:if="${session.account != null and ur.userId == session.account.id}">
                                     <form action = "edit_review" method="get">
                                         <div class="form-group">
                                             <input type="hidden" th:value="${ur.id}" name="id" />
@@ -204,7 +204,7 @@
                                         </div>
                                     </form>
                                 </div>
-                                <div th:if="${session.account != null} and ${ur.userId == session.account.id or session.account.accountType == T(centigrade.accounts.AccountType).ADMIN}" class="col-sm-1">
+                                <div th:if="${session.account != null} and ${ur.userId == session.account.id or session.account.accountType == T(centigrade.accounts.AccountType).ADMIN}">
                                     <form action = "delete_review" method="post">
                                         <div class="form-group">
                                             <input type="hidden" th:value="${ur.id}" name="id" />
@@ -212,7 +212,7 @@
                                         </div>
                                     </form>
                                 </div>
-                                <div th:if="${session.account != null} and ${ur.userId != session.account.id and session.account.accountType != T(centigrade.accounts.AccountType).ADMIN}" class="col-sm-1">
+                                <div th:if="${session.account != null} and ${ur.userId != session.account.id and session.account.accountType != T(centigrade.accounts.AccountType).ADMIN}">
                                     <form action = "report_review" method="get">
                                         <div class="form-group">
                                             <input type="hidden" th:value="${ur.id}" name="id" />
