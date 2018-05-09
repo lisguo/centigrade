@@ -13,11 +13,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -221,6 +227,7 @@ public class AccountController {
         model.addAttribute("movieReviews", movieReviews);
         model.addAttribute("showReviews", showReviews);
 
+        model.addAttribute("photoURL", accountService.getUserPhotoURL());
         model.addAttribute("posterURL", movieService.getMoviePosterURL());
         model.addAttribute("tvPosterURL", tvShowService.getTVShowPosterURL());
         List<WishListItem> wishList = accountService.getWishList(a);
@@ -334,6 +341,34 @@ public class AccountController {
         }
 
         accountService.removeFromNotInterestedList(a.getId(), contentID);
+
+        rv.setUrl("profile?id=" + a.getId());
+        return rv;
+    }
+
+    @PostMapping("/upload_photo")
+    public RedirectView uploadPhoto(@RequestParam("file") MultipartFile file,
+                                    HttpSession session){
+        RedirectView rv = new RedirectView();
+
+        Account a = (Account) session.getAttribute("account");
+        if (a == null) {
+            rv.setUrl("login");
+            return rv;
+        }
+
+        if(!file.isEmpty()) {
+            try {
+                byte[] bytes = file.getBytes();
+                //Path path = Paths.get(env.getProperty("user_photo_dir") + "user" + a.getId() + ".jpg");
+
+
+                //Files.write(path, bytes);
+            } catch (IOException e) {
+                rv.setUrl("error");
+                return rv;
+            }
+        }
 
         rv.setUrl("profile?id=" + a.getId());
         return rv;

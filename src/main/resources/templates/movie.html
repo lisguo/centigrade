@@ -150,6 +150,10 @@
                                     <input type="hidden" th:value="${cr.id}" name="id" />
                                     <input class="btn btn-outline-danger" type="submit" value="X" />
                                 </form>
+                                <form th:if="${session.account != null} and ${cr.userId != session.account.id and session.account.accountType != T(centigrade.accounts.AccountType).ADMIN}" action = "report_review" method="get">
+                                    <input type="hidden" th:value="${cr.id}" name="id" />
+                                    <input class="btn btn-outline-danger" type="submit" value="Report" />
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -177,6 +181,10 @@
                                 <form th:if="${session.account != null} and ${ur.userId == session.account.id or session.account.accountType == T(centigrade.accounts.AccountType).ADMIN}" action = "delete_review" method="post">
                                     <input type="hidden" th:value="${ur.id}" name="id" />
                                     <input class="btn btn-outline-danger" type="submit" value="X" />
+                                </form>
+                                <form th:if="${session.account != null} and ${ur.userId != session.account.id and session.account.accountType != T(centigrade.accounts.AccountType).ADMIN}" action = "report_review" method="get">
+                                    <input type="hidden" th:value="${ur.id}" name="id" />
+                                    <input class="btn btn-outline-danger" type="submit" value="Report" />
                                 </form>
                             </div>
                         </div>

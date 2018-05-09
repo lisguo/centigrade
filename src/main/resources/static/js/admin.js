@@ -39,6 +39,15 @@ $(document).ready(function(){
     $('#admin-applications-tab').click(function(){
         showAllApplications();
     });
+
+    $('#admin-reports-tab').click(function(){
+        $.ajax({
+            type : 'GET',
+            url : '/get_reported_reviews'
+        }).done(function(data) {
+            $('#admin-reports-content').html(data);
+        });
+    });
 });
 
 function showAllApplications(){
@@ -46,7 +55,7 @@ function showAllApplications(){
         type : 'GET',
         url : '/get_critic_applications'
     }).done(function(data) {
-        $('#admin-critic-applications').html(data);
+        $('#admin-critic-applications-content').html(data);
     });
 }
 
@@ -58,7 +67,7 @@ function showAppDetail(id){
             id: id
         }
     }).done(function(data) {
-        $('#admin-critic-applications').html(data);
+        $('#admin-critic-applications-content').html(data);
     });
 }
 

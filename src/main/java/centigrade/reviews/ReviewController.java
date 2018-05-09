@@ -73,14 +73,17 @@ public class ReviewController {
     }
 
     @PostMapping("delete_review")
-    public RedirectView deleteReview(@RequestParam long id, @RequestParam(required = false) String fromProfile) {
+    public RedirectView deleteReview(@RequestParam long id, @RequestParam(required = false) String fromProfile,
+                                     @RequestParam(required = false) String fromAdmin) {
         Review r = reviewService.getReviewById(id);
 
         RedirectView rv = new RedirectView();
         Movie m = movieService.getMovieById(r.getContentId());
         TVShow t = tvShowService.getTVShowById(r.getContentId());
 
-        if (fromProfile != null) {
+        if(fromAdmin != null){
+            rv.setUrl("admin");
+        } else if (fromProfile != null) {
             rv.setUrl("profile?id=" + r.getUserId());
         } else if (m != null) {
             rv.setUrl("movie?id=" + r.getContentId() + "&res=" + ReviewResult.DELETED);
@@ -153,6 +156,50 @@ public class ReviewController {
             rv.setUrl("profile?id=" + r.getUserId());
         }
 
+        return rv;
+    }
+
+    @GetMapping("report_review")
+    public String reportPage(HttpSession session, long id, Model model, @RequestParam(required = false) String fromProfile){
+        Account a = (Account) session.getAttribute("account");
+        if (a == null) {
+            return "login";
+        }
+        Review r = reviewService.getReviewById(id);
+        model.addAttribute("review", r);
+        model.addAttribute("fromProfile", fromProfile);
+
+        return "report_review";
+    }
+
+    @PostMapping("report_review")
+    public RedirectView reportReview(@RequestParam String message,
+                                     HttpSession session,
+                                     @RequestParam long id,
+                                     @RequestParam(required = false) String fromProfile){
+        RedirectView rv = new RedirectView();
+
+        Account a = (Account) session.getAttribute("account");
+        if (a == null) {
+            rv.setUrl(("login"));
+            return rv;
+        }
+
+        Review r = reviewService.getReviewById(id);
+        Movie m = movieService.getMovieById(r.getContentId());
+        TVShow t = tvShowService.getTVShowById(r.getContentId());
+
+        if (m != null) {
+            rv.setUrl("movie?id=" + r.getContentId());
+        } else if (t != null){
+            rv.setUrl("show?id=" + r.getContentId());
+        }
+
+        if(fromProfile != null){
+            rv.setUrl("profile?id=" + r.getUserId());
+        }
+
+        reviewService.reportReview(id, message, a.getId());
         return rv;
     }
 }

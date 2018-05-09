@@ -1,0 +1,41 @@
+<table class="table table-striped" id="critic-applications-table">
+    <thead>
+    <th scope="col">Message</th>
+    <th scope="col">Review Text</th>
+    <th scope="col">Reviewer</th>
+    <th scope="col"></th>
+    </thead>
+    <tbody>
+    <tr th:each="r : ${reportedReviews}">
+        <td th:text="${r.message}">
+        </td>
+        <td>
+            <div class="card border-danger">
+                <div class="card-header container-fluid" th:text="@{'Rating: ' + ${r.review.rating} + '%'}"></div>
+                <div class="card-body text-danger container-fluid">
+                    <h5 class="card-title">
+                        <a th:if="${contentType.equals('Movie')}" th:href="@{'/movie?id=' + ${r.review.contentId}}" th:text="@{${r.review.contentName}}"></a>
+                        <a th:if="${contentType.equals('Show')}" th:href="@{'/show?id=' + ${r.review.contentId}}" th:text="@{${r.review.contentName}}"></a>
+                    </h5>
+                    <p class="card-text" th:unless="${r.review.reviewText == null}" th:text="${r.review.reviewText}">
+                    </p>
+                </div>
+            </div>
+        </td>
+        <td>
+            <a th:text="${r.review.userName}" th:href="@{'/profile?id=' + ${r.review.userId}}"></a>
+        </td>
+        <td>
+            <form th:if="${session.account != null} and ${session.account.accountType == T(centigrade.accounts.AccountType).ADMIN}" action = "remove_report" method="post">
+                <input type="hidden" th:value="${r.id}" name="id" />
+                <input class="btn btn-outline-danger" type="submit" value="Allow" />
+            </form>
+            <form th:if="${session.account != null} and ${session.account.accountType == T(centigrade.accounts.AccountType).ADMIN}" action = "delete_review" method="post">
+                <input type="hidden" th:value="${r.review.id}" name="id" />
+                <input type="hidden" th:value="@{'true'}" name="fromAdmin" />
+                <input class="btn btn-outline-danger" type="submit" value="Delete" />
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
