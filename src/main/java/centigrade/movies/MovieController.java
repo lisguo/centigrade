@@ -225,7 +225,7 @@ public class MovieController {
 
         movie.calculateOverallRating();
         if (movie.getTimesRated() == 0) {
-            model.addAttribute("rating", "Not Yet Rated");
+            model.addAttribute("rating", String.format("%.2f", 0.0) + "%");
         } else {
             model.addAttribute("rating", String.format("%.2f", movie.getOverallRating()) + "%");
         }

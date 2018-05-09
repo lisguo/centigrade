@@ -61,6 +61,18 @@
         </div>
 
         <div class="movie-second">
+            <div class="movie-stuff container-fluid">
+                <div class="row" style="padding: 0 15px 15px 15px;">
+                    <form action="add_to_wishlist" method="post" style="margin-right: 15px;">
+                        <input type="hidden" th:value="${show.id}" name="contentID" />
+                        <button class="btn btn-outline-danger" type="submit" value="+" >Add To WishList <i class="fas fa-plus"></i></button>
+                    </form>
+                    <form action="add_to_not_interested_list" method="post">
+                        <input type="hidden" th:value="${show.id}" name="contentID" />
+                        <button class="btn btn-outline-danger" type="submit" value="+" >Add To Not-Interested List <i class="fas fa-plus"></i></button>
+                    </form>
+                </div>
+            </div>
             <div class="movie-summary movie-stuff container-fluid">
                 <h3>PLOT</h3>
                 <p th:text="${show.overview}"/>
@@ -95,28 +107,6 @@
                         </tr>
                     </table>
                     <input type="hidden" th:value="${show.id}" name="contentID"/>
-                </form>
-                <form action="add_to_wishlist" method="post">
-                    <table>
-                        <tr>
-                            <td>
-                                <input class="btn btn-outline-danger" type="submit" value="+" />
-                            </td>
-                            <td th:text="@{'&nbsp;Add To WishList'}"></td>
-                        </tr>
-                    </table>
-                    <input type="hidden" th:value="${show.id}" name="contentID" />
-                </form>
-                <form action="add_to_not_interested_list" method="post">
-                    <table>
-                        <tr>
-                            <td>
-                                <input class="btn btn-outline-danger" type="submit" value="+" />
-                            </td>
-                            <td th:text="@{'&nbsp;Add To Not Interested List'}"></td>
-                        </tr>
-                    </table>
-                    <input type="hidden" th:value="${show.id}" name="contentID" />
                 </form>
             </div>
 
