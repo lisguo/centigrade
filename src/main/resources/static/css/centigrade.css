@@ -633,6 +633,10 @@ nav .logo-container:hover, #logo img:hover {
     top:0;
 }
 
+.movie-stuff .center-p {
+    text-align: center;
+}
+
 .movie-stuff {
     color: darkslategrey;
 }

@@ -143,7 +143,7 @@
             <div class="movie-c-reviews movie-stuff container-fluid">
                 <h3>CRITIC REVIEWS</h3>
                 <div th:if="${criticReviews.size() == 0}">
-                    <p>NO REVIEWS</p>
+                    <p class="center-p">NO REVIEWS</p>
                 </div>
                 <div th:each="cr : ${criticReviews}">
                     <div class="card border-danger">
@@ -186,7 +186,7 @@
             <div class="movie-u-reviews movie-stuff container-fluid">
                 <h3>USER REVIEWS</h3>
                 <div th:if="${userReviews.size() == 0}">
-                    <p>NO REVIEWS</p>
+                    <p class="center-p">NO REVIEWS</p>
                 </div>
                 <div th:each="ur : ${userReviews}">
                     <div class="card border-danger">
