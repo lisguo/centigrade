@@ -1,0 +1,23 @@
+<table class="table">
+    <tr>
+        <td>Name</td>
+        <td><a th:href="@{'/profile?id=' + ${app.account}}" th:text="${app.firstName + ' ' + app.lastName}"/></td>
+    </tr>
+    <tr>
+        <td>Email</td>
+        <td th:text="${app.email}"></td>
+    </tr>
+    <tr>
+        <td>Source</td>
+        <td><a th:href="${app.sourceUrl}" th:text="${app.sourceName}"/></td>
+    </tr>
+    <tr>
+        <td>Resume</td>
+        <td><p th:text="${app.resumeText}"/></td>
+    </tr>
+</table>
+<div class="row">
+    <button id="accept-critic-application-btn" th:onclick="@{'acceptApplication(' + ${app.id}} + ')'" class="btn btn-primary">Accept</button>
+    <button id="reject-critic-application-btn" th:onclick="@{'rejectApplication(' + ${app.id}} + ')'" class="btn btn-danger">Reject</button>
+    <button id="critic-application-back-btn" onclick="showAllApplications()" class="btn">Back</button>
+</div>

@@ -231,6 +231,12 @@ public class AccountService {
         }
     }
 
+    public void upgradeToCritic(long accountId){
+        Account a = getAccountById(accountId);
+        a.setAccountType(AccountType.CRITIC);
+        accountRepository.save(a);
+    }
+
     public Account verifyAccount(String nonce) {
         Account a = accountRepository.findAccountByNonce(nonce);
         if (a != null) {

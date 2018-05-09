@@ -8,6 +8,7 @@ public interface CriticApplicationRepository extends CrudRepository<CriticApplic
 
     Iterable<CriticApplication> findAll();
     CriticApplication findCriticApplicationByAccount(long accountId);
+    CriticApplication findCriticApplicationById(long id);
     CriticApplication save(CriticApplication ca);
     void delete(CriticApplication ca);
 }

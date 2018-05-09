@@ -1,6 +1,7 @@
 package centigrade.critic_applications;
 
 import centigrade.accounts.Account;
+import centigrade.accounts.AccountService;
 import centigrade.accounts.AccountType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -20,9 +21,9 @@ public class CriticApplicationController {
     @Autowired
     private CriticApplicationService applicationService;
 
-    @GetMapping("/critic_application")
+    @GetMapping("/critic_application_form")
     public String displayCriticApplication(){
-        return "critic_application";
+        return "critic_application_form";
     }
 
     @PostMapping("/submit_critic_application")

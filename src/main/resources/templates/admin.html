@@ -8,8 +8,6 @@
 <div class="container container-fluid">
     <h1>Admin Panel</h1>
     <div class="row">
-        <div id="notification" />
-
         <!-- TABS -->
         <div class="col-3">
             <div class="nav flex-column nav-pills" id="admin-tab" role="tablist" aria-orientation="vertical">
@@ -23,6 +21,7 @@
 
         <!-- CONTENT -->
         <div class="col-9">
+            <div id="notification" />
             <div class="tab-content" id="admin-tabContent">
                 <!-- CREATE CONTENT -->
                 <div class="tab-pane fade show active" id="admin-create" role="tabpanel" aria-labelledby="admin-create-tab">
@@ -106,10 +105,13 @@
                 </div>
                 <div class="tab-pane fade" id="admin-reports" role="tabpanel" aria-labelledby="admin-reports-tab">
                     <h2>View Reports</h2>
+                    <div id="admin-reports-content">
+                        <img id="loading" th:src="@{/img/icons/loading.gif}" alt="" />
+                    </div>
                 </div>
                 <div class="tab-pane fade" id="admin-applications" role="tabpanel" aria-labelledby="admin-applications-tab">
                     <h2>View Applications</h2>
-                    <div id="admin-critic-applications">
+                    <div id="admin-critic-applications-content">
                         <img id="loading" th:src="@{/img/icons/loading.gif}" alt="" />
                     </div>
                 </div>

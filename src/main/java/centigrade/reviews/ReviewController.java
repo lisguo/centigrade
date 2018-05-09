@@ -73,14 +73,17 @@ public class ReviewController {
     }
 
     @PostMapping("delete_review")
-    public RedirectView deleteReview(@RequestParam long id, @RequestParam(required = false) String fromProfile) {
+    public RedirectView deleteReview(@RequestParam long id, @RequestParam(required = false) String fromProfile,
+                                     @RequestParam(required = false) String fromAdmin) {
         Review r = reviewService.getReviewById(id);
 
         RedirectView rv = new RedirectView();
         Movie m = movieService.getMovieById(r.getContentId());
         TVShow t = tvShowService.getTVShowById(r.getContentId());
 
-        if (fromProfile != null) {
+        if(fromAdmin != null){
+            rv.setUrl("admin");
+        } else if (fromProfile != null) {
             rv.setUrl("profile?id=" + r.getUserId());
         } else if (m != null) {
             rv.setUrl("movie?id=" + r.getContentId() + "&res=" + ReviewResult.DELETED);

@@ -99,10 +99,10 @@
                 <form action="add_to_wishlist" method="post">
                     <table>
                         <tr>
-                            <td th:text="@{'Add To WishList&nbsp;'}"></td>
                             <td>
                                 <input class="btn btn-outline-danger" type="submit" value="+" />
                             </td>
+                            <td th:text="@{'&nbsp;Add To WishList'}"></td>
                         </tr>
                     </table>
                     <input type="hidden" th:value="${show.id}" name="contentID" />
@@ -110,10 +110,10 @@
                 <form action="add_to_not_interested_list" method="post">
                     <table>
                         <tr>
-                            <td th:text="@{'Add To Not Interested List&nbsp;'}"></td>
                             <td>
                                 <input class="btn btn-outline-danger" type="submit" value="+" />
                             </td>
+                            <td th:text="@{'&nbsp;Add To Not Interested List'}"></td>
                         </tr>
                     </table>
                     <input type="hidden" th:value="${show.id}" name="contentID" />
