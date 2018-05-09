@@ -97,6 +97,29 @@
     </tr>
     </tbody>
 </table>
+<h3>Latest</h3>
+<table class="table table-striped" id="latest-table">
+    <tbody>
+    <tr th:each="movie : ${latest}">
+        <div th:if="${movie.hasBeenRated()}">
+            <td th:text="@{${decimalFormat.format(movie.getOverallRating())} + '%'}"/>
+        </div>
+        <div th:unless="${movie.hasBeenRated()}">
+            <td th:text="@{'N/A'}"/>
+        </div>
+        <td>
+            <img th:src="@{${posterURL} + 'poster' + ${movie.id} + '.jpg'}" width="90" height="132"/>
+        </td>
+        <td>
+            <a th:href="@{'/movie?id=' + ${movie.id}}" th:text="${movie.title}"/>
+        </td>
+        <td>
+            <p th:text="@{'Year: ' + ${movie.year}}"></p>
+            <p th:text="@{'Box Office: ' + ${movie.boxoffice}}"></p>
+        </td>
+    </tr>
+    </tbody>
+</table>
 
 <h3>LATEST CRITIC REVIEWS</h3>
 <table>

@@ -146,8 +146,12 @@ public class MovieService {
         Calendar now = Calendar.getInstance();
         for(int i = 0;i < N;i++){
             String year = now.get(Calendar.YEAR)+"";
-            String month = monthToMonth(now.get(Calendar.MONTH));
-            String day = now.get(Calendar.DAY_OF_MONTH)+"";
+            String month = monthToMonth(now.get(Calendar.MONTH)+1);
+            int day2 = now.get(Calendar.DAY_OF_MONTH);
+            String day = day2+"";
+            if (day2<10){
+                day = "0"+day2;
+            }
             next[i] = day+" "+month+" "+year;
             now.add(Calendar.DATE,1);
         }
@@ -156,6 +160,9 @@ public class MovieService {
     }
     public List<Movie> getLatestMovies(int days) {
         String [] nextDays = getNextDays(days);
+//        for(String i : nextDays){
+//            System.out.println(i);
+//        }
         ArrayList<Movie> movies = new ArrayList<Movie>();
         for (int i =0;i<nextDays.length;i++){
             movies.addAll(getMovieDate(nextDays[i]));

@@ -103,9 +103,17 @@ public class AppController {
         if(topBoxOffice.size() > displayNum) {
             topBoxOffice = topBoxOffice.subList(0, displayNum);
         }
+        List<Movie> latest;
+        latest = movieService.getLatestMovies(14);
+        for (Movie m : latest) {
+            m.calculateOverallRating();
+            m.calculateBoxOffice();
+        }
+
 
         model.addAttribute("posterURL", movieService.getMoviePosterURL());
         model.addAttribute("topBoxOffice", topBoxOffice);
+        model.addAttribute("latest", latest);
         DecimalFormat df = new DecimalFormat("#.##");
         model.addAttribute("decimalFormat", df);
 
