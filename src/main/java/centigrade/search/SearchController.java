@@ -1,5 +1,6 @@
 package centigrade.search;
 
+import centigrade.people.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
@@ -34,6 +35,8 @@ public class SearchController {
     public String displaySearch(@RequestParam String search, Model model) {
         model.addAttribute("moviePosterURL", movieService.getMoviePosterURL());
         model.addAttribute("showPosterURL", tvShowService.getTVShowPosterURL());
+        model.addAttribute("personPhotoURL", personService.getPersonPhotoURL());
+
         if (search.replaceAll("\\s+", "").length() == 0) {
             return "searchResults";
         }
@@ -45,6 +48,10 @@ public class SearchController {
         List<TVShow> shows = getSearchTVShows(search);
         if (shows.size() > 0) {
             model.addAttribute("shows", shows);
+        }
+        List<Person> people = getSearchPeople(search);
+        if (people.size() > 0) {
+            model.addAttribute("people", people);
         }
 
         return "searchResults";
@@ -209,5 +216,78 @@ public class SearchController {
             }
         }
         return false;
+    }
+
+    private List<Person> getSearchPeople(String search) {
+        String[] splitted = search.split("\\s+");
+        List<Person> people = new ArrayList();
+
+        for (int i = 0; i < splitted.length; i++) {
+            if (isCommonWord(splitted[i])) {
+                continue;
+            }
+
+            List<Person> list = personService.getLikePeople(splitted[i]);
+            people.addAll(list);
+        }
+        people.sort(new Comparator<Person>() {
+            @Override
+            public int compare(Person p1, Person p2)
+            {
+                return (int) (p1.getId() - p2.getId());
+            }
+        });
+
+        people = getTopMatchPeople(people, 10);
+        return people;
+    }
+
+    private List<Person> getTopMatchPeople(List<Person> people, int n) {
+        if (people.size() <= 0) {
+            return people;
+        }
+        List<Person> list = new ArrayList<Person>();
+        for (int i = 0; i < Integer.parseInt(env.getProperty("num_search_results")); i++) {
+            Person topPerson = getMaxPerson(people);
+            if (topPerson == null) {
+                break;
+            }
+            list.add(topPerson);
+        }
+        return list;
+    }
+
+    private Person getMaxPerson(List<Person> people) {
+        if (people.size() <= 0) {
+            return null;
+        }
+        Person temp = people.get(0);
+        int count = 1;
+        int maxCount = 1;
+        Person maxPerson = temp;
+        Person cursor;
+        for (int i = 1; i < people.size(); i++) {
+            cursor = people.get(i);
+            if (temp.equals(cursor)) {
+                count++;
+            } else {
+                if (maxCount < count) {
+                    maxPerson = temp;
+                    maxCount = count;
+                }
+                temp = cursor;
+                count = 1;
+            }
+        }
+        int i = 0;
+        while (i < people.size()) {
+            cursor = people.get(i);
+            if (maxPerson.equals(cursor)) {
+                people.remove(i);
+            } else {
+                i++;
+            }
+        }
+        return maxPerson;
     }
 }

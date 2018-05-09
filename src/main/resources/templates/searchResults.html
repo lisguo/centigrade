@@ -43,6 +43,23 @@
                     </tr>
                     </tbody>
                 </table>
+                <h4 id="people-results">People Results</h4>
+                <h6 th:if="${people == null}">NO RESULTS FOUND</h6>
+                <table class="table table-striped" th:if="${people != null}">
+                    <thead>
+                    <tr>
+                        <th scope="col" colspan="3" style="text-align:center;">Name</th>
+                        <th scope="col">Bio</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="person : ${people}">
+                        <td><img th:src="@{${personPhotoURL} + 'pic' + ${person.id} + '.jpg'}" width="45" height="75"/></td>
+                        <td colspan="2"><a th:href="@{'/person?id=' + ${person.id}}" th:text="${person.toString()}"/></td>
+                        <td th:text="${person.biography}"/>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
         <div class="col-4 bg-light">
@@ -51,6 +68,7 @@
             <div id="list-example" class="list-group">
                 <a class="list-group-item list-group-item-action" href="#movie-results">Movies Results</a>
                 <a class="list-group-item list-group-item-action" href="#tv-results">TV Show Results</a>
+                <a class="list-group-item list-group-item-action" href="#people-results">People Results</a>
             </div>
         </div>
     </div>
