@@ -171,6 +171,7 @@
                     <div class="card border-danger">
                         <div class="card-header container-fluid" th:text="@{'Rating: ' + ${cr.rating} + '%'}"></div>
                         <div class="card-body text-danger container-fluid">
+                            <img width="100" height="100" th:src="@{${profilePicURL} + 'user' + ${cr.userId} + '.jpg'}" alt="CAST IMAGE"/>
                             <h5 class="card-title">By: <a th:href="@{'/profile?id=' + ${cr.userId}}" th:text="@{${cr.userName}}"></a></h5>
                             <p class="card-text" th:unless="${cr.reviewText == null}" th:text="${cr.reviewText}">
                             </p>
@@ -214,6 +215,7 @@
                     <div class="card border-danger">
                         <div class="card-header container-fluid" th:text="@{'Rating: ' + ${ur.rating} + '%'}"></div>
                         <div class="card-body text-danger container-fluid">
+                            <img width="100" height="100" th:src="@{${profilePicURL} + 'user' + ${ur.userId} + '.jpg'}" alt="CAST IMAGE"/>
                             <h5 class="card-title">By: <a th:href="@{'/profile?id=' + ${ur.userId}}" th:text="@{${ur.userName}}"></a></h5>
                             <p class="card-text" th:unless="${ur.reviewText == null}" th:text="${ur.reviewText}">
                             </p>

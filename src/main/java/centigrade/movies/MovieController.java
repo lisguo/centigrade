@@ -162,6 +162,7 @@ public class MovieController {
     @GetMapping("/best_pictures")
     public String bestPictures(Model model){
         List<Movie> movies = movieService.getBestPictureWinners();
+        Collections.reverse(movies);
         for (Movie m : movies) {
             m.calculateOverallRating();
             m.calculateBoxOffice();
@@ -184,6 +185,7 @@ public class MovieController {
         model.addAttribute("posterURL", movieService.getMoviePosterURL());
         model.addAttribute("trailerURL", movieService.getMovieTrailerURL());
         model.addAttribute("photoURL", personService.getPersonPhotoURL());
+        model.addAttribute("profilePicURL", accountService.getUserPhotoURL());
 
         if (res == ReviewResult.SUCCESS) {
             model.addAttribute("message", env.getProperty("review_success"));

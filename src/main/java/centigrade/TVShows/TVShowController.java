@@ -172,6 +172,7 @@ public class TVShowController {
         model.addAttribute("show", show);
         model.addAttribute("posterURL", tvShowService.getTVShowPosterURL());
         model.addAttribute("photoURL", personService.getPersonPhotoURL());
+        model.addAttribute("profilePicURL", accountService.getUserPhotoURL());
 
         if (res == ReviewResult.SUCCESS) {
             model.addAttribute("message", env.getProperty("review_success"));
