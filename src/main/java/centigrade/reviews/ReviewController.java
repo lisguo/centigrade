@@ -74,7 +74,8 @@ public class ReviewController {
 
     @PostMapping("delete_review")
     public RedirectView deleteReview(@RequestParam long id, @RequestParam(required = false) String fromProfile,
-                                     @RequestParam(required = false) String fromAdmin) {
+                                     @RequestParam(required = false) String fromAdmin,
+                                     @RequestParam(required = false) String fromHomePage) {
         Review r = reviewService.getReviewById(id);
 
         RedirectView rv = new RedirectView();
@@ -90,6 +91,10 @@ public class ReviewController {
         } else if (t != null) {
             rv.setUrl("show?id=" + r.getContentId() + "&res=" + ReviewResult.DELETED);
         }
+        if(fromHomePage != null)
+        {
+            rv.setUrl("/");
+        }
 
         reviewService.deleteReview(r);
         return rv;
@@ -97,7 +102,8 @@ public class ReviewController {
 
     @GetMapping("edit_review")
     public String editReviewForm(@RequestParam long id, HttpSession session, Model model,
-                                 @RequestParam(required = false) String fromProfile){
+                                 @RequestParam(required = false) String fromProfile,
+                                 @RequestParam(required = false) String fromHomePage){
         Review r = reviewService.getReviewById(id);
 
         Account a = (Account) session.getAttribute("account");
@@ -117,13 +123,15 @@ public class ReviewController {
 
         model.addAttribute("review", r);
         model.addAttribute("fromProfile", fromProfile);
+        model.addAttribute("fromHomePage", fromHomePage);
         return "edit_review";
     }
 
     @PostMapping("edit_review")
     public RedirectView editReviewSubmit(@RequestParam long id, @RequestParam String reviewText,
                                          @RequestParam double rating, HttpSession session,
-                                         @RequestParam(required = false) String fromProfile){
+                                         @RequestParam(required = false) String fromProfile,
+                                         @RequestParam(required = false) String fromHomePage){
         Review r = reviewService.getReviewById(id);
         RedirectView rv = new RedirectView();
 
@@ -155,12 +163,18 @@ public class ReviewController {
         if(fromProfile != null){
             rv.setUrl("profile?id=" + r.getUserId());
         }
+        if(fromHomePage != null)
+        {
+            rv.setUrl("/");
+        }
 
         return rv;
     }
 
     @GetMapping("report_review")
-    public String reportPage(HttpSession session, long id, Model model, @RequestParam(required = false) String fromProfile){
+    public String reportPage(HttpSession session, long id, Model model,
+                             @RequestParam(required = false) String fromProfile,
+                             @RequestParam(required = false) String fromHomePage){
         Account a = (Account) session.getAttribute("account");
         if (a == null) {
             return "login";
@@ -168,6 +182,7 @@ public class ReviewController {
         Review r = reviewService.getReviewById(id);
         model.addAttribute("review", r);
         model.addAttribute("fromProfile", fromProfile);
+        model.addAttribute("fromHomePage", fromHomePage);
 
         return "report_review";
     }
@@ -176,7 +191,8 @@ public class ReviewController {
     public RedirectView reportReview(@RequestParam String message,
                                      HttpSession session,
                                      @RequestParam long id,
-                                     @RequestParam(required = false) String fromProfile){
+                                     @RequestParam(required = false) String fromProfile,
+                                     @RequestParam(required = false) String fromHomePage){
         RedirectView rv = new RedirectView();
 
         Account a = (Account) session.getAttribute("account");
@@ -197,6 +213,10 @@ public class ReviewController {
 
         if(fromProfile != null){
             rv.setUrl("profile?id=" + r.getUserId());
+        }
+        if(fromHomePage != null)
+        {
+            rv.setUrl("/");
         }
 
         reviewService.reportReview(id, message, a.getId());

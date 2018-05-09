@@ -263,4 +263,6 @@ public class AccountService {
         return path;
     }
 
+    public List<Account> getAllAccounts(){return accountRepository.findAll();}
+
 }

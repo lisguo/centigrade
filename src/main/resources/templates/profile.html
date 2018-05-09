@@ -58,6 +58,7 @@
                         <div class="card border-danger">
                             <div class="card-header container-fluid" th:text="@{'Rating: ' + ${ur.rating} + '%'}"></div>
                             <div class="card-body text-danger container-fluid">
+                                <img width="100" height="100" th:src="@{${posterURL} + 'poster' + ${ur.contentId} + '.jpg'}" alt="CAST IMAGE"/>
                                 <h5 class="card-title">
                                     <a th:href="@{'/movie?id=' + ${ur.contentId}}" th:text="@{${ur.contentName}}"></a>
                                 </h5>
@@ -96,6 +97,7 @@
                         <div class="card border-danger">
                             <div class="card-header container-fluid" th:text="@{'Rating: ' + ${ur.rating} + '%'}"></div>
                             <div class="card-body text-danger container-fluid">
+                                <img width="100" height="100" th:src="@{${tvPosterURL} + 'tvposter' + ${ur.contentId} + '.jpg'}" alt="CAST IMAGE"/>
                                 <h5 class="card-title">
                                     <a th:href="@{'/show?id=' + ${ur.contentId}}" th:text="@{${ur.contentName}}"></a>
                                 </h5>

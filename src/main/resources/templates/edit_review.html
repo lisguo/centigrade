@@ -32,6 +32,7 @@
             </table>
             <input type="hidden" th:value="${review.id}" name="id" />
             <input th:if="${fromProfile != null}" type="hidden" th:value="@{true}" th:name="fromProfile" />
+            <input th:if="${fromHomePage != null}" type="hidden" th:value="@{true}" th:name="fromHomePage" />
         </form>
     </div>
 </div>

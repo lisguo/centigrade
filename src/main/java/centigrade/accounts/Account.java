@@ -18,6 +18,9 @@ public class Account {
     private int isActive;
     private byte[] salt;
 
+    @Transient
+    private int numReviews;
+
     @Column(name = "id")
     public long getId() {
         return id;
@@ -101,5 +104,13 @@ public class Account {
 
     public String toString() {
         return firstName + " " + lastName;
+    }
+
+    public int getNumReviews() {
+        return numReviews;
+    }
+
+    public void setNumReviews(int numReviews) {
+        this.numReviews = numReviews;
     }
 }

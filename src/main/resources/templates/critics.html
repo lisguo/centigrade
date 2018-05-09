@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head(Centigrade)"></head>
+
+<body>
+<div th:replace="fragments :: navbar"></div>
+<div class="container container-fluid">
+    <h1>All Critics</h1>
+    <!-- CRITIC RESULTS -->
+    <table class="table table-striped">
+        <thead>
+        <th scope="col">Critic</th>
+        <th scope="col">Number of Reviews</th>
+        </thead>
+        <tbody>
+        <tr th:each="critic : ${critics}">
+            <td>
+                <img th:src="@{${photoURL} + 'user' + ${critic.id} + '.jpg'}" width="90" height="132"/>
+                <a th:href="@{'/profile?id=' + ${critic.id}}" th:text="${critic.toString()}"/>
+            </td>
+            <td th:text="${critic.numReviews}">
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+<div th:replace="fragments :: footer"></div>
+</body>
+</html>

@@ -63,6 +63,10 @@ nav .logo-container:hover, #logo img:hover {
     padding: 0.625em;
 }
 
+#navbarContent ul {
+    width: 90%;
+}
+
 #search-form {
     width: 60%;
     height: 100%;
@@ -72,7 +76,7 @@ nav .logo-container:hover, #logo img:hover {
 }
 
 #search-form input[type=search] {
-    width: 50%;
+    width: 75%;
     height: 30px;
     justify-content: flex-end;
     box-sizing: border-box;
@@ -87,7 +91,7 @@ nav .logo-container:hover, #logo img:hover {
 }
 
 #search-form input[type=search]:focus {
-    width: 70%;
+    width: 85%;
     outline: none;
 }
 
@@ -637,6 +641,14 @@ nav .logo-container:hover, #logo img:hover {
     text-align: center;
 }
 
+.button-row {
+    padding-left: 1em;
+}
+
+.button-row div {
+    margin-right: 0.25em;
+}
+
 .movie-stuff {
     color: darkslategrey;
 }
@@ -644,6 +656,17 @@ nav .logo-container:hover, #logo img:hover {
 .movie-stuff .rating-icon {
     position: relative;
     top: -7px;
+}
+
+.rating-img {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.rating-user {
+    width: 100%;
+    text-align: center;
 }
 
 .cast-container {
