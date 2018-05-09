@@ -658,6 +658,17 @@ nav .logo-container:hover, #logo img:hover {
     top: -7px;
 }
 
+.rating-img {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.rating-user {
+    width: 100%;
+    text-align: center;
+}
+
 .cast-container {
     position: relative;
     display: flex;
