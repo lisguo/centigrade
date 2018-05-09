@@ -162,6 +162,7 @@ public class MovieController {
     @GetMapping("/best_pictures")
     public String bestPictures(Model model){
         List<Movie> movies = movieService.getBestPictureWinners();
+        Collections.reverse(movies);
         for (Movie m : movies) {
             m.calculateOverallRating();
             m.calculateBoxOffice();

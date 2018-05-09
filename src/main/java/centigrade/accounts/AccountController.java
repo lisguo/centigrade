@@ -30,6 +30,8 @@ import org.apache.commons.net.ftp.FTPClient;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import java.nio.file.Files;
@@ -439,4 +441,39 @@ public class AccountController {
         return rv;
     }
 
+    @GetMapping("/critics")
+    public String critics(Model model){
+        List<Account> accounts = accountService.getAllAccounts();
+        List<Account> critics = new ArrayList<>();
+        for(Account a : accounts){
+            if(a.getAccountType() == AccountType.CRITIC){
+                List<Review> reviews = reviewService.getReviewsByUser(a.getId());
+                if(reviews != null) {
+                    a.setNumReviews(reviews.size());
+                }else{
+                    a.setNumReviews(0);
+                }
+                critics.add(a);
+            }
+        }
+
+        Collections.sort(critics, new Comparator<Account>() {
+            @Override
+            public int compare(Account a1, Account a2) {
+                if (a1.getNumReviews() > a2.getNumReviews()) {
+                    return 1;
+                } else if (a1.getNumReviews() < a2.getNumReviews()) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            }
+        });
+
+        Collections.reverse(critics);
+
+        model.addAttribute("photoURL", env.getProperty("user_photo_dir"));
+        model.addAttribute("critics", critics);
+        return "critics";
+    }
 }
