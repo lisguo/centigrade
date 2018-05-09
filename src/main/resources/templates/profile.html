@@ -58,7 +58,7 @@
                 <div class="movie-u-reviews movie-stuff container-fluid">
                     <h3>MOVIE REVIEWS</h3>
                     <div th:if="${movieReviews.size() == 0}">
-                        <p>NO REVIEWS</p>
+                        <p class="center-p">NO REVIEWS</p>
                     </div>
                     <div th:each="ur : ${movieReviews}">
                         <div class="card border-danger">
@@ -73,10 +73,10 @@
                                             <a class="rating-user" th:href="@{'/movie?id=' + ${ur.contentId}}" th:text="@{${ur.contentName}}"></a>
                                         </div>
                                     </div>
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-6">
                                         <p class="card-text" th:unless="${ur.reviewText == null}" th:text="${ur.reviewText}"></p>
                                     </div>
-                                    <div class="col-sm-2">
+                                    <div class="col-sm-3">
                                         <div class="row card-text button-row" th:if="${session.account != null} and ${ur.userId == session.account.id or session.account.accountType == T(centigrade.accounts.AccountType).ADMIN}">
                                             <form action = "delete_review" method="post">
                                                 <div class="form-group">
@@ -115,34 +115,53 @@
                 <div class="movie-u-reviews movie-stuff container-fluid">
                     <h3>TV SHOW REVIEWS</h3>
                     <div th:if="${showReviews.size() == 0}">
-                        <p>NO REVIEWS</p>
+                        <p class="center-p">NO REVIEWS</p>
                     </div>
                     <div th:each="ur : ${showReviews}">
                         <div class="card border-danger">
                             <div class="card-header container-fluid" th:text="@{'Rating: ' + ${ur.rating} + '%'}"></div>
                             <div class="card-body text-danger container-fluid">
-                                <img width="100" height="100" th:src="@{${tvPosterURL} + 'tvposter' + ${ur.contentId} + '.jpg'}" alt="CAST IMAGE"/>
-                                <h5 class="card-title">
-                                    <a th:href="@{'/show?id=' + ${ur.contentId}}" th:text="@{${ur.contentName}}"></a>
-                                </h5>
-                                <p class="card-text" th:unless="${ur.reviewText == null}" th:text="${ur.reviewText}">
-                                </p>
-                                <div class="row">
-                                    <form th:if="${session.account != null and ur.userId == session.account.id}" action = "edit_review" method="get">
-                                        <input type="hidden" th:value="${ur.id}" name="id" />
-                                        <input type="hidden" th:value="@{'true'}" name="fromProfile" />
-                                        <input class="btn btn-outline-danger" type="submit" value="Edit" />
-                                    </form>
-                                    <form th:if="${session.account != null} and ${ur.userId == session.account.id or session.account.accountType == T(centigrade.accounts.AccountType).ADMIN}" action = "delete_review" method="post">
-                                        <input type="hidden" th:value="${ur.id}" name="id" />
-                                        <input type="hidden" th:value="@{'true'}" name="fromProfile" />
-                                        <input class="btn btn-outline-danger" type="submit" value="X" />
-                                    </form>
-                                    <form th:if="${session.account != null} and ${ur.userId != session.account.id and session.account.accountType != T(centigrade.accounts.AccountType).ADMIN}" action = "report_review" method="get">
-                                        <input type="hidden" th:value="${ur.id}" name="id" />
-                                        <input type="hidden" th:value="@{'true'}" name="fromProfile" />
-                                        <input class="btn btn-outline-danger" type="submit" value="Report" />
-                                    </form>
+                                <div class="row card-text">
+                                    <div class="col-sm-3">
+                                        <div class="row">
+                                            <img class="rating-img" width="100" height="100" th:src="@{${tvPosterURL} + 'tvposter' + ${ur.contentId} + '.jpg'}" alt="SHOW IMAGE"/>
+                                        </div>
+                                        <div class="row">
+                                            <a class="rating-user" th:href="@{'/show?id=' + ${ur.contentId}}" th:text="@{${ur.contentName}}"></a>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <p class="card-text" th:unless="${ur.reviewText == null}" th:text="${ur.reviewText}"></p>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="row card-text button-row" th:if="${session.account != null} and ${ur.userId == session.account.id or session.account.accountType == T(centigrade.accounts.AccountType).ADMIN}">
+                                            <form action = "delete_review" method="post">
+                                                <div class="form-group">
+                                                    <input type="hidden" th:value="${ur.id}" name="id" />
+                                                    <input type="hidden" th:value="@{'true'}" name="fromProfile" />
+                                                    <button class="btn btn-outline-danger" type="submit" value="X"><i class="fas fa-trash"></i> Delete</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="row card-text button-row" th:if="${session.account != null} and ${ur.userId != session.account.id and session.account.accountType != T(centigrade.accounts.AccountType).ADMIN}">
+                                            <form action = "report_review" method="get">
+                                                <div clas="form-group">
+                                                    <input type="hidden" th:value="${ur.id}" name="id" />
+                                                    <input type="hidden" th:value="@{'true'}" name="fromProfile" />
+                                                    <button class="btn btn-outline-danger" type="submit" value="Report"><i class="fas fa-flag"></i> Report</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="row card-text button-row" th:if="${session.account != null and ur.userId == session.account.id}">
+                                            <form action = "edit_review" method="get">
+                                                <div class="form-group">
+                                                    <input type="hidden" th:value="${ur.id}" name="id" />
+                                                    <input type="hidden" th:value="@{'true'}" name="fromProfile" />
+                                                    <button class="btn btn-outline-danger" type="submit" value="Edit"><i class="fas fa-edit"></i> Edit</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -153,40 +172,43 @@
                 <div class="user-wish-list movie-stuff container-fluid">
                     <h3>WISH LIST</h3>
                     <div th:if="${wishList.size() == 0}">
-                        <p>NO ITEMS</p>
+                        <p class="center-p">NO ITEMS</p>
                     </div>
 
-                    <table>
-                        <td th:each="item : ${wishList}">
-                            <table>
-                                <tr th:if="${session.account != null and user.id == session.account.id}">
-                                    <form action="remove_from_wishlist" method="post">
-                                        <input type="hidden" th:value="${item.getId()}" name="contentID" />
-                                        <input class="btn btn-outline-danger" type="submit" value="X" />
-                                    </form>
-                                </tr>
-                                <tr>
-                                    <td th:if="${item.getType().equals('movie')}">
-                                        <img th:src="@{${posterURL} + 'poster' + ${item.getId()} + '.jpg'}" width="200" height="200"/>
-                                    </td>
-                                    <td th:unless="${item.getType().equals('movie')}">
-                                        <img th:src="@{${tvPosterURL} + 'tvposter' + ${item.getId()} + '.jpg'}" width="200" height="200"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <a th:href="@{'/' + ${item.getType()} + '?id=' + ${item.getId()}}" th:text="${item.getTitle()}"/>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </table>
+                    <div class="row padding-top-bottom">
+                        <div class="col-sm-4" th:each="item : ${wishList}">
+                            <div class="card" th:if="${item.getType().equals('movie')}">
+                                <img class="card-img-top" th:src="@{${posterURL} + 'poster' + ${item.getId()} + '.jpg'}" alt="Movie Image" />
+                                <div class="card-body">
+                                    <h5 class="card-title center-p"><a th:href="@{'/' + ${item.getType()} + '?id=' + ${item.getId()}}" th:text="${item.getTitle()}"/></h5>
+                                    <p th:if="${session.account != null and user.id == session.account.id}">
+                                        <form style="text-align: center;" action="remove_from_wishlist" method="post">
+                                            <input type="hidden" th:value="${item.getId()}" name="contentID" />
+                                            <button class="btn btn-outline-danger" type="submit" value="X"><i class="fas fa-trash"></i> Delete</button>
+                                        </form>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="card" th:unless="${item.getType().equals('movie')}">
+                                <img class="card-img-top" th:src="@{${tvPosterURL} + 'tvposter' + ${item.getId()} + '.jpg'}" alt="Show Image" />
+                                <div class="card-body">
+                                    <h5 class="card-title center-p"><a th:href="@{'/' + ${item.getType()} + '?id=' + ${item.getId()}}" th:text="${item.getTitle()}"/></h5>
+                                    <p th:if="${session.account != null and user.id == session.account.id}">
+                                        <form style="text-align: center;" action="remove_from_wishlist" method="post">
+                                            <input type="hidden" th:value="${item.getId()}" name="contentID" />
+                                            <button class="btn btn-outline-danger" type="submit" value="X"><i class="fas fa-trash"></i> Delete</button>
+                                        </form>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="user-wish-list movie-stuff container-fluid">
                     <h3>NOT INTERESTED LIST</h3>
                     <div th:if="${notInterestedList.size() == 0}">
-                        <p>NO ITEMS</p>
+                        <p class="center-p">NO ITEMS</p>
                     </div>
 
                     <table>
