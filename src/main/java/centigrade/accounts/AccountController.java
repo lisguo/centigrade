@@ -418,7 +418,7 @@ public class AccountController {
                         con.logout();
                         con.disconnect();
                     }
-                    
+
             } catch (IOException e) {
 
                 rv.setUrl("profile?id=" + a.getId());
