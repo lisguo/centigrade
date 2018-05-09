@@ -58,6 +58,19 @@
             </div>
         </div>
         <div class="movie-second">
+            <div class="movie-stuff container-fluid">
+                <div class="row" style="padding: 0 15px 15px 15px;">
+                    <form action="add_to_wishlist" method="post" style="margin-right: 15px;">
+                        <input type="hidden" th:value="${movie.id}" name="contentID" />
+                        <button class="btn btn-outline-danger" type="submit" value="+" >Add To WishList <i class="fas fa-plus"></i></button>
+                    </form>
+                    <form action="add_to_not_interested_list" method="post">
+                        <input type="hidden" th:value="${movie.id}" name="contentID" />
+                        <button class="btn btn-outline-danger" type="submit" value="+" >Add To Not-Interested List <i class="fas fa-plus"></i></button>
+                    </form>
+                </div>
+
+            </div>
             <div class="movie-summary movie-stuff container-fluid">
                 <h3>PLOT</h3>
                 <p th:text="${movie.plot}"/>
@@ -65,54 +78,23 @@
             <div class="movie-review movie-stuff container-fluid">
                 <h3>REVIEW</h3>
                 <form action="/add_review" method="post">
-                    <table>
-                        <tr th:if="${message != null}">
-                            <td th:text="@{${message}}" />
-                        </tr>
-                        <tr>
-                            <td th:text="@{'Rating: ' + ${rating} + ' (Reviews Counted: ' + ${reviewsCounted} + ')'}"/>
-                        </tr>
-                        <tr>
-                            <td>
-                                <b>Add Your Rating</b>
-                                <input type="range" min="0" max="100" step="1" th:value="${movie.overallRating}" name="rating"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <textarea rows="4" cols="50" name="reviewtext" maxlength="520">Add Review (Optional)
-                                </textarea>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input class="btn btn-outline-danger" type="submit"/>
-                            </td>
-                        </tr>
-                    </table>
+                    <div class="form-group" th:if="${message != null}">
+                        <h4 th:text="@{${message}}"></h4>
+                    </div>
+                    <div class="form-group">
+                        <h4 th:text="@{${rating} + ' (Reviews Counted: ' + ${reviewsCounted} + ')'}"></h4>
+                        <label for="rating">Tell us what you think! Rate this movie.</label>
+                    </div>
+                    <div class="form-group">
+                        <img class="rating-icon" th:src="@{/img/ratings/snow.png}" alt="Cold" />
+                        <input id="rating" type="range" min="0" max="100" step="20" th:value="${movie.overallRating}" name="rating"/>
+                        <img class="rating-icon" th:src="@{/img/ratings/sun.png}" alt="Hot" />
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" rows="4" cols="50" id="reviewtext" name="reviewtext" maxlength="520" placeholder="Add Review (Optional)"></textarea>
+                    </div>
                     <input type="hidden" th:value="${movie.id}" name="contentID"/>
-                </form>
-                <form action="add_to_wishlist" method="post">
-                    <table>
-                        <tr>
-                            <td th:text="@{'Add To WishList&nbsp;'}"></td>
-                            <td>
-                                <input class="btn btn-outline-danger" type="submit" value="+" />
-                            </td>
-                        </tr>
-                    </table>
-                    <input type="hidden" th:value="${movie.id}" name="contentID" />
-                </form>
-                <form action="add_to_not_interested_list" method="post">
-                    <table>
-                        <tr>
-                            <td th:text="@{'Add To Not Interested List&nbsp;'}"></td>
-                            <td>
-                                <input class="btn btn-outline-danger" type="submit" value="+" />
-                            </td>
-                        </tr>
-                    </table>
-                    <input type="hidden" th:value="${movie.id}" name="contentID" />
+                    <button type="submit" class="btn btn-danger mb-2">Submit</button>
                 </form>
             </div>
             <div class="movie-cast movie-stuff container-fluid">

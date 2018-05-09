@@ -6,55 +6,53 @@
 <div th:replace="fragments :: navbar"></div>
 <div class="container container-fluid" style="padding: 1em;">
     <h1 >Search Results</h1>
-    <nav id="search-nav" class="navbar navbar-light bg-light" style="position: sticky; position: -webkit-sticky; top: 0;">
-        <ul class="nav nav-pills">
-            <li class="nav-item">
-                <a class="nav-link" href="#movie-results">Movies Results</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#tv-results">TV Show Results</a>
-            </li>
-        </ul>
-    </nav>
-    <div data-spy="scroll" data-target="#search-nav" data-offset="0">
-        <h4 id="movie-results">Movie Results</h4>
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th scope="col" colspan="3" style="text-align:center;">Title</th>
-                <th scope="col">Plot</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="movie : ${movies}">
-                <td><img th:src="@{${moviePosterURL} + 'poster' + ${movie.id} + '.jpg'}" width="45" height="75"/></td>
-                <td colspan="2"><a th:href="@{'/movie?id=' + ${movie.id}}" th:text="${movie.title}"/></td>
-                <td th:text="${movie.plot}"/>
-            </tr>
-            <tr th:if="${movies == null}">
-                <td><b>NO RESULTS FOUND</b></td>
-            </tr>
-            </tbody>
-        </table>
-        <h4 id="tv-results">TV Show Results</h4>
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th scope="col" colspan="3" style="text-align:center;">Title</th>
-                <th scope="col">Plot</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="show : ${shows}">
-                <td><img th:src="@{${showPosterURL} + 'tvposter' + ${show.id} + '.jpg'}" width="45" height="75"/></td>
-                <td colspan="2"><a th:href="@{'/show?id=' + ${show.id}}" th:text="${show.seriesName}"/></td>
-                <td th:text="${show.overview}"/>
-            </tr>
-            <tr th:if="${shows == null}">
-                <td><b>NO RESULTS FOUND</b></td>
-            </tr>
-            </tbody>
-        </table>
+    <div class="row">
+        <div class="col-8">
+            <div data-spy="scroll" data-target="#search-nav" data-offset="0">
+                <h4 id="movie-results">Movie Results</h4>
+                <h6 th:if="${movies == null}">NO RESULTS FOUND</h6>
+                <table class="table table-striped" th:if="${movies != null}">
+                    <thead>
+                    <tr>
+                        <th scope="col" colspan="3" style="text-align:center;">Title</th>
+                        <th scope="col">Plot</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="movie : ${movies}">
+                        <td><img th:src="@{${moviePosterURL} + 'poster' + ${movie.id} + '.jpg'}" width="45" height="75"/></td>
+                        <td colspan="2"><a th:href="@{'/movie?id=' + ${movie.id}}" th:text="${movie.title}"/></td>
+                        <td th:text="${movie.plot}"/>
+                    </tr>
+                    </tbody>
+                </table>
+                <h4 id="tv-results">TV Show Results</h4>
+                <h6 th:if="${shows == null}">NO RESULTS FOUND</h6>
+                <table class="table table-striped" th:if="${shows != null}">
+                    <thead>
+                    <tr>
+                        <th scope="col" colspan="3" style="text-align:center;">Title</th>
+                        <th scope="col">Plot</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="show : ${shows}">
+                        <td><img th:src="@{${showPosterURL} + 'tvposter' + ${show.id} + '.jpg'}" width="45" height="75"/></td>
+                        <td colspan="2"><a th:href="@{'/show?id=' + ${show.id}}" th:text="${show.seriesName}"/></td>
+                        <td th:text="${show.overview}"/>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-4 bg-dark">
+            <h3 style="color: white; margin-top: 1em;">Category Search</h3>
+            <p style="color: white;">Search within a specific category:</p>
+            <div id="list-example" class="list-group">
+                <a class="list-group-item list-group-item-action" href="#movie-results">Movies Results</a>
+                <a class="list-group-item list-group-item-action" href="#tv-results">TV Show Results</a>
+            </div>
+        </div>
     </div>
 </div>
 <div th:replace="fragments :: footer"></div>
