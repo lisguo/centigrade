@@ -32,6 +32,9 @@
                     <a th:if="${session.account.accountType == T(centigrade.accounts.AccountType).USER}" class="dropdown-item" style="color:black" href="/critic_application_form">Upgrade to Critic</a>
                 </div>
             </li>
+            <li class="nav-item functions" th:if="${session.account != null} and ${session.account.accountType == T(centigrade.accounts.AccountType).ADMIN}">
+                <a class="nav-link" href="/admin"><i class="fas fa-user-plus"></i>Admin</a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" href="/movies">Movies</a>
             </li>
@@ -43,9 +46,6 @@
             </li>
             <li class="nav-item" th:if="${session.account == null}">
                 <a class="nav-link" href="/register"><i class="fas fa-user-plus"></i>Register</a>
-            </li>
-            <li class="nav-item functions" th:if="${session.account != null} and ${session.account.accountType == T(centigrade.accounts.AccountType).ADMIN}">
-                <a class="nav-link" href="/admin"><i class="fas fa-user-plus"></i>Admin</a>
             </li>
             <li class="nav-item" th:if="${session.account != null}">
                 <a class="nav-link" href="/logout">Log out</a>
