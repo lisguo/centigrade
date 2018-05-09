@@ -10,5 +10,6 @@ public interface ReportedAccountRepository extends CrudRepository<ReportedAccoun
     List<ReportedAccount> findAll();
     void delete(ReportedAccount ra);
     ReportedAccount save(ReportedAccount ra);
-    ReportedAccount findReportedAccountByid(long id);
+    ReportedAccount findReportedAccountById(long id);
+    List<ReportedAccount> findReportedAccountsByReportedId(long reportedId);
 }

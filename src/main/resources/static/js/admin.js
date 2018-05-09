@@ -79,9 +79,11 @@ function deleteReportedUser(id){
         type: 'POST',
         url: '/delete_user',
         data: {
-            id: id
+            userId: id,
+            deleteReport: true
         }
     }).done(function(data) {
+        $('#notification').html(data);
         showAllReportedUsers();
     });
 }

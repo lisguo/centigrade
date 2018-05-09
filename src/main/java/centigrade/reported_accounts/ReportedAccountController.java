@@ -56,4 +56,17 @@ public class ReportedAccountController {
 
         return "notification_alert";
     }
+
+    @PostMapping("remove_reported_user")
+    public String removeReportedUser(long id, Model model){
+        ReportedAccount ra = reportedAccountService.getReportedAccountById(id);
+        reportedAccountService.deleteReportedAccount(ra);
+
+        String successMsg = env.getProperty("report_user_allow");
+
+        model.addAttribute("notificationTitle", "Success!");
+        model.addAttribute("notificationDetails", successMsg);
+
+        return "notification_alert";
+    }
 }

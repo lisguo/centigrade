@@ -4,6 +4,7 @@ import centigrade.TVShows.TVShow;
 import centigrade.TVShows.TVShowService;
 import centigrade.movies.Movie;
 import centigrade.movies.MovieService;
+import centigrade.reported_accounts.ReportedAccountService;
 import centigrade.reviews.Review;
 import centigrade.reviews.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,8 @@ public class AccountController {
     private MovieService movieService;
     @Autowired
     private TVShowService tvShowService;
+    @Autowired
+    private ReportedAccountService reportedAccountService;
 
     @Autowired
     private Environment env;
@@ -347,7 +350,10 @@ public class AccountController {
     }
 
     @PostMapping("/delete_user")
-    public String deleteUser(long userId, Model model){
+    public String deleteUser(long userId, @RequestParam(required=false) boolean deleteReport, Model model){
+        if(deleteReport){
+            reportedAccountService.deleteAllReportedAccounts(userId);
+        }
         accountService.deleteAccount(userId);
 
         String successMsg = env.getProperty("delete_user_success");
