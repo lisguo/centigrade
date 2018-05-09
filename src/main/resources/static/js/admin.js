@@ -8,15 +8,19 @@ $(document).ready(function(){
         submitMovieForm();
     });
 
-    $('#admin-applications-tab').click(function(){
-        showAllApplications();
+    $('#admin-reported-users-tab').click(function(){
+        showAllReportedUsers();
     });
 
     $('#admin-reported-reviews-tab').click(function(){
         showAllReportedReviews();
     });
-});
 
+    $('#admin-applications-tab').click(function(){
+        showAllApplications();
+    });
+});
+/* CREATE CONTENT */
 function submitMovieForm(){
     title = $('#create-movie-title').val();
     year = parseInt($('#create-movie-year').val());
@@ -49,6 +53,40 @@ function submitMovieForm(){
     });
 }
 
+/* REPORTED USERS */
+function showAllReportedUsers(){
+    $.ajax({
+        type : 'GET',
+        url : '/get_reported_users'
+    }).done(function(data) {
+        $('#admin-reported-users-content').html(data);
+    });
+}
+function allowReportedUser(id){
+    $.ajax({
+        type : 'POST',
+        url : '/remove_reported_user',
+        data: {
+            id: id
+        }
+    }).done(function(data) {
+        $('#notification').html(data);
+        showAllReportedUsers();
+    });
+}
+function deleteReportedUser(id){
+    $.ajax({
+        type: 'POST',
+        url: '/delete_user',
+        data: {
+            id: id
+        }
+    }).done(function(data) {
+        showAllReportedUsers();
+    });
+}
+
+/* REPORTED REVIEWS */
 function showAllReportedReviews(){
     $.ajax({
         type : 'GET',
@@ -57,7 +95,6 @@ function showAllReportedReviews(){
         $('#admin-reported-reviews-content').html(data);
     });
 }
-
 function allowReportedReview(id){
     $.ajax({
         type : 'POST',
@@ -70,7 +107,6 @@ function allowReportedReview(id){
         showAllReportedReviews();
     });
 }
-
 function deleteReportedReview(id){
     $.ajax({
         type: 'POST',
@@ -84,6 +120,7 @@ function deleteReportedReview(id){
     });
 }
 
+/* CRITIC APPLICATIONS */
 function showAllApplications(){
     $.ajax({
         type : 'GET',
@@ -92,7 +129,6 @@ function showAllApplications(){
         $('#admin-critic-applications-content').html(data);
     });
 }
-
 function showAppDetail(id){
     $.ajax({
         type : 'GET',
@@ -104,7 +140,6 @@ function showAppDetail(id){
         $('#admin-critic-applications-content').html(data);
     });
 }
-
 function acceptApplication(id){
     $.ajax({
         type : 'POST',
@@ -117,7 +152,6 @@ function acceptApplication(id){
         showAllApplications();
     });
 }
-
 function rejectApplication(id){
     $.ajax({
         type : 'POST',

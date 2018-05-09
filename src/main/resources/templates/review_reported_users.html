@@ -1,0 +1,20 @@
+<table class="table table-striped">
+    <thead>
+    <th scope="col">Message</th>
+    <th scope="col">Reported User</th>
+    <th scope="col"></th>
+    </thead>
+    <tbody>
+    <tr th:each="r : ${reportedUsers}">
+        <td th:text="${r.message}">
+        </td>
+        <td>
+            <a th:text="@{${r.account.firstName} + ' ' + ${r.account.lastName}}" th:href="@{'/profile?id=' + ${r.reportedId}}"></a>
+        </td>
+        <td>
+            <button th:onclick="@{'allowReportedUser(' + ${r.id}} + ')'" class="btn btn-outline-danger">Allow</button>
+            <button th:onclick="@{'deleteReportedUser(' + ${r.account.id}} + ')'" class="btn btn-outline-danger">Delete</button>
+        </td>
+    </tr>
+    </tbody>
+</table>

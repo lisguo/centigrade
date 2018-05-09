@@ -11,6 +11,7 @@
             <h1 th:if="${user.accountType == T(centigrade.accounts.AccountType).CRITIC}" th:text="@{${user.toString()} + ' (Critic)'}"/>
             <h1 th:if="${user.accountType == T(centigrade.accounts.AccountType).USER}" th:text="${user.toString()}"/>
         </div>
+        <div id="notification" />
         <div class="movie-information container-fluid">
             <div class="movie-first">
                 <div class="movie-photo-wrapper">
@@ -20,6 +21,10 @@
                     <input type="file" name="file"/><br/><br/>
                     <input class="btn btn-outline-danger" type="submit" value="Upload" />
                 </form>
+
+                <!-- DELETE AND REPORT BUTTONS -->
+                <button th:if="${session.account != null and session.account.accountType == T(centigrade.accounts.AccountType).ADMIN}" th:onclick="@{'deleteUser(' + ${user.id}} + ')'" class="btn btn-outline-danger">Delete User</button>
+                <button th:if="${session.account != null and session.account.accountType != T(centigrade.accounts.AccountType).ADMIN}" th:onclick="@{'reportUser(' + ${user.id}} + ')'" class="btn btn-outline-danger">Report User</button>
             </div>
             <div class="movie-second">
                 <div class="movie-u-reviews movie-stuff container-fluid">
@@ -169,5 +174,6 @@
     </div>
 </div>
 <div th:replace="fragments :: footer"></div>
+<script type="text/javascript" th:src="@{/js/profile.js}"></script>
 </body>
 </html>

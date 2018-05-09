@@ -38,5 +38,4 @@ public class PersonController {
         model.addAttribute("shows", shows);
         return "person";
     }
-
 }
