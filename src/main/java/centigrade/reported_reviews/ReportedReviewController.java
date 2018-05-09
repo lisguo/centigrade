@@ -64,10 +64,10 @@ public class ReportedReviewController {
 
                 if (m != null) {
                     rev.setContentName(m.getTitle());
-                    model.addAttribute("contentType", "Movie");
+                    rev.setContentType("Movie");
                 } else if (t != null) {
                     rev.setContentName(t.getSeriesName());
-                    model.addAttribute("contentType", "Show");
+                    rev.setContentType("Show");
                 }
 
                 rev.setUserName(reviewer.toString());

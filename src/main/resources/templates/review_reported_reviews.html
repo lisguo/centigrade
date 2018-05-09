@@ -14,8 +14,8 @@
                 <div class="card-header container-fluid" th:text="@{'Rating: ' + ${r.review.rating} + '%'}"></div>
                 <div class="card-body text-danger container-fluid">
                     <h5 class="card-title">
-                        <a th:if="${contentType.equals('Movie')}" th:href="@{'/movie?id=' + ${r.review.contentId}}" th:text="@{${r.review.contentName}}"></a>
-                        <a th:if="${contentType.equals('Show')}" th:href="@{'/show?id=' + ${r.review.contentId}}" th:text="@{${r.review.contentName}}"></a>
+                        <a th:if="${r.review.contentType.equals('Movie')}" th:href="@{'/movie?id=' + ${r.review.contentId}}" th:text="@{${r.review.contentName}}"></a>
+                        <a th:if="${r.review.contentType.equals('Show')}" th:href="@{'/show?id=' + ${r.review.contentId}}" th:text="@{${r.review.contentName}}"></a>
                     </h5>
                     <p class="card-text" th:unless="${r.review.reviewText == null}" th:text="${r.review.reviewText}">
                     </p>
