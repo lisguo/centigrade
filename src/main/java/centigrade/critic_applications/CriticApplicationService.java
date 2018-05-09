@@ -28,6 +28,10 @@ public class CriticApplicationService {
         return applicationRepository.findAll();
     }
 
+    public CriticApplication getApplicationById(long id){
+        return applicationRepository.findCriticApplicationById(id);
+    }
+
     public boolean exists(long accountId){
         CriticApplication application = applicationRepository.findCriticApplicationByAccount(accountId);
         if(application != null){
@@ -43,5 +47,16 @@ public class CriticApplicationService {
             application.setLastName(a.getLastName());
             application.setEmail(a.getEmail());
         }
+    }
+
+    public void setAccountInfo(CriticApplication application){
+        Account a = accountService.getAccountById(application.getAccount());
+        application.setFirstName(a.getFirstName());
+        application.setLastName(a.getLastName());
+        application.setEmail(a.getEmail());
+    }
+
+    public void deleteApplication(long id){
+        applicationRepository.delete(id);
     }
 }

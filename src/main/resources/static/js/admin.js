@@ -37,11 +37,53 @@ $(document).ready(function(){
     });
 
     $('#admin-applications-tab').click(function(){
-        $.ajax({
-            type : 'GET',
-            url : '/get_critic_applications'
-        }).done(function(data) {
-            $('#admin-critic-applications').html(data);
-        });
+        showAllApplications();
     });
 });
+
+function showAllApplications(){
+    $.ajax({
+        type : 'GET',
+        url : '/get_critic_applications'
+    }).done(function(data) {
+        $('#admin-critic-applications').html(data);
+    });
+}
+
+function showAppDetail(id){
+    $.ajax({
+        type : 'GET',
+        url : '/critic_application',
+        data: {
+            id: id
+        }
+    }).done(function(data) {
+        $('#admin-critic-applications').html(data);
+    });
+}
+
+function acceptApplication(id){
+    $.ajax({
+        type : 'POST',
+        url : '/accept_critic_application',
+        data: {
+            id: id
+        }
+    }).done(function(data) {
+        $('#notification').html(data);
+        showAllApplications();
+    });
+}
+
+function rejectApplication(id){
+    $.ajax({
+        type : 'POST',
+        url : '/reject_critic_application',
+        data: {
+            id: id
+        }
+    }).done(function(data) {
+        $('#notification').html(data);
+        showAllApplications();
+    });
+}

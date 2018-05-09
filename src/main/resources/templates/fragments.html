@@ -29,7 +29,7 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" th:href="${'/profile?id=' + session.account.id}">Profile</a>
                     <a class="dropdown-item" href="/edit_account">Edit Account</a>
-                    <a th:if="${session.account.accountType == T(centigrade.accounts.AccountType).USER}" class="dropdown-item" style="color:black" href="/critic_application">Upgrade to Critic</a>
+                    <a th:if="${session.account.accountType == T(centigrade.accounts.AccountType).USER}" class="dropdown-item" style="color:black" href="/critic_application_form">Upgrade to Critic</a>
                 </div>
             </li>
             <li class="nav-item">
@@ -78,7 +78,7 @@
     </div>
     <div>
         <ul>
-            <li><a href="/critic_application">Critic Submission</a></li>
+            <li><a href="/critic_application_form">Critic Submission</a></li>
             <li><a href="/">Licensing</a></li>
             <li><a href="/">Privacy Policy</a></li>
             <li><a href="/">Terms and Policies</a></li>
