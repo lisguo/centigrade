@@ -37,6 +37,7 @@ import java.util.List;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -128,7 +129,11 @@ public class AccountController {
     }
 
     @GetMapping("login")
-    public String loginForm(HttpSession session) {
+    public String loginForm(HttpSession session, HttpServletRequest request) {
+        // Get previous page and set it in session for later
+        String referer = request.getHeader("Referer");
+        session.setAttribute("previousPage", referer);
+
         Account a = (Account) session.getAttribute("account");
         if (a != null) {
             return "index";
@@ -161,7 +166,8 @@ public class AccountController {
         session.setAttribute("account", a);
         model.addAttribute("appName", env.getProperty("app_name"));
 
-        return "index";
+        String previousPage = (String) session.getAttribute("previousPage");
+        return "redirect:" + previousPage;
     }
 
     @GetMapping("logout")
