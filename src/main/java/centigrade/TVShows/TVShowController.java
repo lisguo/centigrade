@@ -130,7 +130,6 @@ public class TVShowController {
                         } else {
                             return 0;
                         }
-//                        return 0;
                     }
                 }
             });

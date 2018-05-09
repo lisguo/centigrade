@@ -142,6 +142,8 @@ public class AppController {
         }
 
         model.addAttribute("posterURL", movieService.getMoviePosterURL());
+        model.addAttribute("tvPosterURL", tvShowService.getTVShowPosterURL());
+        model.addAttribute("profilePicURL", accountService.getUserPhotoURL());
         model.addAttribute("topBoxOffice", topBoxOffice);
         model.addAttribute("latest", latest);
         model.addAttribute("popular", popular);
