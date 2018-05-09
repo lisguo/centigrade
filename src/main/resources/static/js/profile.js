@@ -3,7 +3,7 @@ function deleteUser(id){
         type: 'POST',
         url: '/delete_user',
         data: {
-            id: id
+            userId: id
         }
     }).done(function(data) {
         $('.content-row-block').html(data);
@@ -11,12 +11,13 @@ function deleteUser(id){
 }
 
 function reportUser(id){
+    var message = $('#report-reason-textarea').val();
     $.ajax({
         type: 'POST',
         url: '/report_user',
         data: {
             reportedId: id,
-            message: "EXAMPLE MESSAGE"
+            message: message
         }
     }).done(function(data) {
         $('#notification').html(data);

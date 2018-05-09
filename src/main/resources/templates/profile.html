@@ -24,7 +24,28 @@
 
                 <!-- DELETE AND REPORT BUTTONS -->
                 <button th:if="${session.account != null and session.account.accountType == T(centigrade.accounts.AccountType).ADMIN}" th:onclick="@{'deleteUser(' + ${user.id}} + ')'" class="btn btn-outline-danger">Delete User</button>
-                <button th:if="${session.account != null and session.account.accountType != T(centigrade.accounts.AccountType).ADMIN}" th:onclick="@{'reportUser(' + ${user.id}} + ')'" class="btn btn-outline-danger">Report User</button>
+                <button th:if="${session.account != null and session.account.accountType != T(centigrade.accounts.AccountType).ADMIN}" class="btn btn-outline-danger"  data-toggle="modal" data-target="#report-user-modal">Report User</button>
+                <!-- Report User Modal -->
+                <div class="modal fade" id="report-user-modal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Report User</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <h7>Reason</h7>
+                                <textarea id="report-reason-textarea" class="form-control" rows="3"></textarea>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button class="btn btn-outline-danger" th:onclick="@{'reportUser(' + ${user.id}} + ')'" data-dismiss="modal">Submit Report</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="movie-second">
                 <div class="movie-u-reviews movie-stuff container-fluid">

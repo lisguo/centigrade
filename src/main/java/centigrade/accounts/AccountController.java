@@ -346,6 +346,17 @@ public class AccountController {
         return rv;
     }
 
+    @PostMapping("/delete_user")
+    public String deleteUser(long userId, Model model){
+        accountService.deleteAccount(userId);
+
+        String successMsg = env.getProperty("delete_user_success");
+        model.addAttribute("notificationTitle", "Success!");
+        model.addAttribute("notificationDetails", successMsg);
+
+        return "notification_alert";
+    }
+
     @PostMapping("/upload_photo")
     public RedirectView uploadPhoto(@RequestParam("file") MultipartFile file,
                                     HttpSession session){

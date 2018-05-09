@@ -11,7 +11,6 @@ public class ReportedAccount {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String message;
-    private long reporterId;
     private long reportedId;
 
     @Transient
@@ -33,15 +32,6 @@ public class ReportedAccount {
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    @Column(name="reporterid")
-    public long getReporterId() {
-        return reporterId;
-    }
-
-    public void setReporterId(long reporterId) {
-        this.reporterId = reporterId;
     }
 
     @Column(name="reportedid")

@@ -189,6 +189,10 @@ public class AccountService {
         return a;
     }
 
+    public void deleteAccount(long id){
+        accountRepository.delete(id);
+    }
+
     public void updateAccount(Account a, String email, String password, String firstName, String lastName) {
         byte[] salt = a.getSalt();
 
