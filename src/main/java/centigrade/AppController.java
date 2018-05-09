@@ -103,6 +103,7 @@ public class AppController {
         if(topBoxOffice.size() > displayNum) {
             topBoxOffice = topBoxOffice.subList(0, displayNum);
         }
+
         List<Movie> latest;
         latest = movieService.getLatestMovies(14);
         for (Movie m : latest) {
@@ -110,10 +111,40 @@ public class AppController {
             m.calculateBoxOffice();
         }
 
+        List<Movie> popular = movieService.getAllMovies();
+        for (Movie m : popular) {
+            m.calculateOverallRating();
+            m.calculateBoxOffice();
+        }
+        Collections.sort(popular, new Comparator<Movie>() {
+            @Override
+            public int compare(Movie m1, Movie m2) {
+
+                if (m1.getOverallRating() > m2.getOverallRating()) {
+                    return 1;
+                } else if (m1.getOverallRating() < m2.getOverallRating()) {
+                    return -1;
+                } else {
+                    if (m1.getTimesRated() > m2.getTimesRated()) {
+                        return 1;
+                    } else if (m1.getTimesRated() < m2.getTimesRated()) {
+                        return -1;
+                    } else {
+                        return 0;
+                    }
+                }
+            }
+        });
+
+        Collections.reverse(popular);
+        if(popular.size() > displayNum) {
+            popular = popular.subList(0, displayNum);
+        }
 
         model.addAttribute("posterURL", movieService.getMoviePosterURL());
         model.addAttribute("topBoxOffice", topBoxOffice);
         model.addAttribute("latest", latest);
+        model.addAttribute("popular", popular);
         DecimalFormat df = new DecimalFormat("#.##");
         model.addAttribute("decimalFormat", df);
 

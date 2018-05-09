@@ -70,11 +70,7 @@ public class MovieController {
             movies = movieService.getAllMoviesSortedByTitle();
         } else if (sortBy.equals("YEAR")) {
             movies = movieService.getAllMoviesSortedByYear();
-        }
-//        else if (sortBy.equals("POPULAR")) {
-//            movies = movieService.getMoviesByPopular();
-//        }
-        else
+        } else
             {
             movies = movieService.getAllMovies();
         }
@@ -127,7 +123,6 @@ public class MovieController {
                         } else {
                             return 0;
                         }
-//                        return 0;
                     }
                 }
             });
