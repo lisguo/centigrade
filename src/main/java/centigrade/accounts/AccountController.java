@@ -17,6 +17,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.io.File;
+import java.io.ByteArrayInputStream;
+
+import java.io.IOException;
+import org.apache.commons.net.ftp.FTP;
+import org.apache.commons.net.ftp.FTPClient;
+
+
+
+
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -381,19 +391,52 @@ public class AccountController {
         }
 
         if(!file.isEmpty()) {
+            FTPClient con = null;
+
+            con = new FTPClient();
             try {
                 byte[] bytes = file.getBytes();
-                //Path path = Paths.get(env.getProperty("user_photo_dir") + "user" + a.getId() + ".jpg");
+                System.out.println(bytes.length);
+                if(bytes.length>1048574){
+                    //Filesize is too large
+                    rv.setUrl("profile?id=" + a.getId());
+                    return rv;
 
+                }
 
-                //Files.write(path, bytes);
+                    con.connect("130.245.155.104");
+
+                    if (con.login("simrit", "CS69AAux"))
+                    {
+//                        System.out.println("Login");
+                        con.enterLocalPassiveMode();
+
+                        con.setFileType(FTP.BINARY_FILE_TYPE);
+                        ByteArrayInputStream in = new ByteArrayInputStream(bytes);
+                        boolean result = con.storeFile("users/user"+a.getId()+".jpg", in);
+                        in.close();
+                        con.logout();
+                        con.disconnect();
+                    }
+                    
             } catch (IOException e) {
-                rv.setUrl("error");
+
+                rv.setUrl("profile?id=" + a.getId());
                 return rv;
+            }finally {
+                if(con.isConnected()) {
+                    try {
+                        con.disconnect();
+                    } catch(IOException ioe) {
+                        // do nothing
+                    }
+                }
+
             }
         }
 
         rv.setUrl("profile?id=" + a.getId());
         return rv;
     }
+
 }

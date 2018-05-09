@@ -36,4 +36,5 @@ dependencies {
     compile("mysql:mysql-connector-java")
     compile("org.springframework.boot:spring-boot-starter-mail")
     compile("net.sourceforge.nekohtml:nekohtml:1.9.21")
+    compile("commons-net:commons-net:3.6")
 }
