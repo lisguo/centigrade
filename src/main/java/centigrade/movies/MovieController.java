@@ -185,6 +185,7 @@ public class MovieController {
         model.addAttribute("posterURL", movieService.getMoviePosterURL());
         model.addAttribute("trailerURL", movieService.getMovieTrailerURL());
         model.addAttribute("photoURL", personService.getPersonPhotoURL());
+        model.addAttribute("profilePicURL", accountService.getUserPhotoURL());
 
         if (res == ReviewResult.SUCCESS) {
             model.addAttribute("message", env.getProperty("review_success"));
