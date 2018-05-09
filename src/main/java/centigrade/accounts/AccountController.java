@@ -354,6 +354,12 @@ public class AccountController {
         if(deleteReport){
             reportedAccountService.deleteAllReportedAccounts(userId);
         }
+
+        List<Review> reviews = reviewService.getReviewsByUser(userId);
+        for(Review r : reviews){
+            reviewService.deleteReview(r);
+        }
+
         accountService.deleteAccount(userId);
 
         String successMsg = env.getProperty("delete_user_success");
