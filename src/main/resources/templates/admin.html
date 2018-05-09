@@ -12,10 +12,9 @@
         <div class="col-3">
             <div class="nav flex-column nav-pills" id="admin-tab" role="tablist" aria-orientation="vertical">
                 <a class="nav-link active" id="admin-create-tab" data-toggle="pill" href="#admin-create" role="tab" aria-controls="admin-create" aria-selected="true">Create Content</a>
-                <a class="nav-link" id="admin-update-tab" data-toggle="pill" href="#admin-update" role="tab" aria-controls="admin-update" aria-selected="false">Update Content</a>
-                <a class="nav-link" id="admin-delete-tab" data-toggle="pill" href="#admin-delete" role="tab" aria-controls="admin-delete" aria-selected="false">Delete Content</a>
-                <a class="nav-link" id="admin-reports-tab" data-toggle="pill" href="#admin-reports" role="tab" aria-controls="admin-reports" aria-selected="false">View Reports</a>
-                <a class="nav-link" id="admin-applications-tab" data-toggle="pill" href="#admin-applications" role="tab" aria-controls="admin-applications" aria-selected="false">View Applications</a>
+                <a class="nav-link" id="admin-reported-users-tab" data-toggle="pill" href="#admin-reported-users" role="tab" aria-controls="admin-delete" aria-selected="false">View Reported Users</a>
+                <a class="nav-link" id="admin-reported-reviews-tab" data-toggle="pill" href="#admin-reported-reviews" role="tab" aria-controls="admin-reports" aria-selected="false">View Reported Reviews</a>
+                <a class="nav-link" id="admin-applications-tab" data-toggle="pill" href="#admin-applications" role="tab" aria-controls="admin-applications" aria-selected="false">View Critic Applications</a>
             </div>
         </div>
 
@@ -23,7 +22,6 @@
         <div class="col-9">
             <div id="notification" />
             <div class="tab-content" id="admin-tabContent">
-                <!-- CREATE CONTENT -->
                 <div class="tab-pane fade show active" id="admin-create" role="tabpanel" aria-labelledby="admin-create-tab">
                     <h2>Create Content</h2>
                     <ul class="nav nav-tabs nav-fill" role="tablist">
@@ -95,17 +93,12 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- UPDATE CONTENT -->
-                <div class="tab-pane fade" id="admin-update" role="tabpanel" aria-labelledby="admin-update-tab">
-                    <h2>Update Content</h2>
+                <div class="tab-pane fade" id="admin-reported-users" role="tabpanel" aria-labelledby="admin-reported-users-tab">
+                    <h2>View Reported Users</h2>
                 </div>
-                <div class="tab-pane fade" id="admin-delete" role="tabpanel" aria-labelledby="admin-delete-tab">
-                    <h2>Delete Content</h2>
-                </div>
-                <div class="tab-pane fade" id="admin-reports" role="tabpanel" aria-labelledby="admin-reports-tab">
-                    <h2>View Reports</h2>
-                    <div id="admin-reports-content">
+                <div class="tab-pane fade" id="admin-reported-reviews" role="tabpanel" aria-labelledby="admin-reported-reviews-tab">
+                    <h2>View Reported Reviews</h2>
+                    <div id="admin-reported-reviews-content">
                         <img id="loading" th:src="@{/img/icons/loading.gif}" alt="" />
                     </div>
                 </div>

@@ -12,7 +12,7 @@ $(document).ready(function(){
         showAllApplications();
     });
 
-    $('#admin-reports-tab').click(function(){
+    $('#admin-reported-reviews-tab').click(function(){
         showAllReportedReviews();
     });
 });
@@ -54,7 +54,33 @@ function showAllReportedReviews(){
         type : 'GET',
         url : '/get_reported_reviews'
     }).done(function(data) {
-        $('#admin-reports-content').html(data);
+        $('#admin-reported-reviews-content').html(data);
+    });
+}
+
+function allowReportedReview(id){
+    $.ajax({
+        type : 'POST',
+        url : '/remove_reported_review',
+        data: {
+            id: id
+        }
+    }).done(function(data) {
+        $('#notification').html(data);
+        showAllReportedReviews();
+    });
+}
+
+function deleteReportedReview(id){
+    $.ajax({
+        type: 'POST',
+        url: '/delete_review',
+        data: {
+            id: id,
+            fromAdmin: true
+        }
+    }).done(function(data) {
+        showAllReportedReviews();
     });
 }
 

@@ -26,15 +26,8 @@
             <a th:text="${r.review.userName}" th:href="@{'/profile?id=' + ${r.review.userId}}"></a>
         </td>
         <td>
-            <form th:if="${session.account != null} and ${session.account.accountType == T(centigrade.accounts.AccountType).ADMIN}" action = "remove_report" method="post">
-                <input type="hidden" th:value="${r.id}" name="id" />
-                <input class="btn btn-outline-danger" type="submit" value="Allow" />
-            </form>
-            <form th:if="${session.account != null} and ${session.account.accountType == T(centigrade.accounts.AccountType).ADMIN}" action = "delete_review" method="post">
-                <input type="hidden" th:value="${r.review.id}" name="id" />
-                <input type="hidden" th:value="@{'true'}" name="fromAdmin" />
-                <input class="btn btn-outline-danger" type="submit" value="Delete" />
-            </form>
+            <button th:onclick="@{'allowReportedReview(' + ${r.id}} + ')'" class="btn btn-outline-danger">Allow</button>
+            <button th:onclick="@{'deleteReportedReview(' + ${r.review.id}} + ')'" class="btn btn-outline-danger">Delete</button>
         </td>
     </tr>
     </tbody>

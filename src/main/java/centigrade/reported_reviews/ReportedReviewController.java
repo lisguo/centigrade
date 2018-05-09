@@ -83,8 +83,8 @@ public class ReportedReviewController {
         return "review_reported_reviews";
     }
 
-    @PostMapping("/remove_report")
-    public String removeReport(HttpSession session, @RequestParam long id){
+    @PostMapping("/remove_reported_review")
+    public String removeReportedReview(HttpSession session, @RequestParam long id, Model model){
         Account a = (Account) session.getAttribute("account");
         if (a == null || a.getAccountType() != AccountType.ADMIN) {
             return "redirect:/";
@@ -93,6 +93,10 @@ public class ReportedReviewController {
         ReportedReview rr = reportedReviewService.getReportedReviewById(id);
         reportedReviewService.deleteReportedRevew(rr);
 
-        return "admin";
+        String successMsg = env.getProperty("remove_reported_review_success");
+        model.addAttribute("notificationTitle", "Success!");
+        model.addAttribute("notificationDetails", successMsg);
+
+        return "notification_alert";
     }
 }
