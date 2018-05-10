@@ -40,6 +40,17 @@ public class TVShowController {
     private Environment env;
 
     @GetMapping("/shows")
+    public String displayShows(Model model,
+                               @RequestParam(defaultValue = "TITLE")String sortBy,
+                               @RequestParam(defaultValue = "ASCENDING") String sortDirection){
+        model.addAttribute("sortCriteria", EnumSet.allOf(TVShowSortCriteria.class));
+        model.addAttribute("sortDirections", EnumSet.allOf(TVShowSortDirection.class));
+        model.addAttribute("sortBy", sortBy);
+        model.addAttribute("sortDirection", sortDirection);
+        return "shows";
+    }
+
+    @GetMapping("/shows_table")
     public String displayAllTVShows(Model model, @RequestParam(defaultValue = "TITLE") String sortBy,
                                     @RequestParam(defaultValue = "ASCENDING") String sortDirection,
                                     @RequestParam(defaultValue="1") int page) {
@@ -152,12 +163,12 @@ public class TVShowController {
         model.addAttribute("sortDirection", sortDirection);
         model.addAttribute("shows", outShows);
         String endLink = "&sortBy=" + sortBy + "&sortDirection=" + sortDirection;
-        if (page != 1) model.addAttribute("prev", "/shows?page=" + (page - 1) + endLink);
-        if (end + 1 < shows.size()) model.addAttribute("next", "/shows?page=" + (page + 1) + endLink);
+        if (page != 1) model.addAttribute("prev", "1");
+        if (end + 1 < shows.size()) model.addAttribute("next", "1");
         model.addAttribute("posterURL", tvShowService.getTVShowPosterURL());
         DecimalFormat df = new DecimalFormat("#.##");
         model.addAttribute("decimalFormat", df);
-        return "shows";
+        return "shows_table";
     }
 
 
