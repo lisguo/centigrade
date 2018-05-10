@@ -1,0 +1,16 @@
+<h6 th:if="${shows == null}">NO RESULTS FOUND</h6>
+<table class="table table-striped" th:if="${shows != null}">
+    <thead>
+    <tr>
+        <th scope="col" colspan="3" style="text-align:center;">Title</th>
+        <th scope="col">Plot</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="show : ${shows}">
+        <td><img th:src="@{${showPosterURL} + 'tvposter' + ${show.id} + '.jpg'}" width="45" height="75"/></td>
+        <td colspan="2"><a th:href="@{'/show?id=' + ${show.id}}" th:text="${show.seriesName}"/></td>
+        <td th:text="${show.overview}"/>
+    </tr>
+    </tbody>
+</table>

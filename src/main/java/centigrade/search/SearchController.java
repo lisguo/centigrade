@@ -33,31 +33,45 @@ public class SearchController {
 
     @GetMapping("/search")
     public String displaySearch(@RequestParam String search, Model model) {
-        model.addAttribute("moviePosterURL", movieService.getMoviePosterURL());
-        model.addAttribute("showPosterURL", tvShowService.getTVShowPosterURL());
-        model.addAttribute("personPhotoURL", personService.getPersonPhotoURL());
-
-        if (search.replaceAll("\\s+", "").length() == 0) {
-            return "searchResults";
-        }
-
-        List<Movie> movies = getSearchMovies(search);
-        if (movies.size() > 0) {
-            model.addAttribute("movies", movies);
-        }
-        List<TVShow> shows = getSearchTVShows(search);
-        if (shows.size() > 0) {
-            model.addAttribute("shows", shows);
-        }
-        List<Person> people = getSearchPeople(search);
-        if (people.size() > 0) {
-            model.addAttribute("people", people);
-        }
-
+        model.addAttribute("search", search);
         return "searchResults";
     }
 
-    private List<TVShow> getSearchTVShows(String search) {
+    @GetMapping("/search_movies")
+    private String  getSearchMovies(String search, Model model) {
+        model.addAttribute("moviePosterURL", movieService.getMoviePosterURL());
+
+        String[] splitted = search.split("\\s+");
+        List<Movie> movies = new ArrayList();
+
+        for (int i = 0; i < splitted.length; i++) {
+            if (isCommonWord(splitted[i])) {
+                continue;
+            }
+
+            List<Movie> list = movieService.getLikeMovies(splitted[i]);
+            movies.addAll(list);
+        }
+        movies.sort(new Comparator<Movie>() {
+            @Override
+            public int compare(Movie m1, Movie m2)
+            {
+                return (int) (m1.getId() - m2.getId());
+            }
+        });
+
+
+        int numResults = Integer.parseInt(env.getProperty("num_search_results"));
+        movies = getTopMatchMovies(movies, numResults);
+
+        model.addAttribute("movies", movies);
+        return "search_movies";
+    }
+
+    @GetMapping("/search_shows")
+    private String getSearchTVShows(String search, Model model) {
+        model.addAttribute("showPosterURL", tvShowService.getTVShowPosterURL());
+
         String[] splited = search.split("\\s+");
         List<TVShow> shows = new ArrayList<>();
 
@@ -76,8 +90,41 @@ public class SearchController {
             }
         });
 
-        shows = getTopMatchShows(shows, 10);
-        return shows;
+        int numResults = Integer.parseInt(env.getProperty("num_search_results"));
+        shows = getTopMatchShows(shows, numResults);
+
+        model.addAttribute("shows", shows);
+        return "search_shows";
+    }
+
+    @GetMapping("search_people")
+    private String getSearchPeople(String search, Model model) {
+        model.addAttribute("personPhotoURL", personService.getPersonPhotoURL());
+
+        String[] splitted = search.split("\\s+");
+        List<Person> people = new ArrayList();
+
+        for (int i = 0; i < splitted.length; i++) {
+            if (isCommonWord(splitted[i])) {
+                continue;
+            }
+
+            List<Person> list = personService.getLikePeople(splitted[i]);
+            people.addAll(list);
+        }
+        people.sort(new Comparator<Person>() {
+            @Override
+            public int compare(Person p1, Person p2)
+            {
+                return (int) (p1.getId() - p2.getId());
+            }
+        });
+
+        int numResults = Integer.parseInt(env.getProperty("num_search_results"));
+        people = getTopMatchPeople(people, numResults);
+
+        model.addAttribute("people", people);
+        return "search_people";
     }
 
     private List<TVShow> getTopMatchShows(List<TVShow> shows, int n) {
@@ -128,30 +175,6 @@ public class SearchController {
             }
         }
         return maxShow;
-    }
-
-    private List<Movie> getSearchMovies(String search) {
-        String[] splitted = search.split("\\s+");
-        List<Movie> movies = new ArrayList();
-
-        for (int i = 0; i < splitted.length; i++) {
-            if (isCommonWord(splitted[i])) {
-                continue;
-            }
-
-            List<Movie> list = movieService.getLikeMovies(splitted[i]);
-            movies.addAll(list);
-        }
-        movies.sort(new Comparator<Movie>() {
-            @Override
-            public int compare(Movie m1, Movie m2)
-            {
-                return (int) (m1.getId() - m2.getId());
-            }
-        });
-
-        movies = getTopMatchMovies(movies, 10);
-        return movies;
     }
 
     private List<Movie> getTopMatchMovies(List<Movie> movies, int n) {
@@ -216,30 +239,6 @@ public class SearchController {
             }
         }
         return false;
-    }
-
-    private List<Person> getSearchPeople(String search) {
-        String[] splitted = search.split("\\s+");
-        List<Person> people = new ArrayList();
-
-        for (int i = 0; i < splitted.length; i++) {
-            if (isCommonWord(splitted[i])) {
-                continue;
-            }
-
-            List<Person> list = personService.getLikePeople(splitted[i]);
-            people.addAll(list);
-        }
-        people.sort(new Comparator<Person>() {
-            @Override
-            public int compare(Person p1, Person p2)
-            {
-                return (int) (p1.getId() - p2.getId());
-            }
-        });
-
-        people = getTopMatchPeople(people, 10);
-        return people;
     }
 
     private List<Person> getTopMatchPeople(List<Person> people, int n) {

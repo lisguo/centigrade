@@ -856,10 +856,9 @@ footer #followus a:hover {
     color: white;
 }
 
-#loading {
+.loading {
     position: relative;
     left: 50%;
-    display: none;
 }
 
 /* Large Devices, Wide Screens */
