@@ -129,7 +129,7 @@ public class MovieController {
         }
 
         List<Movie> outMovies = new ArrayList<Movie>();
-        int searchAmount = Integer.parseInt(env.getProperty("num_search_results"));
+        int searchAmount = Integer.parseInt(env.getProperty("num_all_content_results"));
         int end = page * searchAmount;
         int start = (page - 1) * searchAmount;
         for (int i = start; i < end && i < movies.size(); i++) {

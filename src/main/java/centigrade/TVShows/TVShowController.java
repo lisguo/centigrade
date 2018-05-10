@@ -139,7 +139,7 @@ public class TVShowController {
             Collections.reverse(shows);
         }
         List<TVShow> outShows = new ArrayList<TVShow>();
-        int searchAmount = Integer.parseInt(env.getProperty("num_search_results"));
+        int searchAmount = Integer.parseInt(env.getProperty("num_all_content_results"));
         int end = page * searchAmount;
         int start = (page - 1) * searchAmount;
         for (int i = start; i < end && i < shows.size(); i++) {
