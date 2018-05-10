@@ -158,4 +158,9 @@ public class AppController {
     public String termsandconditions(){
         return "termsandconditions";
     }
+
+    @GetMapping("/privacypolicy")
+    public String privacypolicy() {
+        return "privacypolicy";
+    }
 }
