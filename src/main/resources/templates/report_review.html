@@ -7,26 +7,16 @@
     <div class="content-row-block">
         <!--<div th:replace="fragments :: navbar"></div>-->
         <p th:utext="@{'&lt;br&gt;'}"></p>
+        <h1>Please enter your reason for reporting: </h1>
         <form action="/report_review" method="post">
-            <table>
-                <tr>
-                    <td th:text="@{'Please Enter Your Reason For Reporting: '}" />
-                </tr>
-                <tr>
-                    <td>
-                        <textarea rows="4" cols="50" maxlength="520" name="message">Reason
-                        </textarea>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input class="btn btn-outline-danger" type="submit"/>
-                    </td>
-                </tr>
-            </table>
+            <div class="form-group">
+                <textarea class="form-control" id="report-review" rows="3" name="message" placeholder="Reason for Reporting"></textarea>
+                <small id="report-review-small" class="form-text text-muted">Reporting somebody's review is serious! Please be sure about your report.</small>
+            </div>
             <input type="hidden" th:value="${review.id}" name="id" />
             <input th:if="${fromProfile != null}" type="hidden" th:value="@{true}" th:name="fromProfile" />
             <input th:if="${fromHomePage != null}" type="hidden" th:value="@{true}" th:name="fromHomePage" />
+            <button type="submit" class="btn btn-outline-danger">Submit</button>
         </form>
         <p th:utext="@{'&lt;br&gt;'}"></p>
     </div>
