@@ -27,6 +27,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 @Service
@@ -235,6 +236,44 @@ public class AccountService {
                     "Hello " + a.getFirstName() + ", \n\n"
                             + "Click this link to verify your account: "
                             + link + a.getNonce()
+            );
+            this.mailSender.send(message);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void sendResetPassword(String email){
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        char[] chars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+        StringBuilder sb = new StringBuilder(10);
+        Random random = new Random();
+        for (int i = 0; i < 10; i++) {
+            char c = chars[random.nextInt(chars.length)];
+            sb.append(c);
+        }
+        String pass = sb.toString();
+
+        Account a = accountRepository.findAccountByEmail(email);
+        SecureRandom sr = new SecureRandom();
+        byte[] salt = new byte[16];
+        sr.nextBytes(salt);
+        byte[] hashedPassword = hashPassword(pass, salt);
+
+        a.setSalt(salt);
+        a.setPassword(hashedPassword);
+
+        accountRepository.save(a);
+
+        try {
+            helper.setTo(email);
+            helper.setSubject("Centigrade : Reset Password");
+            helper.setText(
+                    "Hello " + "\n\n"
+                            + "Here is your temporary password: "
+                            + pass
             );
             this.mailSender.send(message);
         } catch (MessagingException e) {

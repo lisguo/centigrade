@@ -110,7 +110,7 @@ public class AccountController {
                 model.addAttribute("message", env.getProperty("login_error"));
                 return "edit_account";
             } else {
-                model.addAttribute("message", env.getProperty("register_email_success"));
+                model.addAttribute("message", "Successfully changed!");
             }
 
         } else {
@@ -167,7 +167,7 @@ public class AccountController {
         model.addAttribute("appName", env.getProperty("app_name"));
 
         String previousPage = (String) session.getAttribute("previousPage");
-        if(previousPage == null){
+        if(previousPage == null || previousPage.equals("http://localhost:8080/forgot_password")){
             return "index";
         }
         return "redirect:" + previousPage;
@@ -224,6 +224,23 @@ public class AccountController {
         model.addAttribute("account", a);
 
         return "account";
+    }
+
+    @GetMapping("/forgot_password")
+    public String forgotPasswordForm(){
+        return "forgot_password";
+    }
+
+    @PostMapping("/forgot_password")
+    public String forgotPasswordSubmit(@RequestParam String email, Model model){
+        if (!accountService.isValidLogin(email)) {
+            model.addAttribute("message", "Invalid email!");
+            return "forgot_password";
+        }
+
+        accountService.sendResetPassword(email);
+        model.addAttribute("message", "Success! Check your email for your temporary password!");
+        return "forgot_password";
     }
 
     @GetMapping("/profile")
