@@ -3,78 +3,98 @@
 <head th:replace="fragments :: head(Centigrade)"></head>
 
 <body>
-<nav th:replace="fragments :: navbar-relative"></nav>
-<div class="container container-fluid" id="signup">
-    <div id="intro">
-        <img src="../img/layout/flame-lg.png" alt=""/>
-        <span>Join millions of reviewers in the hottest reviewing site!</span>
+<nav th:replace="fragments :: navbar"></nav>
+<div class="container padding-top-bottom">
+    <div id="movie-top">
+        <h1 style="text-align: center;">Edit Account</h1>
     </div>
-    <div id="account-div">
-        <a th:text="@{${session.account.toString()}}" th:href="@{'/profile?id=' + ${session.account.id}}"></a>
-        <h6 th:text="@{'Email: ' + ${session.account.email}}"/>
-        <div id="form">
-            <!-- Alert -->
-            <div th:switch="${alert}">
-                <div th:case="invalidEmail" th:text="${message}" class="alert alert-danger" role="alert"/>
-                <div th:case="invalidPassword" th:text="${message}" class="alert alert-warning" role="alert"/>
-                <div th:case="success" th:text="${message}" class="alert alert-success" role="alert"/>
-            </div>
-            <div id="house"><h2>Account Settings</h2></div>
-            <form id="editAccountForm" action="/edit_account" method="post" name="editAccountForm">
-                <label for="email">
-                    <div class="label-text"><i class="fas fa-envelope fa-lg"></i></div>
-                    <input type="email" id="email" placeholder="Email address" name="email"/>
-                </label>
-                <label for="firstName">
-                    <div class="label-text"><i class="fas fa-address-book fa-lg"></i></div>
-                    <input type="text" id="firstName" placeholder="First name" name="firstName"/>
-                </label>
-                <label for="lastName">
-                    <div class="label-text"><i class="fas fa-address-card fa-lg"></i></div>
-                    <input type="text" id="lastName" placeholder="Last name" name="lastName"/>
-                </label>
-                <label for="oldPassword">
-                    <div class="label-text"><i class="fas fa-unlock fa-lg"></i></div>
-                    <input type="password" id="oldPassword" placeholder="Old Password" name="oldPassword"/>
-                </label>
-                <label for="password">
-                    <div class="label-text"><i class="fas fa-unlock fa-lg"></i></div>
-                    <input type="password" id="password" placeholder="Password" name="password"/>
-                </label>
-                <label for="passwordverify">
-                    <div class="label-text"><i class="fas fa-redo-alt fa-lg"></i></div>
-                    <input type="password" id="passwordverify" placeholder="Verify password" name="passwordVerify"/>
-                </label>
-                <!--<span><input type="checkbox" name="terms" value="terms" />I agree with the <a href="#">terms and conditions</a>.</span>-->
-                <!--<span><input type="checkbox" name="privacy" value="privacy" /> I agree with the <a href="#">privacy policy</a>.</span>-->
-                <button type="submit" value="submit"><i class="fab fa-telegram-plane"></i><span>Save Changes</span>
-                </button>
-            </form>
+    <div class="row">
+        <div th:switch="${alert}">
+            <div th:case="invalidEmail" th:text="${message}" class="alert alert-danger" role="alert"/>
+            <div th:case="invalidPassword" th:text="${message}" class="alert alert-warning" role="alert"/>
+            <div th:case="success" th:text="${message}" class="alert alert-success" role="alert"/>
         </div>
-        <button class="btn btn-outline-danger" data-toggle="modal" data-target="#delete-account-modal">Delete Account</button>
-        <!-- Delete Account Modal -->
-        <div class="modal fade" id="delete-account-modal" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Delete Account</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <h7>Are you sure you want to delete your account? This action cannot be undone.</h7>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <form action="delete_account" method="post">
-                            <input type='submit' class="btn btn-outline-danger" value="Delete"/>
-                        </form>
+        <form class="container-fluid"  id="editAccountForm" action="/edit_account" method="post" name="editAccountForm">
+            <div class="form-group row">
+                <label for="staticName" class="col-sm-2 col-form-label">Profile Name</label>
+                <div class="col-sm-10">
+                    <a th:href="@{'/profile?id=' + ${session.account.id}}">
+                        <p type="text" readonly="readonly" class="form-control-plaintext" id="staticName" th:text="@{${session.account.toString()}}" />
+                    </a>
+                </div>
+
+                <label for="staticEmail" class="col-sm-2 col-form-label">Email Address</label>
+                <div class="col-sm-10">
+                    <p id="staticEmail" th:text="@{'Email: ' + ${session.account.email}}" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col">
+                    <label class="sr-only" for="email">Change Email</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Change Email</div>
+                        </div>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="New Email address" />
                     </div>
                 </div>
             </div>
-        </div>
-
+            <div class="form-group row">
+                <div class="col">
+                    <label class="sr-only" for="firstName">Change First Name</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Change First Name</div>
+                        </div>
+                        <input type="text" class="form-control" id="firstName" name="firstName" placeholder="New First Name" />
+                    </div>
+                </div>
+                <div class="col">
+                    <label class="sr-only" for="lastName">Change Last Name</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Change Last Name</div>
+                        </div>
+                        <input type="text" class="form-control" id="lastName" name="lastName" placeholder="New Last Name" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col">
+                    <label class="sr-only" for="password">Change Password</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Change Password</div>
+                        </div>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="New Password" />
+                    </div>
+                </div>
+                <div class="col">
+                    <label class="sr-only" for="passwordverify">Verify New Password</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Verify New Password</div>
+                        </div>
+                        <input type="password" class="form-control" id="passwordverify" name="passwordVerify" placeholder="Verify New Password" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col">
+                    <label class="sr-only" for="oldPassword">Old Password</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Old Password</div>
+                        </div>
+                        <input type="password" class="form-control" id="oldPassword" name="oldPassword" placeholder="Old Password" />
+                    </div>
+                </div>
+            </div>
+            <button type="submit" value="submit" class="btn btn-danger mb-2"><i class="fas fa-save"></i>Save Changes</button>
+        </form>
+    </div>
+    <div class="row container">
+        <button class="btn btn-outline-danger" data-toggle="modal" data-target="#delete-account-modal">Delete Account</button>
     </div>
 </div>
 <p th:utext="@{'&lt;br&gt;'}"></p>
