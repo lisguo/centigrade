@@ -31,7 +31,7 @@
                             <a class="nav-link active" id="create-movie-tab" data-toggle="tab" href="#create-movie" role="tab" aria-controls="movie" aria-selected="true">Movie</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="create-show-tab" data-toggle="tab" href="#create-show" role="tab" aria-controls="contact" aria-selected="false">TV Show</a>
+                            <a class="nav-link" id="create-show-tab" data-toggle="tab" href="#create-show" role="tab" aria-controls="show" aria-selected="false">TV Show</a>
                         </li>
                     </ul>
                     <div class="tab-content" id="create-movie-tab-content">
@@ -94,7 +94,66 @@
                             </form>
                         </div>
                         <div class="tab-pane fade" id="create-show" role="tabpanel" aria-labelledby="create-show-tab">
-                            TODO: CREATE SHOW TAB
+                            <form id="create-show-form">
+                                <div class="form-group">
+                                    <label for="create-show-series-name">Series Name</label>
+                                    <input type="text" name="seriesName" class="form-control" id="create-show-series-name" placeholder="The Simpsons" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="create-show-first-aired">First Aired</label>
+                                    <div class='input-group date'>
+                                        <input id="create-show-first-aired" name="firstAired" placeholder="17 Dec 1989"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="create-show-genre">Genres</label>
+                                    <select class="form-control selectpicker" name="genres" id="create-show-genre" data-live-search="true" multiple="multiple" title="Animation, Comedy, Family">
+                                        <option th:each="genre : ${genreList}"
+                                                th:text="${genre.toString()}"/>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="create-show-language">Language</label>
+                                    <select class="form-control selectpicker" name="language" id="create-show-language" data-live-search="true" title="ENGLISH">
+                                        <option>ENGLISH</option>
+                                        <option>SPANISH</option>
+                                        <option>FRENCH</option>
+                                        <option>GERMAN</option>
+                                        <option>POLISH</option>
+                                        <option>JAPANESE</option>
+                                        <option>CHINESE</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="create-show-network">Network</label>
+                                    <input type="text" name="network" class="form-control" id="create-show-network" placeholder="FOX (US)" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="create-show-overview">Overview</label>
+                                    <textarea class="form-control" name="overview" id="create-show-overview" placeholder="Set in Springfield, the average American town, the show focuses on the antics and everyday adventures of the Simpson family..." />
+                                </div>
+                                <div class="form-group">
+                                    <label for="create-show-runtime">Runtime (In minutes)</label>
+                                    <input type="text" name="runtime" class="form-control" id="create-show-runtime" placeholder="25" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="create-show-contentRating">Rating</label>
+                                    <input type="text" name="contentRating" class="form-control" id="create-show-contentRating" placeholder="TV-PG" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="create-show-status">Status</label>
+                                    <select class="form-control selectpicker" name="status" id="create-show-status" data-live-search="true" title="Continuing">
+                                        <option>Continuing</option>
+                                        <option>Ended</option>
+                                        <option>Not Aired</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="create-show-poster-image">Poster Image</label>
+                                    <input type="file" name="posterImage" id="create-show-poster-image"/>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Submit New TV Show</button>
+                            </form>
                         </div>
                     </div>
                 </div>

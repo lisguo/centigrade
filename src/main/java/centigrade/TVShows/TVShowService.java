@@ -1,13 +1,21 @@
 package centigrade.TVShows;
 
+import centigrade.ContentIdGenerator;
+import centigrade.content.Content;
+import centigrade.content.ContentRepository;
 import centigrade.people.Person;
+import org.apache.commons.net.ftp.FTP;
+import org.apache.commons.net.ftp.FTPClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -23,10 +31,84 @@ public class TVShowService {
     private EpisodeRepository episodeRepository;
 
     @Autowired
+    private ContentRepository contentRepository;
+
+    @Autowired
     private Environment env;
 
     @Autowired
     JdbcTemplate template;
+
+    public TVShow addShow(String seriesName, String contentRating, String firstAired, int numSeasons, String genres,
+                          String language, String network, String overview, String runtime,
+                          String status) throws DuplicateShowException {
+
+        if (tvShowRepository.findTVShowBySeriesName(seriesName) != null){
+            throw new DuplicateShowException();
+        }
+
+        ContentIdGenerator generator = new ContentIdGenerator(template);
+        long generatedId = generator.genId().longValue();
+
+        Content c = new Content();
+        c.setId(generatedId);
+        contentRepository.save(c);
+
+        TVShow show = new TVShow();
+        show.setId(generatedId);
+        show.setSeriesName(seriesName);
+        show.setContentRating(contentRating);
+        show.setFirstAired(firstAired);
+        show.setNumSeasons(numSeasons);
+        show.setGenres(genres);
+        show.setLanguage(language);
+        show.setNetwork(network);
+        show.setOverview(overview);
+        show.setRuntime(runtime);
+        show.setStatus(status);
+        tvShowRepository.save(show);
+
+        return show;
+    }
+
+    public boolean uploadShowPoster(TVShow show, MultipartFile file) {
+        if (!file.isEmpty()) {
+            FTPClient con = new FTPClient();
+            try {
+                byte[] bytes = file.getBytes();
+                System.out.println(bytes.length);
+                if (bytes.length > 1048574) {
+                    return false;
+                }
+
+                con.connect("130.245.155.104");
+
+                if (con.login("simrit", "CS69AAux")) {
+                    con.enterLocalPassiveMode();
+
+                    con.setFileType(FTP.BINARY_FILE_TYPE);
+                    ByteArrayInputStream in = new ByteArrayInputStream(bytes);
+                    con.storeFile("tvposters/tvposter" + show.getId() + ".jpg", in);
+                    in.close();
+                    con.logout();
+                    con.disconnect();
+
+                    return true;
+                }
+            } catch (IOException e) {
+                return false;
+            } finally {
+                if (con.isConnected()) {
+                    try {
+                        con.disconnect();
+                    } catch (IOException ioe) {
+                        // do nothing
+                    }
+                }
+            }
+        }
+        return false;
+    }
 
     public List<TVShow> getAllTVShows() {
         return tvShowRepository.findAll();

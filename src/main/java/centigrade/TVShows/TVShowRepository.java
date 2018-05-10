@@ -11,6 +11,8 @@ public interface TVShowRepository extends CrudRepository<TVShow, Long> {
 
     List<TVShow> findAllByOrderBySeriesName();
 
+    TVShow findTVShowBySeriesName(String seriesName);
+
     TVShow findTVShowById(long id);
 
     TVShow save(TVShow t);

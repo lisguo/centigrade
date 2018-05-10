@@ -1,8 +1,6 @@
 $(document).ready(function(){
-    $('#create-movie-released').datepicker({
-        uiLibrary: 'bootstrap4',
-        format: 'dd mmm yyyy'
-    });
+    initDatePickers();
+
     $('#create-movie-form').submit(function(event) {
         event.preventDefault();
 
@@ -21,6 +19,25 @@ $(document).ready(function(){
             document.getElementById('create-movie-form').reset();
         });
     });
+    $('#create-show-form').submit(function(event) {
+        event.preventDefault();
+
+        var formData = new FormData(this);
+
+        $.ajax({
+            url : '/create_show',
+            data : formData,
+            type : 'POST',
+            method: 'POST',
+            cache: false,
+            contentType: false,
+            processData: false
+        }).done(function(data) {
+            $('#notification').html(data);
+            document.getElementById('create-show-form').reset();
+        });
+    });
+
 
     $('#admin-reported-users-tab').click(function(){
         showAllReportedUsers();
@@ -146,5 +163,16 @@ function rejectApplication(id){
     }).done(function(data) {
         $('#notification').html(data);
         showAllApplications();
+    });
+}
+
+function initDatePickers(){
+    $('#create-movie-released').datepicker({
+        uiLibrary: 'bootstrap4',
+        format: 'dd mmm yyyy'
+    });
+    $('#create-show-first-aired').datepicker({
+        uiLibrary: 'bootstrap4',
+        format: 'dd mmm yyyy'
     });
 }

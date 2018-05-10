@@ -1,6 +1,9 @@
 package centigrade.admin;
 
 import centigrade.Genre;
+import centigrade.TVShows.DuplicateShowException;
+import centigrade.TVShows.TVShow;
+import centigrade.TVShows.TVShowService;
 import centigrade.accounts.Account;
 import centigrade.accounts.AccountService;
 import centigrade.accounts.AccountType;
@@ -32,6 +35,8 @@ public class AdminController {
     @Autowired
     private MovieService movieService;
     @Autowired
+    private TVShowService showService;
+    @Autowired
     private AccountService accountService;
     @Autowired
     private CriticApplicationService applicationService;
@@ -48,6 +53,29 @@ public class AdminController {
         List<Genre> genreList = Arrays.asList(Genre.values());
         model.addAttribute("genreList", genreList);
         return "admin";
+    }
+
+    @PostMapping("create_show")
+    public String createShow(@RequestParam String seriesName,
+                              @RequestParam String contentRating, @RequestParam String firstAired,
+                              @RequestParam String genres, @RequestParam String language,
+                              @RequestParam String network, @RequestParam String overview,
+                              @RequestParam String runtime, @RequestParam String status,
+                              @RequestParam(value="posterImage", required=false) MultipartFile posterImage,
+                              Model model){
+        String successMsg = env.getProperty("create_show_success");
+        String duplicateMsg = env.getProperty("create_show_duplicate_error");
+        try {
+            // MAKE ALL NEW SHOWS ONLY HAVE 1 SEASON. TODO: ADD SEASONS IN FORM
+            TVShow show = showService.addShow(seriesName, contentRating, firstAired, 1, genres, language, network, overview, runtime, status);
+            showService.uploadShowPoster(show, posterImage);
+            model.addAttribute("notificationTitle", "Success!");
+            model.addAttribute("notificationDetails", successMsg);
+        } catch (DuplicateShowException e){
+            model.addAttribute("notificationTitle", "Error!");
+            model.addAttribute("notificationDetails", duplicateMsg);
+        }
+        return "notification_alert";
     }
 
     @PostMapping("create_movie")
