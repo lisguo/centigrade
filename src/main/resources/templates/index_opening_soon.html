@@ -1,0 +1,15 @@
+<table class="table table-striped" id="latest-table">
+    <tbody>
+    <tr th:each="movie : ${latest}">
+        <td>
+            <img th:src="@{${posterURL} + 'poster' + ${movie.id} + '.jpg'}" width="90" height="132"/>
+        </td>
+        <td>
+            <a th:href="@{'/movie?id=' + ${movie.id}}" th:text="${movie.title}"/>
+        </td>
+        <td>
+            <p th:text="@{'Opens: ' + ${movie.released}}"></p>
+        </td>
+    </tr>
+    </tbody>
+</table>
