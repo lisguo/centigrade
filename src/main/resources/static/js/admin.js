@@ -3,9 +3,23 @@ $(document).ready(function(){
         uiLibrary: 'bootstrap4',
         format: 'dd mmm yyyy'
     });
-    $('#critic-application-form').submit(function(event) {
+    $('#create-movie-form').submit(function(event) {
         event.preventDefault();
-        submitMovieForm();
+
+        var formData = new FormData(this);
+
+        $.ajax({
+            url : '/create_movie',
+            data : formData,
+            type : 'POST',
+            method: 'POST',
+            cache: false,
+            contentType: false,
+            processData: false
+        }).done(function(data) {
+            $('#notification').html(data);
+            document.getElementById('create-movie-form').reset();
+        });
     });
 
     $('#admin-reported-users-tab').click(function(){
@@ -20,21 +34,6 @@ $(document).ready(function(){
         showAllApplications();
     });
 });
-/* CREATE CONTENT */
-function submitMovieForm(){
-    var formData = $('#create-movie-form').serialize();
-    formData.append("posterImage", $('#create-movie-poster-image')[0].files[0]);
-
-    $.ajax({
-        type : 'POST',
-        url : '/create_movie',
-        data : formData,
-        contentType: false,
-        processData: false
-    }).done(function(data) {
-        $('#notification').html(data);
-    });
-}
 
 /* REPORTED USERS */
 function showAllReportedUsers(){
