@@ -48,9 +48,6 @@ public class MovieController {
     public String displayMovies(Model model,
                                 @RequestParam(defaultValue = "TITLE")String sortBy,
                                 @RequestParam(defaultValue = "ASCENDING") String sortDirection){
-        //String sortBy = "TITLE";
-        //String sortDirection = "ASCENDING";
-
         model.addAttribute("sortCriteria", EnumSet.allOf(MovieSortCriteria.class));
         model.addAttribute("sortDirections", EnumSet.allOf(MovieSortDirection.class));
         model.addAttribute("sortBy", sortBy);
@@ -64,7 +61,6 @@ public class MovieController {
                                    @RequestParam(defaultValue = "1") int page) {
 
         List<Movie> movies;
-//        System.out.println(sortBy);
 
         if (sortBy.equals("TITLE")) {
             movies = movieService.getAllMoviesSortedByTitle();
@@ -242,6 +238,9 @@ public class MovieController {
         }
 
         model.addAttribute("reviewsCounted", movie.getTimesRated());
+
+        Collections.reverse(userReviews);
+        Collections.reverse(criticReviews);
         model.addAttribute("userReviews", userReviews);
         model.addAttribute("criticReviews", criticReviews);
 

@@ -233,6 +233,8 @@ public class TVShowController {
         }
 
         model.addAttribute("reviewsCounted", show.getTimesRated());
+        Collections.reverse(userReviews);
+        Collections.reverse(criticReviews);
         model.addAttribute("userReviews", userReviews);
         model.addAttribute("criticReviews", criticReviews);
 
