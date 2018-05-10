@@ -3,6 +3,8 @@ $(document).ready(function(){
     loadMostPopularMovies();
     loadOpeningSoon();
     loadTopBoxOffice();
+
+    console.log($(document).height());
 });
 
 function loadTopBoxOffice(){

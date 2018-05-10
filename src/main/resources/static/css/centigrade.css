@@ -560,7 +560,19 @@ nav .logo-container:hover, #logo img:hover {
     margin: 1em 0 1em 0;
 }
 
-#movie-top h1:before, .banner:before {
+.banner:before {
+    content: "";
+    position: absolute;
+    height: 0;
+    width: 0;
+    border-right: 20px solid white;
+    border-bottom: 20px solid maroon;
+    background-color: maroon;
+    right: 0;
+    top:0;
+}
+
+#movie-top h1:before {
     content: "";
     position: absolute;
     height: 0;
