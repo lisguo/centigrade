@@ -15,7 +15,11 @@
                 <tr>
                     <td>
                         <b>Rating:</b>
-                        <input type="range" min="0" max="100" step="1" th:value="${review.rating}" name="rating"/>
+                        <div class="form-group">
+                            <img class="rating-icon" th:src="@{/img/ratings/snow.png}" alt="Cold" />
+                            <input type="range" min="0" max="100" step="20" th:value="${review.rating}" name="rating"/>
+                            <img class="rating-icon" th:src="@{/img/ratings/flame.png}" alt="Hot" />
+                        </div>
                     </td>
                 </tr>
                 <tr>
