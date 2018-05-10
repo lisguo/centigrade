@@ -29,6 +29,7 @@ public class ContentIdGenerator {
         });
 
         template.execute("DELETE FROM casttocontent where contentId=" + id + ";");
+        template.execute("DELETE FROM episodes where seriesid=" + id + ";");
         return id;
     }
 
