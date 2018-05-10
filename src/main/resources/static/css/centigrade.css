@@ -527,13 +527,14 @@ nav .logo-container:hover, #logo img:hover {
     width: 100%;
     position: relative;
     overflow: hidden;
-    padding: 1em;
+    padding: 0;
+    margin: 0;
     text-align: center;
 }
 
 #movie-top div {
     min-width: 80%;
-    height: 80vh;
+    height: 110vh;
     overflow: hidden;
     position: relative;
     -webkit-box-shadow: 0px 0px 15px 5px rgba(0,0,0,0.2);

@@ -3,10 +3,10 @@
 <head th:replace="fragments :: head(${show.seriesName})"></head>
 <body>
 <div th:replace="fragments :: navbar"></div>
+<div id="movie-top" class="container">
+    <h1 th:text="${show.seriesName}"/>
+</div>
 <div class="container container-fluid">
-    <div id="movie-top" class="container">
-        <h1 th:text="${show.seriesName}"/>
-    </div>
     <div class="movie-information container-fluid">
         <div class="movie-first">
             <div class="movie-photo-wrapper">

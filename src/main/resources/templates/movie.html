@@ -4,13 +4,13 @@
 
 <body>
 <div th:replace="fragments :: navbar"></div>
-<div class="container container-fluid">
-    <div id="movie-top" class="container">
-        <div th:if="${movie.hasTrailer == 1}">
-            <video th:src="@{${trailerURL} + 'trailer' + ${movie.id} + '.mp4'}" type="video/mp4" controls="controls"></video>
-        </div>
-        <h1 th:text="${movie.title}"/>
+<div id="movie-top" class="container-fluid">
+    <div th:if="${movie.hasTrailer == 1}">
+        <video th:src="@{${trailerURL} + 'trailer' + ${movie.id} + '.mp4'}" type="video/mp4" controls="controls" autoplay="autoplay" muted="muted"></video>
     </div>
+    <h1 class="container" th:text="${movie.title}"/>
+</div>
+<div class="container container-fluid">
     <div class="movie-information container-fluid">
         <div class="movie-first">
             <div class="movie-photo-wrapper">
