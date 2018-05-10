@@ -107,6 +107,13 @@ public class AccountService {
         template.update(query, args);
     }
 
+    public void deleteWishList(long accountId){
+        String query = "delete from wishlistitems where accountId = ?";
+        Object[] args = new Object[] {accountId};
+
+        template.update(query, args);
+    }
+
     public void removeFromNotInterestedList(long accountId, long contentID){
         String query = "delete from notinterestedlistitems where accountId = ? and contentId = ?";
         Object[] args = new Object[] {accountId, contentID};
@@ -189,8 +196,8 @@ public class AccountService {
         return a;
     }
 
-    public void deleteAccount(long id){
-        accountRepository.delete(id);
+    public void deleteAccount(Account a){
+        accountRepository.delete(a);
     }
 
     public void updateAccount(Account a, String email, String password, String firstName, String lastName) {

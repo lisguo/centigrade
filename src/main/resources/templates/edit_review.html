@@ -6,6 +6,7 @@
 <div class="container container-fluid">
     <div class="content-row-block">
         <!--<div th:replace="fragments :: navbar"></div>-->
+        <p th:utext="@{'&lt;br&gt;'}"></p>
         <form action="/edit_review" method="post">
             <table>
                 <tr>
@@ -34,6 +35,7 @@
             <input th:if="${fromProfile != null}" type="hidden" th:value="@{true}" th:name="fromProfile" />
             <input th:if="${fromHomePage != null}" type="hidden" th:value="@{true}" th:name="fromHomePage" />
         </form>
+        <p th:utext="@{'&lt;br&gt;'}"></p>
     </div>
 </div>
 <div th:replace="fragments :: footer"></div>

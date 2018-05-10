@@ -17,5 +17,5 @@ public interface AccountRepository extends CrudRepository<Account, Long> {
 
     Account save(Account a);
 
-    void delete(Account m);
+    void delete(Account a);
 }
