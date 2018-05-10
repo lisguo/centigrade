@@ -173,6 +173,6 @@ function initDatePickers(){
     });
     $('#create-show-first-aired').datepicker({
         uiLibrary: 'bootstrap4',
-        format: 'dd mmm yyyy'
+        format: 'yyyy-mm-d'
     });
 }
