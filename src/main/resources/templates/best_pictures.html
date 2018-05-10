@@ -5,7 +5,7 @@
 <body>
 <div th:replace="fragments :: navbar"></div>
 <div class="container container-fluid">
-    <h1>Best Picture Winners</h1>
+    <h1 style="text-align: center;" class="padding-top-bottom">Best Picture Winners</h1>
 
     <table class="table table-striped" id="movies-table">
         <thead>
@@ -16,12 +16,37 @@
         </thead>
         <tbody>
         <tr th:each="movie : ${movies}">
-            <div th:if="${movie.hasBeenRated()}">
-                <td th:text="@{${decimalFormat.format(movie.getOverallRating())} + '%'}"/>
-            </div>
-            <div th:unless="${movie.hasBeenRated()}">
-                <td th:text="@{'N/A'}"/>
-            </div>
+            <td colspan="2" th:if="${movie.hasBeenRated()}">
+                <div th:if="${decimalFormat.format(movie.getOverallRating())} &lt; 20.0">
+                    <img style="padding-right: 15px;" th:src="@{/img/ratings/snow.png}" alt="Cold" />
+                    <p th:text="@{${decimalFormat.format(movie.getOverallRating())} + '%'}"/>
+                </div>
+                <div th:unless="${decimalFormat.format(movie.getOverallRating())} &lt; 20.0">
+                    <div th:if="${decimalFormat.format(movie.getOverallRating())} &lt; 40.0">
+                        <img style="padding-right: 15px;" th:src="@{/img/ratings/cloudy.png}" alt="Cloudy" />
+                        <p th:text="@{${decimalFormat.format(movie.getOverallRating())} + '%'}"/>
+                    </div>
+                    <div th:unless="${decimalFormat.format(movie.getOverallRating())} &lt; 40.0">
+                        <div th:if="${decimalFormat.format(movie.getOverallRating())} &lt; 60.0">
+                            <img style="padding-right: 15px;" th:src="@{/img/ratings/mediocre.png}" alt="Mediocre" />
+                            <p th:text="@{${decimalFormat.format(movie.getOverallRating())} + '%'}"/>
+                        </div>
+                        <div th:unless="${decimalFormat.format(movie.getOverallRating())} &lt; 60.0">
+                            <div th:if="${decimalFormat.format(movie.getOverallRating())} &lt; 80.0">
+                                <img style="padding-right: 15px;" th:src="@{/img/ratings/sun.png}" alt="Sunny" />
+                                <p th:text="@{${decimalFormat.format(movie.getOverallRating())} + '%'}"/>
+                            </div>
+                            <div th:unless="${decimalFormat.format(movie.getOverallRating())} &lt; 80.0">
+                                <img style="padding-right: 15px;" th:src="@{/img/ratings/flame.png}" alt="Flame" />
+                                <p th:text="@{${decimalFormat.format(movie.getOverallRating())} + '%'}"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td colspan="2" th:unless="${movie.hasBeenRated()}">
+                <p th:text="@{'N/A'}"/>
+            </td>
             <td>
                 <img th:src="@{${posterURL} + 'poster' + ${movie.id} + '.jpg'}" width="90" height="132"/>
             </td>
