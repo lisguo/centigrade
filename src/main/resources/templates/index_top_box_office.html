@@ -1,22 +1,47 @@
-<table class="table table-striped" id="topboxoffice-table">
-    <tbody>
-    <tr th:each="movie : ${topBoxOffice}">
-        <div th:if="${movie.hasBeenRated()}">
-            <td th:text="@{${decimalFormat.format(movie.getOverallRating())} + '%'}"/>
+<div class="row">
+    <div class="col-sm-6" th:each="movie : ${topBoxOffice}">
+        <div class="card" style="margin: 0.5em 0 0.5em 0;">
+            <img class="card-img-top" th:src="@{${posterURL} + 'poster' + ${movie.id} + '.jpg'}" alt="Card image cap" />
+            <div class="card-body">
+                <h5><a style="text-align: center; " th:href="@{'/movie?id=' + ${movie.id}}" class="card-title" th:text="${movie.title}" /></h5>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <p class="center" th:if="${movie.hasBeenRated()}">
+                            <div th:if="${decimalFormat.format(movie.getOverallRating())} &lt; 20.0">
+                                <img style="padding-right: 15px;" th:src="@{/img/ratings/snow.png}" alt="Cold" />
+                            <p th:text="@{${decimalFormat.format(movie.getOverallRating())} + '%'}"/>
+                            </div>
+                            <div th:unless="${decimalFormat.format(movie.getOverallRating())} &lt; 20.0">
+                                <div th:if="${decimalFormat.format(movie.getOverallRating())} &lt; 40.0">
+                                    <img style="padding-right: 15px;" th:src="@{/img/ratings/cloudy.png}" alt="Cloudy" />
+                                    <p th:text="@{${decimalFormat.format(movie.getOverallRating())} + '%'}"/>
+                                </div>
+                                <div th:unless="${decimalFormat.format(movie.getOverallRating())} &lt; 40.0">
+                                    <div th:if="${decimalFormat.format(movie.getOverallRating())} &lt; 60.0">
+                                        <img style="padding-right: 15px;" th:src="@{/img/ratings/mediocre.png}" alt="Mediocre" />
+                                        <p th:text="@{${decimalFormat.format(movie.getOverallRating())} + '%'}"/>
+                                    </div>
+                                    <div th:unless="${decimalFormat.format(movie.getOverallRating())} &lt; 60.0">
+                                        <div th:if="${decimalFormat.format(movie.getOverallRating())} &lt; 80.0">
+                                            <img style="padding-right: 15px;" th:src="@{/img/ratings/sun.png}" alt="Sunny" />
+                                            <p th:text="@{${decimalFormat.format(movie.getOverallRating())} + '%'}"/>
+                                        </div>
+                                        <div th:unless="${decimalFormat.format(movie.getOverallRating())} &lt; 80.0">
+                                            <img style="padding-right: 15px;" th:src="@{/img/ratings/flame.png}" alt="Flame" />
+                                            <p th:text="@{${decimalFormat.format(movie.getOverallRating())} + '%'}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </p>
+                        <p class="center" th:unless="${movie.hasBeenRated()}" th:text="@{'N/A'}"></p>
+                    </div>
+                    <div class="col-sm-8">
+                        <p class="card-text" th:text="@{'Year: ' + ${movie.year}}"></p>
+                        <p class="card-text" th:text="@{'Box Office: ' + ${movie.boxoffice}}"></p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div th:unless="${movie.hasBeenRated()}">
-            <td th:text="@{'N/A'}"/>
-        </div>
-        <td>
-            <img th:src="@{${posterURL} + 'poster' + ${movie.id} + '.jpg'}" width="90" height="132"/>
-        </td>
-        <td>
-            <a th:href="@{'/movie?id=' + ${movie.id}}" th:text="${movie.title}"/>
-        </td>
-        <td>
-            <p th:text="@{'Year: ' + ${movie.year}}"></p>
-            <p th:text="@{'Box Office: ' + ${movie.boxoffice}}"></p>
-        </td>
-    </tr>
-    </tbody>
-</table>
+    </div>
+</div>

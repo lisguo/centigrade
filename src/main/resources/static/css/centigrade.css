@@ -163,6 +163,7 @@ nav .logo-container:hover, #logo img:hover {
     display: table;
     min-height: 50vh;
     padding: 2em 0 2em 0;
+    margin: 0;
 }
 
 #featured-section a {
@@ -550,7 +551,7 @@ nav .logo-container:hover, #logo img:hover {
     object-fit: fill;
 }
 
-#movie-top h1 {
+#movie-top h1, .banner {
     position: relative;
     padding: 0.5em;
     background: #dc3545;
@@ -559,7 +560,7 @@ nav .logo-container:hover, #logo img:hover {
     margin: 1em 0 1em 0;
 }
 
-#movie-top h1:before {
+#movie-top h1:before, .banner:before {
     content: "";
     position: absolute;
     height: 0;
@@ -702,6 +703,14 @@ nav .logo-container:hover, #logo img:hover {
 
 .rating-user {
     width: 100%;
+    text-align: center;
+}
+
+.center {
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     text-align: center;
 }
 

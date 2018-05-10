@@ -45,7 +45,37 @@
         <span class="sr-only">Next</span>
     </a>
 </div>
-<div id="featured-section">
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <h3 class="padding-top-bottom banner">Opening Soon</h3>
+            <div id="index-opening-soon">
+                <img class="loading padding-top-bottom" th:src="@{/img/icons/loading.gif}" alt="" />
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <h3 class="padding-top-bottom banner">Most Popular Movies (<a style="color:white;" th:href="@{'/movies?sortBy=POPULAR&amp;sortDirection=DESCENDING'}">View All</a>)</h3>
+            <div id="index-most-popular-movies">
+                <img class="loading padding-top-bottom" th:src="@{/img/icons/loading.gif}" alt="" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <h3 class="padding-top-bottom banner">Top Box Office (<a style="color:white;" th:href="@{'/movies?sortBy=BOX_OFFICE&amp;sortDirection=DESCENDING'}">View All</a>)</h3>
+            <div id="index-top-box-office">
+                <img class="loading padding-top-bottom" th:src="@{/img/icons/loading.gif}" alt="" />
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <h3 class="padding-top-bottom banner">Latest Critic Reviews</h3>
+            <div id="index-latest-critic-reviews">
+                <img class="loading padding-top-bottom" th:src="@{/img/icons/loading.gif}" alt="" />
+            </div>
+        </div>
+    </div>
+</div>
+<div id="featured-section" class="row">
     <a href="/movie?id=625">
         <div id="featured">
             <div>
@@ -59,7 +89,7 @@
         </div>
     </a>
 </div>
-<div id="critic-section">
+<div id="critic-section" class="row">
     <div id="becomeacritic">
         <p>Movie reviews come from publications or individual critics that have been selected by the centigrade® staff.
             The criteria for inclusion for both publications and critics are separated across three divisions; print,
@@ -75,29 +105,6 @@
         </div>
     </div>
 </div>
-
-<h3>TOP BOX OFFICE (<a th:href="@{'/movies?sortBy=BOX_OFFICE&amp;sortDirection=DESCENDING'}">View All</a>)</h3>
-<div id="index-top-box-office">
-    <img class="loading padding-top-bottom" th:src="@{/img/icons/loading.gif}" alt="" />
-</div>
-
-<h3>MOST POPULAR MOVIES (<a th:href="@{'/movies?sortBy=POPULAR&amp;sortDirection=DESCENDING'}">View All</a>)</h3>
-<div id="index-most-popular-movies">
-    <img class="loading padding-top-bottom" th:src="@{/img/icons/loading.gif}" alt="" />
-</div>
-
-<h3>Opening Soon</h3>
-<div id="index-opening-soon">
-    <img class="loading padding-top-bottom" th:src="@{/img/icons/loading.gif}" alt="" />
-</div>
-
-
-<h3>LATEST CRITIC REVIEWS</h3>
-<div id="index-latest-critic-reviews">
-    <img class="loading padding-top-bottom" th:src="@{/img/icons/loading.gif}" alt="" />
-</div>
-
-
 <footer th:replace="fragments :: footer"></footer>
 <script type="text/javascript" th:src="@{/js/index.js}"></script>
 </body>
