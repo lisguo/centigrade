@@ -624,7 +624,6 @@ nav .logo-container:hover, #logo img:hover {
     overflow: hidden;
     text-align: center;
     margin-bottom: 1em;
-    box-shadow: 0px 3px 20px 1px #dc3545;
 }
 
 .movie-photo-wrapper img {

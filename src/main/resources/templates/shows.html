@@ -33,19 +33,44 @@
     <!-- SHOW RESULTS -->
     <table class="table table-striped">
         <thead>
-            <th scope="col">Rating</th>
+            <th scope="col" colspan="2">Rating</th>
             <th scope="col"></th>
             <th scope="col">Title</th>
             <th scope="col">Info</th>
         </thead>
         <tbody>
             <tr th:each="show : ${shows}">
-                <div th:if="${show.hasBeenRated()}">
-                    <td th:text="@{${decimalFormat.format(show.getOverallRating())} + '%'}"/>
-                </div>
-                <div th:unless="${show.hasBeenRated()}">
-                    <td th:text="@{'N/A'}"/>
-                </div>
+                <td colspan="2" th:if="${show.hasBeenRated()}">
+                    <div th:if="${decimalFormat.format(show.getOverallRating())} &lt; 20.0">
+                        <img style="padding-right: 15px;" th:src="@{/img/ratings/snow.png}" alt="Cold" />
+                        <p th:text="@{${decimalFormat.format(show.getOverallRating())} + '%'}"/>
+                    </div>
+                    <div th:unless="${decimalFormat.format(show.getOverallRating())} &lt; 20.0">
+                        <div th:if="${decimalFormat.format(show.getOverallRating())} &lt; 40.0">
+                            <img style="padding-right: 15px;" th:src="@{/img/ratings/cloudy.png}" alt="Cloudy" />
+                            <p th:text="@{${decimalFormat.format(show.getOverallRating())} + '%'}"/>
+                        </div>
+                        <div th:unless="${decimalFormat.format(show.getOverallRating())} &lt; 40.0">
+                            <div th:if="${decimalFormat.format(show.getOverallRating())} &lt; 60.0">
+                                <img style="padding-right: 15px;" th:src="@{/img/ratings/mediocre.png}" alt="Mediocre" />
+                                <p th:text="@{${decimalFormat.format(show.getOverallRating())} + '%'}"/>
+                            </div>
+                            <div th:unless="${decimalFormat.format(show.getOverallRating())} &lt; 60.0">
+                                <div th:if="${decimalFormat.format(show.getOverallRating())} &lt; 80.0">
+                                    <img style="padding-right: 15px;" th:src="@{/img/ratings/sun.png}" alt="Sunny" />
+                                    <p th:text="@{${decimalFormat.format(show.getOverallRating())} + '%'}"/>
+                                </div>
+                                <div th:unless="${decimalFormat.format(show.getOverallRating())} &lt; 80.0">
+                                    <img style="padding-right: 15px;" th:src="@{/img/ratings/flame.png}" alt="Flame" />
+                                    <p th:text="@{${decimalFormat.format(show.getOverallRating())} + '%'}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td colspan="2" th:unless="${show.hasBeenRated()}">
+                    <p th:text="@{'N/A'}"/>
+                </td>
                 <td>
                     <img th:src="@{${posterURL} + 'tvposter' + ${show.id} + '.jpg'}" width="90" height="132"/>
                 </td>
