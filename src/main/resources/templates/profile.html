@@ -189,7 +189,7 @@
                                     </p>
                                 </div>
                             </div>
-                            <div class="card" th:unless="${item.getType().equals('movie')}">
+                            <div class="card" style="margin-bottom: 0.5em;" th:unless="${item.getType().equals('movie')}">
                                 <img class="card-img-top" th:src="@{${tvPosterURL} + 'tvposter' + ${item.getId()} + '.jpg'}" alt="Show Image" />
                                 <div class="card-body">
                                     <h5 class="card-title center-p"><a th:href="@{'/' + ${item.getType()} + '?id=' + ${item.getId()}}" th:text="${item.getTitle()}"/></h5>
@@ -211,31 +211,34 @@
                         <p class="center-p">NO ITEMS</p>
                     </div>
 
-                    <table>
-                        <td th:each="ni_item : ${notInterestedList}">
-                            <table>
-                                <tr th:if="${session.account != null and user.id == session.account.id}">
-                                    <form action="remove_from_not_interested_list" method="post">
+                    <div class="row padding-top-bottom">
+                        <div class="col-sm-4" th:each="ni_item : ${notInterestedList}">
+                            <div class="card" th:if="${ni_item.getType().equals('movie')}">
+                                <img class="card-img-top" th:src="@{${posterURL} + 'poster' + ${ni_item.getId()} + '.jpg'}" alt="Movie Image" />
+                                <div class="card-body">
+                                    <h5 class="card-title center-p"><a th:href="@{'/' + ${ni_item.getType()} + '?id=' + ${ni_item.getId()}}" th:text="${ni_item.getTitle()}"/></h5>
+                                    <p th:if="${session.account != null and user.id == session.account.id}">
+                                        <form style="text-align:center;" action="remove_from_not_interested_list" method="post">
+                                            <input type="hidden" th:value="${ni_item.getId()}" name="contentID" />
+                                            <button class="btn btn-outline-danger" type="submit" value="X"><i class="fas fa-trash"></i> Delete</button>
+                                        </form>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="card" th:unless="${ni_item.getType().equals('movie')}">
+                                <img class="card-img-top" th:src="@{${tvPosterURL} + 'tvposter' + ${ni_item.getId()} + '.jpg'}" alt="Show Image" />
+                                <div class="card-body">
+                                    <h5 class="card-title center-p"><a th:href="@{'/' + ${ni_item.getType()} + '?id=' + ${ni_item.getId()}}" th:text="${ni_item.getTitle()}"/></h5>
+                                    <p th:if="${session.account != null and user.id == session.account.id}">
+                                    <form style="text-align:center;" action="remove_from_not_interested_list" method="post">
                                         <input type="hidden" th:value="${ni_item.getId()}" name="contentID" />
-                                        <input class="btn btn-outline-danger" type="submit" value="X" />
+                                        <button class="btn btn-outline-danger" type="submit" value="X"><i class="fas fa-trash"></i> Delete</button>
                                     </form>
-                                </tr>
-                                <tr>
-                                    <td th:if="${ni_item.getType().equals('movie')}">
-                                        <img th:src="@{${posterURL} + 'poster' + ${ni_item.getId()} + '.jpg'}" width="200" height="200"/>
-                                    </td>
-                                    <td th:unless="${ni_item.getType().equals('movie')}">
-                                        <img th:src="@{${tvPosterURL} + 'tvposter' + ${ni_item.getId()} + '.jpg'}" width="200" height="200"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <a th:href="@{'/' + ${ni_item.getType()} + '?id=' + ${ni_item.getId()}}" th:text="${ni_item.getTitle()}"/>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </table>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>

@@ -62,12 +62,12 @@
 
     <!-- PAGINATION -->
     <div class="container">
-        <div class="row">
-            <div th:if="${prev!=null}"> <a th:href="${prev}"> Prev.</a></div>
-            <div th:if="${prev==null}"> Prev.</div>
-            <div>   </div>
-            <div th:if="${next!=null}"> <a th:href="${next}"> Next</a></div>
-            <div th:if="${next==null}"> Next</div>
+        <div class="row padding-top-bottom" style="text-align: center;">
+            <div class="col" th:if="${prev!=null}"> <a th:href="${prev}"> Prev.</a></div>
+            <div class="col" th:if="${prev==null}"> Prev.</div>
+
+            <div class="col" th:if="${next!=null}"> <a th:href="${next}"> Next</a></div>
+            <div class="col" th:if="${next==null}"> Next</div>
         </div>
     </div>
 </div>

@@ -657,6 +657,11 @@ nav .logo-container:hover, #logo img:hover {
     padding-left: 1em;
 }
 
+.button-row form {
+    width: 100%;
+    text-align: right;
+}
+
 .button-row div {
     margin-right: 0.25em;
 }
@@ -839,6 +844,8 @@ footer #followus a:hover {
 }
 
 #loading {
+    position: relative;
+    left: 50%;
     display: none;
 }
 
