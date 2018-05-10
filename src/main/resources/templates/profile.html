@@ -34,7 +34,6 @@
                 <div class="padding-top-bottom row">
                     <button th:if="${session.account != null} and ${session.account.accountType == T(centigrade.accounts.AccountType).ADMIN and session.account.id != user.id}" th:onclick="@{'deleteUser(' + ${user.id}} + ')'" class="btn btn-outline-danger margin-zero-auto"  style="width: 90%;">Delete User</button>
                     <button th:if="${session.account != null} and ${session.account.accountType != T(centigrade.accounts.AccountType).ADMIN and session.account.id != user.id}" class="btn btn-outline-danger margin-zero-auto"  style="width: 90%;"  data-toggle="modal" data-target="#report-user-modal">Report User</button>
-                    <button th:if="${session.account != null} and ${session.account.id == user.id}" class="btn btn-outline-danger margin-zero-auto"  style="width: 90%;" data-toggle="modal" data-target="#delete-account-modal">Delete Account</button>
                 </div>
 
                 <!-- Report User Modal -->

@@ -6,24 +6,18 @@
 <div th:replace="fragments :: navbar"></div>
 <div class="container container-fluid">
     <h1 style="text-align: center;" class="padding-top-bottom">Meet Our Critics</h1>
-    <!-- CRITIC RESULTS -->
-    <table class="table table-striped">
-        <thead>
-        <th scope="col">Critic</th>
-        <th scope="col">Number of Reviews</th>
-        </thead>
-        <tbody>
-        <tr th:each="critic : ${critics}">
-            <td>
-                <img th:src="@{${photoURL} + 'user' + ${critic.id} + '.jpg'}" width="90" height="132"/>
-                <a th:href="@{'/profile?id=' + ${critic.id}}" th:text="${critic.toString()}"/>
-            </td>
-            <td th:text="${critic.numReviews}">
-            </td>
-        </tr>
-        </tbody>
-    </table>
-
+    <div class="row">
+        <div class="col-sm-4" style="margin-bottom: 1em;" th:each="critic : ${critics}">
+            <div class="card">
+                <img class="card-img-top" style="width: 100%;" height="300px" th:src="@{${photoURL} + 'user' + ${critic.id} + '.jpg'}" alt="Critic Image" />
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${critic.toString()}" />
+                    <p th:text="@{'Reviews: ' + ${critic.numReviews}}"/>
+                    <a th:href="@{'/profile?id=' + ${critic.id}}" class="btn btn-primary" th:text="@{'Visit Their Profile'}"/>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <div th:replace="fragments :: footer"></div>
 </body>
