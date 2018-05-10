@@ -163,4 +163,9 @@ public class AppController {
     public String privacypolicy() {
         return "privacypolicy";
     }
+
+    @GetMapping("/about")
+    public String about() {
+        return "about";
+    }
 }

@@ -122,7 +122,7 @@ nav .logo-container:hover, #logo img:hover {
 }
 
 #search-form button:hover {
-    background: rgba(0, 0, 0, 0.25);
+    background: rgba(255, 255, 255, 0.75);
     color: white;
 }
 
@@ -267,7 +267,8 @@ nav .logo-container:hover, #logo img:hover {
     flex-direction: column;
     position: relative;
     height: 100%;
-    top: 25vh;
+    width: 100%;
+    top: 15vh;
 }
 
 #hasaccount h3 {
@@ -623,6 +624,7 @@ nav .logo-container:hover, #logo img:hover {
     overflow: hidden;
     text-align: center;
     margin-bottom: 1em;
+    box-shadow: 0px 3px 20px 1px #dc3545;
 }
 
 .movie-photo-wrapper img {

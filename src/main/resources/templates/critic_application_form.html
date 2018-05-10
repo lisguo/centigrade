@@ -10,13 +10,13 @@
         </div>
         <div class="container-fluid">
             <h2>Requirements</h2>
-            <ol>
+            <ol class="margin-left-right">
                 <li>Must have a registered Centigrade account.</li>
                 <li>
                     <ul>One of the following:
-                        <li>Must be employed at a Centigrade-approved publication.</li>
-                        <li>Must have at least 10,000 subscribers on a video hosting website.</li>
-                        <li>Must have published more than 100 reviews in 2 years with each review having an average length of more than 300 words.</li>
+                        <li class="margin-left-right">Must be employed at a Centigrade-approved publication.</li>
+                        <li class="margin-left-right">Must have at least 10,000 subscribers on a video hosting website.</li>
+                        <li class="margin-left-right">Must have published more than 100 reviews in 2 years with each review having an average length of more than 300 words.</li>
                     </ul>
                 </li>
             </ol>
@@ -25,7 +25,7 @@
             <div th:if="${session.account != null}">
                 <div id="notification" />
                 <p>Please fill out the form below to send an application to become a certified Centigrade Critic.</p>
-                <form id="critic-application-form" class="container-fluid">
+                <form id="critic-application-form" class="container-fluid padding-top-bottom">
                     <input type="hidden" id="critic-application-id" th:value="${session.account.id}" />
                     <div class="form-group">
                         <label for="critic-application-source-name">Source Name</label>

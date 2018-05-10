@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head(About)"></head>
+<body>
+    <div th:replace="fragments :: navbar"></div>
+    <div class="container padding-top-bottom">
+        <h1 style="text-align: center; color: #dc3545;">About Centigrade</h1>
+        <div class="row">
+            <div class="col-sm-8">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <h4 style="text-transform: uppercase; color: #dc3545;"><strong>Our Mission</strong></h4>
+                        <p>Centigrade® is the most trusted recommendation source for quality entertainment.
+                            As the leading online aggregator of movie and TV show reviews from professional critics, Centigrade offers the most comprehensive guide to what's Hot.
+                            The world famous Fire score represents the percentage of positive professional reviews for films and TV shows and is used by millions of fans to help with their viewing decisions.
+                            Centigrade designates the best-reviewed movies and TV shows as Hot™.
+                            That accolade is awarded with a Fire score of 80% and higher and a required minimum number of reviews.</p>
+                    </li>
+                    <li class="list-group-item">
+                        <h4 style="text-transform: uppercase; color: #dc3545;"><strong>What is Fire?</strong></h4>
+                        <p>The Fire Score represents the percentage of positive professional reviews for films and TV shows and is used by millions of fans to help with their viewing decisions.
+                            Centigrade designates the best-reviewed movies and TV shows as Hot™.
+                            That accolade is awarded with a Fire score of 80% and higher and a required minimum number of reviews.</p>
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <img th:src="@{/img/ratings/snow.png}" class="rounded mx-auto d-block" alt="Rating Icon" />
+                            </div>
+                            <div class="col-sm-10">
+                                <p>Shows up when the movie or TV show has a rating between 0-20%. This is the lowest rating that can be given and this means that the movie is very NOT cool.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <img th:src="@{/img/ratings/cloudy.png}" class="rounded mx-auto d-block" alt="Rating Icon" />
+                            </div>
+                            <div class="col-sm-10">
+                                <p>Shows up when the movie or TV show has a rating between 20-40%.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <img th:src="@{/img/ratings/mediocre.png}" class="rounded mx-auto d-block" alt="Rating Icon" />
+                            </div>
+                            <div class="col-sm-10">
+                                <p>Shows up when the movie or TV show has a rating between 40-60%.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <img th:src="@{/img/ratings/sun.png}" class="rounded mx-auto d-block" alt="Rating Icon" />
+                            </div>
+                            <div class="col-sm-10">
+                                <p>Shows up when the movie or TV show has a rating between 60-80%.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <img th:src="@{/img/ratings/flame.png}" class="rounded mx-auto d-block" alt="Rating Icon" />
+                            </div>
+                            <div class="col-sm-10">
+                                <p>Shows up when the movie or TV show has a rating between 80-100%. This is the highest rating that can be given and it means that what's going on is HOT.</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <h4 style="text-transform: uppercase; color: #dc3545;"><strong>Critics</strong></h4>
+                        <p>Critics are specially picked users that have actively contributed to Centigrade reviews within the last calendar year. They have their own section in movie and TV show pages so that any guest or user can read what they think.</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-sm-4">
+                <h3 style="color: #dc3545; text-transform: uppercase;"><strong><i class="fas fa-phone-square fa-lg"></i> Contact Us</strong></h3>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <h5 style="color: #dc3545; text-transform: uppercase;"><strong>Address</strong></h5>
+                        <p>123 Kelly Drive, Stony Brook, NY 11790</p>
+                    </li>
+                    <li class="list-group-item">
+                        <h5 style="color: #dc3545; text-transform: uppercase;"><strong>Customer Service</strong></h5>
+                        <p><i class="fas fa-envelope fa-lg"></i> centigrade.cse308@gmail.com</p>
+                        <p><i class="fas fa-mobile fa-lg"></i> (111) 111-1111</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div th:replace="fragments :: footer"></div>
+</body>
+</html>
