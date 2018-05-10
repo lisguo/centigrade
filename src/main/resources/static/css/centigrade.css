@@ -163,9 +163,11 @@ nav .logo-container:hover, #logo img:hover {
     display: table;
     min-height: 50vh;
     padding: 2em 0 2em 0;
+    margin: 0;
 }
 
 #featured-section a {
+    margin: 0 auto;
     position: relative;
     width: 90%;
     height: 50vh;
@@ -219,6 +221,7 @@ nav .logo-container:hover, #logo img:hover {
 }
 
 #critic-section #becomeacritic {
+    margin: 0 auto;
     height: 50vh;
     width: 90%;
     position: relative;
@@ -513,7 +516,7 @@ nav .logo-container:hover, #logo img:hover {
 #becomeacritic p {
     position: relative;
     right: 0;
-    width: 75%;
+    width: 100%;
     text-align: left;
     padding: 1.5em;
     margin-right: 2em;
@@ -548,7 +551,7 @@ nav .logo-container:hover, #logo img:hover {
     object-fit: fill;
 }
 
-#movie-top h1 {
+#movie-top h1, .banner {
     position: relative;
     padding: 0.5em;
     background: #dc3545;
@@ -557,7 +560,7 @@ nav .logo-container:hover, #logo img:hover {
     margin: 1em 0 1em 0;
 }
 
-#movie-top h1:before {
+#movie-top h1:before, .banner:before {
     content: "";
     position: absolute;
     height: 0;
@@ -597,6 +600,10 @@ nav .logo-container:hover, #logo img:hover {
     margin-top: 1em;
     margin-right: 0;
     position: relative;
+}
+
+#movie-info {
+    overflow: hidden;
 }
 
 #movie-info .table tr {
@@ -696,6 +703,14 @@ nav .logo-container:hover, #logo img:hover {
 
 .rating-user {
     width: 100%;
+    text-align: center;
+}
+
+.center {
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     text-align: center;
 }
 
