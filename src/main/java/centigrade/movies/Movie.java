@@ -12,7 +12,6 @@ import java.util.List;
 @Table(name = "movies")
 public class Movie implements Comparator<Movie>, WishListItem {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String title;
     private int year;

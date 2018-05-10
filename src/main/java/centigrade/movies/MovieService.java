@@ -1,12 +1,21 @@
 package centigrade.movies;
 
+import centigrade.ContentIdGenerator;
+import centigrade.content.Content;
+import centigrade.content.ContentRepository;
 import centigrade.people.Person;
+import org.apache.commons.net.ftp.FTP;
+import org.apache.commons.net.ftp.FTPClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.Calendar;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,11 +27,13 @@ public class MovieService {
     @Autowired
     private MovieRepository movieRepository;
     @Autowired
+    private ContentRepository contentRepository;
+    @Autowired
     private Environment env;
     @Autowired
     JdbcTemplate template;
 
-    public void addMovie(String title, int year, String rated, String released,
+    public Movie addMovie(String title, int year, String rated, String released,
                          String runtime, String genre, String plot, String boxoffice,
                          String production, String website) throws DuplicateMovieException {
 
@@ -30,7 +41,15 @@ public class MovieService {
             throw new DuplicateMovieException();
         }
 
+        ContentIdGenerator generator = new ContentIdGenerator(template);
+        long generatedId = generator.genId().longValue();
+
+        Content c = new Content();
+        c.setId(generatedId);
+        contentRepository.save(c);
+
         Movie m = new Movie();
+        m.setId(generatedId);
         m.setTitle(title);
         m.setYear(year);
         m.setRated(rated);
@@ -43,7 +62,7 @@ public class MovieService {
         m.setWebsite(website);
         movieRepository.save(m);
 
-        template.execute("INSERT INTO content VALUES(" + m.getId() + ",NULL");
+        return m;
     }
 
     public List<Movie> getAllMovies() {
@@ -206,5 +225,44 @@ public class MovieService {
     }
     public void saveMovie(Movie m) {
         movieRepository.save(m);
+    }
+
+    public boolean uploadMoviePoster(Movie m, MultipartFile file) {
+        if (!file.isEmpty()) {
+            FTPClient con = new FTPClient();
+            try {
+                byte[] bytes = file.getBytes();
+                System.out.println(bytes.length);
+                if (bytes.length > 1048574) {
+                    return false;
+                }
+
+                con.connect("130.245.155.104");
+
+                if (con.login("simrit", "CS69AAux")) {
+                    con.enterLocalPassiveMode();
+
+                    con.setFileType(FTP.BINARY_FILE_TYPE);
+                    ByteArrayInputStream in = new ByteArrayInputStream(bytes);
+                    con.storeFile("posters/poster" + m.getId() + ".jpg", in);
+                    in.close();
+                    con.logout();
+                    con.disconnect();
+
+                    return true;
+                }
+            } catch (IOException e) {
+                return false;
+            } finally {
+                if (con.isConnected()) {
+                    try {
+                        con.disconnect();
+                    } catch (IOException ioe) {
+                        // do nothing
+                    }
+                }
+            }
+        }
+        return false;
     }
 }

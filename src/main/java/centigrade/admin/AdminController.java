@@ -1,11 +1,13 @@
 package centigrade.admin;
 
+import centigrade.Genre;
 import centigrade.accounts.Account;
 import centigrade.accounts.AccountService;
 import centigrade.accounts.AccountType;
 import centigrade.critic_applications.CriticApplication;
 import centigrade.critic_applications.CriticApplicationService;
 import centigrade.movies.DuplicateMovieException;
+import centigrade.movies.Movie;
 import centigrade.movies.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -15,8 +17,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import java.util.Arrays;
+import java.util.List;
 
 @Controller
 public class AdminController {
@@ -35,26 +40,31 @@ public class AdminController {
     JdbcTemplate template;
 
     @GetMapping("admin")
-    public String showAdminPage(HttpSession session){
+    public String showAdminPage(HttpSession session, Model model){
         Account user = (Account) session.getAttribute("account");
         if(user == null || user.getAccountType() != AccountType.ADMIN){
             return "redirect:/login";
         }
+        List<Genre> genreList = Arrays.asList(Genre.values());
+        model.addAttribute("genreList", genreList);
         return "admin";
     }
 
     @PostMapping("create_movie")
-    public String createMovie(@RequestParam String title, @RequestParam int year,
+    public String createMovie(@RequestParam String title, @RequestParam String year,
                               @RequestParam String rated, @RequestParam String released,
                               @RequestParam String runtime, @RequestParam String genre,
                               @RequestParam String plot, @RequestParam String boxoffice,
                               @RequestParam String production, @RequestParam String website,
+                              @RequestParam(value="posterImage", required=false) MultipartFile posterImage,
                               Model model){
         String successMsg = env.getProperty("create_movie_success");
         String duplicateMsg = env.getProperty("create_movie_duplicate_error");
         boxoffice = "$" + boxoffice;
+        int intYear = Integer.parseInt(year);
         try {
-            movieService.addMovie(title, year, rated, released, runtime, genre, plot, boxoffice, production, website);
+            Movie m = movieService.addMovie(title, intYear, rated, released, runtime, genre, plot, boxoffice, production, website);
+            movieService.uploadMoviePoster(m, posterImage);
             model.addAttribute("notificationTitle", "Success!");
             model.addAttribute("notificationDetails", successMsg);
         } catch (DuplicateMovieException e){
