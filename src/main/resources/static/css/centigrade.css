@@ -166,6 +166,7 @@ nav .logo-container:hover, #logo img:hover {
 }
 
 #featured-section a {
+    margin: 0 auto;
     position: relative;
     width: 90%;
     height: 50vh;
@@ -219,6 +220,7 @@ nav .logo-container:hover, #logo img:hover {
 }
 
 #critic-section #becomeacritic {
+    margin: 0 auto;
     height: 50vh;
     width: 90%;
     position: relative;
@@ -513,7 +515,7 @@ nav .logo-container:hover, #logo img:hover {
 #becomeacritic p {
     position: relative;
     right: 0;
-    width: 75%;
+    width: 100%;
     text-align: left;
     padding: 1.5em;
     margin-right: 2em;
@@ -597,6 +599,10 @@ nav .logo-container:hover, #logo img:hover {
     margin-top: 1em;
     margin-right: 0;
     position: relative;
+}
+
+#movie-info {
+    overflow: hidden;
 }
 
 #movie-info .table tr {

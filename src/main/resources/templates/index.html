@@ -46,16 +46,14 @@
     </a>
 </div>
 <div id="featured-section">
-    <a href="#">
+    <a href="/movie?id=625">
         <div id="featured">
             <div>
-                <img src="../img/movies/mazerunner.jpg" alt="Maze Runner"/>
+                <img src="../img/movies/bladerunner2049.jpg" alt="Blade Runner 2049"/>
             </div>
             <div>
-                <h1>Maze Runner - The Death Cure</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe, aperiam, molestias. Facilis saepe
-                    quisquam esse doloremque voluptas, amet soluta, modi maiores accusamus sapiente animi sint corporis
-                    cumque laborum perspiciatis delectus.</p>
+                <h1>Blade Runner 2049</h1>
+                <p>A young blade runner's discovery of a long-buried secret leads him to track down former blade runner Rick Deckard, who's been missing for thirty years.</p>
             </div>
 
         </div>
@@ -66,7 +64,13 @@
         <p>Movie reviews come from publications or individual critics that have been selected by the centigrade® staff.
             The criteria for inclusion for both publications and critics are separated across three divisions; print,
             broadcast, and online, each with its own criteria for rating inclusion.</p>
-        <div id="critic-buttons">
+        <div id="critic-buttons" class="row container">
+            <div class="col">
+                <a href="/critics" class="btn btn-dark padding-top-bottom" style="width: 80%;">Our List of Critics</a>
+            </div>
+            <div class="col">
+                <a href="/critic_application_form" class="btn btn-info padding-top-bottom" style="width: 80%;">Apply to be a Critic</a>
+            </div>
 
         </div>
     </div>
@@ -74,23 +78,23 @@
 
 <h3>TOP BOX OFFICE (<a th:href="@{'/movies?sortBy=BOX_OFFICE&amp;sortDirection=DESCENDING'}">View All</a>)</h3>
 <div id="index-top-box-office">
-    <img class="loading" th:src="@{/img/icons/loading.gif}" alt="" />
+    <img class="loading padding-top-bottom" th:src="@{/img/icons/loading.gif}" alt="" />
 </div>
 
 <h3>MOST POPULAR MOVIES (<a th:href="@{'/movies?sortBy=POPULAR&amp;sortDirection=DESCENDING'}">View All</a>)</h3>
 <div id="index-most-popular-movies">
-    <img class="loading" th:src="@{/img/icons/loading.gif}" alt="" />
+    <img class="loading padding-top-bottom" th:src="@{/img/icons/loading.gif}" alt="" />
 </div>
 
 <h3>Opening Soon</h3>
 <div id="index-opening-soon">
-    <img class="loading" th:src="@{/img/icons/loading.gif}" alt="" />
+    <img class="loading padding-top-bottom" th:src="@{/img/icons/loading.gif}" alt="" />
 </div>
 
 
 <h3>LATEST CRITIC REVIEWS</h3>
 <div id="index-latest-critic-reviews">
-    <img class="loading" th:src="@{/img/icons/loading.gif}" alt="" />
+    <img class="loading padding-top-bottom" th:src="@{/img/icons/loading.gif}" alt="" />
 </div>
 
 
