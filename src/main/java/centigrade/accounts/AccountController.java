@@ -167,6 +167,9 @@ public class AccountController {
         model.addAttribute("appName", env.getProperty("app_name"));
 
         String previousPage = (String) session.getAttribute("previousPage");
+        if(previousPage == null){
+            return "index";
+        }
         return "redirect:" + previousPage;
     }
 
