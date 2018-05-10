@@ -250,6 +250,8 @@ public class AccountController {
 
         model.addAttribute("movieReviews", movieReviews);
         model.addAttribute("showReviews", showReviews);
+        Collections.reverse(movieReviews);
+        Collections.reverse(showReviews);
 
         model.addAttribute("photoURL", accountService.getUserPhotoURL());
         model.addAttribute("posterURL", movieService.getMoviePosterURL());
@@ -258,6 +260,37 @@ public class AccountController {
         model.addAttribute("wishList", wishList);
         List<WishListItem> notInterestedList = accountService.getNotInterestedList(a);
         model.addAttribute("notInterestedList", notInterestedList);
+
+        if(a.getAccountType() == AccountType.CRITIC && (reviews != null && reviews.size() > 0)){
+            Collections.sort(reviews, new Comparator<Review>() {
+                @Override
+                public int compare(Review r1, Review r2) {
+                    if (r1.getRating() > r2.getRating()) {
+                        return 1;
+                    } else if (r1.getRating() < r2.getRating()) {
+                        return -1;
+                    } else {
+                        return 0;
+                    }
+                }
+            });
+
+            Review bestReviewed = reviews.get(reviews.size()-1);
+            if(movieReviews.contains(bestReviewed)){
+                bestReviewed.setContentType("Movie");
+            }else{
+                bestReviewed.setContentType("Show");
+            }
+
+            Review worstReviewed = reviews.get(0);
+            if(movieReviews.contains(worstReviewed)){
+                worstReviewed.setContentType("Movie");
+            }else{
+                worstReviewed.setContentType("Show");
+            }
+            model.addAttribute("bestReviewed", bestReviewed);
+            model.addAttribute("worstReviewed", worstReviewed);
+        }
 
         return "profile";
     }

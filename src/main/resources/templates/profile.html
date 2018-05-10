@@ -55,6 +55,114 @@
                 </div>
             </div>
             <div class="movie-second">
+                <div th:if="${bestReviewed != null}" class="movie-u-reviews movie-stuff container-fluid">
+                    <h3>BEST REVIEWED</h3>
+                    <div class="card border-danger">
+                        <div class="card-header container-fluid" th:text="@{'Rating: ' + ${bestReviewed.rating} + '%'}"></div>
+                        <div class="card-body text-danger container-fluid">
+                            <div class="row card-text">
+                                <div class="col-sm-3">
+                                    <div class="row">
+                                        <img th:if="${bestReviewed.getContentType().equals('Movie')}" class="rating-img" width="100" height="100" th:src="@{${posterURL} + 'poster' + ${bestReviewed.contentId} + '.jpg'}" alt="MOVIE IMAGE"/>
+                                        <img th:if="${bestReviewed.getContentType().equals('Show')}" class="rating-img" width="100" height="100" th:src="@{${tvPosterURL} + 'tvposter' + ${bestReviewed.contentId} + '.jpg'}" alt="MOVIE IMAGE"/>
+                                    </div>
+                                    <div class="row">
+                                        <a th:if="${bestReviewed.getContentType().equals('Movie')}" class="rating-user" th:href="@{'/movie?id=' + ${bestReviewed.contentId}}" th:text="@{${bestReviewed.contentName}}"></a>
+                                        <a th:if="${bestReviewed.getContentType().equals('Show')}" class="rating-user" th:href="@{'/show?id=' + ${bestReviewed.contentId}}" th:text="@{${bestReviewed.contentName}}"></a>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <p class="card-text" th:unless="${bestReviewed.reviewText == null}" th:text="${bestReviewed.reviewText}"></p>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="row card-text button-row" th:if="${session.account != null} and ${bestReviewed.userId == session.account.id or session.account.accountType == T(centigrade.accounts.AccountType).ADMIN}">
+                                        <form action = "delete_review" method="post">
+                                            <div class="form-group">
+                                                <input type="hidden" th:value="${bestReviewed.id}" name="id" />
+                                                <input type="hidden" th:value="@{'true'}" name="fromProfile" />
+                                                <button class="btn btn-outline-danger" type="submit" value="X"><i class="fas fa-trash"></i> Delete</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="row card-text button-row" th:if="${session.account != null} and ${bestReviewed.userId != session.account.id and session.account.accountType != T(centigrade.accounts.AccountType).ADMIN}">
+                                        <form action = "report_review" method="get">
+                                            <div class="form-group">
+                                                <input type="hidden" th:value="${bestReviewed.id}" name="id" />
+                                                <input type="hidden" th:value="@{'true'}" name="fromProfile" />
+                                                <button class="btn btn-outline-danger" type="submit" value="Report"><i class="fas fa-flag"></i> Report</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="row card-text button-row" th:if="${session.account != null and bestReviewed.userId == session.account.id}">
+                                        <form action = "edit_review" method="get">
+                                            <div class="form-group">
+                                                <input type="hidden" th:value="${bestReviewed.id}" name="id" />
+                                                <input type="hidden" th:value="@{'true'}" name="fromProfile" />
+                                                <button class="btn btn-outline-danger" type="submit" value="Edit"><i class="fas fa-edit"></i> Edit</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p th:utext="@{'&lt;br&gt;'}"></p>
+
+                <div th:if="${worstReviewed != null}" class="movie-u-reviews movie-stuff container-fluid">
+                    <h3>WORST REVIEWED</h3>
+                    <div class="card border-danger">
+                        <div class="card-header container-fluid" th:text="@{'Rating: ' + ${worstReviewed.rating} + '%'}"></div>
+                        <div class="card-body text-danger container-fluid">
+                            <div class="row card-text">
+                                <div class="col-sm-3">
+                                    <div class="row">
+                                        <img th:if="${worstReviewed.getContentType().equals('Movie')}" class="rating-img" width="100" height="100" th:src="@{${posterURL} + 'poster' + ${worstReviewed.contentId} + '.jpg'}" alt="MOVIE IMAGE"/>
+                                        <img th:if="${worstReviewed.getContentType().equals('Show')}" class="rating-img" width="100" height="100" th:src="@{${tvPosterURL} + 'tvposter' + ${worstReviewed.contentId} + '.jpg'}" alt="MOVIE IMAGE"/>
+                                    </div>
+                                    <div class="row">
+                                        <a th:if="${worstReviewed.getContentType().equals('Movie')}" class="rating-user" th:href="@{'/movie?id=' + ${worstReviewed.contentId}}" th:text="@{${worstReviewed.contentName}}"></a>
+                                        <a th:if="${worstReviewed.getContentType().equals('Show')}" class="rating-user" th:href="@{'/show?id=' + ${worstReviewed.contentId}}" th:text="@{${worstReviewed.contentName}}"></a>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <p class="card-text" th:unless="${worstReviewed.reviewText == null}" th:text="${worstReviewed.reviewText}"></p>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="row card-text button-row" th:if="${session.account != null} and ${worstReviewed.userId == session.account.id or session.account.accountType == T(centigrade.accounts.AccountType).ADMIN}">
+                                        <form action = "delete_review" method="post">
+                                            <div class="form-group">
+                                                <input type="hidden" th:value="${worstReviewed.id}" name="id" />
+                                                <input type="hidden" th:value="@{'true'}" name="fromProfile" />
+                                                <button class="btn btn-outline-danger" type="submit" value="X"><i class="fas fa-trash"></i> Delete</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="row card-text button-row" th:if="${session.account != null} and ${worstReviewed.userId != session.account.id and session.account.accountType != T(centigrade.accounts.AccountType).ADMIN}">
+                                        <form action = "report_review" method="get">
+                                            <div class="form-group">
+                                                <input type="hidden" th:value="${worstReviewed.id}" name="id" />
+                                                <input type="hidden" th:value="@{'true'}" name="fromProfile" />
+                                                <button class="btn btn-outline-danger" type="submit" value="Report"><i class="fas fa-flag"></i> Report</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="row card-text button-row" th:if="${session.account != null and worstReviewed.userId == session.account.id}">
+                                        <form action = "edit_review" method="get">
+                                            <div class="form-group">
+                                                <input type="hidden" th:value="${worstReviewed.id}" name="id" />
+                                                <input type="hidden" th:value="@{'true'}" name="fromProfile" />
+                                                <button class="btn btn-outline-danger" type="submit" value="Edit"><i class="fas fa-edit"></i> Edit</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p th:utext="@{'&lt;br&gt;'}"></p>
+
                 <div class="movie-u-reviews movie-stuff container-fluid">
                     <h3>MOVIE REVIEWS</h3>
                     <div th:if="${movieReviews.size() == 0}">
