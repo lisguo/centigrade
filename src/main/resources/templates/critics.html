@@ -5,7 +5,10 @@
 <body>
 <div th:replace="fragments :: navbar"></div>
 <div class="container container-fluid">
-    <h1 style="text-align: center;" class="padding-top-bottom">Meet Our Critics</h1>
+    <div id="movie-top">
+        <h1 style="text-align: center;" class="padding-top-bottom">Meet Our Critics</h1>
+    </div>
+
     <div class="row">
         <div class="col-sm-4" style="margin-bottom: 1em;" th:each="critic : ${critics}">
             <div class="card">
@@ -13,7 +16,7 @@
                 <div class="card-body">
                     <h5 class="card-title" th:text="${critic.toString()}" />
                     <p th:text="@{'Reviews: ' + ${critic.numReviews}}"/>
-                    <a th:href="@{'/profile?id=' + ${critic.id}}" class="btn btn-primary" th:text="@{'Visit Their Profile'}"/>
+                    <a th:href="@{'/profile?id=' + ${critic.id}}" class="btn btn-danger" th:text="@{'Visit Their Profile'}"/>
                 </div>
             </div>
         </div>

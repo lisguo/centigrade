@@ -47,31 +47,45 @@
 </div>
 <div class="container">
     <div class="row">
-        <div class="col-sm-6">
-            <h5 class="padding-top-bottom banner">Opening Soon</h5>
-            <div id="index-opening-soon">
-                <img class="loading padding-top-bottom" th:src="@{/img/icons/loading.gif}" alt="" />
+        <div class="col">
+            <div class="row" style="padding: 0 0.25em 0 0.25em;">
+                <h5 class="padding-top-bottom banner">Opening Soon</h5>
+                <div id="index-opening-soon">
+                    <img class="loading padding-top-bottom" th:src="@{/img/icons/loading.gif}" alt="" />
+                </div>
+            </div>
+            <div class="row" style="padding: 0 0.25em 0 0.25em;">
+                <h5 class="padding-top-bottom banner">Top Box Office (<a style="color:white;" th:href="@{'/movies?sortBy=BOX_OFFICE&amp;sortDirection=DESCENDING'}">View All</a>)</h5>
+                <div id="index-top-box-office">
+                    <img class="loading padding-top-bottom" th:src="@{/img/icons/loading.gif}" alt="" />
+                </div>
+            </div>
+            <div class="row" style="padding: 0 0.25em 0 0.25em;">
+                <div class="jumbotron" style="width: 100%;">
+                    <h1 class="display-4">Hello, world!</h1>
+                    <p class="lead">This is a simple space for ads.</p>
+                    <hr class="my-4" />
+                    <p>Buy me or sell me!</p>
+                    <p class="lead">
+                        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+                    </p>
+                </div>
             </div>
         </div>
-        <div class="col-sm-6">
-            <h5 class="padding-top-bottom banner">Most Popular Movies (<a style="color:white;" th:href="@{'/movies?sortBy=POPULAR&amp;sortDirection=DESCENDING'}">View All</a>)</h5>
-            <div id="index-most-popular-movies">
-                <img class="loading padding-top-bottom" th:src="@{/img/icons/loading.gif}" alt="" />
+        <div class="col">
+            <div class="row" style="padding: 0 0.5em 0 0.5em;">
+                <h5 class="padding-top-bottom banner">Most Popular Movies (<a style="color:white;" th:href="@{'/movies?sortBy=POPULAR&amp;sortDirection=DESCENDING'}">View All</a>)</h5>
+                <div id="index-most-popular-movies">
+                    <img class="loading padding-top-bottom" th:src="@{/img/icons/loading.gif}" alt="" />
+                </div>
             </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-6">
-            <h5 class="padding-top-bottom banner">Top Box Office (<a style="color:white;" th:href="@{'/movies?sortBy=BOX_OFFICE&amp;sortDirection=DESCENDING'}">View All</a>)</h5>
-            <div id="index-top-box-office">
-                <img class="loading padding-top-bottom" th:src="@{/img/icons/loading.gif}" alt="" />
+            <div class="row" style="padding: 0 0.5em 0 0.5em;">
+                <h5 class="padding-top-bottom banner">Latest Critic Reviews</h5>
+                <div id="index-latest-critic-reviews">
+                    <img class="loading padding-top-bottom" th:src="@{/img/icons/loading.gif}" alt="" />
+                </div>
             </div>
-        </div>
-        <div class="col-sm-6">
-            <h5 class="padding-top-bottom banner">Latest Critic Reviews</h5>
-            <div id="index-latest-critic-reviews">
-                <img class="loading padding-top-bottom" th:src="@{/img/icons/loading.gif}" alt="" />
-            </div>
+
         </div>
     </div>
 </div>

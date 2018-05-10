@@ -1,43 +1,66 @@
-<table>
-    <tr th:each="r : ${latestReviews}">
-        <div class="card border-danger">
-            <div class="card-header container-fluid" th:text="@{'Rating: ' + ${r.rating} + '%'}"></div>
-            <div class="card-body text-danger container-fluid">
-                <div class="row">
-                    <img th:if="${r.contentType.equals('Show')}" width="100" height="100" th:src="@{${tvPosterURL} + 'tvposter' + ${r.contentId} + '.jpg'}" alt="CAST IMAGE"/>
-                    <img th:if="${r.contentType.equals('Movie')}" width="100" height="100" th:src="@{${posterURL} + 'poster' + ${r.contentId} + '.jpg'}" alt="CAST IMAGE"/>
-                    <img width="100" height="100" th:src="@{${profilePicURL} + 'user' + ${r.userId} + '.jpg'}" alt="CAST IMAGE"/>
-                </div>
-                <h5 class="card-title">
-                    <div class="row">
-                        <a th:if="${r.contentType.equals('Show')}" th:href="@{'/show?id=' + ${r.contentId}}" th:text="@{${r.contentName}}"></a>
-                        <a th:unless="${r.contentType.equals('Show')}" th:href="@{'/movie?id=' + ${r.contentId}}" th:text="@{${r.contentName}}"></a>
-                        <p th:text="@{'&nbsp;-&nbsp;'}" ></p>
-                        <a th:href="@{'/profile?id=' + ${r.userId}}" th:text="@{${r.userName}}"></a>
-                    </div>
-                </h5>
+<div class="row">
+    <div class="col-sm-6" th:each="r : ${latestReviews}">
+        <div class="card text-center" style="margin: 0.25em 0 0.25em 0;">
+            <div class="card-header">
+                <img class="card-img-top" th:if="${r.contentType.equals('Show')}" th:src="@{${tvPosterURL} + 'tvposter' + ${r.contentId} + '.jpg'}" alt="CAST IMAGE"/>
+                <img class="card-img-top" th:if="${r.contentType.equals('Movie')}" th:src="@{${posterURL} + 'poster' + ${r.contentId} + '.jpg'}" alt="CAST IMAGE"/>
+            </div>
+            <div class="card-body">
+                <a class="card-title big-text" style="position: relative; top: 50%;" th:if="${r.contentType.equals('Show')}" th:href="@{'/show?id=' + ${r.contentId}}" th:text="@{${r.contentName}}"></a>
+                <a class="card-title big-text" style="position: relative; top: 50%;" th:unless="${r.contentType.equals('Show')}" th:href="@{'/movie?id=' + ${r.contentId}}" th:text="@{${r.contentName}}"></a>
+                <p class="card-text">Written by <a th:href="@{'/profile?id=' + ${r.userId}}" th:text="@{${r.userName}}"></a></p>
                 <p class="card-text" th:unless="${r.reviewText == null}" th:text="${r.reviewText}">
                 </p>
+            </div>
+            <div class="card-footer text-muted">
                 <div class="row">
-                    <form th:if="${session.account != null and r.userId == session.account.id}" action = "edit_review" method="get">
+                    <div class="col-sm-4">
+                        <div th:if="${r.rating} &lt; 20.0">
+                            <img style="padding-right: 15px;"  th:src="@{/img/ratings/snow.png}" alt="Cold" />
+                        </div>
+                        <div th:unless="${r.rating} &lt; 20.0">
+                            <div th:if="${r.rating} &lt; 40.0">
+                                <img style="padding-right: 15px;"  th:src="@{/img/ratings/cloudy.png}" alt="Cloudy" />
+                            </div>
+                            <div th:unless="${r.rating} &lt; 40.0">
+                                <div th:if="${r.rating} &lt; 60.0">
+                                    <img style="padding-right: 15px;"  th:src="@{/img/ratings/mediocre.png}" alt="Mediocre" />
+                                </div>
+                                <div th:unless="${r.rating} &lt; 60.0">
+                                    <div th:if="${r.rating} &lt; 80.0">
+                                        <img style="padding-right: 15px;"  th:src="@{/img/ratings/sun.png}" alt="Sunny" />
+                                    </div>
+                                    <div th:unless="${r.rating} &lt; 80.0">
+                                        <img style="padding-right: 15px;"  th:src="@{/img/ratings/flame.png}" alt="Flame" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <p th:text="@{'Rating: ' + ${r.rating} + '%'}"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <form class="col" th:if="${session.account != null and r.userId == session.account.id}" action = "edit_review" method="get">
                         <input type="hidden" th:value="${r.id}" name="id" />
                         <input type="hidden" th:value="@{'true'}" name="fromHomePage" />
-                        <input class="btn btn-outline-danger" type="submit" value="Edit" />
+                        <button class="btn btn-outline-danger" type="submit" value="Edit"><i class="fas fa-edit"></i> Edit</button>
                     </form>
-                    <form th:if="${session.account != null} and ${r.userId == session.account.id or session.account.accountType == T(centigrade.accounts.AccountType).ADMIN}" action = "delete_review" method="post">
+                    <form class="col" th:if="${session.account != null} and ${r.userId == session.account.id or session.account.accountType == T(centigrade.accounts.AccountType).ADMIN}" action = "delete_review" method="post">
                         <input type="hidden" th:value="${r.id}" name="id" />
                         <input type="hidden" th:value="@{'true'}" name="fromHomePage" />
-                        <input class="btn btn-outline-danger" type="submit" value="X" />
+                        <button class="btn btn-outline-danger" type="submit" value="X"><i class="fas fa-trash"></i> Delete</button>
                     </form>
-                    <form th:if="${session.account != null} and ${r.userId != session.account.id and session.account.accountType != T(centigrade.accounts.AccountType).ADMIN}" action = "report_review" method="get">
+                    <form class="col" th:if="${session.account != null} and ${r.userId != session.account.id and session.account.accountType != T(centigrade.accounts.AccountType).ADMIN}" action = "report_review" method="get">
                         <input type="hidden" th:value="${r.id}" name="id" />
                         <input type="hidden" th:value="@{'true'}" name="fromHomePage" />
-                        <input class="btn btn-outline-danger" type="submit" value="Report" />
+                        <button class="btn btn-outline-danger" type="submit" value="Report"><i class="fas fa-flag"></i> Report</button>
                     </form>
                 </div>
             </div>
         </div>
-
-        <p th:utext="@{'&lt;br&gt;'}"></p>
-    </tr>
-</table>
+    </div>
+</div>

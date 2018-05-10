@@ -3,7 +3,7 @@ var $nav = $("nav");
 
 var pathname = window.location.pathname;
 console.log(pathname);
-
+/*
 switch (pathname) {
     case "/": // home
         $nav.css("position", "fixed");
@@ -27,7 +27,7 @@ $(window).scroll(function () {
         }
     }
 });
-
+*/
 $('.carousel').carousel();
 $('.carousel').carousel('pause');
 

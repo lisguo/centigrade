@@ -560,6 +560,14 @@ nav .logo-container:hover, #logo img:hover {
     margin: 1em 0 1em 0;
 }
 
+.banner {
+    width: 100%;
+}
+
+.big-text {
+    font-size: 1.25em;
+}
+
 .banner:before {
     content: "";
     position: absolute;
