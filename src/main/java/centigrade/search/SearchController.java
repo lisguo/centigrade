@@ -64,7 +64,9 @@ public class SearchController {
         int numResults = Integer.parseInt(env.getProperty("num_search_results"));
         movies = getTopMatchMovies(movies, numResults);
 
-        model.addAttribute("movies", movies);
+        if(movies.size() > 0) {
+            model.addAttribute("movies", movies);
+        }
         return "search_movies";
     }
 
@@ -93,7 +95,9 @@ public class SearchController {
         int numResults = Integer.parseInt(env.getProperty("num_search_results"));
         shows = getTopMatchShows(shows, numResults);
 
-        model.addAttribute("shows", shows);
+        if(shows.size() > 0) {
+            model.addAttribute("shows", shows);
+        }
         return "search_shows";
     }
 
@@ -123,7 +127,9 @@ public class SearchController {
         int numResults = Integer.parseInt(env.getProperty("num_search_results"));
         people = getTopMatchPeople(people, numResults);
 
-        model.addAttribute("people", people);
+        if(people.size() > 0) {
+            model.addAttribute("people", people);
+        }
         return "search_people";
     }
 
