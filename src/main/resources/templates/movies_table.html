@@ -30,8 +30,8 @@
 <!-- PAGINATION -->
 <div class="container">
     <div class="row padding-top-bottom" style="text-align: center;">
-        <div class="col" th:if="${prev!=null}"> <button id="prev-button" class="btn btn-outline-danger" onclick="getPrev()"> Prev.</button></div>
-        <div class="col" th:if="${prev==null}">  <button id="next-button" class="btn btn-outline-danger disabled"> Prev.</button></div>
+        <div class="col" th:if="${prev!=null}"> <button id="prev-button" class="btn btn-danger" onclick="getPrev()"> Prev.</button></div>
+        <div class="col" th:if="${prev==null}">  <button id="next-button" class="btn btn-danger disabled"> Prev.</button></div>
 
         <div class="col" th:if="${next!=null}"> <button id="next-button" class="btn btn-danger" onclick="getNext()"> Next</button></div>
         <div class="col" th:if="${next==null}">  <button id="next-button" class="btn btn-danger disabled"> Next</button></div>
