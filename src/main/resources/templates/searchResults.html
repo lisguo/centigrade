@@ -5,61 +5,33 @@
 <body>
 <div th:replace="fragments :: navbar"></div>
 <div class="container container-fluid" style="padding: 1em;">
-    <h1 >Search Results</h1>
+    <div id="movie-top">
+        <h1 >Search Results</h1>
+    </div>
     <div class="row">
         <div class="col-8">
             <div data-spy="scroll" data-target="#search-nav" data-offset="0">
-                <h4 id="movie-results">Movie Results</h4>
-                <h6 th:if="${movies == null}">NO RESULTS FOUND</h6>
-                <table class="table table-striped" th:if="${movies != null}">
-                    <thead>
-                    <tr>
-                        <th scope="col" colspan="3" style="text-align:center;">Title</th>
-                        <th scope="col">Plot</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="movie : ${movies}">
-                        <td><img th:src="@{${moviePosterURL} + 'poster' + ${movie.id} + '.jpg'}" width="45" height="75"/></td>
-                        <td colspan="2"><a th:href="@{'/movie?id=' + ${movie.id}}" th:text="${movie.title}"/></td>
-                        <td th:text="${movie.plot}"/>
-                    </tr>
-                    </tbody>
-                </table>
-                <h4 id="tv-results">TV Show Results</h4>
-                <h6 th:if="${shows == null}">NO RESULTS FOUND</h6>
-                <table class="table table-striped" th:if="${shows != null}">
-                    <thead>
-                    <tr>
-                        <th scope="col" colspan="3" style="text-align:center;">Title</th>
-                        <th scope="col">Plot</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="show : ${shows}">
-                        <td><img th:src="@{${showPosterURL} + 'tvposter' + ${show.id} + '.jpg'}" width="45" height="75"/></td>
-                        <td colspan="2"><a th:href="@{'/show?id=' + ${show.id}}" th:text="${show.seriesName}"/></td>
-                        <td th:text="${show.overview}"/>
-                    </tr>
-                    </tbody>
-                </table>
-                <h4 id="people-results">People Results</h4>
-                <h6 th:if="${people == null}">NO RESULTS FOUND</h6>
-                <table class="table table-striped" th:if="${people != null}">
-                    <thead>
-                    <tr>
-                        <th scope="col" colspan="3" style="text-align:center;">Name</th>
-                        <th scope="col">Bio</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="person : ${people}">
-                        <td><img th:src="@{${personPhotoURL} + 'pic' + ${person.id} + '.jpg'}" width="45" height="75"/></td>
-                        <td colspan="2"><a th:href="@{'/person?id=' + ${person.id}}" th:text="${person.toString()}"/></td>
-                        <td th:text="${person.biography}"/>
-                    </tr>
-                    </tbody>
-                </table>
+                <input id="search-terms" type="hidden" th:value="${search}"/>
+                <div class="movie-stuff container-fluid">
+                    <h3 id="movie-results">Movie Results</h3>
+                    <div id="movie-results-table">
+                        <img class="loading" th:src="@{/img/icons/loading.gif}" alt="" />
+                    </div>
+                </div>
+
+                <div class="movie-stuff container-fluid">
+                    <h3 id="tv-results">TV Show Results</h3>
+                    <div id="tv-results-table">
+                        <img class="loading" th:src="@{/img/icons/loading.gif}" alt="" />
+                    </div>
+                </div>
+
+                <div class="movie-stuff container-fluid">
+                    <h3 id="people-results">People Results</h3>
+                    <div id="people-results-table">
+                        <img class="loading" th:src="@{/img/icons/loading.gif}" alt="" />
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-4 bg-light">
@@ -74,5 +46,6 @@
     </div>
 </div>
 <div th:replace="fragments :: footer"></div>
+<script type="text/javascript" th:src="@{/js/search.js}"></script>
 </body>
 </html>
