@@ -11,8 +11,6 @@ import java.util.List;
 @Table(name = "tvshows")
 public class TVShow implements WishListItem{
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-
     private long id;
     private String seriesName;
     private String contentRating;

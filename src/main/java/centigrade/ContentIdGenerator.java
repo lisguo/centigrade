@@ -16,7 +16,8 @@ public class ContentIdGenerator {
     }
     public Long genId(){
         Long id =  template.query("SELECT MIN(t1.Id+1) FROM content t1 " +
-                "WHERE NOT EXISTS(SELECT * FROM movies t2 WHERE t2.Id = t1.Id + 1)" +
+                "WHERE NOT EXISTS(SELECT * FROM movies t2 WHERE t2.id = t1.Id + 1)" +
+                "and NOT EXISTS(SELECT * FROM tvshows t3 WHERE t3.Id = t1.Id + 1)" +
                 "and NOT EXISTS (Select * from casttocontent where castId = t1.Id+1) " +
                 "ORDER BY t1.Id;", new ResultSetExtractor<Long>() {
             @Override

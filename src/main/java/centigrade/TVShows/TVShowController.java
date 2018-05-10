@@ -253,4 +253,20 @@ public class TVShowController {
         return "episode";
     }
 
+    @PostMapping("/delete_show")
+    public String deleteShow(long showId, Model model){
+        List<Review> reviews = reviewService.getReviewsByContent(showId);
+        for(Review r : reviews){
+            reviewService.deleteReview(r);
+        }
+
+        TVShow show = tvShowService.getTVShowById(showId);
+        tvShowService.deleteShow(show);
+
+        String successMsg = env.getProperty("delete_show_success");
+        model.addAttribute("notificationTitle", "Success!");
+        model.addAttribute("notificationDetails", successMsg);
+
+        return "notification_alert";
+    }
 }

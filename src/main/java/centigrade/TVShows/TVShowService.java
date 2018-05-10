@@ -219,5 +219,6 @@ public class TVShowService {
     public void saveShow(TVShow t) {
         tvShowRepository.save(t);
     }
+    public void deleteShow(TVShow t){ tvShowRepository.delete(t); }
 
 }

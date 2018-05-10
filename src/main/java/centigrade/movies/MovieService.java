@@ -226,6 +226,7 @@ public class MovieService {
     public void saveMovie(Movie m) {
         movieRepository.save(m);
     }
+    public void deleteMovie(Movie m){ movieRepository.delete(m); }
 
     public boolean uploadMoviePoster(Movie m, MultipartFile file) {
         if (!file.isEmpty()) {

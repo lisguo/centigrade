@@ -7,7 +7,8 @@
     <h1 th:text="${show.seriesName}"/>
 </div>
 <div class="container container-fluid">
-    <div class="movie-information container-fluid">
+    <div class="content-row-block">
+        <div class="movie-information container-fluid">
         <div class="movie-first">
             <div class="movie-photo-wrapper">
                 <img th:src="@{${posterURL} + 'tvposter' + ${show.id} + '.jpg'}" alt="POSTER IMG"/>
@@ -57,6 +58,10 @@
                         <td th:text="${show.status}"/>
                     </tr>
                 </table>
+
+                <div class="padding-top-bottom row">
+                    <button th:if="${session.account != null} and ${session.account.accountType == T(centigrade.accounts.AccountType).ADMIN}" th:onclick="@{'deleteShow(' + ${show.id}} + ')'" class="btn btn-outline-danger margin-zero-auto"  style="width: 90%;">Delete TV Show</button>
+                </div>
             </div>
         </div>
 
@@ -271,7 +276,9 @@
             </div>
         </div>
     </div>
+    </div>
 </div>
 <div th:replace="fragments :: footer"></div>
+<script type="text/javascript" th:src="@{/js/show.js}"></script>
 </body>
 </html>

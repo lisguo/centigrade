@@ -246,4 +246,21 @@ public class MovieController {
 
         return "movie";
     }
+
+    @PostMapping("/delete_movie")
+    public String deleteMovie(long movieId, Model model){
+        List<Review> reviews = reviewService.getReviewsByContent(movieId);
+        for(Review r : reviews){
+            reviewService.deleteReview(r);
+        }
+
+        Movie m = movieService.getMovieById(movieId);
+        movieService.deleteMovie(m);
+
+        String successMsg = env.getProperty("delete_movie_success");
+        model.addAttribute("notificationTitle", "Success!");
+        model.addAttribute("notificationDetails", successMsg);
+
+        return "notification_alert";
+    }
 }
