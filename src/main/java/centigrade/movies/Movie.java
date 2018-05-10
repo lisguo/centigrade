@@ -25,6 +25,8 @@ public class Movie implements Comparator<Movie>, WishListItem {
     private String website;
     private double ratingSum;
     private int timesRated;
+    private int hasTrailer;
+
     @Transient
     private double overallRating;
     @Transient
@@ -276,5 +278,14 @@ public class Movie implements Comparator<Movie>, WishListItem {
 
     public void setGenreEnums(List<Genre> genreEnums) {
         this.genreEnums = genreEnums;
+    }
+
+    @Column(name = "hastrailer")
+    public int getHasTrailer() {
+        return hasTrailer;
+    }
+
+    public void setHasTrailer(int hasTrailer) {
+        this.hasTrailer = hasTrailer;
     }
 }
