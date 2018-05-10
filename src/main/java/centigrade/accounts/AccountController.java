@@ -110,7 +110,7 @@ public class AccountController {
                 model.addAttribute("message", env.getProperty("login_error"));
                 return "edit_account";
             } else {
-                model.addAttribute("message", env.getProperty("register_email_success"));
+                model.addAttribute("message", "Successfully changed!");
             }
 
         } else {
