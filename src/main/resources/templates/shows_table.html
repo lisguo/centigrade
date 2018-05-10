@@ -1,0 +1,64 @@
+<table class="table table-striped" id="shows-table">
+    <thead>
+    <th scope="col" colspan="2">Rating</th>
+    <th scope="col"></th>
+    <th scope="col">Title</th>
+    <th scope="col">Info</th>
+    </thead>
+    <tbody>
+    <tr th:each="show : ${shows}">
+        <td colspan="2" th:if="${show.hasBeenRated()}">
+            <div th:if="${decimalFormat.format(show.getOverallRating())} &lt; 20.0">
+                <img style="padding-right: 15px;" th:src="@{/img/ratings/snow.png}" alt="Cold" />
+                <p th:text="@{${decimalFormat.format(show.getOverallRating())} + '%'}"/>
+            </div>
+            <div th:unless="${decimalFormat.format(show.getOverallRating())} &lt; 20.0">
+                <div th:if="${decimalFormat.format(show.getOverallRating())} &lt; 40.0">
+                    <img style="padding-right: 15px;" th:src="@{/img/ratings/cloudy.png}" alt="Cloudy" />
+                    <p th:text="@{${decimalFormat.format(show.getOverallRating())} + '%'}"/>
+                </div>
+                <div th:unless="${decimalFormat.format(show.getOverallRating())} &lt; 40.0">
+                    <div th:if="${decimalFormat.format(show.getOverallRating())} &lt; 60.0">
+                        <img style="padding-right: 15px;" th:src="@{/img/ratings/mediocre.png}" alt="Mediocre" />
+                        <p th:text="@{${decimalFormat.format(show.getOverallRating())} + '%'}"/>
+                    </div>
+                    <div th:unless="${decimalFormat.format(show.getOverallRating())} &lt; 60.0">
+                        <div th:if="${decimalFormat.format(show.getOverallRating())} &lt; 80.0">
+                            <img style="padding-right: 15px;" th:src="@{/img/ratings/sun.png}" alt="Sunny" />
+                            <p th:text="@{${decimalFormat.format(show.getOverallRating())} + '%'}"/>
+                        </div>
+                        <div th:unless="${decimalFormat.format(show.getOverallRating())} &lt; 80.0">
+                            <img style="padding-right: 15px;" th:src="@{/img/ratings/flame.png}" alt="Flame" />
+                            <p th:text="@{${decimalFormat.format(show.getOverallRating())} + '%'}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td colspan="2" th:unless="${show.hasBeenRated()}">
+            <p th:text="@{'N/A'}"/>
+        </td>
+        <td>
+            <img th:src="@{${posterURL} + 'tvposter' + ${show.id} + '.jpg'}" width="90" height="132"/>
+        </td>
+        <td>
+            <a th:href="@{'/show?id=' + ${show.id}}" th:text="${show.seriesName}"/>
+        </td>
+        <td>
+            <p th:if="${show.firstAired != null}" th:text="@{'(First Aired: ' + ${show.firstAired} + ')'}"></p>
+            <p th:if="${show.firstAired == null}" th:text="@{'(First Aired: N/A)'}"></p>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- PAGINATION -->
+<div class="container">
+    <div class="row padding-top-bottom" style="text-align: center;">
+        <div class="col" th:if="${prev!=null}"> <button id="prev-button" class="btn btn-danger" onclick="getPrev()"> Prev.</button></div>
+        <div class="col" th:if="${prev==null}">  <button id="next-button" class="btn btn-danger disabled"> Prev.</button></div>
+
+        <div class="col" th:if="${next!=null}"> <button id="next-button" class="btn btn-danger" onclick="getNext()"> Next</button></div>
+        <div class="col" th:if="${next==null}">  <button id="next-button" class="btn btn-danger disabled"> Next</button></div>
+    </div>
+</div>
