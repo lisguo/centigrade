@@ -378,13 +378,32 @@ public class AccountController {
             reviewService.deleteReview(r);
         }
 
-        accountService.deleteAccount(userId);
+        Account a = accountService.getAccountById(userId);
+        accountService.deleteWishList(a.getId());
+        accountService.deleteAccount(a);
 
         String successMsg = env.getProperty("delete_user_success");
         model.addAttribute("notificationTitle", "Success!");
         model.addAttribute("notificationDetails", successMsg);
 
         return "notification_alert";
+    }
+
+    @PostMapping("/delete_account")
+    public String deleteAccount(HttpSession session, Model model){
+        Account a = (Account) session.getAttribute("account");
+        if(a != null){
+            List<Review> reviews = reviewService.getReviewsByUser(a.getId());
+            for(Review r : reviews){
+                reviewService.deleteReview(r);
+            }
+
+            accountService.deleteWishList(a.getId());
+            accountService.deleteAccount(a);
+        }
+        session.setAttribute("account", null);
+        model.addAttribute("appName", env.getProperty("app_name"));
+        return "index";
     }
 
     @PostMapping("/upload_photo")

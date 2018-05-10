@@ -16,6 +16,11 @@ i {
     padding-bottom: 1em;
 }
 
+.margin-left-right {
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
 nav {
     position: relative;
     z-index: 99999;
@@ -811,7 +816,7 @@ footer div ul li a i {
 }
 
 footer div ul li a:hover {
-    color: red;
+    color: #dc3545;
     text-decoration: none;
     text-shadow: 0 0 2px maroon;
 }
