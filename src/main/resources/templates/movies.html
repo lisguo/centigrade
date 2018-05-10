@@ -5,7 +5,9 @@
 <body>
 <div th:replace="fragments :: navbar"></div>
 <div class="container container-fluid">
-    <h1>All Movies</h1>
+    <div id="movie-top">
+        <h1>All Movies</h1>
+    </div>
 
     <!-- SORT BUTTONS -->
     <form action="/movies" method="get" id="sort-form">

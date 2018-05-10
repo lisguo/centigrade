@@ -5,25 +5,32 @@
 <body>
 <div th:replace="fragments :: navbar"></div>
 <div class="container container-fluid" style="padding: 1em;">
-    <h1 >Search Results</h1>
+    <div id="movie-top">
+        <h1 >Search Results</h1>
+    </div>
     <div class="row">
         <div class="col-8">
             <div data-spy="scroll" data-target="#search-nav" data-offset="0">
                 <input id="search-terms" type="hidden" th:value="${search}"/>
-
-                <h4 id="movie-results">Movie Results</h4>
-                <div id="movie-results-table">
-                    <img class="loading" th:src="@{/img/icons/loading.gif}" alt="" />
+                <div class="movie-stuff container-fluid">
+                    <h3 id="movie-results">Movie Results</h3>
+                    <div id="movie-results-table">
+                        <img class="loading" th:src="@{/img/icons/loading.gif}" alt="" />
+                    </div>
                 </div>
 
-                <h4 id="tv-results">TV Show Results</h4>
-                <div id="tv-results-table">
-                    <img class="loading" th:src="@{/img/icons/loading.gif}" alt="" />
+                <div class="movie-stuff container-fluid">
+                    <h3 id="tv-results">TV Show Results</h3>
+                    <div id="tv-results-table">
+                        <img class="loading" th:src="@{/img/icons/loading.gif}" alt="" />
+                    </div>
                 </div>
 
-                <h4 id="people-results">People Results</h4>
-                <div id="people-results-table">
-                    <img class="loading" th:src="@{/img/icons/loading.gif}" alt="" />
+                <div class="movie-stuff container-fluid">
+                    <h3 id="people-results">People Results</h3>
+                    <div id="people-results-table">
+                        <img class="loading" th:src="@{/img/icons/loading.gif}" alt="" />
+                    </div>
                 </div>
             </div>
         </div>
