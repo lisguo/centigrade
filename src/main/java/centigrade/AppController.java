@@ -40,10 +40,8 @@ public class AppController {
     @Autowired
     private AccountService accountService;
 
-    @RequestMapping("/")
-    public String index(Model model) {
-        model.addAttribute("appName", this.appName);
-
+    @GetMapping("index_latest_critic_reviews")
+    public String latestCriticReviews(Model model){
         List<Review> reviews = reviewService.getAllReviewsOrderedById();
         Collections.reverse(reviews);
 
@@ -80,7 +78,17 @@ public class AppController {
         }
 
         model.addAttribute("latestReviews", latestReviews);
+        model.addAttribute("posterURL", movieService.getMoviePosterURL());
+        model.addAttribute("tvPosterURL", tvShowService.getTVShowPosterURL());
+        model.addAttribute("profilePicURL", accountService.getUserPhotoURL());
+        DecimalFormat df = new DecimalFormat("#.##");
+        model.addAttribute("decimalFormat", df);
+        return "index_latest_critic_reviews";
+    }
 
+    @GetMapping("index_top_box_office")
+    public String topBoxOffice(Model model){
+        int displayNum = Integer.parseInt(env.getProperty("num_search_results"));
         List<Movie> topBoxOffice;
         topBoxOffice = movieService.getAllMovies();
         for (Movie m : topBoxOffice) {
@@ -105,13 +113,36 @@ public class AppController {
             topBoxOffice = topBoxOffice.subList(0, displayNum);
         }
 
+        model.addAttribute("topBoxOffice", topBoxOffice);
+        model.addAttribute("posterURL", movieService.getMoviePosterURL());
+        model.addAttribute("tvPosterURL", tvShowService.getTVShowPosterURL());
+        model.addAttribute("profilePicURL", accountService.getUserPhotoURL());
+        DecimalFormat df = new DecimalFormat("#.##");
+        model.addAttribute("decimalFormat", df);
+        return "index_top_box_office";
+
+    }
+
+    @GetMapping("index_opening_soon")
+    public String latestMovies(Model model){
         List<Movie> latest;
         latest = movieService.getLatestMovies(14);
         for (Movie m : latest) {
             m.calculateOverallRating();
             m.calculateBoxOffice();
         }
+        model.addAttribute("latest", latest);
+        model.addAttribute("posterURL", movieService.getMoviePosterURL());
+        model.addAttribute("tvPosterURL", tvShowService.getTVShowPosterURL());
+        model.addAttribute("profilePicURL", accountService.getUserPhotoURL());
+        DecimalFormat df = new DecimalFormat("#.##");
+        model.addAttribute("decimalFormat", df);
+        return "index_opening_soon";
+    }
 
+    @GetMapping("index_most_popular_movies")
+    public String mostPopularMovies(Model model){
+        int displayNum = Integer.parseInt(env.getProperty("num_search_results"));
         List<Movie> popular = movieService.getAllMovies();
         for (Movie m : popular) {
             m.calculateOverallRating();
@@ -142,15 +173,20 @@ public class AppController {
             popular = popular.subList(0, displayNum);
         }
 
+        model.addAttribute("popular", popular);
+
         model.addAttribute("posterURL", movieService.getMoviePosterURL());
         model.addAttribute("tvPosterURL", tvShowService.getTVShowPosterURL());
         model.addAttribute("profilePicURL", accountService.getUserPhotoURL());
-        model.addAttribute("topBoxOffice", topBoxOffice);
-        model.addAttribute("latest", latest);
-        model.addAttribute("popular", popular);
         DecimalFormat df = new DecimalFormat("#.##");
         model.addAttribute("decimalFormat", df);
 
+        return "index_most_popular_movies";
+    }
+
+    @RequestMapping("/")
+    public String index(Model model) {
+        model.addAttribute("appName", this.appName);
         return "index";
     }
 
