@@ -41,15 +41,12 @@ public class MovieService {
             throw new DuplicateMovieException();
         }
 
-        ContentIdGenerator generator = new ContentIdGenerator(template);
-        long generatedId = generator.genId().longValue();
-
         Content c = new Content();
-        c.setId(generatedId);
+        //c.setId(generatedId);
         contentRepository.save(c);
 
         Movie m = new Movie();
-        m.setId(generatedId);
+        m.setId(c.getId());
         m.setTitle(title);
         m.setYear(year);
         m.setRated(rated);

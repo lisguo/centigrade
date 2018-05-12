@@ -47,15 +47,11 @@ public class TVShowService {
             throw new DuplicateShowException();
         }
 
-        ContentIdGenerator generator = new ContentIdGenerator(template);
-        long generatedId = generator.genId().longValue();
-
         Content c = new Content();
-        c.setId(generatedId);
         contentRepository.save(c);
 
         TVShow show = new TVShow();
-        show.setId(generatedId);
+        show.setId(c.getId());
         show.setSeriesName(seriesName);
         show.setContentRating(contentRating);
         show.setFirstAired(firstAired);
